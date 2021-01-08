@@ -25,9 +25,9 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <cmsis-plus/posix-io/tty.h>
+#include <micro-os-plus/posix-io/tty.h>
 
-#include <cmsis-plus/diag/trace.h>
+#include <micro-os-plus/diag/trace.h>
 
 // ----------------------------------------------------------------------------
 

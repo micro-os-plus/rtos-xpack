@@ -29,11 +29,11 @@
 
 // ----------------------------------------------------------------------------
 
-#include <cmsis-plus/rtos/os-hooks.h>
-#include <cmsis-plus/memory/first-fit-top.h>
-#include <cmsis-plus/memory/lifo.h>
-#include <cmsis-plus/memory/block-pool.h>
-#include <cmsis-plus/estd/memory_resource>
+#include <micro-os-plus/rtos/os-hooks.h>
+#include <micro-os-plus/memory/first-fit-top.h>
+#include <micro-os-plus/memory/lifo.h>
+#include <micro-os-plus/memory/block-pool.h>
+#include <micro-os-plus/estd/memory_resource>
 
 // ----------------------------------------------------------------------------
 

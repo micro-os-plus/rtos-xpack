@@ -25,8 +25,8 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <cmsis-plus/posix-io/char-device.h>
-#include <cmsis-plus/posix-io/device-registry.h>
+#include <micro-os-plus/posix-io/char-device.h>
+#include <micro-os-plus/posix-io/device-registry.h>
 
 #include <cstring>
 #include <cassert>

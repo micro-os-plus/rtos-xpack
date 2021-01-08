@@ -35,7 +35,7 @@
 
 #if defined(OS_USE_TRACE_ITM)
 
-#include <cmsis-plus/diag/trace.h>
+#include <micro-os-plus/diag/trace.h>
 
 // TODO: Find a better way to include the ITM definitions (including
 // the entire vendor header is averkill).

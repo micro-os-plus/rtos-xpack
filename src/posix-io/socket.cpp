@@ -26,10 +26,10 @@
  */
 
 #include <cerrno>
-#include <cmsis-plus/posix/sys/socket.h>
-#include <cmsis-plus/posix-io/net-stack.h>
+#include <micro-os-plus/posix/sys/socket.h>
+#include <micro-os-plus/posix-io/net-stack.h>
 
-#include <cmsis-plus/posix-io/socket.h>
+#include <micro-os-plus/posix-io/socket.h>
 
 // ----------------------------------------------------------------------------
 

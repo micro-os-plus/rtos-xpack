@@ -29,13 +29,13 @@
 
 // ----------------------------------------------------------------------------
 
-#include <cmsis-plus/rtos/os.h>
+#include <micro-os-plus/rtos/os.h>
 
 //#include <micro-os-plus/config.h>
-//#include <cmsis-plus/rtos/port/os-c-decls.h>
-//#include <cmsis-plus/rtos/os-hooks.h>
+//#include <micro-os-plus/rtos/port/os-c-decls.h>
+//#include <micro-os-plus/rtos/os-hooks.h>
 
-#include <cmsis-plus/diag/trace.h>
+#include <micro-os-plus/diag/trace.h>
 
 #include <micro-os-plus/device.h>
 

@@ -35,8 +35,8 @@
 
 #if defined(OS_USE_TRACE_SEGGER_RTT)
 
-#include <cmsis-plus/rtos/os.h>
-#include <cmsis-plus/diag/trace.h>
+#include <micro-os-plus/rtos/os.h>
+#include <micro-os-plus/diag/trace.h>
 
 #include <micro-os-plus/device.h>
 

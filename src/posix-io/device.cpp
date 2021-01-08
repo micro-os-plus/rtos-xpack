@@ -25,8 +25,8 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <cmsis-plus/posix-io/device.h>
-#include <cmsis-plus/posix/sys/ioctl.h>
+#include <micro-os-plus/posix-io/device.h>
+#include <micro-os-plus/posix/sys/ioctl.h>
 
 #include <cstring>
 #include <cassert>

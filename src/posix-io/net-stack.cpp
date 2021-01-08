@@ -25,8 +25,8 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <cmsis-plus/posix-io/net-stack.h>
-#include <cmsis-plus/posix-io/net-interface.h>
+#include <micro-os-plus/posix-io/net-stack.h>
+#include <micro-os-plus/posix-io/net-interface.h>
 
 // ----------------------------------------------------------------------------
 

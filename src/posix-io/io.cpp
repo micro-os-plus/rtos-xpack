@@ -25,15 +25,15 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <cmsis-plus/posix-io/device.h>
-#include <cmsis-plus/posix/sys/uio.h>
-#include <cmsis-plus/posix-io/device-registry.h>
-#include <cmsis-plus/posix-io/file.h>
-#include <cmsis-plus/posix-io/file-descriptors-manager.h>
-#include <cmsis-plus/posix-io/file-system.h>
-#include <cmsis-plus/posix-io/io.h>
+#include <micro-os-plus/posix-io/device.h>
+#include <micro-os-plus/posix/sys/uio.h>
+#include <micro-os-plus/posix-io/device-registry.h>
+#include <micro-os-plus/posix-io/file.h>
+#include <micro-os-plus/posix-io/file-descriptors-manager.h>
+#include <micro-os-plus/posix-io/file-system.h>
+#include <micro-os-plus/posix-io/io.h>
 
-#include <cmsis-plus/diag/trace.h>
+#include <micro-os-plus/diag/trace.h>
 
 #include <cassert>
 #include <cerrno>

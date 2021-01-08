@@ -25,8 +25,8 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <cmsis-plus/memory/block-pool.h>
-#include <cmsis-plus/rtos/os.h>
+#include <micro-os-plus/memory/block-pool.h>
+#include <micro-os-plus/rtos/os.h>
 
 // ----------------------------------------------------------------------------
 

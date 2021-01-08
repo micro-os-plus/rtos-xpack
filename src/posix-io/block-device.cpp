@@ -25,10 +25,10 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <cmsis-plus/posix-io/block-device.h>
-#include <cmsis-plus/posix-io/device-registry.h>
+#include <micro-os-plus/posix-io/block-device.h>
+#include <micro-os-plus/posix-io/device-registry.h>
 
-#include <cmsis-plus/posix/sys/ioctl.h>
+#include <micro-os-plus/posix/sys/ioctl.h>
 
 #include <cstring>
 #include <cassert>

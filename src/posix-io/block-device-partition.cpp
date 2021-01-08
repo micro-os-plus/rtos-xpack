@@ -25,9 +25,9 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <cmsis-plus/posix-io/block-device-partition.h>
+#include <micro-os-plus/posix-io/block-device-partition.h>
 
-#include <cmsis-plus/diag/trace.h>
+#include <micro-os-plus/diag/trace.h>
 
 // ----------------------------------------------------------------------------
 

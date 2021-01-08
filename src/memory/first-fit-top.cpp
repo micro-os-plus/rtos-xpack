@@ -25,7 +25,7 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <cmsis-plus/memory/first-fit-top.h>
+#include <micro-os-plus/memory/first-fit-top.h>
 #include <memory>
 
 // ----------------------------------------------------------------------------

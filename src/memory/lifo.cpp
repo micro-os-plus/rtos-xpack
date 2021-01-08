@@ -25,7 +25,7 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <cmsis-plus/memory/lifo.h>
+#include <micro-os-plus/memory/lifo.h>
 #include <memory>
 
 // ----------------------------------------------------------------------------

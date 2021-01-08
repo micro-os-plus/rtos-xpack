@@ -1,0 +1,286 @@
+/*
+ * This file is part of the µOS++ distribution.
+ *   (https://github.com/micro-os-plus)
+ * Copyright (c) 2016 Liviu Ionescu.
+ *
+ * Permission is hereby granted, free of charge, to any person
+ * obtaining a copy of this software and associated documentation
+ * files (the "Software"), to deal in the Software without
+ * restriction, including without limitation the rights to use,
+ * copy, modify, merge, publish, distribute, sublicense, and/or
+ * sell copies of the Software, and to permit persons to whom
+ * the Software is furnished to do so, subject to the following
+ * conditions:
+ *
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+ * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+ * OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+ * HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ * WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+ * OTHER DEALINGS IN THE SOFTWARE.
+ */
+
+#ifndef CMSIS_PLUS_CHRONO_CLOCKS_H_
+#define CMSIS_PLUS_CHRONO_CLOCKS_H_
+
+// ----------------------------------------------------------------------------
+
+#include <micro-os-plus/rtos/os.h>
+
+#include <chrono>
+
+// ----------------------------------------------------------------------------
+
+namespace os
+{
+  namespace estd
+  {
+    namespace chrono
+    {
+
+      // ======================================================================
+
+      template<typename T, typename = void>
+        struct has_sleep_for : std::false_type
+        {
+        };
+
+      /**
+       * @cond ignore
+       */
+
+      template<typename T>
+        struct has_sleep_for<T,
+            decltype(std::declval<T>().has_sleep_for, void())> : std::true_type
+        {
+        };
+
+      /**
+       * @endcond
+       */
+
+      /**
+       * @ingroup cmsis-plus-iso
+       * @{
+       */
+
+      // ======================================================================
+      // µOS++ SysTick clock.
+      class systick_clock
+      {
+      public:
+
+        /// type of variable holding the tick counter
+        using rep = rtos::clock_systick::timestamp_t;
+        using sleep_rep = rtos::clock_systick::duration_t;
+        /// std::ratio type representing the tick period of the clock, in seconds
+        using period = std::ratio<1, os::rtos::clock_systick::frequency_hz>;
+        /// basic duration type of clock
+        using duration = std::chrono::duration<rep, period>;
+        using sleep_duration = std::chrono::duration<sleep_rep, period>;
+        /// basic time_point type of clock
+        using time_point = std::chrono::time_point<systick_clock>;
+        static constexpr bool is_steady
+          { true };
+        static constexpr bool has_sleep_for
+          { true };
+
+        /**
+         * @return time_point representing the current value of the clock
+         */
+        static time_point
+        now () noexcept;
+
+        // --------------------------------------------------------------------
+        // Extension to ISO
+
+        static void
+        sleep_for (sleep_rep ticks);
+
+      };
+
+      // Define a duration type, to be used in timeout expressions.
+      using systicks = systick_clock::duration;
+
+      //constexpr systicks
+      //operator "" systicks (Ssstick_clock::rep); // C++14
+
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Waggregate-return"
+
+      constexpr systicks
+      operator"" _ticks (unsigned long long t)
+      {
+        return systicks (static_cast<systick_clock::rep> (t));
+      }
+
+#pragma GCC diagnostic pop
+
+      // ======================================================================
+
+      // µOS++ RTC.
+
+      class realtime_clock
+      {
+      public:
+
+        using rep = rtos::clock_rtc::timestamp_t;
+        using sleep_rep = rtos::clock_rtc::duration_t;
+
+        /// std::ratio type representing the tick period of the clock, in seconds
+        using period = std::ratio<1, 1>;
+        /// basic duration type of clock
+        using duration = std::chrono::duration<rep, period>;
+        using sleep_duration = std::chrono::duration<sleep_rep, period>;
+
+        using time_point = std::chrono::time_point<realtime_clock>;
+
+        // Non-monotonic, may be adjusted back in time.
+        static constexpr const bool is_steady
+          { false };
+        static constexpr bool has_sleep_for
+          { true };
+
+        static time_point
+        now () noexcept;
+
+        // --------------------------------------------------------------------
+        // Extension to ISO
+
+        static void
+        sleep_for (sleep_rep);
+
+        // Number of seconds from epoch (1 January 1970 00:00:00 UTC)
+        // Must be initialised during startup with the value of now().
+        // Realtime_clock::startup_time_point = Realtime_clock::now();
+        static time_point startup_time_point;
+      };
+
+      // ======================================================================
+
+      // The system_clock is basically derived from the SysTick counts.
+      // The counter is monotonic, and normally should not be adjusted,
+      // so the clock is steady.
+
+      class system_clock
+      {
+      public:
+
+        using duration = std::chrono::microseconds;
+        using rep = duration::rep;
+        using period = duration::period;
+        using time_point = std::chrono::time_point<system_clock>;
+
+        // Monotonic, never adjusted back in time.
+        static constexpr const bool is_steady
+          { true };
+
+        static time_point
+        now () noexcept;
+
+        // It is the only C++ clock that has the ability to map its
+        // time points to C-style time, and, therefore, to be displayed.
+        static time_t
+        to_time_t (const time_point& tp) noexcept;
+        static time_point
+        from_time_t (time_t t) noexcept;
+
+      };
+
+      // ======================================================================
+
+      // To simplify things, we assumed the system clock is already steady.
+      using steady_clock = system_clock;
+
+      // ======================================================================
+
+      // The high resolution clock is also based on SysTick, but also uses
+      // the counter instant value, which gives 1 CPU cycle resolution.
+
+      class high_resolution_clock
+      {
+      public:
+
+        using duration = std::chrono::nanoseconds;
+        using rep = duration::rep;
+        using period = duration::period;
+        using time_point = std::chrono::time_point<high_resolution_clock>;
+
+        // Monotonic, never adjusted back in time.
+        static constexpr const bool is_steady
+          { true };
+
+        static time_point
+        now () noexcept;
+      };
+
+    /**
+     * @}
+     */
+
+    } /* namespace chrono */
+  } /* namespace estd */
+} /* namespace os */
+
+// ----------------------------------------------------------------------------
+// Inline & template implementations.
+
+namespace os
+{
+  namespace estd
+  {
+    namespace chrono
+    {
+
+      // ======================================================================
+
+      inline void
+      systick_clock::sleep_for (sleep_rep ticks)
+      {
+        rtos::sysclock.sleep_for (ticks);
+      }
+
+      // ======================================================================
+
+      inline void
+      realtime_clock::sleep_for (sleep_rep secs)
+      {
+        rtos::rtclock.sleep_for (secs);
+      }
+
+      // ======================================================================
+
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Waggregate-return"
+
+      template<class _To, class Rep_T, class Period_T>
+constexpr        typename std::enable_if<
+        std::chrono::__is_duration<_To>::value, _To>::type
+        ceil (std::chrono::duration<Rep_T, Period_T> d)
+          {
+            using namespace std::chrono;
+            _To r = std::chrono::duration_cast<_To> (d);
+            if (r < d)
+              {
+                ++r;
+              }
+            return r;
+          }
+
+#pragma GCC diagnostic pop
+
+        // ----------------------------------------------------------------------
+      ;
+    // Avoid formatter bug
+    } /* namespace chrono */
+  } /* namespace estd */
+} /* namespace os */
+
+// ----------------------------------------------------------------------------
+
+#endif /* CMSIS_PLUS_CHRONO_CLOCKS_H_ */

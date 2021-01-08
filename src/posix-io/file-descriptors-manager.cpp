@@ -25,11 +25,11 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <cmsis-plus/posix-io/file-descriptors-manager.h>
-#include <cmsis-plus/posix-io/io.h>
-#include <cmsis-plus/posix-io/socket.h>
+#include <micro-os-plus/posix-io/file-descriptors-manager.h>
+#include <micro-os-plus/posix-io/io.h>
+#include <micro-os-plus/posix-io/socket.h>
 
-#include <cmsis-plus/diag/trace.h>
+#include <micro-os-plus/diag/trace.h>
 
 #include <cerrno>
 #include <cassert>

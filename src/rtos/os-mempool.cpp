@@ -25,7 +25,7 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <cmsis-plus/rtos/os.h>
+#include <micro-os-plus/rtos/os.h>
 #include <memory>
 
 // ----------------------------------------------------------------------------

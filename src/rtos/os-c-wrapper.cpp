@@ -30,8 +30,8 @@
  * and legacy CMSIS, using the CMSIC++ RTOS definitions.
  */
 
-#include <cmsis-plus/rtos/os.h>
-#include <cmsis-plus/rtos/os-c-api.h>
+#include <micro-os-plus/rtos/os.h>
+#include <micro-os-plus/rtos/os-c-api.h>
 
 // ----------------------------------------------------------------------------
 
@@ -3462,7 +3462,7 @@ os_memory_get_free_chunks (os_memory_t* memory)
 // ****************************************************************************
 // ***** Legacy CMSIS RTOS implementation *****
 
-#include <cmsis-plus/legacy/cmsis_os.h>
+#include <micro-os-plus/legacy/cmsis_os.h>
 
 // ----------------------------------------------------------------------------
 //  ==== Kernel Control Functions ====

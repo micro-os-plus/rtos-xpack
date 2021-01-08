@@ -27,21 +27,21 @@
 
 #if !defined(OS_USE_SEMIHOSTING_SYSCALLS)
 
-#include <cmsis-plus/rtos/os.h>
-#include <cmsis-plus/posix-io/types.h>
-#include <cmsis-plus/posix-io/file-descriptors-manager.h>
-#include <cmsis-plus/posix-io/io.h>
-#include <cmsis-plus/posix-io/char-device.h>
-#include <cmsis-plus/posix-io/tty.h>
-#include <cmsis-plus/posix-io/file.h>
-#include <cmsis-plus/posix-io/file-system.h>
-#include <cmsis-plus/posix-io/directory.h>
-#include <cmsis-plus/posix-io/socket.h>
-#include <cmsis-plus/posix-io/net-stack.h>
+#include <micro-os-plus/rtos/os.h>
+#include <micro-os-plus/posix-io/types.h>
+#include <micro-os-plus/posix-io/file-descriptors-manager.h>
+#include <micro-os-plus/posix-io/io.h>
+#include <micro-os-plus/posix-io/char-device.h>
+#include <micro-os-plus/posix-io/tty.h>
+#include <micro-os-plus/posix-io/file.h>
+#include <micro-os-plus/posix-io/file-system.h>
+#include <micro-os-plus/posix-io/directory.h>
+#include <micro-os-plus/posix-io/socket.h>
+#include <micro-os-plus/posix-io/net-stack.h>
 
-#include <cmsis-plus/posix/sys/uio.h>
+#include <micro-os-plus/posix/sys/uio.h>
 
-#include <cmsis-plus/diag/trace.h>
+#include <micro-os-plus/diag/trace.h>
 
 #include <cstdarg>
 #include <cerrno>
@@ -961,14 +961,14 @@ initialise_monitor_handles (void)
 // with the newlib reentrant code, redefine
 // some functions with _name(), others directly with name().
 
-#include <cmsis-plus/posix-io/c-syscalls-aliases-newlib.h>
+#include <micro-os-plus/posix-io/c-syscalls-aliases-newlib.h>
 
 #else
 
 // For regular embedded environment that use POSIX system calls,
 // redefine **all** functions without the '__posix_' prefix.
 
-#include <cmsis-plus/posix-io/c-syscalls-aliases-standard.h>
+#include <micro-os-plus/posix-io/c-syscalls-aliases-standard.h>
 
 #endif
 

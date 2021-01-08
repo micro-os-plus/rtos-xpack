@@ -25,7 +25,7 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <cmsis-plus/rtos/os.h>
+#include <micro-os-plus/rtos/os.h>
 
 #include <memory>
 #include <stdexcept>
@@ -112,7 +112,7 @@ namespace os
      * @par Example
      *
      * @code{.cpp}
-     * #include <cmsis-plus/rtos/os.h>
+     * #include <micro-os-plus/rtos/os.h>
      * #include <cstdlib>
      *
      * using namespace os::rtos;

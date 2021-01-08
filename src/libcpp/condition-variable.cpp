@@ -25,7 +25,7 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <cmsis-plus/estd/condition_variable>
+#include <micro-os-plus/estd/condition_variable>
 
 // ----------------------------------------------------------------------------
 

@@ -25,7 +25,7 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <cmsis-plus/estd/thread>
+#include <micro-os-plus/estd/thread>
 
 namespace os
 {

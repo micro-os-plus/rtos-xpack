@@ -25,7 +25,7 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <cmsis-plus/estd/mutex>
+#include <micro-os-plus/estd/mutex>
 
 // ----------------------------------------------------------------------------
 

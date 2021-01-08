@@ -25,10 +25,10 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <cmsis-plus/posix-io/directory.h>
-#include <cmsis-plus/posix-io/file-system.h>
+#include <micro-os-plus/posix-io/directory.h>
+#include <micro-os-plus/posix-io/file-system.h>
 
-#include <cmsis-plus/diag/trace.h>
+#include <micro-os-plus/diag/trace.h>
 
 #include <cerrno>
 #include <cassert>

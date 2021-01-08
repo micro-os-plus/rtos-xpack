@@ -25,8 +25,8 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <cmsis-plus/rtos/os.h>
-#include <cmsis-plus/estd/chrono>
+#include <micro-os-plus/rtos/os.h>
+#include <micro-os-plus/estd/chrono>
 
 // ----------------------------------------------------------------------------
 
