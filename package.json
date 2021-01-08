@@ -1,7 +1,7 @@
 {
-    "name": "@micro-os-plus/micro-os-plus",
+    "name": "@micro-os-plus/rtos",
     "version": "7.0.0",
-    "description": "A source xPack with the µOS++ framework",
+    "description": "A source xPack with the µOS++ RTOS",
     "main": "",
     "scripts": {
       "test": "echo \"Error: no test specified\" && exit 1"

@@ -31,7 +31,7 @@
 
 #include <cmsis-plus/rtos/os-hooks.h>
 #include <cmsis-plus/diag/trace.h>
-#include <cmsis_device.h>
+#include <micro-os-plus/device.h>
 
 #include <stdlib.h>
 #include <stdbool.h>

@@ -31,7 +31,7 @@
 
 #if defined(TRACE)
 
-#include <cmsis-plus/os-app-config.h>
+#include <micro-os-plus/config.h>
 
 #if defined(OS_USE_TRACE_ITM)
 
@@ -39,7 +39,7 @@
 
 // TODO: Find a better way to include the ITM definitions (including
 // the entire vendor header is averkill).
-#include <cmsis_device.h>
+#include <micro-os-plus/device.h>
 
 // ----------------------------------------------------------------------------
 

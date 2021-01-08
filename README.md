@@ -1,14 +1,10 @@
-[![license](https://img.shields.io/github/license/micro-os-plus/micro-os-plus-xpack)](https://github.com/micro-os-plus/micro-os-plus-xpack/blob/xpack/LICENSE)
-[![Travis](https://img.shields.io/travis/micro-os-plus/micro-os-plus-xpack.svg)](https://travis-ci.org/micro-os-plus/micro-os-plus-xpack)
-[![GitHub issues](https://img.shields.io/github/issues/micro-os-plus/micro-os-plus-xpack.svg)](https://github.com/micro-os-plus/micro-os-plus-xpack/issues)
-[![GitHub pulls](https://img.shields.io/github/issues-pr/micro-os-plus/micro-os-plus-xpack.svg)](https://github.com/micro-os-plus/micro-os-plus-xpack/pulls)
 
-# µOS++
+# µOS++ RTOS
 
-A source xPack with **µOS++**, a POSIX inspired open
+A source xPack with the **µOS++ RTOS**, a POSIX inspired open
 source framework, written in C++. The project is hosted on
 GitHub as
-[micro-os-plus/micro-os-plus-xpack](https://github.com/micro-os-plus/micro-os-plus-xpack).
+[micro-os-plus/rtos-xpack](https://github.com/micro-os-plus/rtos-xpack).
 
 ## Purpose
 
@@ -32,9 +28,9 @@ The current µOS++ code tries to be as portable as possible.
 Specific implementations are available from separate projects:
 
 - the Cortex-M port of the scheduler is packed as
-[µOS++ Cortex-M xPack](https://github.com/micro-os-plus/cortexm-arch-xpack)
+[µOS++ Cortex-M architecture xPack](https://github.com/micro-os-plus/architecture-cortexm-xpack)
 - the synthetic POSIX port of the scheduler is packed as
-[µOS++ POSIX arch xPack](https://github.com/micro-os-plus/posix-arch-xpack)
+[µOS++ POSIX architecture xPack](https://github.com/micro-os-plus/architecture-posix-xpack)
 
 ## Build Configuration
 
@@ -60,27 +56,14 @@ See [µOS++ Application Config](http://micro-os-plus.github.io/reference/cmsis-p
 
 ## Demo projects
 
-Examples on how to structure projects using µOS++, including integration
-with CubeMX for STM devices, can be found in the separate
-[GitHub project](https://github.com/micro-os-plus/eclipse-demo-projects).
+TODO
 
 ## Tests
 
-- tests/rtos - simple test to exercise the µOS++ RTOS C++ API,
-the C API and the ISO C++ API
-- tests/mutex-stress - a stress test with 10 threads fighting for a mutex
-- tests/sema-stress - a stress test posting to a semaphore from a high
-frequency interrupt
-- tests/gcc - compile test with host GCC compiler
-
-The ARM CMSIS RTOS validator is available from a
-[separate project](https://github.com/xpacks/arm-cmsis-rtos-validator).
-
-To run these tests, several Eclipse projects are available in a separate
-[GitHub project](https://github.com/micro-os-plus/eclipse-test-projects).
+TODO
 
 ## License
 
-µOS++ is provided free of charge under the terms of the
-[MIT License](https://opensource.org/licenses/MIT), with all rights
-reserved to [Liviu Ionescu](https://github.com/ilg-ul).
+The original content is released under the
+[MIT License](https://opensource.org/licenses/MIT), with all rights reserved to
+[Liviu Ionescu](https://github.com/ilg-ul).

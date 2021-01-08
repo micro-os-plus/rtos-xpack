@@ -29,7 +29,7 @@
 
 // ----------------------------------------------------------------------------
 
-#include <cmsis-plus/os-app-config.h>
+#include <micro-os-plus/config.h>
 #include <cmsis-plus/rtos/os-hooks.h>
 
 #if defined(OS_USE_SEMIHOSTING_SYSCALLS)

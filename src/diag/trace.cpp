@@ -27,7 +27,7 @@
 
 #if defined(TRACE)
 
-#include <cmsis-plus/os-app-config.h>
+#include <micro-os-plus/config.h>
 #include <cmsis-plus/diag/trace.h>
 
 #include <cstdarg>

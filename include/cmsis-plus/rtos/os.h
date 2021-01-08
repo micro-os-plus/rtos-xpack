@@ -104,7 +104,7 @@
 
 // More or less at the end, when all other definitions are available.
 #include <cmsis-plus/rtos/os-inlines.h>
-#include <cmsis-plus/rtos/port/os-inlines.h>
+#include <micro-os-plus/rtos/port/inlines.h>
 
 namespace os
 {

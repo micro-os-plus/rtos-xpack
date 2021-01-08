@@ -33,9 +33,10 @@
 #include <cmsis-plus/os-versions.h>
 
 // Include the application specific definitions.
-#include <cmsis-plus/os-app-config.h>
+#include <micro-os-plus/config.h>
 // Include the non-portable portable types, enums and constants declarations.
-#include <cmsis-plus/rtos/port/os-decls.h>
+#include <cmsis-plus/rtos/os-c-decls.h>
+#include <micro-os-plus/rtos/port/declarations.h>
 
 #include <cmsis-plus/diag/trace.h>
 

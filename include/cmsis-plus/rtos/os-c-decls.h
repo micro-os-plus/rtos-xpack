@@ -41,8 +41,8 @@
 
 #include <cmsis-plus/os-versions.h>
  
-#include <cmsis-plus/os-app-config.h>
-#include <cmsis-plus/rtos/port/os-decls.h>
+#include <micro-os-plus/config.h>
+#include <micro-os-plus/rtos/port/declarations.h>
 
 #include <stdint.h>
 #include <stddef.h>

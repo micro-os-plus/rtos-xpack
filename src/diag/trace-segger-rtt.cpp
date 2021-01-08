@@ -31,14 +31,14 @@
 
 #if defined(TRACE)
 
-#include <cmsis-plus/os-app-config.h>
+#include <micro-os-plus/config.h>
 
 #if defined(OS_USE_TRACE_SEGGER_RTT)
 
 #include <cmsis-plus/rtos/os.h>
 #include <cmsis-plus/diag/trace.h>
 
-#include <cmsis_device.h>
+#include <micro-os-plus/device.h>
 
 #include "SEGGER_RTT.h"
 
