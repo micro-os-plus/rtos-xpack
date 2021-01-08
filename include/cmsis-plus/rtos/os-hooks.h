@@ -88,6 +88,16 @@ extern "C"
    */
   void
   os_startup_initialize_free_store (void* heap_address, size_t heap_size_bytes);
+  /**
+   * @brief Initialise interrupts stack.
+   * @param stack_begin_address.
+   * @param stack_size_bytes The free store size.
+   * @par Returns
+   *  Nothing.
+   */
+  void
+  os_startup_initialize_interrupts_stack (
+		  void* stack_begin_address, size_t stack_size_bytes);
 
   /**
    * @brief Initialise arguments.
