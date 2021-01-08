@@ -81,13 +81,15 @@ extern "C"
 
   /**
    * @brief Initialise free store.
-   * @param heap_address The first unallocated RAM address (after the BSS).
+   * @param heap_begin_address The first unallocated RAM address (after the BSS).
    * @param heap_size_bytes The free store size.
    * @par Returns
    *  Nothing.
    */
   void
-  os_startup_initialize_free_store (void* heap_address, size_t heap_size_bytes);
+  os_startup_initialize_free_store (
+		  void* heapbegin__address, size_t heap_size_bytes);
+
   /**
    * @brief Initialise interrupts stack.
    * @param stack_begin_address.

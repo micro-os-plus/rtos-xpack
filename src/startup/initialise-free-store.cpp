@@ -83,7 +83,7 @@ static std::aligned_storage<sizeof(application_memory_resource),
  * For special applications, it is possible to override this
  * function entirely.
  */
-void __attribute__((weak))
+void
 os_startup_initialize_free_store (void* heap_address,
                                   std::size_t heap_size_bytes)
 {
