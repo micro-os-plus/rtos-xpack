@@ -25,8 +25,8 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef CMSIS_PLUS_RTOS_OS_DECLS_H_
-#define CMSIS_PLUS_RTOS_OS_DECLS_H_
+#ifndef MICRO_OS_PLUS_RTOS_OS_DECLS_H_
+#define MICRO_OS_PLUS_RTOS_OS_DECLS_H_
 
 // ----------------------------------------------------------------------------
 
@@ -1155,4 +1155,4 @@ extern "C"
 
 // ----------------------------------------------------------------------------
 
-#endif /* CMSIS_PLUS_RTOS_OS_DECLS_H_ */
+#endif /* MICRO_OS_PLUS_RTOS_OS_DECLS_H_ */

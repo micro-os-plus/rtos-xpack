@@ -30,8 +30,8 @@
  * and tries to remain functionally close to the CMSIS specifications.
  */
 
-#ifndef CMSIS_PLUS_RTOS_OS_C_API_H_
-#define CMSIS_PLUS_RTOS_OS_C_API_H_
+#ifndef MICRO_OS_PLUS_RTOS_OS_C_API_H_
+#define MICRO_OS_PLUS_RTOS_OS_C_API_H_
 
 // ----------------------------------------------------------------------------
 
@@ -2743,4 +2743,4 @@ extern "C"
 
 // ----------------------------------------------------------------------------
 
-#endif /* CMSIS_PLUS_RTOS_OS_C_API_H_ */
+#endif /* MICRO_OS_PLUS_RTOS_OS_C_API_H_ */

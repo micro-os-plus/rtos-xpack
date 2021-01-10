@@ -25,8 +25,8 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef CMSIS_PLUS_OS_VERSIONS_H_
-#define CMSIS_PLUS_OS_VERSIONS_H_
+#ifndef MICRO_OS_PLUS_OS_VERSIONS_H_
+#define MICRO_OS_PLUS_OS_VERSIONS_H_
 
 // ----------------------------------------------------------------------------
 
@@ -109,4 +109,4 @@
 
 // ----------------------------------------------------------------------------
 
-#endif /* CMSIS_PLUS_OS_VERSIONS_H_ */
+#endif /* MICRO_OS_PLUS_OS_VERSIONS_H_ */

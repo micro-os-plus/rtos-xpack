@@ -25,8 +25,8 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef CMSIS_PLUS_RTOS_OS_INLINES_H_
-#define CMSIS_PLUS_RTOS_OS_INLINES_H_
+#ifndef MICRO_OS_PLUS_RTOS_OS_INLINES_H_
+#define MICRO_OS_PLUS_RTOS_OS_INLINES_H_
 
 /*
  * References are to ISO/IEC 14882:2011(E) Third edition (2011-09-01)
@@ -166,4 +166,4 @@ namespace os
 
 // ----------------------------------------------------------------------------
 
-#endif /* CMSIS_PLUS_RTOS_OS_INLINES_H_ */
+#endif /* MICRO_OS_PLUS_RTOS_OS_INLINES_H_ */

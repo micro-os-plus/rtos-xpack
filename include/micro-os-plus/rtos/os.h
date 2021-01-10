@@ -76,8 +76,8 @@
  * but at least they are consistent in POSIX.
  */
 
-#ifndef CMSIS_PLUS_RTOS_OS_H_
-#define CMSIS_PLUS_RTOS_OS_H_
+#ifndef MICRO_OS_PLUS_RTOS_OS_H_
+#define MICRO_OS_PLUS_RTOS_OS_H_
 
 // ----------------------------------------------------------------------------
 
@@ -186,4 +186,4 @@ namespace os
 
 // ----------------------------------------------------------------------------
 
-#endif /* CMSIS_PLUS_RTOS_OS_H_ */
+#endif /* MICRO_OS_PLUS_RTOS_OS_H_ */

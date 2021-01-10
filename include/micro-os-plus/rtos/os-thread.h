@@ -25,8 +25,8 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef CMSIS_PLUS_RTOS_OS_THREAD_H_
-#define CMSIS_PLUS_RTOS_OS_THREAD_H_
+#ifndef MICRO_OS_PLUS_RTOS_OS_THREAD_H_
+#define MICRO_OS_PLUS_RTOS_OS_THREAD_H_
 
 // ----------------------------------------------------------------------------
 
@@ -2765,4 +2765,4 @@ namespace os
 
 #endif /* __cplusplus */
 
-#endif /* CMSIS_PLUS_RTOS_OS_THREAD_H_ */
+#endif /* MICRO_OS_PLUS_RTOS_OS_THREAD_H_ */

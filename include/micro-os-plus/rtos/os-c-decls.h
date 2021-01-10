@@ -34,8 +34,8 @@
  * the validation checks in os-c-wrapper.cpp will fail.
  */
 
-#ifndef CMSIS_PLUS_RTOS_OS_C_DECLS_H_
-#define CMSIS_PLUS_RTOS_OS_C_DECLS_H_
+#ifndef MICRO_OS_PLUS_RTOS_OS_C_DECLS_H_
+#define MICRO_OS_PLUS_RTOS_OS_C_DECLS_H_
 
 // ----------------------------------------------------------------------------
 
@@ -1492,4 +1492,4 @@ extern "C"
 }
 #endif
 
-#endif /* CMSIS_PLUS_RTOS_OS_C_STRUCTS_H_ */
+#endif /* MICRO_OS_PLUS_RTOS_OS_C_STRUCTS_H_ */

@@ -25,7 +25,7 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#if defined(__ARM_EABI__)
+#if (! (defined(__APPLE__) || defined(__linux__) || defined(__unix__))) || defined(__DOXYGEN__)
 
 // ----------------------------------------------------------------------------
 
@@ -322,4 +322,4 @@ os_rtos_system_out_of_memory_hook (void)
 
 // ----------------------------------------------------------------------------
 
-#endif /* defined(__ARM_EABI__) */
+#endif /* ! Unix */
