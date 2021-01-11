@@ -34,6 +34,7 @@
 #include <micro-os-plus/memory/lifo.h>
 #include <micro-os-plus/memory/block-pool.h>
 #include <micro-os-plus/estd/memory_resource>
+#include <micro-os-plus/startup/defines.h>
 
 // ----------------------------------------------------------------------------
 
