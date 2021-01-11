@@ -60,56 +60,6 @@ extern "C"
   _start (void);
 
   /**
-   * @brief Initialise hardware early.
-   * @par Parameters
-   *  None.
-   * @par Returns
-   *  Nothing.
-   */
-  void
-  os_startup_initialize_hardware_early (void);
-
-  /**
-   * @brief Initialise hardware.
-   * @par Parameters
-   *  None.
-   * @par Returns
-   *  Nothing.
-   */
-  void
-  os_startup_initialize_hardware (void);
-
-  /**
-   * @brief Initialise free store.
-   * @param heap_begin_address The first unallocated RAM address (after the BSS).
-   * @param heap_size_bytes The free store size.
-   * @par Returns
-   *  Nothing.
-   */
-  void
-  os_startup_initialize_free_store (
-		  void* heapbegin__address, size_t heap_size_bytes);
-
-  /**
-   * @brief Initialise interrupts stack.
-   * @param stack_begin_address.
-   * @param stack_size_bytes The free store size.
-   * @par Returns
-   *  Nothing.
-   */
-  void
-  os_startup_initialize_interrupts_stack (
-		  void* stack_begin_address, size_t stack_size_bytes);
-
-  /**
-   * @brief Initialise arguments.
-   * @param [out] p_argc Pointer to argc.
-   * @param [out] p_argv Pointer to argv.
-   */
-  void
-  os_startup_initialize_args (int* p_argc, char*** p_argv);
-
-  /**
    * @brief Create the idle thread.
    * @par Parameters
    *  None.
@@ -123,36 +73,7 @@ extern "C"
    * @}
    */
 
-  /**
-   * @name Termination Routines
-   * @{
-   */
-
-  /**
-   * @brief Display statistics and say goodbye before terminating.
-   * @par Parameters
-   *  None.
-   * @par Returns
-   *  Nothing.
-   */
-  void
-  os_terminate_goodbye (void);
-
-  /**
-   * @brief Terminate the application. There is no more life after this.
-   * @param [in] code Exit code, 0 for success, non 0 for failure.
-   * @par Returns
-   *  Nothing.
-   */
-  void
-  __attribute__ ((noreturn))
-  os_terminate (int code);
-
-  /**
-   * @}
-   */
-
-  /**
+   /**
    * @name Hooks
    * @{
    */
@@ -186,19 +107,6 @@ extern "C"
    */
   void
   os_rtos_system_out_of_memory_hook (void);
-
-/**
- * @}
- */
-
-/**
- * @name Compatibility Macros
- * @{
- */
-
-#define os_initialize_hardware_early os_startup_initialize_hardware_early
-#define os_initialize_hardware os_startup_initialize_hardware
-#define os_initialize_args os_startup_initialize_args
 
 /**
  * @}

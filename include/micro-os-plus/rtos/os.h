@@ -101,6 +101,7 @@
 #include <micro-os-plus/rtos/os-evflags.h>
 
 #include <micro-os-plus/rtos/os-hooks.h>
+#include <micro-os-plus/startup/hooks.h>
 
 // More or less at the end, when all other definitions are available.
 #include <micro-os-plus/rtos/os-inlines.h>
