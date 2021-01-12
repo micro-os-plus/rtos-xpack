@@ -30,42 +30,6 @@
 
 // ----------------------------------------------------------------------------
 
-// According to Semantic Versioning 2.0.0 (http://semver.org),
-// given a version number MAJOR.MINOR.PATCH, increment the:
-//
-// MAJOR version when you make incompatible API changes,
-// MINOR version when you add functionality in a backwards-compatible manner,
-// PATCH version when you make backwards-compatible bug fixes,
-// PRE_RELEASE is a hyphen and a series of dot separated identifiers,
-// BUILD a plus sign and a series of dot separated identifiers.
-
-// ----------------------------------------------------------------------------
-
-#define OS_MACRO_SHARP(x)               #x
-#define OS_MACRO_STRINGIFY(x)           OS_MACRO_SHARP(x)
-
-// ----------------------------------------------------------------------------
-
-// µOS++ version.
-#define OS_INTEGER_RTOS_IMPL_VERSION_MAJOR 7
-#define OS_INTEGER_RTOS_IMPL_VERSION_MINOR 0
-#define OS_INTEGER_RTOS_IMPL_VERSION_PATCH 0
-// #define OS_STRING_RTOS_IMPL_VERSION_PRE_RELEASE ""
-#define OS_STRING_RTOS_IMPL_VERSION_PRE_RELEASE "-beta"
-#define OS_STRING_RTOS_IMPL_VERSION_BUILD ""
-
-#define OS_INTEGER_RTOS_IMPL_YEAR 2021
-#define OS_STRING_RTOS_IMPL_YEAR OS_MACRO_STRINGIFY(OS_INTEGER_RTOS_IMPL_YEAR)
-
-#define OS_STRING_RTOS_IMPL_VERSION \
-  OS_MACRO_STRINGIFY(OS_INTEGER_RTOS_IMPL_VERSION_MAJOR) "." \
-  OS_MACRO_STRINGIFY(OS_INTEGER_RTOS_IMPL_VERSION_MINOR) "." \
-  OS_MACRO_STRINGIFY(OS_INTEGER_RTOS_IMPL_VERSION_PATCH) \
-  OS_STRING_RTOS_IMPL_VERSION_PRE_RELEASE \
-  OS_STRING_RTOS_IMPL_VERSION_BUILD
-
-// ----------------------------------------------------------------------------
-
 /**
  * @ingroup cmsis-plus-app-config-info
  * @{
