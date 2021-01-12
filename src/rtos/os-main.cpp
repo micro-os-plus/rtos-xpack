@@ -177,42 +177,4 @@ main (int argc, char* argv[])
   /* NOTREACHED */
 }
 
-void
-#if !defined(__APPLE__)
-__attribute__((weak))
-#endif
-os_terminate_goodbye (void)
-{
-#if defined(TRACE)
-
-  trace::printf ("\n");
-
-#if !defined(OS_EXCLUDE_DYNAMIC_MEMORY_ALLOCATIONS)
-
-  // Application memory.
-  estd::pmr::get_default_resource ()->trace_print_statistics ();
-
-#if defined(OS_INTEGER_RTOS_DYNAMIC_MEMORY_SIZE_BYTES)
-  rtos::memory::get_default_resource ()->trace_print_statistics ();
-#endif /* defined(OS_INTEGER_RTOS_DYNAMIC_MEMORY_SIZE_BYTES) */
-
-#endif /* !defined(OS_EXCLUDE_DYNAMIC_MEMORY_ALLOCATIONS) */
-
-  class rtos::thread::stack& st = os_main_thread->stack ();
-
-  trace::printf ("Main thread stack: %u/%u bytes used\n",
-                 st.size () - st.available (), st.size ());
-
-#if defined(OS_HAS_INTERRUPTS_STACK)
-  trace::printf (
-      "Interrupts stack: %u/%u bytes used\n",
-      rtos::interrupts::stack ()->size ()
-          - rtos::interrupts::stack ()->available (),
-      rtos::interrupts::stack ()->size ());
-#endif /* defined(OS_HAS_INTERRUPTS_STACK) */
-
-  trace::printf ("\nHasta la Vista!\n");
-
-#endif /* defined(TRACE) */
-}
 // ----------------------------------------------------------------------------
