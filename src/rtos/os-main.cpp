@@ -114,9 +114,6 @@ main (int argc, char* argv[])
 {
   using namespace os::rtos;
 
-  trace::printf ("\nµOS++ IIIe version " OS_STRING_RTOS_IMPL_VERSION ".\n");
-  trace::printf ("Copyright (c) 2007-" OS_STRING_RTOS_IMPL_YEAR " Liviu Ionescu.\n");
-
   port::scheduler::greeting ();
 
   trace::printf ("Scheduler frequency: %u ticks/sec.\n",
