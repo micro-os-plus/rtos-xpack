@@ -60,7 +60,7 @@
  * namespace.
  */
 
-#if !defined(__APPLE__) && !defined(__linux__)
+#if (! (defined(__APPLE__) || defined(__linux__) || defined(__unix__)))
 #define OS_IS_CROSS_BUILD
 #if !defined(_GLIBCXX_HAS_GTHREADS)
 #define OS_HAS_STD_THREADS
@@ -74,3 +74,5 @@
 // ----------------------------------------------------------------------------
 
 #endif /* MICRO_OS_PLUS_OS_VERSIONS_H_ */
+
+// ----------------------------------------------------------------------------

@@ -508,3 +508,5 @@ namespace os
     } /* namespace internal */
   } /* namespace rtos */
 } /* namespace os */
+
+// ----------------------------------------------------------------------------

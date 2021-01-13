@@ -947,3 +947,5 @@ namespace os
 #endif /* __cplusplus */
 
 #endif /* MICRO_OS_PLUS_RTOS_OS_SEMAPHORE_H_ */
+
+// ----------------------------------------------------------------------------

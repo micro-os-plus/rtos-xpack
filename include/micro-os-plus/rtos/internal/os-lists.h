@@ -1006,3 +1006,5 @@ namespace os
 #endif /* __cplusplus */
 
 #endif /* MICRO_OS_PLUS_RTOS_INTERNAL_OS_LISTS_H_ */
+
+// ----------------------------------------------------------------------------

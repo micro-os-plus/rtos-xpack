@@ -3458,5 +3458,4 @@ os_memory_get_free_chunks (os_memory_t* memory)
   return (reinterpret_cast<rtos::memory::memory_resource&> (*memory)).free_chunks ();
 }
 
-
 // ----------------------------------------------------------------------------
