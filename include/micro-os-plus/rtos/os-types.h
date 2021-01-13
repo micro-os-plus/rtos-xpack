@@ -35,31 +35,31 @@
 // This file is included at the end of os-decls.h.
 
 // Include the application specific definitions.
-#include <micro-os-plus/config.h>
 #include <memory>
+#include <micro-os-plus/config.h>
 
 namespace os
 {
-  namespace rtos
-  {
-    namespace memory
-    {
+namespace rtos
+{
+namespace memory
+{
 
 #if !defined(OS_INCLUDE_RTOS_CUSTOM_ALLOCATOR) || defined(__DOXYGEN__)
 
-      /**
-       * @brief Type of allocator used by the system objects.
-       *  Must be stateless.
-       * @ingroup cmsis-plus-rtos-memres
-       * @tparam T Type of elements to be allocated.
-       */
-      template<typename T>
-        using allocator = allocator_stateless_default_resource<T>;
+/**
+ * @brief Type of allocator used by the system objects.
+ *  Must be stateless.
+ * @ingroup cmsis-plus-rtos-memres
+ * @tparam T Type of elements to be allocated.
+ */
+template <typename T>
+using allocator = allocator_stateless_default_resource<T>;
 
 #endif
 
-    } /* namespace memory */
-  } /* namespace rtos */
+} /* namespace memory */
+} /* namespace rtos */
 } /* namespace os */
 
 // ----------------------------------------------------------------------------

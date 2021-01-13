@@ -41,7 +41,7 @@
  * Macro to inform the application build that µOS++
  * is in use.
  */
- #define OS_USE_MICRO_OS_PLUS
+#define OS_USE_MICRO_OS_PLUS
 
 /**
  * @def OS_IS_CROSS_BUILD
@@ -60,7 +60,7 @@
  * namespace.
  */
 
-#if (! (defined(__APPLE__) || defined(__linux__) || defined(__unix__)))
+#if (!(defined(__APPLE__) || defined(__linux__) || defined(__unix__)))
 #define OS_IS_CROSS_BUILD
 #if !defined(_GLIBCXX_HAS_GTHREADS)
 #define OS_HAS_STD_THREADS

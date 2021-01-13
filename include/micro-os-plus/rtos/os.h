@@ -43,7 +43,8 @@
  * Major improvements:
  * - no more macros required to define objects
  * - allow static memory allocations for all objects
- * - very close to POSIX ([IEEE Std 1003.1, 2013 Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html))
+ * - very close to POSIX ([IEEE Std 1003.1, 2013
+ * Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html))
  * - specifically designed to facilitate the implementation of
  *   C++ standard thread library (ISO/IEC 14882:2011)
  * - standard POSIX errors definitions used
@@ -62,7 +63,7 @@
  * it looked more convenient for the user to enter short durations
  * instead of very large absolute times.
  */
- 
+
 /*
  * TODO:
  * - make Thread virtual, to allow create_hook/delete_hook functionality
@@ -90,15 +91,15 @@
 // Includes a reference to critical sections.
 #include <micro-os-plus/rtos/os-memory.h>
 
-#include <micro-os-plus/rtos/os-thread.h>
 #include <micro-os-plus/rtos/os-clocks.h>
-#include <micro-os-plus/rtos/os-timer.h>
-#include <micro-os-plus/rtos/os-mutex.h>
 #include <micro-os-plus/rtos/os-condvar.h>
-#include <micro-os-plus/rtos/os-semaphore.h>
+#include <micro-os-plus/rtos/os-evflags.h>
 #include <micro-os-plus/rtos/os-mempool.h>
 #include <micro-os-plus/rtos/os-mqueue.h>
-#include <micro-os-plus/rtos/os-evflags.h>
+#include <micro-os-plus/rtos/os-mutex.h>
+#include <micro-os-plus/rtos/os-semaphore.h>
+#include <micro-os-plus/rtos/os-thread.h>
+#include <micro-os-plus/rtos/os-timer.h>
 
 #include <micro-os-plus/rtos/os-hooks.h>
 #include <micro-os-plus/startup/hooks.h>
@@ -109,78 +110,76 @@
 
 namespace os
 {
-  namespace rtos
-  {
-    namespace scheduler
-    {
-      /**
-       * @cond ignore
-       */
+namespace rtos
+{
+namespace scheduler
+{
+/**
+ * @cond ignore
+ */
 
-      /**
-       * @brief Head of the list with all top level and detached threads.
-       */
-      extern thread::threads_list top_threads_list_;
+/**
+ * @brief Head of the list with all top level and detached threads.
+ */
+extern thread::threads_list top_threads_list_;
 
-      /**
-       * @endcond
-       */
+/**
+ * @endcond
+ */
 
-      /**
-       * @brief Get the children threads.
-       * @param [in] th Pointer to thread or nullptr.
-       * @return Reference to children list.
-       */
-      thread::threads_list&
-      children_threads (thread* th);
+/**
+ * @brief Get the children threads.
+ * @param [in] th Pointer to thread or nullptr.
+ * @return Reference to children list.
+ */
+thread::threads_list& children_threads (thread* th);
 
-    } /* namespace scheduler */
+} /* namespace scheduler */
 
-    // ------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
 
-    namespace interrupts
-    {
+namespace interrupts
+{
 #if defined(OS_HAS_INTERRUPTS_STACK) || defined(__DOXYGEN__)
 
-      /**
-       * @brief Get the interrupts stack
-       * @ingroup cmsis-plus-rtos-core
-       * @par Parameters
-       *  None.
-       * @return Pointer to stack object instance.
-       */
-      class thread::stack*
-      stack (void);
+/**
+ * @brief Get the interrupts stack
+ * @ingroup cmsis-plus-rtos-core
+ * @par Parameters
+ *  None.
+ * @return Pointer to stack object instance.
+ */
+class thread::stack* stack (void);
 
 #else
 #endif /* defined(OS_HAS_INTERRUPTS_STACK) */
 
-      ;
-    // Avoid formatter bug.
-    } /* namespace interrupts */
+;
+// Avoid formatter bug.
+} /* namespace interrupts */
 
-    // ------------------------------------------------------------------------
-    /**
-     * @brief  Create an object that is owned by a `shared_ptr` and is
-     *  allocated using the RTOS system allocator.
-     * @ingroup cmsis-plus-rtos-memres
-     * @param  args  Arguments for the _T_ object's constructor.
-     * @return A shared_ptr that owns the newly created object.
-     * @throw * An exception may be thrown from `allocate()` or
-     *          from the constructor of _T_.
-     */
-    template<typename T, typename ... Args>
-      inline typename std::enable_if<!std::is_array<T>::value,
-          std::shared_ptr<T> >::type
-      make_shared (Args&&... args)
-      {
-        // -Wno-psabi to disble the ABI warning.
-        typedef typename std::remove_const<T>::type T_nc;
-        return std::allocate_shared<T> (memory::allocator<T_nc> (),
-                                        std::forward<Args>(args)...);
-      }
+// ----------------------------------------------------------------------------
+/**
+ * @brief  Create an object that is owned by a `shared_ptr` and is
+ *  allocated using the RTOS system allocator.
+ * @ingroup cmsis-plus-rtos-memres
+ * @param  args  Arguments for the _T_ object's constructor.
+ * @return A shared_ptr that owns the newly created object.
+ * @throw * An exception may be thrown from `allocate()` or
+ *          from the constructor of _T_.
+ */
+template <typename T, typename... Args>
+inline typename std::enable_if<!std::is_array<T>::value,
+                               std::shared_ptr<T> >::type
+make_shared (Args&&... args)
+{
+  // -Wno-psabi to disble the ABI warning.
+  typedef typename std::remove_const<T>::type T_nc;
+  return std::allocate_shared<T> (memory::allocator<T_nc> (),
+                                  std::forward<Args> (args)...);
+}
 
-  } /* namespace rtos */
+} /* namespace rtos */
 } /* namespace os */
 
 #endif /* __cplusplus */
@@ -189,4 +188,4 @@ namespace os
 
 #endif /* MICRO_OS_PLUS_RTOS_OS_H_ */
 
- // ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------

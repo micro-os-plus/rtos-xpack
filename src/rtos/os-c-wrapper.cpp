@@ -29,8 +29,8 @@
  * The code provides an implementation of the C API for the µOS++ RTOS.
  */
 
-#include <micro-os-plus/rtos/os.h>
 #include <micro-os-plus/rtos/os-c-api.h>
+#include <micro-os-plus/rtos/os.h>
 
 // ----------------------------------------------------------------------------
 
@@ -41,89 +41,154 @@ using namespace os::rtos;
 
 // Validate C typedefs sizes & alignment.
 
-static_assert(sizeof(os_result_t) == sizeof(result_t), "adjust size of os_result_t");
-static_assert(alignof(os_result_t) == alignof(result_t), "adjust align of os_result_t");
+static_assert (sizeof (os_result_t) == sizeof (result_t),
+               "adjust size of os_result_t");
+static_assert (alignof (os_result_t) == alignof (result_t),
+               "adjust align of os_result_t");
 
-static_assert(sizeof(os_flags_mode_t) == sizeof(flags::mode_t), "adjust size of os_flags_mode_t");
-static_assert(alignof(os_flags_mode_t) == alignof(flags::mode_t), "adjust align of os_flags_mode_t");
+static_assert (sizeof (os_flags_mode_t) == sizeof (flags::mode_t),
+               "adjust size of os_flags_mode_t");
+static_assert (alignof (os_flags_mode_t) == alignof (flags::mode_t),
+               "adjust align of os_flags_mode_t");
 
-static_assert(sizeof(os_flags_mask_t) == sizeof(flags::mask_t), "adjust size of os_flags_mask_t");
-static_assert(alignof(os_flags_mask_t) == alignof(flags::mask_t), "adjust align of os_flags_mask_t");
+static_assert (sizeof (os_flags_mask_t) == sizeof (flags::mask_t),
+               "adjust size of os_flags_mask_t");
+static_assert (alignof (os_flags_mask_t) == alignof (flags::mask_t),
+               "adjust align of os_flags_mask_t");
 
-static_assert(sizeof(os_sched_state_t) == sizeof(scheduler::state_t), "adjust size of os_sched_state_t");
-static_assert(alignof(os_sched_state_t) == alignof(scheduler::state_t), "adjust align of os_sched_state_t");
+static_assert (sizeof (os_sched_state_t) == sizeof (scheduler::state_t),
+               "adjust size of os_sched_state_t");
+static_assert (alignof (os_sched_state_t) == alignof (scheduler::state_t),
+               "adjust align of os_sched_state_t");
 
-static_assert(sizeof(os_irq_state_t) == sizeof(interrupts::state_t), "adjust size of os_irq_state_t");
-static_assert(alignof(os_irq_state_t) == alignof(interrupts::state_t), "adjust align of os_irq_state_t");
+static_assert (sizeof (os_irq_state_t) == sizeof (interrupts::state_t),
+               "adjust size of os_irq_state_t");
+static_assert (alignof (os_irq_state_t) == alignof (interrupts::state_t),
+               "adjust align of os_irq_state_t");
 
-static_assert(sizeof(os_clock_timestamp_t) == sizeof(clock::timestamp_t), "adjust size of os_port_clock_timestamp_t");
-static_assert(alignof(os_clock_timestamp_t) == alignof(clock::timestamp_t), "adjust align of os_port_clock_timestamp_t");
+static_assert (sizeof (os_clock_timestamp_t) == sizeof (clock::timestamp_t),
+               "adjust size of os_port_clock_timestamp_t");
+static_assert (alignof (os_clock_timestamp_t) == alignof (clock::timestamp_t),
+               "adjust align of os_port_clock_timestamp_t");
 
-static_assert(sizeof(os_clock_duration_t) == sizeof(clock::duration_t), "adjust size of os_port_clock_duration_t");
-static_assert(alignof(os_clock_duration_t) == alignof(clock::duration_t), "adjust align of os_port_clock_duration_t");
+static_assert (sizeof (os_clock_duration_t) == sizeof (clock::duration_t),
+               "adjust size of os_port_clock_duration_t");
+static_assert (alignof (os_clock_duration_t) == alignof (clock::duration_t),
+               "adjust align of os_port_clock_duration_t");
 
-static_assert(sizeof(os_clock_offset_t) == sizeof(clock::offset_t), "adjust size of os_port_clock_offset_t");
-static_assert(alignof(os_clock_offset_t) == alignof(clock::offset_t), "adjust align of os_port_clock_offset_t");
+static_assert (sizeof (os_clock_offset_t) == sizeof (clock::offset_t),
+               "adjust size of os_port_clock_offset_t");
+static_assert (alignof (os_clock_offset_t) == alignof (clock::offset_t),
+               "adjust align of os_port_clock_offset_t");
 
-static_assert(sizeof(os_statistics_counter_t) == sizeof(statistics::counter_t), "adjust size of os_statistics_counter_t");
-static_assert(alignof(os_statistics_counter_t) == alignof(statistics::counter_t), "adjust align of os_statistics_counter_t");
+static_assert (sizeof (os_statistics_counter_t)
+                   == sizeof (statistics::counter_t),
+               "adjust size of os_statistics_counter_t");
+static_assert (alignof (os_statistics_counter_t)
+                   == alignof (statistics::counter_t),
+               "adjust align of os_statistics_counter_t");
 
-static_assert(sizeof(os_statistics_duration_t) == sizeof(statistics::duration_t), "adjust size of os_statistics_duration_t");
-static_assert(alignof(os_statistics_duration_t) == alignof(statistics::duration_t), "adjust align of os_statistics_duration_t");
+static_assert (sizeof (os_statistics_duration_t)
+                   == sizeof (statistics::duration_t),
+               "adjust size of os_statistics_duration_t");
+static_assert (alignof (os_statistics_duration_t)
+                   == alignof (statistics::duration_t),
+               "adjust align of os_statistics_duration_t");
 
-static_assert(sizeof(os_thread_func_args_t) == sizeof(thread::func_args_t), "adjust size of os_thread_func_args_t");
-static_assert(alignof(os_thread_func_args_t) == alignof(thread::func_args_t), "adjust align of os_thread_func_args_t");
+static_assert (sizeof (os_thread_func_args_t) == sizeof (thread::func_args_t),
+               "adjust size of os_thread_func_args_t");
+static_assert (alignof (os_thread_func_args_t)
+                   == alignof (thread::func_args_t),
+               "adjust align of os_thread_func_args_t");
 
-static_assert(sizeof(os_thread_func_t) == sizeof(thread::func_t), "adjust size of os_thread_func_t");
-static_assert(alignof(os_thread_func_t) == alignof(thread::func_t), "adjust align of os_thread_func_t");
+static_assert (sizeof (os_thread_func_t) == sizeof (thread::func_t),
+               "adjust size of os_thread_func_t");
+static_assert (alignof (os_thread_func_t) == alignof (thread::func_t),
+               "adjust align of os_thread_func_t");
 
-static_assert(sizeof(os_thread_state_t) == sizeof(thread::state_t), "adjust size of os_thread_state_t");
-static_assert(alignof(os_thread_state_t) == alignof(thread::state_t), "adjust align of os_thread_state_t");
+static_assert (sizeof (os_thread_state_t) == sizeof (thread::state_t),
+               "adjust size of os_thread_state_t");
+static_assert (alignof (os_thread_state_t) == alignof (thread::state_t),
+               "adjust align of os_thread_state_t");
 
-static_assert(sizeof(os_thread_prio_t) == sizeof(thread::priority_t), "adjust size of os_thread_prio_t");
-static_assert(alignof(os_thread_prio_t) == alignof(thread::priority_t), "adjust align of os_thread_prio_t");
+static_assert (sizeof (os_thread_prio_t) == sizeof (thread::priority_t),
+               "adjust size of os_thread_prio_t");
+static_assert (alignof (os_thread_prio_t) == alignof (thread::priority_t),
+               "adjust align of os_thread_prio_t");
 
-static_assert(sizeof(os_timer_func_args_t) == sizeof(timer::func_args_t), "adjust size of os_timer_func_args_t");
-static_assert(alignof(os_timer_func_args_t) == alignof(timer::func_args_t), "adjust align of os_timer_func_args_t");
+static_assert (sizeof (os_timer_func_args_t) == sizeof (timer::func_args_t),
+               "adjust size of os_timer_func_args_t");
+static_assert (alignof (os_timer_func_args_t) == alignof (timer::func_args_t),
+               "adjust align of os_timer_func_args_t");
 
-static_assert(sizeof(os_timer_func_t) == sizeof(timer::func_t), "adjust size of os_timer_func_t");
-static_assert(alignof(os_timer_func_t) == alignof(timer::func_t), "adjust align of os_timer_func_t");
+static_assert (sizeof (os_timer_func_t) == sizeof (timer::func_t),
+               "adjust size of os_timer_func_t");
+static_assert (alignof (os_timer_func_t) == alignof (timer::func_t),
+               "adjust align of os_timer_func_t");
 
-static_assert(sizeof(os_timer_type_t) == sizeof(timer::type_t), "adjust size of os_timer_type_t");
-static_assert(alignof(os_timer_type_t) == alignof(timer::type_t), "adjust align of os_timer_type_t");
+static_assert (sizeof (os_timer_type_t) == sizeof (timer::type_t),
+               "adjust size of os_timer_type_t");
+static_assert (alignof (os_timer_type_t) == alignof (timer::type_t),
+               "adjust align of os_timer_type_t");
 
-static_assert(sizeof(os_timer_state_t) == sizeof(timer::state_t), "adjust size of os_timer_state_t");
-static_assert(alignof(os_timer_state_t) == alignof(timer::state_t), "adjust align of os_timer_state_t");
+static_assert (sizeof (os_timer_state_t) == sizeof (timer::state_t),
+               "adjust size of os_timer_state_t");
+static_assert (alignof (os_timer_state_t) == alignof (timer::state_t),
+               "adjust align of os_timer_state_t");
 
-static_assert(sizeof(os_mutex_count_t) == sizeof(mutex::count_t), "adjust size of os_mutex_count_t");
-static_assert(alignof(os_mutex_count_t) == alignof(mutex::count_t), "adjust align of os_mutex_count_t");
+static_assert (sizeof (os_mutex_count_t) == sizeof (mutex::count_t),
+               "adjust size of os_mutex_count_t");
+static_assert (alignof (os_mutex_count_t) == alignof (mutex::count_t),
+               "adjust align of os_mutex_count_t");
 
-static_assert(sizeof(os_mutex_type_t) == sizeof(mutex::type_t), "adjust size of os_mutex_type_t");
-static_assert(alignof(os_mutex_type_t) == alignof(mutex::type_t), "adjust align of os_mutex_type_t");
+static_assert (sizeof (os_mutex_type_t) == sizeof (mutex::type_t),
+               "adjust size of os_mutex_type_t");
+static_assert (alignof (os_mutex_type_t) == alignof (mutex::type_t),
+               "adjust align of os_mutex_type_t");
 
-static_assert(sizeof(os_mutex_protocol_t) == sizeof(mutex::protocol_t), "adjust size of os_mutex_protocol_t");
-static_assert(alignof(os_mutex_protocol_t) == alignof(mutex::protocol_t), "adjust align of os_mutex_protocol_t");
+static_assert (sizeof (os_mutex_protocol_t) == sizeof (mutex::protocol_t),
+               "adjust size of os_mutex_protocol_t");
+static_assert (alignof (os_mutex_protocol_t) == alignof (mutex::protocol_t),
+               "adjust align of os_mutex_protocol_t");
 
-static_assert(sizeof(os_mutex_robustness_t) == sizeof(mutex::robustness_t), "adjust size of os_mutex_robustness_t");
-static_assert(alignof(os_mutex_robustness_t) == alignof(mutex::robustness_t), "adjust align of os_mutex_robustness_t");
+static_assert (sizeof (os_mutex_robustness_t) == sizeof (mutex::robustness_t),
+               "adjust size of os_mutex_robustness_t");
+static_assert (alignof (os_mutex_robustness_t)
+                   == alignof (mutex::robustness_t),
+               "adjust align of os_mutex_robustness_t");
 
-static_assert(sizeof(os_semaphore_count_t) == sizeof(semaphore::count_t), "adjust size of os_semaphore_count_t");
-static_assert(alignof(os_semaphore_count_t) == alignof(semaphore::count_t), "adjust align of os_semaphore_count_t");
+static_assert (sizeof (os_semaphore_count_t) == sizeof (semaphore::count_t),
+               "adjust size of os_semaphore_count_t");
+static_assert (alignof (os_semaphore_count_t) == alignof (semaphore::count_t),
+               "adjust align of os_semaphore_count_t");
 
-static_assert(sizeof(os_mempool_size_t) == sizeof(memory_pool::size_t), "adjust size of os_mempool_size_t");
-static_assert(alignof(os_mempool_size_t) == alignof(memory_pool::size_t), "adjust align of os_mempool_size_t");
+static_assert (sizeof (os_mempool_size_t) == sizeof (memory_pool::size_t),
+               "adjust size of os_mempool_size_t");
+static_assert (alignof (os_mempool_size_t) == alignof (memory_pool::size_t),
+               "adjust align of os_mempool_size_t");
 
-static_assert(sizeof(os_mqueue_size_t) == sizeof(message_queue::size_t), "adjust size of os_mqueue_size_t");
-static_assert(alignof(os_mqueue_size_t) == alignof(message_queue::size_t), "adjust align of os_mqueue_size_t");
+static_assert (sizeof (os_mqueue_size_t) == sizeof (message_queue::size_t),
+               "adjust size of os_mqueue_size_t");
+static_assert (alignof (os_mqueue_size_t) == alignof (message_queue::size_t),
+               "adjust align of os_mqueue_size_t");
 
-static_assert(sizeof(os_mqueue_msg_size_t) == sizeof(message_queue::msg_size_t), "adjust size of os_mqueue_msg_size_t");
-static_assert(alignof(os_mqueue_msg_size_t) == alignof(message_queue::msg_size_t), "adjust align of os_mqueue_msg_size_t");
+static_assert (sizeof (os_mqueue_msg_size_t)
+                   == sizeof (message_queue::msg_size_t),
+               "adjust size of os_mqueue_msg_size_t");
+static_assert (alignof (os_mqueue_msg_size_t)
+                   == alignof (message_queue::msg_size_t),
+               "adjust align of os_mqueue_msg_size_t");
 
-static_assert(sizeof(os_mqueue_index_t) == sizeof(message_queue::index_t), "adjust size of os_mqueue_index_t");
-static_assert(alignof(os_mqueue_index_t) == alignof(message_queue::index_t), "adjust align of os_mqueue_index_t");
+static_assert (sizeof (os_mqueue_index_t) == sizeof (message_queue::index_t),
+               "adjust size of os_mqueue_index_t");
+static_assert (alignof (os_mqueue_index_t) == alignof (message_queue::index_t),
+               "adjust align of os_mqueue_index_t");
 
-static_assert(sizeof(os_mqueue_prio_t) == sizeof(message_queue::priority_t), "adjust size of os_mqueue_prio_t");
-static_assert(alignof(os_mqueue_prio_t) == alignof(message_queue::priority_t), "adjust align of os_mqueue_prio_t");
+static_assert (sizeof (os_mqueue_prio_t) == sizeof (message_queue::priority_t),
+               "adjust size of os_mqueue_prio_t");
+static_assert (alignof (os_mqueue_prio_t)
+                   == alignof (message_queue::priority_t),
+               "adjust align of os_mqueue_prio_t");
 
 // ----------------------------------------------------------------------------
 
@@ -132,40 +197,69 @@ static_assert(alignof(os_mqueue_prio_t) == alignof(message_queue::priority_t), "
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wenum-compare"
 
-static_assert(os_thread_priority_idle == thread::priority::idle, "adjust os_thread_priority_idle");
-static_assert(os_thread_priority_low == thread::priority::low, "adjust os_thread_priority_low");
-static_assert(os_thread_priority_below_normal == thread::priority::below_normal, "adjust os_thread_priority_below_normal");
-static_assert(os_thread_priority_normal == thread::priority::normal, "adjust os_thread_priority_normal");
-static_assert(os_thread_priority_above_normal == thread::priority::above_normal, "adjust os_thread_priority_above_normal");
-static_assert(os_thread_priority_high == thread::priority::high, "adjust os_thread_priority_high");
-static_assert(os_thread_priority_realtime == thread::priority::realtime, "adjust os_thread_priority_realtime");
-static_assert(os_thread_priority_error == thread::priority::error, "adjust os_thread_priority_error");
+static_assert (os_thread_priority_idle == thread::priority::idle,
+               "adjust os_thread_priority_idle");
+static_assert (os_thread_priority_low == thread::priority::low,
+               "adjust os_thread_priority_low");
+static_assert (os_thread_priority_below_normal
+                   == thread::priority::below_normal,
+               "adjust os_thread_priority_below_normal");
+static_assert (os_thread_priority_normal == thread::priority::normal,
+               "adjust os_thread_priority_normal");
+static_assert (os_thread_priority_above_normal
+                   == thread::priority::above_normal,
+               "adjust os_thread_priority_above_normal");
+static_assert (os_thread_priority_high == thread::priority::high,
+               "adjust os_thread_priority_high");
+static_assert (os_thread_priority_realtime == thread::priority::realtime,
+               "adjust os_thread_priority_realtime");
+static_assert (os_thread_priority_error == thread::priority::error,
+               "adjust os_thread_priority_error");
 
-static_assert(os_flags_mode_all == flags::mode::all, "adjust os_flags_mode_all");
-static_assert(os_flags_mode_any == flags::mode::any, "adjust os_flags_mode_any");
-static_assert(os_flags_mode_clear == flags::mode::clear, "adjust os_flags_mode_clear");
+static_assert (os_flags_mode_all == flags::mode::all,
+               "adjust os_flags_mode_all");
+static_assert (os_flags_mode_any == flags::mode::any,
+               "adjust os_flags_mode_any");
+static_assert (os_flags_mode_clear == flags::mode::clear,
+               "adjust os_flags_mode_clear");
 
-static_assert(os_thread_state_undefined == thread::state::undefined, "adjust os_thread_state_undefined");
-static_assert(os_thread_state_ready == thread::state::ready, "adjust os_thread_state_ready");
-static_assert(os_thread_state_running == thread::state::running, "adjust os_thread_state_running");
-static_assert(os_thread_state_suspended == thread::state::suspended, "adjust os_thread_state_suspended");
-static_assert(os_thread_state_terminated == thread::state::terminated, "adjust os_thread_state_terminated");
-static_assert(os_thread_state_destroyed == thread::state::destroyed, "adjust os_thread_state_destroyed");
+static_assert (os_thread_state_undefined == thread::state::undefined,
+               "adjust os_thread_state_undefined");
+static_assert (os_thread_state_ready == thread::state::ready,
+               "adjust os_thread_state_ready");
+static_assert (os_thread_state_running == thread::state::running,
+               "adjust os_thread_state_running");
+static_assert (os_thread_state_suspended == thread::state::suspended,
+               "adjust os_thread_state_suspended");
+static_assert (os_thread_state_terminated == thread::state::terminated,
+               "adjust os_thread_state_terminated");
+static_assert (os_thread_state_destroyed == thread::state::destroyed,
+               "adjust os_thread_state_destroyed");
 
-static_assert(os_timer_once == timer::run::once, "adjust os_timer_once");
-static_assert(os_timer_periodic == timer::run::periodic, "adjust os_timer_periodic");
+static_assert (os_timer_once == timer::run::once, "adjust os_timer_once");
+static_assert (os_timer_periodic == timer::run::periodic,
+               "adjust os_timer_periodic");
 
-static_assert(os_mutex_protocol_none == mutex::protocol::none, "adjust os_mutex_protocol_none");
-static_assert(os_mutex_protocol_inherit == mutex::protocol::inherit, "adjust os_mutex_protocol_inherit");
-static_assert(os_mutex_protocol_protect == mutex::protocol::protect, "adjust os_mutex_protocol_protect");
+static_assert (os_mutex_protocol_none == mutex::protocol::none,
+               "adjust os_mutex_protocol_none");
+static_assert (os_mutex_protocol_inherit == mutex::protocol::inherit,
+               "adjust os_mutex_protocol_inherit");
+static_assert (os_mutex_protocol_protect == mutex::protocol::protect,
+               "adjust os_mutex_protocol_protect");
 
-static_assert(os_mutex_robustness_stalled == mutex::robustness::stalled, "adjust os_mutex_robustness_stalled");
-static_assert(os_mutex_robustness_robust == mutex::robustness::robust, "adjust os_mutex_robustness_robust");
+static_assert (os_mutex_robustness_stalled == mutex::robustness::stalled,
+               "adjust os_mutex_robustness_stalled");
+static_assert (os_mutex_robustness_robust == mutex::robustness::robust,
+               "adjust os_mutex_robustness_robust");
 
-static_assert(os_mutex_type_normal == mutex::type::normal, "adjust os_mutex_type_normal");
-static_assert(os_mutex_type_errorcheck == mutex::type::errorcheck, "adjust os_mutex_type_errorcheck");
-static_assert(os_mutex_type_recursive == mutex::type::recursive, "adjust os_mutex_type_recursive");
-static_assert(os_mutex_type_default == mutex::type::default_, "adjust os_mutex_type_default");
+static_assert (os_mutex_type_normal == mutex::type::normal,
+               "adjust os_mutex_type_normal");
+static_assert (os_mutex_type_errorcheck == mutex::type::errorcheck,
+               "adjust os_mutex_type_errorcheck");
+static_assert (os_mutex_type_recursive == mutex::type::recursive,
+               "adjust os_mutex_type_recursive");
+static_assert (os_mutex_type_default == mutex::type::default_,
+               "adjust os_mutex_type_default");
 
 #pragma GCC diagnostic pop
 
@@ -177,56 +271,114 @@ static_assert(os_mutex_type_default == mutex::type::default_, "adjust os_mutex_t
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Winvalid-offsetof"
 
-static_assert(sizeof(rtos::clock) == sizeof(os_clock_t), "adjust os_clock_t size");
+static_assert (sizeof (rtos::clock) == sizeof (os_clock_t),
+               "adjust os_clock_t size");
 
-static_assert(sizeof(rtos::thread) == sizeof(os_thread_t), "adjust os_thread_t size");
-static_assert(sizeof(rtos::thread::attributes) == sizeof(os_thread_attr_t), "adjust os_thread_attr_t size");
-static_assert(offsetof(rtos::thread::attributes, th_stack_address) == offsetof(os_thread_attr_t, th_stack_address), "adjust os_thread_attr_t members");
-static_assert(offsetof(rtos::thread::attributes, th_stack_size_bytes) == offsetof(os_thread_attr_t, th_stack_size_bytes), "adjust os_thread_attr_t members");
-static_assert(offsetof(rtos::thread::attributes, th_priority) == offsetof(os_thread_attr_t, th_priority), "adjust os_thread_attr_t members");
+static_assert (sizeof (rtos::thread) == sizeof (os_thread_t),
+               "adjust os_thread_t size");
+static_assert (sizeof (rtos::thread::attributes) == sizeof (os_thread_attr_t),
+               "adjust os_thread_attr_t size");
+static_assert (offsetof (rtos::thread::attributes, th_stack_address)
+                   == offsetof (os_thread_attr_t, th_stack_address),
+               "adjust os_thread_attr_t members");
+static_assert (offsetof (rtos::thread::attributes, th_stack_size_bytes)
+                   == offsetof (os_thread_attr_t, th_stack_size_bytes),
+               "adjust os_thread_attr_t members");
+static_assert (offsetof (rtos::thread::attributes, th_priority)
+                   == offsetof (os_thread_attr_t, th_priority),
+               "adjust os_thread_attr_t members");
 
-static_assert(sizeof(rtos::timer) == sizeof(os_timer_t), "adjust size of os_timer_t");
-static_assert(sizeof(rtos::timer::attributes) == sizeof(os_timer_attr_t), "adjust size of os_timer_attr_t");
-static_assert(offsetof(rtos::timer::attributes, tm_type) == offsetof(os_timer_attr_t, tm_type), "adjust os_timer_attr_t members");
+static_assert (sizeof (rtos::timer) == sizeof (os_timer_t),
+               "adjust size of os_timer_t");
+static_assert (sizeof (rtos::timer::attributes) == sizeof (os_timer_attr_t),
+               "adjust size of os_timer_attr_t");
+static_assert (offsetof (rtos::timer::attributes, tm_type)
+                   == offsetof (os_timer_attr_t, tm_type),
+               "adjust os_timer_attr_t members");
 
-static_assert(sizeof(rtos::mutex) == sizeof(os_mutex_t), "adjust size of os_mutex_t");
-static_assert(sizeof(rtos::mutex::attributes) == sizeof(os_mutex_attr_t), "adjust size of os_mutex_attr_t");
-static_assert(offsetof(rtos::mutex::attributes, mx_priority_ceiling) == offsetof(os_mutex_attr_t, mx_priority_ceiling), "adjust os_mutex_attr_t members");
-static_assert(offsetof(rtos::mutex::attributes, mx_protocol) == offsetof(os_mutex_attr_t, mx_protocol), "adjust os_mutex_attr_t members");
-static_assert(offsetof(rtos::mutex::attributes, mx_robustness) == offsetof(os_mutex_attr_t, mx_robustness), "adjust os_mutex_attr_t members");
-static_assert(offsetof(rtos::mutex::attributes, mx_type) == offsetof(os_mutex_attr_t, mx_type), "adjust os_mutex_attr_t members");
-static_assert(offsetof(rtos::mutex::attributes, mx_max_count) == offsetof(os_mutex_attr_t, mx_max_count), "adjust os_mutex_attr_t members");
+static_assert (sizeof (rtos::mutex) == sizeof (os_mutex_t),
+               "adjust size of os_mutex_t");
+static_assert (sizeof (rtos::mutex::attributes) == sizeof (os_mutex_attr_t),
+               "adjust size of os_mutex_attr_t");
+static_assert (offsetof (rtos::mutex::attributes, mx_priority_ceiling)
+                   == offsetof (os_mutex_attr_t, mx_priority_ceiling),
+               "adjust os_mutex_attr_t members");
+static_assert (offsetof (rtos::mutex::attributes, mx_protocol)
+                   == offsetof (os_mutex_attr_t, mx_protocol),
+               "adjust os_mutex_attr_t members");
+static_assert (offsetof (rtos::mutex::attributes, mx_robustness)
+                   == offsetof (os_mutex_attr_t, mx_robustness),
+               "adjust os_mutex_attr_t members");
+static_assert (offsetof (rtos::mutex::attributes, mx_type)
+                   == offsetof (os_mutex_attr_t, mx_type),
+               "adjust os_mutex_attr_t members");
+static_assert (offsetof (rtos::mutex::attributes, mx_max_count)
+                   == offsetof (os_mutex_attr_t, mx_max_count),
+               "adjust os_mutex_attr_t members");
 
-static_assert(sizeof(rtos::condition_variable) == sizeof(os_condvar_t), "adjust size of os_condvar_t");
-static_assert(sizeof(rtos::condition_variable::attributes) == sizeof(os_condvar_attr_t), "adjust size of os_condvar_attr_t");
+static_assert (sizeof (rtos::condition_variable) == sizeof (os_condvar_t),
+               "adjust size of os_condvar_t");
+static_assert (sizeof (rtos::condition_variable::attributes)
+                   == sizeof (os_condvar_attr_t),
+               "adjust size of os_condvar_attr_t");
 
-static_assert(sizeof(rtos::semaphore) == sizeof(os_semaphore_t), "adjust size of os_semaphore_t");
-static_assert(sizeof(rtos::semaphore::attributes) == sizeof(os_semaphore_attr_t), "adjust size of os_semaphore_attr_t");
-static_assert(offsetof(rtos::semaphore::attributes, sm_initial_value) == offsetof(os_semaphore_attr_t, sm_initial_value), "adjust os_semaphore_attr_t members");
-static_assert(offsetof(rtos::semaphore::attributes, sm_max_value) == offsetof(os_semaphore_attr_t, sm_max_value), "adjust os_semaphore_attr_t members");
+static_assert (sizeof (rtos::semaphore) == sizeof (os_semaphore_t),
+               "adjust size of os_semaphore_t");
+static_assert (sizeof (rtos::semaphore::attributes)
+                   == sizeof (os_semaphore_attr_t),
+               "adjust size of os_semaphore_attr_t");
+static_assert (offsetof (rtos::semaphore::attributes, sm_initial_value)
+                   == offsetof (os_semaphore_attr_t, sm_initial_value),
+               "adjust os_semaphore_attr_t members");
+static_assert (offsetof (rtos::semaphore::attributes, sm_max_value)
+                   == offsetof (os_semaphore_attr_t, sm_max_value),
+               "adjust os_semaphore_attr_t members");
 
-static_assert(sizeof(rtos::memory_pool) == sizeof(os_mempool_t), "adjust size of os_mempool_t");
-static_assert(sizeof(rtos::memory_pool::attributes) == sizeof(os_mempool_attr_t), "adjust size of os_mempool_attr_t");
-static_assert(offsetof(rtos::memory_pool::attributes, mp_pool_address) == offsetof(os_mempool_attr_t, mp_pool_address), "adjust os_mempool_attr_t members");
-static_assert(offsetof(rtos::memory_pool::attributes, mp_pool_size_bytes) == offsetof(os_mempool_attr_t, mp_pool_size_bytes), "adjust os_mempool_attr_t members");
+static_assert (sizeof (rtos::memory_pool) == sizeof (os_mempool_t),
+               "adjust size of os_mempool_t");
+static_assert (sizeof (rtos::memory_pool::attributes)
+                   == sizeof (os_mempool_attr_t),
+               "adjust size of os_mempool_attr_t");
+static_assert (offsetof (rtos::memory_pool::attributes, mp_pool_address)
+                   == offsetof (os_mempool_attr_t, mp_pool_address),
+               "adjust os_mempool_attr_t members");
+static_assert (offsetof (rtos::memory_pool::attributes, mp_pool_size_bytes)
+                   == offsetof (os_mempool_attr_t, mp_pool_size_bytes),
+               "adjust os_mempool_attr_t members");
 
-static_assert(sizeof(rtos::message_queue) == sizeof(os_mqueue_t), "adjust size of os_mqueue_t");
-static_assert(sizeof(rtos::message_queue::attributes) == sizeof(os_mqueue_attr_t), "adjust size of os_mqueue_attr_t");
-static_assert(offsetof(rtos::message_queue::attributes, mq_queue_address) == offsetof(os_mqueue_attr_t, mq_queue_addr), "adjust os_mqueue_attr_t members");
-static_assert(offsetof(rtos::message_queue::attributes, mq_queue_size_bytes) == offsetof(os_mqueue_attr_t, mq_queue_size_bytes), "adjust os_mqueue_attr_t members");
+static_assert (sizeof (rtos::message_queue) == sizeof (os_mqueue_t),
+               "adjust size of os_mqueue_t");
+static_assert (sizeof (rtos::message_queue::attributes)
+                   == sizeof (os_mqueue_attr_t),
+               "adjust size of os_mqueue_attr_t");
+static_assert (offsetof (rtos::message_queue::attributes, mq_queue_address)
+                   == offsetof (os_mqueue_attr_t, mq_queue_addr),
+               "adjust os_mqueue_attr_t members");
+static_assert (offsetof (rtos::message_queue::attributes, mq_queue_size_bytes)
+                   == offsetof (os_mqueue_attr_t, mq_queue_size_bytes),
+               "adjust os_mqueue_attr_t members");
 
-static_assert(sizeof(rtos::event_flags) == sizeof(os_evflags_t), "adjust size of os_evflags_t");
-static_assert(sizeof(rtos::event_flags::attributes) == sizeof(os_evflags_attr_t), "adjust size of os_evflags_attr_t");
+static_assert (sizeof (rtos::event_flags) == sizeof (os_evflags_t),
+               "adjust size of os_evflags_t");
+static_assert (sizeof (rtos::event_flags::attributes)
+                   == sizeof (os_evflags_attr_t),
+               "adjust size of os_evflags_attr_t");
 
-static_assert(sizeof(class thread::stack) == sizeof(os_thread_stack_t), "adjust size of os_thread_stack_t");
-static_assert(sizeof(class thread::context) == sizeof(os_thread_context_t), "adjust size of os_thread_context_t");
+static_assert (sizeof (class thread::stack) == sizeof (os_thread_stack_t),
+               "adjust size of os_thread_stack_t");
+static_assert (sizeof (class thread::context) == sizeof (os_thread_context_t),
+               "adjust size of os_thread_context_t");
 
-#if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES) \
-  || defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
-static_assert(sizeof(class thread::statistics) == sizeof(os_thread_statistics_t), "adjust size of os_thread_statistics_t");
+#if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)               \
+    || defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
+static_assert (sizeof (class thread::statistics)
+                   == sizeof (os_thread_statistics_t),
+               "adjust size of os_thread_statistics_t");
 #endif
 
-static_assert(sizeof(internal::timer_node) == sizeof(os_internal_clock_timer_node_t), "adjust size of os_internal_clock_timer_node_t");
+static_assert (sizeof (internal::timer_node)
+                   == sizeof (os_internal_clock_timer_node_t),
+               "adjust size of os_internal_clock_timer_node_t");
 
 #pragma GCC diagnostic pop
 
@@ -246,7 +398,7 @@ static_assert(sizeof(internal::timer_node) == sizeof(os_internal_clock_timer_nod
 os_result_t
 os_sched_initialize (void)
 {
-  return (os_result_t) scheduler::initialize ();
+  return (os_result_t)scheduler::initialize ();
 }
 
 /**
@@ -374,7 +526,8 @@ os_sched_set_preemptive (bool state)
 os_statistics_counter_t
 os_sched_stat_get_context_switches (void)
 {
-  return static_cast<os_statistics_counter_t> (scheduler::statistics::context_switches ());
+  return static_cast<os_statistics_counter_t> (
+      scheduler::statistics::context_switches ());
 }
 
 #endif /* defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES) */
@@ -392,7 +545,8 @@ os_sched_stat_get_context_switches (void)
 os_statistics_duration_t
 os_sched_stat_get_cpu_cycles (void)
 {
-  return static_cast<os_statistics_duration_t> (scheduler::statistics::cpu_cycles ());
+  return static_cast<os_statistics_duration_t> (
+      scheduler::statistics::cpu_cycles ());
 }
 
 #endif /* defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES) */
@@ -486,9 +640,9 @@ os_irq_uncritical_exit (os_irq_state_t state)
 
 os_thread_stack_t*
 os_irq_get_stack (void)
-  {
-    return reinterpret_cast<os_thread_stack_t*> (rtos::interrupts::stack ());
-  }
+{
+  return reinterpret_cast<os_thread_stack_t*> (rtos::interrupts::stack ());
+}
 
 #endif
 
@@ -505,7 +659,7 @@ os_irq_get_stack (void)
 os_thread_t*
 os_this_thread (void)
 {
-  return (os_thread_t*) &this_thread::thread ();
+  return (os_thread_t*)&this_thread::thread ();
 }
 
 /**
@@ -548,7 +702,7 @@ os_result_t
 os_this_thread_flags_wait (os_flags_mask_t mask, os_flags_mask_t* oflags,
                            os_flags_mode_t mode)
 {
-  return (os_result_t) this_thread::flags_wait (mask, oflags, mode);
+  return (os_result_t)this_thread::flags_wait (mask, oflags, mode);
 }
 
 /**
@@ -563,7 +717,7 @@ os_result_t
 os_this_thread_flags_try_wait (os_flags_mask_t mask, os_flags_mask_t* oflags,
                                os_flags_mode_t mode)
 {
-  return (os_result_t) this_thread::flags_try_wait (mask, oflags, mode);
+  return (os_result_t)this_thread::flags_try_wait (mask, oflags, mode);
 }
 
 /**
@@ -579,8 +733,8 @@ os_this_thread_flags_timed_wait (os_flags_mask_t mask,
                                  os_clock_duration_t timeout,
                                  os_flags_mask_t* oflags, os_flags_mode_t mode)
 {
-  return (os_result_t) this_thread::flags_timed_wait (mask, timeout, oflags,
-                                                      mode);
+  return (os_result_t)this_thread::flags_timed_wait (mask, timeout, oflags,
+                                                     mode);
 }
 
 /**
@@ -594,7 +748,7 @@ os_this_thread_flags_timed_wait (os_flags_mask_t mask,
 os_result_t
 os_this_thread_flags_clear (os_flags_mask_t mask, os_flags_mask_t* oflags)
 {
-  return (os_result_t) this_thread::flags_clear (mask, oflags);
+  return (os_result_t)this_thread::flags_clear (mask, oflags);
 }
 
 /**
@@ -608,7 +762,7 @@ os_this_thread_flags_clear (os_flags_mask_t mask, os_flags_mask_t* oflags)
 os_flags_mask_t
 os_this_thread_flags_get (os_flags_mask_t mask, os_flags_mode_t mode)
 {
-  return (os_flags_mask_t) this_thread::flags_get (mask, mode);
+  return (os_flags_mask_t)this_thread::flags_get (mask, mode);
 }
 
 // ----------------------------------------------------------------------------
@@ -646,11 +800,11 @@ os_thread_construct (os_thread_t* thread, const char* name,
   assert (thread != nullptr);
   if (attr == nullptr)
     {
-      attr = (const os_thread_attr_t*) &thread::initializer;
+      attr = (const os_thread_attr_t*)&thread::initializer;
     }
-  new (thread) rtos::thread (name, (thread::func_t) func,
-                             (thread::func_args_t) args,
-                             (const thread::attributes&) *attr);
+  new (thread)
+      rtos::thread (name, (thread::func_t)func, (thread::func_args_t)args,
+                    (const thread::attributes&)*attr);
 }
 
 /**
@@ -690,11 +844,11 @@ os_thread_new (const char* name, os_thread_func_t func,
 {
   if (attr == nullptr)
     {
-      attr = (const os_thread_attr_t*) &thread::initializer;
+      attr = (const os_thread_attr_t*)&thread::initializer;
     }
-  return reinterpret_cast<os_thread_t*> (new rtos::thread (
-      name, (thread::func_t) func, (thread::func_args_t) args,
-      (const thread::attributes&) *attr));
+  return reinterpret_cast<os_thread_t*> (
+      new rtos::thread (name, (thread::func_t)func, (thread::func_args_t)args,
+                        (const thread::attributes&)*attr));
 }
 
 /**
@@ -745,7 +899,8 @@ os_thread_prio_t
 os_thread_get_priority (os_thread_t* thread)
 {
   assert (thread != nullptr);
-  return (os_thread_prio_t) (reinterpret_cast<rtos::thread&> (*thread)).priority ();
+  return (os_thread_prio_t) (reinterpret_cast<rtos::thread&> (*thread))
+      .priority ();
 }
 
 /**
@@ -760,8 +915,8 @@ os_result_t
 os_thread_set_priority (os_thread_t* thread, os_thread_prio_t prio)
 {
   assert (thread != nullptr);
-  return (os_result_t) (reinterpret_cast<rtos::thread&> (*thread)).priority (
-      prio);
+  return (os_result_t) (reinterpret_cast<rtos::thread&> (*thread))
+      .priority (prio);
 }
 
 /**
@@ -776,7 +931,8 @@ os_result_t
 os_thread_join (os_thread_t* thread, void** exit_ptr)
 {
   assert (thread != nullptr);
-  return (os_result_t) reinterpret_cast<rtos::thread&> (*thread).join (exit_ptr);
+  return (os_result_t) reinterpret_cast<rtos::thread&> (*thread).join (
+      exit_ptr);
 }
 
 /**
@@ -807,8 +963,8 @@ os_thread_flags_raise (os_thread_t* thread, os_flags_mask_t mask,
                        os_flags_mask_t* oflags)
 {
   assert (thread != nullptr);
-  return (os_result_t) (reinterpret_cast<rtos::thread&> (*thread)).flags_raise (
-      mask, oflags);
+  return (os_result_t) (reinterpret_cast<rtos::thread&> (*thread))
+      .flags_raise (mask, oflags);
 }
 
 /**
@@ -823,7 +979,8 @@ os_thread_state_t
 os_thread_get_state (os_thread_t* thread)
 {
   assert (thread != nullptr);
-  return reinterpret_cast<os_thread_state_t> ((reinterpret_cast<rtos::thread&> (*thread)).state ());
+  return reinterpret_cast<os_thread_state_t> (
+      (reinterpret_cast<rtos::thread&> (*thread)).state ());
 }
 
 #if defined(OS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE) || defined(__DOXYGEN__)
@@ -842,10 +999,10 @@ os_thread_get_state (os_thread_t* thread)
  */
 os_thread_user_storage_t*
 os_thread_get_user_storage (os_thread_t* thread)
-  {
-    assert(thread != nullptr);
-    return (reinterpret_cast<rtos::thread&> (*thread)).user_storage ();
-  }
+{
+  assert (thread != nullptr);
+  return (reinterpret_cast<rtos::thread&> (*thread)).user_storage ();
+}
 
 #endif /* defined(OS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE) */
 
@@ -861,7 +1018,8 @@ os_thread_stack_t*
 os_thread_get_stack (os_thread_t* thread)
 {
   assert (thread != nullptr);
-  return reinterpret_cast<os_thread_stack_t*> (&(reinterpret_cast<rtos::thread&> (*thread)).stack ());
+  return reinterpret_cast<os_thread_stack_t*> (
+      &(reinterpret_cast<rtos::thread&> (*thread)).stack ());
 }
 
 // ----------------------------------------------------------------------------
@@ -994,7 +1152,8 @@ bool
 os_thread_stack_check_bottom_magic (os_thread_stack_t* stack)
 {
   assert (stack != nullptr);
-  return (reinterpret_cast<class rtos::thread::stack&> (*stack)).check_bottom_magic ();
+  return (reinterpret_cast<class rtos::thread::stack&> (*stack))
+      .check_bottom_magic ();
 }
 
 /**
@@ -1009,7 +1168,8 @@ bool
 os_thread_stack_check_top_magic (os_thread_stack_t* stack)
 {
   assert (stack != nullptr);
-  return (reinterpret_cast<class rtos::thread::stack&> (*stack)).check_top_magic ();
+  return (reinterpret_cast<class rtos::thread::stack&> (*stack))
+      .check_top_magic ();
 }
 
 // ----------------------------------------------------------------------------
@@ -1028,7 +1188,10 @@ os_statistics_counter_t
 os_thread_stat_get_context_switches (os_thread_t* thread)
 {
   assert (thread != nullptr);
-  return static_cast<os_statistics_counter_t> ((reinterpret_cast<rtos::thread&> (*thread)).statistics ().context_switches ());
+  return static_cast<os_statistics_counter_t> (
+      (reinterpret_cast<rtos::thread&> (*thread))
+          .statistics ()
+          .context_switches ());
 }
 
 #endif /* defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES) */
@@ -1047,7 +1210,8 @@ os_statistics_duration_t
 os_thread_stat_get_cpu_cycles (os_thread_t* thread)
 {
   assert (thread != nullptr);
-  return static_cast<os_statistics_duration_t> ((reinterpret_cast<rtos::thread&> (*thread)).statistics ().cpu_cycles ());
+  return static_cast<os_statistics_duration_t> (
+      (reinterpret_cast<rtos::thread&> (*thread)).statistics ().cpu_cycles ());
 }
 
 #endif /* defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES) */
@@ -1065,8 +1229,10 @@ os_thread_stat_get_cpu_cycles (os_thread_t* thread)
 os_iterator_t
 os_children_threads_iter_begin (os_thread_t* thread)
 {
-  return reinterpret_cast<os_iterator_t> (scheduler::children_threads (
-      reinterpret_cast<rtos::thread*> (thread)).begin ().get_iterator_pointer ());
+  return reinterpret_cast<os_iterator_t> (
+      scheduler::children_threads (reinterpret_cast<rtos::thread*> (thread))
+          .begin ()
+          .get_iterator_pointer ());
 }
 
 /**
@@ -1083,8 +1249,10 @@ os_children_threads_iter_begin (os_thread_t* thread)
 os_iterator_t
 os_children_threads_iter_end (os_thread_t* thread)
 {
-  return reinterpret_cast<os_iterator_t> (scheduler::children_threads (
-      reinterpret_cast<rtos::thread*> (thread)).end ().get_iterator_pointer ());
+  return reinterpret_cast<os_iterator_t> (
+      scheduler::children_threads (reinterpret_cast<rtos::thread*> (thread))
+          .end ()
+          .get_iterator_pointer ());
 }
 
 /**
@@ -1098,8 +1266,9 @@ os_thread_t*
 os_children_threads_iter_get (os_iterator_t iterator)
 {
   // Construct a local iterator object based on the pointer.
-  thread::threads_list::iterator it
-    { reinterpret_cast<utils::double_list_links*> (iterator) };
+  thread::threads_list::iterator it{
+    reinterpret_cast<utils::double_list_links*> (iterator)
+  };
   return reinterpret_cast<os_thread_t*> (&(*it));
 }
 
@@ -1113,8 +1282,9 @@ os_children_threads_iter_get (os_iterator_t iterator)
 os_iterator_t
 os_children_threads_iter_next (os_iterator_t iterator)
 {
-  thread::threads_list::iterator it
-    { reinterpret_cast<utils::double_list_links*> (iterator) };
+  thread::threads_list::iterator it{
+    reinterpret_cast<utils::double_list_links*> (iterator)
+  };
   ++it;
 
   return reinterpret_cast<os_iterator_t> (it.get_iterator_pointer ());
@@ -1149,7 +1319,8 @@ os_clock_timestamp_t
 os_clock_now (os_clock_t* clock)
 {
   assert (clock != nullptr);
-  return (os_clock_timestamp_t) (reinterpret_cast<rtos::clock&> (*clock)).now ();
+  return (os_clock_timestamp_t) (reinterpret_cast<rtos::clock&> (*clock))
+      .now ();
 }
 
 /**
@@ -1164,7 +1335,8 @@ os_clock_timestamp_t
 os_clock_steady_now (os_clock_t* clock)
 {
   assert (clock != nullptr);
-  return (os_clock_timestamp_t) (reinterpret_cast<rtos::clock&> (*clock)).steady_now ();
+  return (os_clock_timestamp_t) (reinterpret_cast<rtos::clock&> (*clock))
+      .steady_now ();
 }
 
 /**
@@ -1179,8 +1351,8 @@ os_result_t
 os_clock_sleep_for (os_clock_t* clock, os_clock_duration_t duration)
 {
   assert (clock != nullptr);
-  return (os_result_t) (reinterpret_cast<rtos::clock&> (*clock)).sleep_for (
-      duration);
+  return (os_result_t) (reinterpret_cast<rtos::clock&> (*clock))
+      .sleep_for (duration);
 }
 
 /**
@@ -1195,8 +1367,8 @@ os_result_t
 os_clock_sleep_until (os_clock_t* clock, os_clock_timestamp_t timestamp)
 {
   assert (clock != nullptr);
-  return (os_result_t) (reinterpret_cast<rtos::clock&> (*clock)).sleep_until (
-      timestamp);
+  return (os_result_t) (reinterpret_cast<rtos::clock&> (*clock))
+      .sleep_until (timestamp);
 }
 
 /**
@@ -1211,8 +1383,8 @@ os_result_t
 os_clock_wait_for (os_clock_t* clock, os_clock_duration_t timeout)
 {
   assert (clock != nullptr);
-  return (os_result_t) (reinterpret_cast<rtos::clock&> (*clock)).wait_for (
-      timeout);
+  return (os_result_t) (reinterpret_cast<rtos::clock&> (*clock))
+      .wait_for (timeout);
 }
 
 /**
@@ -1227,8 +1399,8 @@ os_clock_offset_t
 os_clock_get_offset (os_clock_t* clock)
 {
   assert (clock != nullptr);
-  return (os_clock_offset_t) (reinterpret_cast<rtos::clock&> (*clock)).offset ();
-
+  return (os_clock_offset_t) (reinterpret_cast<rtos::clock&> (*clock))
+      .offset ();
 }
 
 /**
@@ -1244,9 +1416,8 @@ os_clock_set_offset (os_clock_t* clock, os_clock_offset_t offset)
 {
   assert (clock != nullptr);
   assert (clock != nullptr);
-  return (os_clock_offset_t) (reinterpret_cast<rtos::clock&> (*clock)).offset (
-      (clock::offset_t) offset);
-
+  return (os_clock_offset_t) (reinterpret_cast<rtos::clock&> (*clock))
+      .offset ((clock::offset_t)offset);
 }
 
 /**
@@ -1260,7 +1431,7 @@ os_clock_set_offset (os_clock_t* clock, os_clock_offset_t offset)
 os_clock_t*
 os_clock_get_sysclock (void)
 {
-  return (os_clock_t*) &sysclock;
+  return (os_clock_t*)&sysclock;
 }
 
 /**
@@ -1274,7 +1445,7 @@ os_clock_get_sysclock (void)
 os_clock_t*
 os_clock_get_rtclock (void)
 {
-  return (os_clock_t*) &rtclock;
+  return (os_clock_t*)&rtclock;
 }
 
 /**
@@ -1288,7 +1459,7 @@ os_clock_get_rtclock (void)
 os_clock_t*
 os_clock_get_hrclock (void)
 {
-  return (os_clock_t*) &hrclock;
+  return (os_clock_t*)&hrclock;
 }
 
 // ----------------------------------------------------------------------------
@@ -1304,7 +1475,7 @@ os_clock_get_hrclock (void)
 os_clock_timestamp_t
 os_sysclock_now (void)
 {
-  return (os_clock_timestamp_t) sysclock.now ();
+  return (os_clock_timestamp_t)sysclock.now ();
 }
 
 /**
@@ -1318,7 +1489,7 @@ os_sysclock_now (void)
 os_result_t
 os_sysclock_sleep_for (os_clock_duration_t duration)
 {
-  return (os_result_t) sysclock.sleep_for (duration);
+  return (os_result_t)sysclock.sleep_for (duration);
 }
 
 /**
@@ -1332,7 +1503,7 @@ os_sysclock_sleep_for (os_clock_duration_t duration)
 os_result_t
 os_sysclock_sleep_until (os_clock_timestamp_t timestamp)
 {
-  return (os_result_t) sysclock.sleep_until (timestamp);
+  return (os_result_t)sysclock.sleep_until (timestamp);
 }
 
 /**
@@ -1346,7 +1517,7 @@ os_sysclock_sleep_until (os_clock_timestamp_t timestamp)
 os_result_t
 os_sysclock_wait_for (os_clock_duration_t timeout)
 {
-  return (os_result_t) sysclock.wait_for (timeout);
+  return (os_result_t)sysclock.wait_for (timeout);
 }
 
 // ----------------------------------------------------------------------------
@@ -1392,7 +1563,7 @@ os_timer_attr_periodic_init (os_timer_attr_t* attr)
 const os_timer_attr_t*
 os_timer_attr_get_periodic (void)
 {
-  return (const os_timer_attr_t*) &timer::periodic_initializer;
+  return (const os_timer_attr_t*)&timer::periodic_initializer;
 }
 
 /**
@@ -1413,11 +1584,11 @@ os_timer_construct (os_timer_t* timer, const char* name,
   assert (timer != nullptr);
   if (attr == nullptr)
     {
-      attr = (const os_timer_attr_t*) &timer::periodic_initializer;
+      attr = (const os_timer_attr_t*)&timer::periodic_initializer;
     }
-  new (timer) rtos::timer (name, (timer::func_t) function,
-                           (timer::func_args_t) args,
-                           (const timer::attributes&) *attr);
+  new (timer)
+      rtos::timer (name, (timer::func_t)function, (timer::func_args_t)args,
+                   (const timer::attributes&)*attr);
 }
 
 /**
@@ -1457,11 +1628,11 @@ os_timer_new (const char* name, os_timer_func_t function,
 {
   if (attr == nullptr)
     {
-      attr = (const os_timer_attr_t*) &timer::periodic_initializer;
+      attr = (const os_timer_attr_t*)&timer::periodic_initializer;
     }
-  return reinterpret_cast<os_timer_t*> (new rtos::timer (
-      name, (timer::func_t) function, (timer::func_args_t) args,
-      (const timer::attributes&) *attr));
+  return reinterpret_cast<os_timer_t*> (
+      new rtos::timer (name, (timer::func_t)function, (timer::func_args_t)args,
+                       (const timer::attributes&)*attr));
 }
 
 /**
@@ -1512,7 +1683,8 @@ os_result_t
 os_timer_start (os_timer_t* timer, os_clock_duration_t period)
 {
   assert (timer != nullptr);
-  return (os_result_t) (reinterpret_cast<rtos::timer&> (*timer)).start (period);
+  return (os_result_t) (reinterpret_cast<rtos::timer&> (*timer))
+      .start (period);
 }
 
 /**
@@ -1573,7 +1745,7 @@ os_mutex_attr_recursive_init (os_mutex_attr_t* attr)
 const os_mutex_attr_t*
 os_mutex_attr_get_recursive (void)
 {
-  return (const os_mutex_attr_t*) &mutex::initializer_recursive;
+  return (const os_mutex_attr_t*)&mutex::initializer_recursive;
 }
 
 /**
@@ -1593,9 +1765,9 @@ os_mutex_construct (os_mutex_t* mutex, const char* name,
   assert (mutex != nullptr);
   if (attr == nullptr)
     {
-      attr = (const os_mutex_attr_t*) &mutex::initializer_normal;
+      attr = (const os_mutex_attr_t*)&mutex::initializer_normal;
     }
-  new (mutex) rtos::mutex (name, (const mutex::attributes&) *attr);
+  new (mutex) rtos::mutex (name, (const mutex::attributes&)*attr);
 }
 
 /**
@@ -1615,9 +1787,9 @@ os_mutex_recursive_construct (os_mutex_t* mutex, const char* name,
   assert (mutex != nullptr);
   if (attr == nullptr)
     {
-      attr = (const os_mutex_attr_t*) &mutex::initializer_recursive;
+      attr = (const os_mutex_attr_t*)&mutex::initializer_recursive;
     }
-  new (mutex) rtos::mutex_recursive (name, (const mutex::attributes&) *attr);
+  new (mutex) rtos::mutex_recursive (name, (const mutex::attributes&)*attr);
 }
 
 /**
@@ -1657,10 +1829,10 @@ os_mutex_new (const char* name, const os_mutex_attr_t* attr)
 {
   if (attr == nullptr)
     {
-      attr = (const os_mutex_attr_t*) &mutex::initializer_normal;
+      attr = (const os_mutex_attr_t*)&mutex::initializer_normal;
     }
-  return reinterpret_cast<os_mutex_t*> (new rtos::mutex (
-      name, (const mutex::attributes&) *attr));
+  return reinterpret_cast<os_mutex_t*> (
+      new rtos::mutex (name, (const mutex::attributes&)*attr));
 }
 
 /**
@@ -1682,10 +1854,10 @@ os_mutex_recursive_new (const char* name, const os_mutex_attr_t* attr)
 {
   if (attr == nullptr)
     {
-      attr = (const os_mutex_attr_t*) &mutex::initializer_recursive;
+      attr = (const os_mutex_attr_t*)&mutex::initializer_recursive;
     }
-  return reinterpret_cast<os_mutex_t*> (new rtos::mutex_recursive (
-      name, (const mutex::attributes&) *attr));
+  return reinterpret_cast<os_mutex_t*> (
+      new rtos::mutex_recursive (name, (const mutex::attributes&)*attr));
 }
 
 /**
@@ -1767,8 +1939,8 @@ os_result_t
 os_mutex_timed_lock (os_mutex_t* mutex, os_clock_duration_t timeout)
 {
   assert (mutex != nullptr);
-  return (os_result_t) (reinterpret_cast<rtos::mutex&> (*mutex)).timed_lock (
-      timeout);
+  return (os_result_t) (reinterpret_cast<rtos::mutex&> (*mutex))
+      .timed_lock (timeout);
 }
 
 /**
@@ -1798,7 +1970,8 @@ os_thread_prio_t
 os_mutex_get_prio_ceiling (os_mutex_t* mutex)
 {
   assert (mutex != nullptr);
-  return (os_thread_prio_t) (reinterpret_cast<rtos::mutex&> (*mutex)).prio_ceiling ();
+  return (os_thread_prio_t) (reinterpret_cast<rtos::mutex&> (*mutex))
+      .prio_ceiling ();
 }
 
 /**
@@ -1814,8 +1987,8 @@ os_mutex_set_prio_ceiling (os_mutex_t* mutex, os_thread_prio_t prio_ceiling,
                            os_thread_prio_t* old_prio_ceiling)
 {
   assert (mutex != nullptr);
-  return (os_result_t) (reinterpret_cast<rtos::mutex&> (*mutex)).prio_ceiling (
-      prio_ceiling, old_prio_ceiling);
+  return (os_result_t) (reinterpret_cast<rtos::mutex&> (*mutex))
+      .prio_ceiling (prio_ceiling, old_prio_ceiling);
 }
 
 /**
@@ -1845,7 +2018,7 @@ os_thread_t*
 os_mutex_get_owner (os_mutex_t* mutex)
 {
   assert (mutex != nullptr);
-  return (os_thread_t*) (reinterpret_cast<rtos::mutex&> (*mutex)).owner ();
+  return (os_thread_t*)(reinterpret_cast<rtos::mutex&> (*mutex)).owner ();
 }
 
 /**
@@ -1942,10 +2115,10 @@ os_condvar_construct (os_condvar_t* condvar, const char* name,
   assert (condvar != nullptr);
   if (attr == nullptr)
     {
-      attr = (const os_condvar_attr_t*) &condition_variable::initializer;
+      attr = (const os_condvar_attr_t*)&condition_variable::initializer;
     }
-  new (condvar) condition_variable (name,
-                                    (const condition_variable::attributes&) *attr);
+  new (condvar)
+      condition_variable (name, (const condition_variable::attributes&)*attr);
 }
 
 /**
@@ -1984,10 +2157,10 @@ os_condvar_new (const char* name, const os_condvar_attr_t* attr)
 {
   if (attr == nullptr)
     {
-      attr = (const os_condvar_attr_t*) &condition_variable::initializer;
+      attr = (const os_condvar_attr_t*)&condition_variable::initializer;
     }
   return reinterpret_cast<os_condvar_t*> (new condition_variable (
-      name, (const condition_variable::attributes&) *attr));
+      name, (const condition_variable::attributes&)*attr));
 }
 
 /**
@@ -2038,7 +2211,8 @@ os_result_t
 os_condvar_signal (os_condvar_t* condvar)
 {
   assert (condvar != nullptr);
-  return (os_result_t) (reinterpret_cast<condition_variable&> (*condvar)).signal ();
+  return (os_result_t) (reinterpret_cast<condition_variable&> (*condvar))
+      .signal ();
 }
 
 /**
@@ -2053,7 +2227,8 @@ os_result_t
 os_condvar_broadcast (os_condvar_t* condvar)
 {
   assert (condvar != nullptr);
-  return (os_result_t) (reinterpret_cast<condition_variable&> (*condvar)).broadcast ();
+  return (os_result_t) (reinterpret_cast<condition_variable&> (*condvar))
+      .broadcast ();
 }
 
 /**
@@ -2068,8 +2243,8 @@ os_result_t
 os_condvar_wait (os_condvar_t* condvar, os_mutex_t* mutex)
 {
   assert (condvar != nullptr);
-  return (os_result_t) (reinterpret_cast<condition_variable&> (*condvar)).wait (
-      reinterpret_cast<rtos::mutex&> (*mutex));
+  return (os_result_t) (reinterpret_cast<condition_variable&> (*condvar))
+      .wait (reinterpret_cast<rtos::mutex&> (*mutex));
 }
 
 /**
@@ -2085,8 +2260,8 @@ os_condvar_timed_wait (os_condvar_t* condvar, os_mutex_t* mutex,
                        os_clock_duration_t timeout)
 {
   assert (condvar != nullptr);
-  return (os_result_t) (reinterpret_cast<condition_variable&> (*condvar)).timed_wait (
-      reinterpret_cast<rtos::mutex&> (*mutex), timeout);
+  return (os_result_t) (reinterpret_cast<condition_variable&> (*condvar))
+      .timed_wait (reinterpret_cast<rtos::mutex&> (*mutex), timeout);
 }
 
 // ----------------------------------------------------------------------------
@@ -2103,8 +2278,7 @@ void
 os_semaphore_attr_init (os_semaphore_attr_t* attr)
 {
   assert (attr != nullptr);
-  new (attr) semaphore::attributes
-    { };
+  new (attr) semaphore::attributes{};
 }
 
 /**
@@ -2120,8 +2294,7 @@ os_semaphore_attr_binary_init (os_semaphore_attr_t* attr,
                                const os_semaphore_count_t initial_value)
 {
   assert (attr != nullptr);
-  new (attr) semaphore::attributes_binary
-    { initial_value };
+  new (attr) semaphore::attributes_binary{ initial_value };
 }
 
 /**
@@ -2138,8 +2311,7 @@ os_semaphore_attr_counting_init (os_semaphore_attr_t* attr,
                                  const os_semaphore_count_t initial_value)
 {
   assert (attr != nullptr);
-  new (attr) semaphore::attributes_counting
-    { max_value, initial_value };
+  new (attr) semaphore::attributes_counting{ max_value, initial_value };
 }
 
 /**
@@ -2153,7 +2325,7 @@ os_semaphore_attr_counting_init (os_semaphore_attr_t* attr,
 const os_semaphore_attr_t*
 os_semaphore_attr_get_binary (void)
 {
-  return (const os_semaphore_attr_t*) &semaphore::initializer_binary;
+  return (const os_semaphore_attr_t*)&semaphore::initializer_binary;
 }
 
 /**
@@ -2173,10 +2345,9 @@ os_semaphore_construct (os_semaphore_t* semaphore, const char* name,
   assert (semaphore != nullptr);
   if (attr == nullptr)
     {
-      attr = (const os_semaphore_attr_t*) &semaphore::initializer_binary;
+      attr = (const os_semaphore_attr_t*)&semaphore::initializer_binary;
     }
-  new (semaphore) rtos::semaphore
-    { name, (const semaphore::attributes&) *attr };
+  new (semaphore) rtos::semaphore{ name, (const semaphore::attributes&)*attr };
 }
 
 /**
@@ -2194,8 +2365,7 @@ os_semaphore_binary_construct (os_semaphore_t* semaphore, const char* name,
                                const os_semaphore_count_t initial_value)
 {
   assert (semaphore != nullptr);
-  new (semaphore) rtos::semaphore_binary
-    { name, initial_value };
+  new (semaphore) rtos::semaphore_binary{ name, initial_value };
 }
 
 /**
@@ -2214,8 +2384,7 @@ os_semaphore_counting_construct (os_semaphore_t* semaphore, const char* name,
                                  const os_semaphore_count_t initial_value)
 {
   assert (semaphore != nullptr);
-  new (semaphore) rtos::semaphore_counting
-    { name, max_value, initial_value };
+  new (semaphore) rtos::semaphore_counting{ name, max_value, initial_value };
 }
 
 /**
@@ -2255,10 +2424,10 @@ os_semaphore_new (const char* name, const os_semaphore_attr_t* attr)
 {
   if (attr == nullptr)
     {
-      attr = (const os_semaphore_attr_t*) &semaphore::initializer_binary;
+      attr = (const os_semaphore_attr_t*)&semaphore::initializer_binary;
     }
-  return reinterpret_cast<os_semaphore_t*> (new rtos::semaphore
-    { name, (const semaphore::attributes&) *attr });
+  return reinterpret_cast<os_semaphore_t*> (
+      new rtos::semaphore{ name, (const semaphore::attributes&)*attr });
 }
 
 /**
@@ -2279,8 +2448,8 @@ os_semaphore_t*
 os_semaphore_binary_new (const char* name,
                          const os_semaphore_count_t initial_value)
 {
-  return reinterpret_cast<os_semaphore_t*> (new rtos::semaphore_binary
-    { name, initial_value });
+  return reinterpret_cast<os_semaphore_t*> (
+      new rtos::semaphore_binary{ name, initial_value });
 }
 
 /**
@@ -2302,8 +2471,8 @@ os_semaphore_counting_new (const char* name,
                            const os_semaphore_count_t max_value,
                            const os_semaphore_count_t initial_value)
 {
-  return reinterpret_cast<os_semaphore_t*> (new rtos::semaphore_counting
-    { name, max_value, initial_value });
+  return reinterpret_cast<os_semaphore_t*> (
+      new rtos::semaphore_counting{ name, max_value, initial_value });
 }
 
 /**
@@ -2355,7 +2524,8 @@ os_result_t
 os_semaphore_post (os_semaphore_t* semaphore)
 {
   assert (semaphore != nullptr);
-  return (os_result_t) (reinterpret_cast<rtos::semaphore&> (*semaphore)).post ();
+  return (os_result_t) (reinterpret_cast<rtos::semaphore&> (*semaphore))
+      .post ();
 }
 
 /**
@@ -2370,7 +2540,8 @@ os_result_t
 os_semaphore_wait (os_semaphore_t* semaphore)
 {
   assert (semaphore != nullptr);
-  return (os_result_t) (reinterpret_cast<rtos::semaphore&> (*semaphore)).wait ();
+  return (os_result_t) (reinterpret_cast<rtos::semaphore&> (*semaphore))
+      .wait ();
 }
 
 /**
@@ -2385,7 +2556,8 @@ os_result_t
 os_semaphore_try_wait (os_semaphore_t* semaphore)
 {
   assert (semaphore != nullptr);
-  return (os_result_t) (reinterpret_cast<rtos::semaphore&> (*semaphore)).try_wait ();
+  return (os_result_t) (reinterpret_cast<rtos::semaphore&> (*semaphore))
+      .try_wait ();
 }
 
 /**
@@ -2397,11 +2569,12 @@ os_semaphore_try_wait (os_semaphore_t* semaphore)
  *  @ref os::rtos::semaphore::timed_wait()
  */
 os_result_t
-os_semaphore_timed_wait (os_semaphore_t* semaphore, os_clock_duration_t timeout)
+os_semaphore_timed_wait (os_semaphore_t* semaphore,
+                         os_clock_duration_t timeout)
 {
   assert (semaphore != nullptr);
-  return (os_result_t) (reinterpret_cast<rtos::semaphore&> (*semaphore)).timed_wait (
-      timeout);
+  return (os_result_t) (reinterpret_cast<rtos::semaphore&> (*semaphore))
+      .timed_wait (timeout);
 }
 
 /**
@@ -2416,7 +2589,9 @@ os_semaphore_count_t
 os_semaphore_get_value (os_semaphore_t* semaphore)
 {
   assert (semaphore != nullptr);
-  return (os_semaphore_count_t) (reinterpret_cast<rtos::semaphore&> (*semaphore)).value ();
+  return (os_semaphore_count_t) (
+             reinterpret_cast<rtos::semaphore&> (*semaphore))
+      .value ();
 }
 
 /**
@@ -2431,7 +2606,8 @@ os_result_t
 os_semaphore_reset (os_semaphore_t* semaphore)
 {
   assert (semaphore != nullptr);
-  return (os_result_t) (reinterpret_cast<rtos::semaphore&> (*semaphore)).reset ();
+  return (os_result_t) (reinterpret_cast<rtos::semaphore&> (*semaphore))
+      .reset ();
 }
 
 /**
@@ -2446,7 +2622,9 @@ os_semaphore_count_t
 os_semaphore_get_initial_value (os_semaphore_t* semaphore)
 {
   assert (semaphore != nullptr);
-  return (os_semaphore_count_t) (reinterpret_cast<rtos::semaphore&> (*semaphore)).initial_value ();
+  return (os_semaphore_count_t) (
+             reinterpret_cast<rtos::semaphore&> (*semaphore))
+      .initial_value ();
 }
 
 /**
@@ -2461,7 +2639,9 @@ os_semaphore_count_t
 os_semaphore_get_max_value (os_semaphore_t* semaphore)
 {
   assert (semaphore != nullptr);
-  return (os_semaphore_count_t) (reinterpret_cast<rtos::semaphore&> (*semaphore)).max_value ();
+  return (os_semaphore_count_t) (
+             reinterpret_cast<rtos::semaphore&> (*semaphore))
+      .max_value ();
 }
 
 // ----------------------------------------------------------------------------
@@ -2498,10 +2678,10 @@ os_mempool_construct (os_mempool_t* mempool, const char* name, size_t blocks,
   assert (mempool != nullptr);
   if (attr == nullptr)
     {
-      attr = (const os_mempool_attr_t*) &memory_pool::initializer;
+      attr = (const os_mempool_attr_t*)&memory_pool::initializer;
     }
   new (mempool) memory_pool (name, blocks, block_size_bytes,
-                             (const memory_pool::attributes&) *attr);
+                             (const memory_pool::attributes&)*attr);
 }
 
 /**
@@ -2541,10 +2721,10 @@ os_mempool_new (const char* name, size_t blocks, size_t block_size_bytes,
 {
   if (attr == nullptr)
     {
-      attr = (const os_mempool_attr_t*) &memory_pool::initializer;
+      attr = (const os_mempool_attr_t*)&memory_pool::initializer;
     }
   return reinterpret_cast<os_mempool_t*> (new memory_pool (
-      name, blocks, block_size_bytes, (const memory_pool::attributes&) *attr));
+      name, blocks, block_size_bytes, (const memory_pool::attributes&)*attr));
 }
 
 /**
@@ -2640,7 +2820,8 @@ os_result_t
 os_mempool_free (os_mempool_t* mempool, void* block)
 {
   assert (mempool != nullptr);
-  return (os_result_t) (reinterpret_cast<memory_pool&> (*mempool)).free (block);
+  return (os_result_t) (reinterpret_cast<memory_pool&> (*mempool))
+      .free (block);
 }
 
 /**
@@ -2745,10 +2926,10 @@ void*
 os_mempool_get_pool (os_mempool_t* mempool)
 {
   assert (mempool != nullptr);
-  return (void*) (reinterpret_cast<memory_pool&> (*mempool)).pool ();
+  return (void*)(reinterpret_cast<memory_pool&> (*mempool)).pool ();
 }
 
-// --------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
 
 /**
  * @details
@@ -2782,10 +2963,10 @@ os_mqueue_construct (os_mqueue_t* mqueue, const char* name, size_t msgs,
   assert (mqueue != nullptr);
   if (attr == nullptr)
     {
-      attr = (const os_mqueue_attr_t*) &message_queue::initializer;
+      attr = (const os_mqueue_attr_t*)&message_queue::initializer;
     }
   new (mqueue) message_queue (name, msgs, msg_size_bytes,
-                              (const message_queue::attributes&) *attr);
+                              (const message_queue::attributes&)*attr);
 }
 
 /**
@@ -2825,10 +3006,10 @@ os_mqueue_new (const char* name, size_t msgs, size_t msg_size_bytes,
 {
   if (attr == nullptr)
     {
-      attr = (const os_mqueue_attr_t*) &message_queue::initializer;
+      attr = (const os_mqueue_attr_t*)&message_queue::initializer;
     }
   return reinterpret_cast<os_mqueue_t*> (new message_queue (
-      name, msgs, msg_size_bytes, (const message_queue::attributes&) *attr));
+      name, msgs, msg_size_bytes, (const message_queue::attributes&)*attr));
 }
 
 /**
@@ -2880,8 +3061,8 @@ os_mqueue_send (os_mqueue_t* mqueue, const void* msg, size_t nbytes,
                 os_mqueue_prio_t mprio)
 {
   assert (mqueue != nullptr);
-  return (os_result_t) (reinterpret_cast<message_queue&> (*mqueue)).send (
-      msg, nbytes, mprio);
+  return (os_result_t) (reinterpret_cast<message_queue&> (*mqueue))
+      .send (msg, nbytes, mprio);
 }
 
 /**
@@ -2897,8 +3078,8 @@ os_mqueue_try_send (os_mqueue_t* mqueue, const void* msg, size_t nbytes,
                     os_mqueue_prio_t mprio)
 {
   assert (mqueue != nullptr);
-  return (os_result_t) (reinterpret_cast<message_queue&> (*mqueue)).try_send (
-      msg, nbytes, mprio);
+  return (os_result_t) (reinterpret_cast<message_queue&> (*mqueue))
+      .try_send (msg, nbytes, mprio);
 }
 
 /**
@@ -2914,8 +3095,8 @@ os_mqueue_timed_send (os_mqueue_t* mqueue, const void* msg, size_t nbytes,
                       os_clock_duration_t timeout, os_mqueue_prio_t mprio)
 {
   assert (mqueue != nullptr);
-  return (os_result_t) (reinterpret_cast<message_queue&> (*mqueue)).timed_send (
-      msg, nbytes, timeout, mprio);
+  return (os_result_t) (reinterpret_cast<message_queue&> (*mqueue))
+      .timed_send (msg, nbytes, timeout, mprio);
 }
 
 /**
@@ -2931,8 +3112,8 @@ os_mqueue_receive (os_mqueue_t* mqueue, void* msg, size_t nbytes,
                    os_mqueue_prio_t* mprio)
 {
   assert (mqueue != nullptr);
-  return (os_result_t) (reinterpret_cast<message_queue&> (*mqueue)).receive (
-      msg, nbytes, mprio);
+  return (os_result_t) (reinterpret_cast<message_queue&> (*mqueue))
+      .receive (msg, nbytes, mprio);
 }
 
 /**
@@ -2948,8 +3129,8 @@ os_mqueue_try_receive (os_mqueue_t* mqueue, void* msg, size_t nbytes,
                        os_mqueue_prio_t* mprio)
 {
   assert (mqueue != nullptr);
-  return (os_result_t) (reinterpret_cast<message_queue&> (*mqueue)).try_receive (
-      msg, nbytes, mprio);
+  return (os_result_t) (reinterpret_cast<message_queue&> (*mqueue))
+      .try_receive (msg, nbytes, mprio);
 }
 
 /**
@@ -2965,8 +3146,8 @@ os_mqueue_timed_receive (os_mqueue_t* mqueue, void* msg, size_t nbytes,
                          os_clock_duration_t timeout, os_mqueue_prio_t* mprio)
 {
   assert (mqueue != nullptr);
-  return (os_result_t) (reinterpret_cast<message_queue&> (*mqueue)).timed_receive (
-      msg, nbytes, timeout, mprio);
+  return (os_result_t) (reinterpret_cast<message_queue&> (*mqueue))
+      .timed_receive (msg, nbytes, timeout, mprio);
 }
 
 /**
@@ -3059,7 +3240,7 @@ os_mqueue_reset (os_mqueue_t* mqueue)
   return (os_result_t) (reinterpret_cast<message_queue&> (*mqueue)).reset ();
 }
 
-// --------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
 
 /**
  * @details
@@ -3093,9 +3274,9 @@ os_evflags_construct (os_evflags_t* evflags, const char* name,
   assert (evflags != nullptr);
   if (attr == nullptr)
     {
-      attr = (const os_evflags_attr_t*) &event_flags::initializer;
+      attr = (const os_evflags_attr_t*)&event_flags::initializer;
     }
-  new (evflags) event_flags (name, (const event_flags::attributes&) *attr);
+  new (evflags) event_flags (name, (const event_flags::attributes&)*attr);
 }
 
 /**
@@ -3134,10 +3315,10 @@ os_evflags_new (const char* name, const os_evflags_attr_t* attr)
 {
   if (attr == nullptr)
     {
-      attr = (const os_evflags_attr_t*) &event_flags::initializer;
+      attr = (const os_evflags_attr_t*)&event_flags::initializer;
     }
-  return reinterpret_cast<os_evflags_t*> (new event_flags (
-      name, (const event_flags::attributes&) *attr));
+  return reinterpret_cast<os_evflags_t*> (
+      new event_flags (name, (const event_flags::attributes&)*attr));
 }
 
 /**
@@ -3189,9 +3370,8 @@ os_evflags_wait (os_evflags_t* evflags, os_flags_mask_t mask,
                  os_flags_mask_t* oflags, os_flags_mode_t mode)
 {
   assert (evflags != nullptr);
-  return (os_result_t) (reinterpret_cast<event_flags&> (*evflags)).wait (mask,
-                                                                         oflags,
-                                                                         mode);
+  return (os_result_t) (reinterpret_cast<event_flags&> (*evflags))
+      .wait (mask, oflags, mode);
 }
 
 /**
@@ -3207,8 +3387,8 @@ os_evflags_try_wait (os_evflags_t* evflags, os_flags_mask_t mask,
                      os_flags_mask_t* oflags, os_flags_mode_t mode)
 {
   assert (evflags != nullptr);
-  return (os_result_t) (reinterpret_cast<event_flags&> (*evflags)).try_wait (
-      mask, oflags, mode);
+  return (os_result_t) (reinterpret_cast<event_flags&> (*evflags))
+      .try_wait (mask, oflags, mode);
 }
 
 /**
@@ -3225,8 +3405,8 @@ os_evflags_timed_wait (os_evflags_t* evflags, os_flags_mask_t mask,
                        os_flags_mode_t mode)
 {
   assert (evflags != nullptr);
-  return (os_result_t) (reinterpret_cast<event_flags&> (*evflags)).timed_wait (
-      mask, timeout, oflags, mode);
+  return (os_result_t) (reinterpret_cast<event_flags&> (*evflags))
+      .timed_wait (mask, timeout, oflags, mode);
 }
 
 /**
@@ -3242,8 +3422,8 @@ os_evflags_raise (os_evflags_t* evflags, os_flags_mask_t mask,
                   os_flags_mask_t* oflags)
 {
   assert (evflags != nullptr);
-  return (os_result_t) (reinterpret_cast<event_flags&> (*evflags)).raise (
-      mask, oflags);
+  return (os_result_t) (reinterpret_cast<event_flags&> (*evflags))
+      .raise (mask, oflags);
 }
 
 /**
@@ -3259,8 +3439,8 @@ os_evflags_clear (os_evflags_t* evflags, os_flags_mask_t mask,
                   os_flags_mask_t* oflags)
 {
   assert (evflags != nullptr);
-  return (os_result_t) (reinterpret_cast<event_flags&> (*evflags)).clear (
-      mask, oflags);
+  return (os_result_t) (reinterpret_cast<event_flags&> (*evflags))
+      .clear (mask, oflags);
 }
 
 /**
@@ -3276,8 +3456,8 @@ os_evflags_get (os_evflags_t* evflags, os_flags_mask_t mask,
                 os_flags_mode_t mode)
 {
   assert (evflags != nullptr);
-  return (os_flags_mask_t) (reinterpret_cast<event_flags&> (*evflags)).get (
-      mask, mode);
+  return (os_flags_mask_t) (reinterpret_cast<event_flags&> (*evflags))
+      .get (mask, mode);
 }
 
 /**
@@ -3295,7 +3475,7 @@ os_evflags_are_waiting (os_evflags_t* evflags)
   return (reinterpret_cast<event_flags&> (*evflags)).waiting ();
 }
 
-// --------------------------------------------------------------------------
+// ----------------------------------------------------------------------------
 
 /**
  * @details
@@ -3308,7 +3488,8 @@ os_evflags_are_waiting (os_evflags_t* evflags)
 os_memory_t*
 os_memory_get_default (void)
 {
-  return reinterpret_cast<os_memory_t*> (rtos::memory::get_default_resource ());
+  return reinterpret_cast<os_memory_t*> (
+      rtos::memory::get_default_resource ());
 }
 
 /**
@@ -3324,8 +3505,8 @@ void*
 os_memory_allocate (os_memory_t* memory, size_t bytes, size_t alignment)
 {
   assert (memory != nullptr);
-  return (reinterpret_cast<rtos::memory::memory_resource&> (*memory)).allocate (
-      bytes, alignment);
+  return (reinterpret_cast<rtos::memory::memory_resource&> (*memory))
+      .allocate (bytes, alignment);
 }
 
 /**
@@ -3342,8 +3523,8 @@ os_memory_deallocate (os_memory_t* memory, void* addr, size_t bytes,
                       size_t alignment)
 {
   assert (memory != nullptr);
-  (reinterpret_cast<rtos::memory::memory_resource&> (*memory)).deallocate (
-      addr, bytes, alignment);
+  (reinterpret_cast<rtos::memory::memory_resource&> (*memory))
+      .deallocate (addr, bytes, alignment);
 }
 
 /**
@@ -3375,7 +3556,8 @@ bool
 os_memory_coalesce (os_memory_t* memory)
 {
   assert (memory != nullptr);
-  return (reinterpret_cast<rtos::memory::memory_resource&> (*memory)).coalesce ();
+  return (reinterpret_cast<rtos::memory::memory_resource&> (*memory))
+      .coalesce ();
 }
 
 /**
@@ -3391,7 +3573,8 @@ size_t
 os_memory_get_total_bytes (os_memory_t* memory)
 {
   assert (memory != nullptr);
-  return (reinterpret_cast<rtos::memory::memory_resource&> (*memory)).total_bytes ();
+  return (reinterpret_cast<rtos::memory::memory_resource&> (*memory))
+      .total_bytes ();
 }
 
 /**
@@ -3407,7 +3590,8 @@ size_t
 os_memory_get_allocated_bytes (os_memory_t* memory)
 {
   assert (memory != nullptr);
-  return (reinterpret_cast<rtos::memory::memory_resource&> (*memory)).allocated_bytes ();
+  return (reinterpret_cast<rtos::memory::memory_resource&> (*memory))
+      .allocated_bytes ();
 }
 
 /**
@@ -3423,7 +3607,8 @@ size_t
 os_memory_get_free_bytes (os_memory_t* memory)
 {
   assert (memory != nullptr);
-  return (reinterpret_cast<rtos::memory::memory_resource&> (*memory)).free_bytes ();
+  return (reinterpret_cast<rtos::memory::memory_resource&> (*memory))
+      .free_bytes ();
 }
 
 /**
@@ -3439,7 +3624,8 @@ size_t
 os_memory_get_allocated_chunks (os_memory_t* memory)
 {
   assert (memory != nullptr);
-  return (reinterpret_cast<rtos::memory::memory_resource&> (*memory)).allocated_chunks ();
+  return (reinterpret_cast<rtos::memory::memory_resource&> (*memory))
+      .allocated_chunks ();
 }
 
 /**
@@ -3455,7 +3641,8 @@ size_t
 os_memory_get_free_chunks (os_memory_t* memory)
 {
   assert (memory != nullptr);
-  return (reinterpret_cast<rtos::memory::memory_resource&> (*memory)).free_chunks ();
+  return (reinterpret_cast<rtos::memory::memory_resource&> (*memory))
+      .free_chunks ();
 }
 
 // ----------------------------------------------------------------------------
