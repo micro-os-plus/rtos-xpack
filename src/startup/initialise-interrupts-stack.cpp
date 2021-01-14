@@ -25,7 +25,8 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#if (! (defined(__APPLE__) || defined(__linux__) || defined(__unix__))) || defined(__DOXYGEN__)
+#if (!(defined(__APPLE__) || defined(__linux__) || defined(__unix__))) \
+    || defined(__DOXYGEN__)
 
 // ----------------------------------------------------------------------------
 
@@ -41,11 +42,12 @@ void
 os_startup_initialize_interrupts_stack (void* stack_begin_address,
                                         size_t stack_size_bytes)
 {
-  trace::printf ("%s(%p,%u)\n", __func__, stack_begin_address, stack_size_bytes);
+  trace::printf ("%s(%p,%u)\n", __func__, stack_begin_address,
+                 stack_size_bytes);
 
-  os::rtos::interrupts::stack ()->set(
-		  (os::rtos::thread::stack::element_t*)stack_begin_address,
-		  stack_size_bytes);
+  os::rtos::interrupts::stack ()->set (
+      (os::rtos::thread::stack::element_t*)stack_begin_address,
+      stack_size_bytes);
 }
 
 // ----------------------------------------------------------------------------

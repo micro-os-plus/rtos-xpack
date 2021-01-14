@@ -53,7 +53,6 @@ namespace os
     class mutex : public internal::object_named_system
     {
     public:
-
       /**
        * @brief Type of variables holding mutex protocols.
        * @ingroup cmsis-plus-rtos-mutex
@@ -70,33 +69,32 @@ namespace os
         /**
          * @brief Enumeration of mutex protocols.
          */
-        enum
-          : protocol_t
-            {
-              /**
-               * @brief Priority and scheduling not affected by mutex ownership.
-               */
-              none = 0,
+        enum : protocol_t
+        {
+          /**
+           * @brief Priority and scheduling not affected by mutex ownership.
+           */
+          none = 0,
 
-              /**
-               * @brief Inherit priority from highest priority thread.
-               */
-              inherit = 1,
+          /**
+           * @brief Inherit priority from highest priority thread.
+           */
+          inherit = 1,
 
-              /**
-               * @brief Execute at the highest priority.
-               */
-              protect = 2,
+          /**
+           * @brief Execute at the highest priority.
+           */
+          protect = 2,
 
-              /**
-               * @brief Default value. Differs from POSIX, which uses `none`.
-               */
-              default_ = inherit,
+          /**
+           * @brief Default value. Differs from POSIX, which uses `none`.
+           */
+          default_ = inherit,
 
-              /**
-               * @brief Maximum value, for validation purposes.
-               */
-              max_ = protect,
+          /**
+           * @brief Maximum value, for validation purposes.
+           */
+          max_ = protect,
         };
       };
 
@@ -116,28 +114,27 @@ namespace os
         /**
          * @brief Enumeration of mutex robustness.
          */
-        enum
-          : robustness_t
-            {
-              /**
-               * @brief Normal robustness.
-               */
-              stalled = 0,
+        enum : robustness_t
+        {
+          /**
+           * @brief Normal robustness.
+           */
+          stalled = 0,
 
-              /**
-               * @brief Enhanced robustness at thread termination.
-               */
-              robust = 1,
+          /**
+           * @brief Enhanced robustness at thread termination.
+           */
+          robust = 1,
 
-              /**
-               * @brief Default value.
-               */
-              default_ = stalled,
+          /**
+           * @brief Default value.
+           */
+          default_ = stalled,
 
-              /**
-               * @brief Maximum value, for validation purposes.
-               */
-              max_ = robust,
+          /**
+           * @brief Maximum value, for validation purposes.
+           */
+          max_ = robust,
         };
       };
 
@@ -157,31 +154,30 @@ namespace os
         /**
          * @brief Mutex types.
          */
-        enum
-          : type_t
-            {
-              /**
-               * @brief Normal mutex behaviour.
-               */
-              normal = 0,
-              /**
-               * @brief Check mutex behaviour.
-               */
-              errorcheck = 1,
-              /**
-               * @brief Recursive mutex behaviour.
-               */
-              recursive = 2,
+        enum : type_t
+        {
+          /**
+           * @brief Normal mutex behaviour.
+           */
+          normal = 0,
+          /**
+           * @brief Check mutex behaviour.
+           */
+          errorcheck = 1,
+          /**
+           * @brief Recursive mutex behaviour.
+           */
+          recursive = 2,
 
-              /**
-               * @brief Default value.
-               */
-              default_ = normal,
+          /**
+           * @brief Default value.
+           */
+          default_ = normal,
 
-              /**
-               * @brief Maximum value, for validation purposes.
-               */
-              max_ = recursive,
+          /**
+           * @brief Maximum value, for validation purposes.
+           */
+          max_ = recursive,
         };
       };
 
@@ -207,7 +203,6 @@ namespace os
       class attributes : public internal::attributes_clocked
       {
       public:
-
         /**
          * @name Constructors & Destructor
          * @{
@@ -218,31 +213,29 @@ namespace os
          * @par Parameters
          *  None.
          */
-        constexpr
-        attributes ();
+        constexpr attributes ();
 
       protected:
-
         /**
          * @cond ignore
          */
 
-        constexpr
-        attributes (type_t type);
+        constexpr attributes (type_t type);
 
         /**
          * @endcond
          */
 
       public:
-
         // The rule of five.
         attributes (const attributes&) = default;
         attributes (attributes&&) = default;
         attributes&
-        operator= (const attributes&) = default;
+        operator= (const attributes&)
+            = default;
         attributes&
-        operator= (attributes&&) = default;
+        operator= (attributes&&)
+            = default;
 
         /**
          * @brief Destruct the mutex attributes object instance.
@@ -254,7 +247,6 @@ namespace os
          */
 
       public:
-
         /**
          * @name Public Member Variables
          * @{
@@ -311,7 +303,6 @@ namespace os
       class attributes_recursive : public attributes
       {
       public:
-
         /**
          * @name Constructors & Destructor
          * @{
@@ -322,16 +313,17 @@ namespace os
          * @par Parameters
          *  None.
          */
-        constexpr
-        attributes_recursive ();
+        constexpr attributes_recursive ();
 
         // The rule of five.
         attributes_recursive (const attributes_recursive&) = default;
         attributes_recursive (attributes_recursive&&) = default;
         attributes_recursive&
-        operator= (const attributes_recursive&) = default;
+        operator= (const attributes_recursive&)
+            = default;
         attributes_recursive&
-        operator= (attributes_recursive&&) = default;
+        operator= (attributes_recursive&&)
+            = default;
 
         /**
          * @brief Destruct the recursive mutex attributes object instance.
@@ -376,9 +368,11 @@ namespace os
       mutex (const mutex&) = delete;
       mutex (mutex&&) = delete;
       mutex&
-      operator= (const mutex&) = delete;
+      operator= (const mutex&)
+          = delete;
       mutex&
-      operator= (mutex&&) = delete;
+      operator= (mutex&&)
+          = delete;
 
       /**
        * @endcond
@@ -411,7 +405,6 @@ namespace os
        */
 
     public:
-
       /**
        * @name Public Member Functions
        * @{
@@ -469,7 +462,8 @@ namespace os
 
       /**
        * @brief Timed attempt to lock/acquire the mutex.
-       * @param [in] timeout Timeout to wait, in clock units (ticks or seconds).
+       * @param [in] timeout Timeout to wait, in clock units (ticks or
+       * seconds).
        * @retval result::ok The mutex was locked.
        * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
        * @retval ETIMEDOUT The mutex could not be locked before the
@@ -597,7 +591,6 @@ namespace os
        */
 
     protected:
-
       friend class thread;
 
       /**
@@ -646,7 +639,6 @@ namespace os
        */
 
     protected:
-
       /**
        * @name Private Member Variables
        * @{
@@ -665,13 +657,11 @@ namespace os
 #endif
 
     public:
-
       // Intrusive node used to link this mutex to the owning thread.
       // This is used for priority inheritance and robustness.
       utils::double_list_links owner_links_;
 
     protected:
-
 #if defined(OS_USE_RTOS_PORT_MUTEX)
       friend class port::mutex;
       os_mutex_port_data_t port_;
@@ -681,8 +671,8 @@ namespace os
       volatile count_t count_ = 0;
 
       // Can be updated in different thread contexts.
-      volatile thread::priority_t initial_prio_ceiling_ =
-          thread::priority::highest;
+      volatile thread::priority_t initial_prio_ceiling_
+          = thread::priority::highest;
       volatile thread::priority_t prio_ceiling_ = thread::priority::highest;
       volatile thread::priority_t boosted_prio_ = thread::priority::none;
 
@@ -705,7 +695,6 @@ namespace os
       /**
        * @}
        */
-
     };
 
     /**
@@ -716,7 +705,6 @@ namespace os
     class mutex_recursive : public mutex
     {
     public:
-
       /**
        * @name Constructors & Destructor
        * @{
@@ -730,8 +718,8 @@ namespace os
       /**
        * @brief Construct a named recursive mutex object instance.
        */
-      mutex_recursive (const char* name, const attributes& attr =
-                           initializer_recursive);
+      mutex_recursive (const char* name,
+                       const attributes& attr = initializer_recursive);
 
       /**
        * @cond ignore
@@ -741,9 +729,11 @@ namespace os
       mutex_recursive (const mutex_recursive&) = delete;
       mutex_recursive (mutex_recursive&&) = delete;
       mutex_recursive&
-      operator= (const mutex_recursive&) = delete;
+      operator= (const mutex_recursive&)
+          = delete;
       mutex_recursive&
-      operator= (mutex_recursive&&) = delete;
+      operator= (mutex_recursive&&)
+          = delete;
 
       /**
        * @endcond
@@ -774,15 +764,14 @@ namespace os
       /**
        * @}
        */
-
     };
 
 #pragma GCC diagnostic pop
 
-  // ==========================================================================
+    // ==========================================================================
 
-  } /* namespace rtos */
-} /* namespace os */
+  } // namespace rtos
+} // namespace os
 
 // ===== Inline & template implementations ====================================
 
@@ -793,8 +782,7 @@ namespace os
 
     // ========================================================================
 
-    constexpr
-    mutex::attributes::attributes ()
+    constexpr mutex::attributes::attributes ()
     {
       ;
     }
@@ -803,9 +791,7 @@ namespace os
      * @cond ignore
      */
 
-    constexpr
-    mutex::attributes::attributes (type_t type) :
-        mx_type (type)
+    constexpr mutex::attributes::attributes (type_t type) : mx_type (type)
     {
       ;
     }
@@ -815,10 +801,8 @@ namespace os
      */
 
     // ========================================================================
-    constexpr
-    mutex::attributes_recursive::attributes_recursive () :
-        attributes
-          { type::recursive } // Use the protected constructor.
+    constexpr mutex::attributes_recursive::attributes_recursive ()
+        : attributes{ type::recursive } // Use the protected constructor.
     {
       ;
     }
@@ -881,24 +865,20 @@ namespace os
 
     // ========================================================================
 
-    inline
-    mutex_recursive::mutex_recursive (const attributes& attr) :
-        mutex
-          { attr }
+    inline mutex_recursive::mutex_recursive (const attributes& attr)
+        : mutex{ attr }
     {
       ;
     }
 
-    inline
-    mutex_recursive::mutex_recursive (const char* name, const attributes& attr) :
-        mutex
-          { name, attr }
+    inline mutex_recursive::mutex_recursive (const char* name,
+                                             const attributes& attr)
+        : mutex{ name, attr }
     {
       ;
     }
 
-    inline
-    mutex_recursive::~mutex_recursive ()
+    inline mutex_recursive::~mutex_recursive ()
     {
       ;
     }
@@ -913,8 +893,8 @@ namespace os
       return this == &rhs;
     }
 
-  } /* namespace rtos */
-} /* namespace os */
+  } // namespace rtos
+} // namespace os
 
 // ----------------------------------------------------------------------------
 

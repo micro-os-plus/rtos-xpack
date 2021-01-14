@@ -54,7 +54,6 @@ namespace os
     class clock : public internal::object_named
     {
     public:
-
       // ----------------------------------------------------------------------
 
       /**
@@ -101,13 +100,13 @@ namespace os
        */
 
     protected:
-
       /**
        * @cond ignore
        */
 
       /**
-       * @brief Construct a clock object instance (protected, used in derived classes)
+       * @brief Construct a clock object instance (protected, used in derived
+       * classes)
        * @param [in] name Pointer to clock name.
        */
       clock (const char* name);
@@ -117,7 +116,6 @@ namespace os
        */
 
     public:
-
       /**
        * @cond ignore
        */
@@ -126,9 +124,11 @@ namespace os
       clock (const clock&) = delete;
       clock (clock&&) = delete;
       clock&
-      operator= (const clock&) = delete;
+      operator= (const clock&)
+          = delete;
       clock&
-      operator= (clock&&) = delete;
+      operator= (clock&&)
+          = delete;
 
       /**
        * @endcond
@@ -137,8 +137,7 @@ namespace os
       /**
        * @brief Destruct the clock object instance.
        */
-      virtual
-      ~clock ();
+      virtual ~clock ();
 
       /**
        * @}
@@ -146,7 +145,6 @@ namespace os
 
       // ----------------------------------------------------------------------
     public:
-
       /**
        * @name Public Member Functions
        * @{
@@ -160,7 +158,8 @@ namespace os
        *  Nothing.
        */
       virtual void
-      start (void) = 0;
+      start (void)
+          = 0;
 
       /**
        * @brief Tell the current time, possibly adjusted for epoch.
@@ -260,7 +259,6 @@ namespace os
        */
 
     protected:
-
       /**
        * @cond ignore
        */
@@ -325,7 +323,6 @@ namespace os
        */
 
     protected:
-
       /**
        * @cond ignore
        */
@@ -342,7 +339,6 @@ namespace os
        */
 
     public:
-
       /**
        * @cond ignore
        */
@@ -351,9 +347,11 @@ namespace os
       adjustable_clock (const adjustable_clock&) = delete;
       adjustable_clock (adjustable_clock&&) = delete;
       adjustable_clock&
-      operator= (const adjustable_clock&) = delete;
+      operator= (const adjustable_clock&)
+          = delete;
       adjustable_clock&
-      operator= (adjustable_clock&&) = delete;
+      operator= (adjustable_clock&&)
+          = delete;
 
       /**
        * @endcond
@@ -362,15 +360,13 @@ namespace os
       /**
        * @brief Destruct the clock object instance.
        */
-      virtual
-      ~adjustable_clock () override;
+      virtual ~adjustable_clock () override;
 
       /**
        * @}
        */
 
     public:
-
       /**
        * @name Public Member Functions
        * @{
@@ -421,7 +417,6 @@ namespace os
        */
 
     protected:
-
       /**
        * @name Private Member Variables
        * @{
@@ -457,7 +452,6 @@ namespace os
     class clock_systick : public clock
     {
     public:
-
       /**
        * @name Types & Constants
        * @{
@@ -491,9 +485,11 @@ namespace os
       clock_systick (const clock_systick&) = delete;
       clock_systick (clock_systick&&) = delete;
       clock_systick&
-      operator= (const clock_systick&) = delete;
+      operator= (const clock_systick&)
+          = delete;
       clock_systick&
-      operator= (clock_systick&&) = delete;
+      operator= (clock_systick&&)
+          = delete;
 
       /**
        * @endcond
@@ -502,8 +498,7 @@ namespace os
       /**
        * @brief Destruct the SysTick clock object instance.
        */
-      virtual
-      ~clock_systick () override;
+      virtual ~clock_systick () override;
 
       /**
        * @}
@@ -520,13 +515,14 @@ namespace os
 
       /**
        * @brief Convert microseconds to ticks.
-       * @tparam Rep_T Type of input, auto deduced (usually uint32_t or uin64_t)
+       * @tparam Rep_T Type of input, auto deduced (usually uint32_t or
+       * uin64_t)
        * @param [in] microsec The number of microseconds.
        * @return The number of ticks.
        */
-      template<typename Rep_T>
-        static constexpr clock::duration_t
-        ticks_cast (Rep_T microsec);
+      template <typename Rep_T>
+      static constexpr clock::duration_t
+      ticks_cast (Rep_T microsec);
 
       /**
        * @}
@@ -534,7 +530,6 @@ namespace os
 
       // ----------------------------------------------------------------------
     protected:
-
       /**
        * @name Private Member Functions
        * @{
@@ -556,7 +551,8 @@ namespace os
        * @retval EINTR The sleep was interrupted.
        */
       virtual result_t
-      internal_wait_until_ (timestamp_t timestamp, internal::clock_timestamps_list& list);
+      internal_wait_until_ (timestamp_t timestamp,
+                            internal::clock_timestamps_list& list);
 
 #endif /* defined(OS_USE_RTOS_PORT_CLOCK_SYSTICK_WAIT_FOR) */
 
@@ -567,7 +563,6 @@ namespace os
       /**
        * @}
        */
-
     };
 
     /**
@@ -587,7 +582,6 @@ namespace os
     class clock_rtc : public adjustable_clock
     {
     public:
-
       /**
        * @name Types & Constants
        * @{
@@ -621,9 +615,11 @@ namespace os
       clock_rtc (const clock_rtc&) = delete;
       clock_rtc (clock_rtc&&) = delete;
       clock_rtc&
-      operator= (const clock_rtc&) = delete;
+      operator= (const clock_rtc&)
+          = delete;
       clock_rtc&
-      operator= (clock_rtc&&) = delete;
+      operator= (clock_rtc&&)
+          = delete;
 
       /**
        * @endcond
@@ -632,8 +628,7 @@ namespace os
       /**
        * @brief Destruct the real time clock object instance.
        */
-      virtual
-      ~clock_rtc () override;
+      virtual ~clock_rtc () override;
 
       /**
        * @}
@@ -675,14 +670,14 @@ namespace os
        * @retval EINTR The sleep was interrupted.
        */
       virtual result_t
-      internal_wait_until_ (timestamp_t timestamp, clock_timestamps_list& list);
+      internal_wait_until_ (timestamp_t timestamp,
+                            clock_timestamps_list& list);
 
 #endif
 
       /**
        * @endcond
        */
-
     };
 
     /**
@@ -702,7 +697,6 @@ namespace os
     class clock_highres : public clock
     {
     public:
-
       /**
        * @name Constructors & Destructor
        * @{
@@ -721,9 +715,11 @@ namespace os
       clock_highres (const clock_highres&) = delete;
       clock_highres (clock_highres&&) = delete;
       clock_highres&
-      operator= (const clock_highres&) = delete;
+      operator= (const clock_highres&)
+          = delete;
       clock_highres&
-      operator= (clock_highres&&) = delete;
+      operator= (clock_highres&&)
+          = delete;
 
       /**
        * @endcond
@@ -732,8 +728,7 @@ namespace os
       /**
        * @brief Destruct the SysTick clock object instance.
        */
-      virtual
-      ~clock_highres () override;
+      virtual ~clock_highres () override;
 
       /**
        * @}
@@ -769,7 +764,6 @@ namespace os
 
       // ----------------------------------------------------------------------
     protected:
-
       /**
        * @name Private Member Functions
        * @{
@@ -778,7 +772,6 @@ namespace os
       /**
        * @}
        */
-
     };
 
     /**
@@ -788,8 +781,8 @@ namespace os
      */
     extern clock_highres hrclock;
 
-  } /* namespace rtos */
-} /* namespace os */
+  } // namespace rtos
+} // namespace os
 
 // ===== Inline & template implementations ====================================
 
@@ -804,31 +797,25 @@ namespace os
      * @cond ignore
      */
 
-    inline
-    clock::clock (const char* name) :
-        internal::object_named
-          { name }
+    inline clock::clock (const char* name) : internal::object_named{ name }
     {
       ;
     }
 
-    inline internal::clock_timestamps_list&
-    __attribute__((always_inline))
+    inline __attribute__ ((always_inline)) internal::clock_timestamps_list&
     clock::steady_list (void)
     {
       return steady_list_;
     }
 
-    inline void
-    __attribute__((always_inline))
+    inline __attribute__ ((always_inline)) void
     clock::internal_increment_count (void)
     {
       // One more tick count passed.
       ++steady_count_;
     }
 
-    inline void
-    __attribute__((always_inline))
+    inline __attribute__ ((always_inline)) void
     clock::internal_check_timestamps (void)
     {
       steady_list_.check_timestamp (steady_count_);
@@ -843,16 +830,13 @@ namespace os
      * @cond ignore
      */
 
-    inline
-    adjustable_clock::adjustable_clock (const char* name) :
-        clock
-          { name }
+    inline adjustable_clock::adjustable_clock (const char* name)
+        : clock{ name }
     {
       ;
     }
 
-    inline void
-    __attribute__((always_inline))
+    inline __attribute__ ((always_inline)) void
     adjustable_clock::internal_check_timestamps (void)
     {
       clock::internal_check_timestamps ();
@@ -877,40 +861,38 @@ namespace os
      * Round up the microseconds value and convert to a number of
      * ticks, using the SysTick frequency in Hz.
      */
-    template<typename Rep_T>
-      constexpr clock::duration_t
-      clock_systick::ticks_cast (Rep_T microsec)
-      {
-        // TODO: add some restrictions to match only numeric types
-        return static_cast<clock::duration_t> ((((microsec)
-            * (static_cast<Rep_T> (frequency_hz)))
-            + static_cast<Rep_T> (1000000ul) - 1)
-            / static_cast<Rep_T> (1000000ul));
-      }
+    template <typename Rep_T>
+    constexpr clock::duration_t
+    clock_systick::ticks_cast (Rep_T microsec)
+    {
+      // TODO: add some restrictions to match only numeric types
+      return static_cast<clock::duration_t> (
+          (((microsec) * (static_cast<Rep_T> (frequency_hz)))
+           + static_cast<Rep_T> (1000000ul) - 1)
+          / static_cast<Rep_T> (1000000ul));
+    }
 
     /**
      * @endcond
      */
     // ========================================================================
-    inline void
-    __attribute__((always_inline))
+    inline __attribute__ ((always_inline)) void
     clock_highres::internal_increment_count (void)
     {
       // Increment the highres count by SysTick divisor.
       steady_count_ += port::clock_highres::cycles_per_tick ();
     }
 
-    inline uint32_t
-    __attribute__((always_inline))
+    inline __attribute__ ((always_inline)) uint32_t
     clock_highres::input_clock_frequency_hz (void)
     {
       return port::clock_highres::input_clock_frequency_hz ();
     }
 
-  // ========================================================================
+    // ========================================================================
 
-  } /* namespace rtos */
-} /* namespace os */
+  } // namespace rtos
+} // namespace os
 
 // ----------------------------------------------------------------------------
 

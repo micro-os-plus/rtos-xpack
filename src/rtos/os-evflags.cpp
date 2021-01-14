@@ -42,7 +42,8 @@ namespace os
      *
      * @par POSIX compatibility
      *  No POSIX similar functionality identified, but inspired by POSIX
-     *  attributes used in [<pthread.h>](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
+     *  attributes used in
+     * [<pthread.h>](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
      *  (IEEE Std 1003.1, 2013 Edition).
      */
 
@@ -122,9 +123,8 @@ namespace os
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
-    event_flags::event_flags (const attributes& attr) :
-        event_flags
-          { nullptr, attr }
+    event_flags::event_flags (const attributes& attr)
+        : event_flags{ nullptr, attr }
     {
       ;
     }
@@ -153,16 +153,15 @@ namespace os
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
-    event_flags::event_flags (const char* name, const attributes& attr) :
-        object_named_system
-          { name }
+    event_flags::event_flags (const char* name, const attributes& attr)
+        : object_named_system{ name }
     {
 #if defined(OS_TRACE_RTOS_EVFLAGS)
       trace::printf ("%s() @%p %s\n", __func__, this, this->name ());
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_throw(!interrupts::in_handler_mode (), EPERM);
+      os_assert_throw (!interrupts::in_handler_mode (), EPERM);
 
 #if !defined(OS_USE_RTOS_PORT_EVENT_FLAGS)
       clock_ = attr.clock != nullptr ? attr.clock : &sysclock;
@@ -175,7 +174,6 @@ namespace os
 #else
 
 #endif
-
     }
 
 #pragma GCC diagnostic pop
@@ -206,7 +204,7 @@ namespace os
 #else
 
       // There must be no threads waiting for these flags.
-      assert(list_.empty ());
+      assert (list_.empty ());
 
 #endif
     }
@@ -242,9 +240,9 @@ namespace os
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_throw(!interrupts::in_handler_mode (), EPERM);
+      os_assert_throw (!interrupts::in_handler_mode (), EPERM);
       // Don't call this from critical regions.
-      os_assert_throw(!scheduler::locked (), EPERM);
+      os_assert_throw (!scheduler::locked (), EPERM);
 
 #if defined(OS_USE_RTOS_PORT_EVENT_FLAGS)
 
@@ -252,67 +250,66 @@ namespace os
 
 #else
 
-        {
-          // ----- Enter critical section -------------------------------------
-          interrupts::critical_section ics;
+      {
+        // ----- Enter critical section -------------------------------------
+        interrupts::critical_section ics;
 
-          if (event_flags_.check_raised (mask, oflags, mode))
-            {
+        if (event_flags_.check_raised (mask, oflags, mode))
+          {
 #if defined(OS_TRACE_RTOS_EVFLAGS)
-              trace::printf ("%s(0x%X,%u) @%p %s >0x%X\n", __func__, mask, mode,
-                             this, name (), event_flags_.mask ());
+            trace::printf ("%s(0x%X,%u) @%p %s >0x%X\n", __func__, mask, mode,
+                           this, name (), event_flags_.mask ());
 #endif
-              return result::ok;
-            }
-          // ----- Exit critical section --------------------------------------
-        }
+            return result::ok;
+          }
+        // ----- Exit critical section --------------------------------------
+      }
 
       thread& crt_thread = this_thread::thread ();
 
       // Prepare a list node pointing to the current thread.
       // Do not worry for being on stack, it is temporarily linked to the
       // list and guaranteed to be removed before this function returns.
-      internal::waiting_thread_node node
-        { crt_thread };
+      internal::waiting_thread_node node{ crt_thread };
 
       for (;;)
         {
-            {
-              // ----- Enter critical section ---------------------------------
-              interrupts::critical_section ics;
+          {
+            // ----- Enter critical section ---------------------------------
+            interrupts::critical_section ics;
 
-              if (event_flags_.check_raised (mask, oflags, mode))
-                {
+            if (event_flags_.check_raised (mask, oflags, mode))
+              {
 #if defined(OS_TRACE_RTOS_EVFLAGS)
-                  trace::printf ("%s(0x%X,%u) @%p %s >0x%X\n", __func__, mask,
-                                 mode, this, name (), event_flags_.mask ());
+                trace::printf ("%s(0x%X,%u) @%p %s >0x%X\n", __func__, mask,
+                               mode, this, name (), event_flags_.mask ());
 #endif
-                  return result::ok;
-                }
+                return result::ok;
+              }
 
-              // Add this thread to the event flags waiting list.
-              scheduler::internal_link_node (list_, node);
-              // state::suspended set in above link().
-              // ----- Exit critical section ----------------------------------
-            }
+            // Add this thread to the event flags waiting list.
+            scheduler::internal_link_node (list_, node);
+            // state::suspended set in above link().
+            // ----- Exit critical section ----------------------------------
+          }
 
           port::scheduler::reschedule ();
 
-            {
-              // ----- Enter critical section ---------------------------------
-              interrupts::critical_section ics;
+          {
+            // ----- Enter critical section ---------------------------------
+            interrupts::critical_section ics;
 
-              // Remove the thread from the event flags waiting list,
-              // if not already removed by raise().
-              scheduler::internal_unlink_node (node);
-              // ----- Exit critical section ----------------------------------
-            }
+            // Remove the thread from the event flags waiting list,
+            // if not already removed by raise().
+            scheduler::internal_unlink_node (node);
+            // ----- Exit critical section ----------------------------------
+          }
 
           if (crt_thread.interrupted ())
             {
 #if defined(OS_TRACE_RTOS_EVFLAGS)
-              trace::printf ("%s(0x%X,%u) EINTR @%p %s\n", __func__, mask, mode,
-                             this, name ());
+              trace::printf ("%s(0x%X,%u) EINTR @%p %s\n", __func__, mask,
+                             mode, this, name ());
 #endif
               return EINTR;
             }
@@ -351,30 +348,30 @@ namespace os
 #else
 
       // Don't call this from high priority interrupts.
-      assert(port::interrupts::is_priority_valid ());
+      assert (port::interrupts::is_priority_valid ());
 
-        {
-          // ----- Enter critical section -------------------------------------
-          interrupts::critical_section ics;
+      {
+        // ----- Enter critical section -------------------------------------
+        interrupts::critical_section ics;
 
-          if (event_flags_.check_raised (mask, oflags, mode))
-            {
+        if (event_flags_.check_raised (mask, oflags, mode))
+          {
 #if defined(OS_TRACE_RTOS_EVFLAGS)
-              trace::printf ("%s(0x%X,%u) @%p %s >0x%X\n", __func__, mask, mode,
-                             this, name (), event_flags_.mask ());
+            trace::printf ("%s(0x%X,%u) @%p %s >0x%X\n", __func__, mask, mode,
+                           this, name (), event_flags_.mask ());
 #endif
-              return result::ok;
-            }
-          else
-            {
+            return result::ok;
+          }
+        else
+          {
 #if defined(OS_TRACE_RTOS_EVFLAGS)
-              trace::printf ("%s(0x%X,%u) EWOULDBLOCK @%p %s \n", __func__,
-                             mask, mode, this, name ());
+            trace::printf ("%s(0x%X,%u) EWOULDBLOCK @%p %s \n", __func__, mask,
+                           mode, this, name ());
 #endif
-              return EWOULDBLOCK;
-            }
-          // ----- Exit critical section --------------------------------------
-        }
+            return EWOULDBLOCK;
+          }
+        // ----- Exit critical section --------------------------------------
+      }
 
 #endif
     }
@@ -427,9 +424,9 @@ namespace os
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_throw(!interrupts::in_handler_mode (), EPERM);
+      os_assert_throw (!interrupts::in_handler_mode (), EPERM);
       // Don't call this from critical regions.
-      os_assert_throw(!scheduler::locked (), EPERM);
+      os_assert_throw (!scheduler::locked (), EPERM);
 
 #if defined(OS_USE_RTOS_PORT_EVENT_FLAGS)
 
@@ -439,60 +436,58 @@ namespace os
 
       // Extra test before entering the loop, with its inherent weight.
       // Trade size for speed.
-        {
-          // ----- Enter critical section -------------------------------------
-          interrupts::critical_section ics;
+      {
+        // ----- Enter critical section -------------------------------------
+        interrupts::critical_section ics;
 
-          if (event_flags_.check_raised (mask, oflags, mode))
-            {
+        if (event_flags_.check_raised (mask, oflags, mode))
+          {
 #if defined(OS_TRACE_RTOS_EVFLAGS)
-              trace::printf ("%s(0x%X,%u,%u) @%p %s >0x%X\n", __func__, mask,
-                             timeout, mode, this, name (),
-                             event_flags_.mask ());
+            trace::printf ("%s(0x%X,%u,%u) @%p %s >0x%X\n", __func__, mask,
+                           timeout, mode, this, name (), event_flags_.mask ());
 #endif
-              return result::ok;
-            }
-          // ----- Exit critical section --------------------------------------
-        }
+            return result::ok;
+          }
+        // ----- Exit critical section --------------------------------------
+      }
 
       thread& crt_thread = this_thread::thread ();
 
       // Prepare a list node pointing to the current thread.
       // Do not worry for being on stack, it is temporarily linked to the
       // list and guaranteed to be removed before this function returns.
-      internal::waiting_thread_node node
-        { crt_thread };
+      internal::waiting_thread_node node{ crt_thread };
 
       internal::clock_timestamps_list& clock_list = clock_->steady_list ();
       clock::timestamp_t timeout_timestamp = clock_->steady_now () + timeout;
 
       // Prepare a timeout node pointing to the current thread.
-      internal::timeout_thread_node timeout_node
-        { timeout_timestamp, crt_thread };
+      internal::timeout_thread_node timeout_node{ timeout_timestamp,
+                                                  crt_thread };
 
       for (;;)
         {
-            {
-              // ----- Enter critical section ---------------------------------
-              interrupts::critical_section ics;
+          {
+            // ----- Enter critical section ---------------------------------
+            interrupts::critical_section ics;
 
-              if (event_flags_.check_raised (mask, oflags, mode))
-                {
+            if (event_flags_.check_raised (mask, oflags, mode))
+              {
 #if defined(OS_TRACE_RTOS_EVFLAGS)
-                  trace::printf ("%s(0x%X,%u,%u) @%p %s >0x%X\n", __func__,
-                                 mask, timeout, mode, this, name (),
-                                 event_flags_.mask ());
+                trace::printf ("%s(0x%X,%u,%u) @%p %s >0x%X\n", __func__, mask,
+                               timeout, mode, this, name (),
+                               event_flags_.mask ());
 #endif
-                  return result::ok;
-                }
+                return result::ok;
+              }
 
-              // Add this thread to the event flags waiting list,
-              // and the clock timeout list.
-              scheduler::internal_link_node (list_, node, clock_list,
-                                             timeout_node);
-              // state::suspended set in above link().
-              // ----- Exit critical section ----------------------------------
-            }
+            // Add this thread to the event flags waiting list,
+            // and the clock timeout list.
+            scheduler::internal_link_node (list_, node, clock_list,
+                                           timeout_node);
+            // state::suspended set in above link().
+            // ----- Exit critical section ----------------------------------
+          }
 
           port::scheduler::reschedule ();
 
@@ -544,7 +539,7 @@ namespace os
 
 #if defined(OS_USE_RTOS_PORT_EVENT_FLAGS)
 
-      os_assert_err(mask != 0, EINVAL);
+      os_assert_err (mask != 0, EINVAL);
 
       return port::event_flags::raise (this, mask, oflags);
 
@@ -581,7 +576,7 @@ namespace os
 
 #if defined(OS_USE_RTOS_PORT_EVENT_FLAGS)
 
-      os_assert_err(mask != 0, EINVAL);
+      os_assert_err (mask != 0, EINVAL);
 
       return port::event_flags::clear (this, mask, oflags);
 
@@ -654,22 +649,22 @@ namespace os
 #else
 
       // Don't call this from high priority interrupts.
-      assert(port::interrupts::is_priority_valid ());
+      assert (port::interrupts::is_priority_valid ());
 
-        {
-          // ----- Enter critical section -------------------------------------
-          interrupts::critical_section ics;
+      {
+        // ----- Enter critical section -------------------------------------
+        interrupts::critical_section ics;
 
-          return !list_.empty ();
-          // ----- Exit critical section --------------------------------------
-        }
+        return !list_.empty ();
+        // ----- Exit critical section --------------------------------------
+      }
 
 #endif
     }
 
-  // --------------------------------------------------------------------------
+    // ------------------------------------------------------------------------
 
-  } /* namespace rtos */
-} /* namespace os */
+  } // namespace rtos
+} // namespace os
 
 // ----------------------------------------------------------------------------

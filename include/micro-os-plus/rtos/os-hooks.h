@@ -55,9 +55,7 @@ extern "C"
    * @par Returns
    *  Does not return.
    */
-  void
-  __attribute__ ((noreturn))
-  _start (void);
+  void __attribute__ ((noreturn)) _start (void);
 
   /**
    * @brief Create the idle thread.
@@ -73,7 +71,7 @@ extern "C"
    * @}
    */
 
-   /**
+  /**
    * @name Hooks
    * @{
    */
@@ -108,13 +106,13 @@ extern "C"
   void
   os_rtos_system_out_of_memory_hook (void);
 
-/**
- * @}
- */
+  /**
+   * @}
+   */
 
-/**
- * @}
- */
+  /**
+   * @}
+   */
 
 #if defined(__cplusplus)
 }

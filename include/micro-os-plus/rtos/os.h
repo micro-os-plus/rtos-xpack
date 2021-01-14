@@ -43,7 +43,8 @@
  * Major improvements:
  * - no more macros required to define objects
  * - allow static memory allocations for all objects
- * - very close to POSIX ([IEEE Std 1003.1, 2013 Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html))
+ * - very close to POSIX ([IEEE Std 1003.1, 2013
+ * Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html))
  * - specifically designed to facilitate the implementation of
  *   C++ standard thread library (ISO/IEC 14882:2011)
  * - standard POSIX errors definitions used
@@ -62,7 +63,7 @@
  * it looked more convenient for the user to enter short durations
  * instead of very large absolute times.
  */
- 
+
 /*
  * TODO:
  * - make Thread virtual, to allow create_hook/delete_hook functionality
@@ -134,7 +135,7 @@ namespace os
       thread::threads_list&
       children_threads (thread* th);
 
-    } /* namespace scheduler */
+    } // namespace scheduler
 
     // ------------------------------------------------------------------------
 
@@ -156,8 +157,8 @@ namespace os
 #endif /* defined(OS_HAS_INTERRUPTS_STACK) */
 
       ;
-    // Avoid formatter bug.
-    } /* namespace interrupts */
+      // Avoid formatter bug.
+    } // namespace interrupts
 
     // ------------------------------------------------------------------------
     /**
@@ -169,19 +170,19 @@ namespace os
      * @throw * An exception may be thrown from `allocate()` or
      *          from the constructor of _T_.
      */
-    template<typename T, typename ... Args>
-      inline typename std::enable_if<!std::is_array<T>::value,
-          std::shared_ptr<T> >::type
-      make_shared (Args&&... args)
-      {
-        // -Wno-psabi to disble the ABI warning.
-        typedef typename std::remove_const<T>::type T_nc;
-        return std::allocate_shared<T> (memory::allocator<T_nc> (),
-                                        std::forward<Args>(args)...);
-      }
+    template <typename T, typename... Args>
+    inline typename std::enable_if<!std::is_array<T>::value,
+                                   std::shared_ptr<T>>::type
+    make_shared (Args&&... args)
+    {
+      // -Wno-psabi to disble the ABI warning.
+      typedef typename std::remove_const<T>::type T_nc;
+      return std::allocate_shared<T> (memory::allocator<T_nc> (),
+                                      std::forward<Args> (args)...);
+    }
 
-  } /* namespace rtos */
-} /* namespace os */
+  } // namespace rtos
+} // namespace os
 
 #endif /* __cplusplus */
 
@@ -189,4 +190,4 @@ namespace os
 
 #endif /* MICRO_OS_PLUS_RTOS_OS_H_ */
 
- // ----------------------------------------------------------------------------
+// ----------------------------------------------------------------------------

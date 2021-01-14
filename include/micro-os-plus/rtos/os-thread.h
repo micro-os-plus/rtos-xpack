@@ -50,7 +50,7 @@ namespace
 {
   // Anonymous definition required for the next forward definition.
   using _func_args_t = void*;
-}
+} // namespace
 
 void
 os_rtos_idle_actions (void);
@@ -149,9 +149,9 @@ namespace os
        * @retval ENOTRECOVERABLE Wait failed.
        */
       result_t
-      flags_try_wait (
-          flags::mask_t mask, flags::mask_t* oflags = nullptr,
-          flags::mode_t mode = flags::mode::all | flags::mode::clear);
+      flags_try_wait (flags::mask_t mask, flags::mask_t* oflags = nullptr,
+                      flags::mode_t mode
+                      = flags::mode::all | flags::mode::clear);
 
       /**
        * @brief Timed wait for thread event flags.
@@ -161,7 +161,8 @@ namespace os
        *  may be `nullptr`.
        * @param [in] mode Mode bits to select if either all or any flags
        *  are expected, and if the flags should be cleared.
-       * @param [in] timeout Timeout to wait, in clock units (ticks or seconds).
+       * @param [in] timeout Timeout to wait, in clock units (ticks or
+       * seconds).
        * @retval result::ok All expected flags are raised.
        * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
        * @retval ETIMEDOUT The expected condition did not occur during the
@@ -171,10 +172,10 @@ namespace os
        * @retval ENOTRECOVERABLE Wait failed.
        */
       result_t
-      flags_timed_wait (
-          flags::mask_t mask, clock::duration_t timeout, flags::mask_t* oflags =
-              nullptr,
-          flags::mode_t mode = flags::mode::all | flags::mode::clear);
+      flags_timed_wait (flags::mask_t mask, clock::duration_t timeout,
+                        flags::mask_t* oflags = nullptr,
+                        flags::mode_t mode
+                        = flags::mode::all | flags::mode::clear);
 
       /**
        * @brief Clear thread event flags.
@@ -195,7 +196,8 @@ namespace os
        *  cleared (the other bits are ignored).
        * @retval flags The selected bits from the current thread
        *  event flags mask.
-       * @retval flags::all Cannot be invoked from an Interrupt Service Routines.
+       * @retval flags::all Cannot be invoked from an Interrupt Service
+       * Routines.
        */
       flags::mask_t
       flags_get (flags::mask_t mask,
@@ -208,13 +210,13 @@ namespace os
       int*
       __errno (void);
 
-    } /* namespace this_thread */
+    } // namespace this_thread
 
     // Forward definitions required by thread friends.
     namespace scheduler
     {
 
-    } /* namespace scheduler */
+    }
 
     // ========================================================================
 
@@ -230,13 +232,11 @@ namespace os
     class thread : public internal::object_named_system
     {
     public:
-
       // Must be the very first, for easy access and to keep the
       // tiny thread used during initialisations to a minimum size.
       int errno_ = 0;
 
     public:
-
       // ======================================================================
 
       /**
@@ -281,53 +281,52 @@ namespace os
          * @brief Thread priorities; intermediate values are also possible.
          * @ingroup cmsis-plus-rtos-thread
          */
-        enum
-          : priority_t
-            {
-              /**
-               * Undefined, thread not initialised.
-               */
-              none = 0,
+        enum : priority_t
+        {
+          /**
+           * Undefined, thread not initialised.
+           */
+          none = 0,
 
-              /**
-               * System reserved for the IDLE thread.
-               */
-              idle = (1 << range),
+          /**
+           * System reserved for the IDLE thread.
+           */
+          idle = (1 << range),
 
-              /**
-               * Lowest available for user code.
-               */
-              lowest = (2 << range),
+          /**
+           * Lowest available for user code.
+           */
+          lowest = (2 << range),
 
-              low = (2 << range),
+          low = (2 << range),
 
-              below_normal = (4 << range),
+          below_normal = (4 << range),
 
-              /**
-               * Default priority.
-               */
-              normal = (6 << range),
+          /**
+           * Default priority.
+           */
+          normal = (6 << range),
 
-              above_normal = (8 << range),
+          above_normal = (8 << range),
 
-              high = (10 << range),
+          high = (10 << range),
 
-              realtime = (12 << range),
+          realtime = (12 << range),
 
-              /**
-               * Highest available for user code.
-               */
-              highest = (((13 + 1) << range) - 1),
+          /**
+           * Highest available for user code.
+           */
+          highest = (((13 + 1) << range) - 1),
 
-              /**
-               * System reserved for the ISR deferred thread.
-               */
-              isr = (((14 + 1) << range) - 1),
+          /**
+           * System reserved for the ISR deferred thread.
+           */
+          isr = (((14 + 1) << range) - 1),
 
-              /**
-               * Error.
-               */
-              error = (((15 + 1) << range) - 1)
+          /**
+           * Error.
+           */
+          error = (((15 + 1) << range) - 1)
         };
       }; /* struct priority */
 
@@ -349,13 +348,12 @@ namespace os
         /**
          * @brief An enumeration with all possible thread states.
          */
-        enum
-          : state_t
-            {
-              /**
-               * @brief Used to catch uninitialised threads.
-               */
-              undefined = 0, //
+        enum : state_t
+        {
+          /**
+           * @brief Used to catch uninitialised threads.
+           */
+          undefined = 0, //
           /**
            * @brief Present in the READY list and competing for CPU.
            */
@@ -394,7 +392,7 @@ namespace os
        * Useful to cast other similar types
        * to silence possible compiler warnings.
        */
-      using func_t = void* (*) (func_args_t args);
+      using func_t = void* (*)(func_args_t args);
 
       // ======================================================================
 
@@ -406,7 +404,6 @@ namespace os
       class stack
       {
       public:
-
         /**
          * @brief Type of a stack element.
          * @details
@@ -421,7 +418,8 @@ namespace os
          * For alignment reasons, the stack is allocated in
          * larger chunks, usually 8-bytes long on Cortex-M cores.
          */
-        using allocation_element_t = os::rtos::port::stack::allocation_element_t;
+        using allocation_element_t
+            = os::rtos::port::stack::allocation_element_t;
 
         static const element_t magic = os::rtos::port::stack::magic;
 
@@ -443,9 +441,11 @@ namespace os
         stack (const stack&) = delete;
         stack (stack&&) = delete;
         stack&
-        operator= (const stack&) = delete;
+        operator= (const stack&)
+            = delete;
         stack&
-        operator= (stack&&) = delete;
+        operator= (stack&&)
+            = delete;
 
         /**
          * @endcond
@@ -461,7 +461,6 @@ namespace os
          */
 
       public:
-
         /**
          * @name Public Member Functions
          * @{
@@ -560,7 +559,6 @@ namespace os
          */
 
       public:
-
         /**
          * @name Public Static Member Functions
          * @{
@@ -605,7 +603,6 @@ namespace os
          */
 
       protected:
-
         /**
          * @cond ignore
          */
@@ -633,7 +630,6 @@ namespace os
       class context
       {
       public:
-
         /**
          * @name Constructors & Destructor
          * @{
@@ -652,9 +648,11 @@ namespace os
         context (const context&) = delete;
         context (context&&) = delete;
         context&
-        operator= (const context&) = delete;
+        operator= (const context&)
+            = delete;
         context&
-        operator= (context&&) = delete;
+        operator= (context&&)
+            = delete;
 
         /**
          * @endcond
@@ -670,7 +668,6 @@ namespace os
          */
 
       public:
-
         /**
          * @name Public Member Functions
          * @{
@@ -690,7 +687,6 @@ namespace os
          */
 
       protected:
-
         /**
          * @name Private Friends
          * @{
@@ -724,7 +720,6 @@ namespace os
          */
 
       protected:
-
         /**
          * @name Private Member Variables
          * @{
@@ -770,7 +765,6 @@ namespace os
       class attributes : public internal::attributes_clocked
       {
       public:
-
         /**
          * @name Constructors & Destructor
          * @{
@@ -781,16 +775,17 @@ namespace os
          * @par Parameters
          *  None.
          */
-        constexpr
-        attributes ();
+        constexpr attributes ();
 
         // The rule of five.
         attributes (const attributes&) = default;
         attributes (attributes&&) = default;
         attributes&
-        operator= (const attributes&) = default;
+        operator= (const attributes&)
+            = default;
         attributes&
-        operator= (attributes&&) = default;
+        operator= (attributes&&)
+            = default;
 
         /**
          * @brief Destruct the thread attributes object instance.
@@ -802,7 +797,6 @@ namespace os
          */
 
       public:
-
         /**
          * @name Public Member Variables
          * @{
@@ -850,7 +844,7 @@ namespace os
       }; /* class attributes */
 
 #if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES) \
-  || defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
+    || defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
       /**
        * @brief Thread statistics.
@@ -880,9 +874,11 @@ namespace os
         statistics (const statistics&) = delete;
         statistics (statistics&&) = delete;
         statistics&
-        operator= (const statistics&) = delete;
+        operator= (const statistics&)
+            = delete;
         statistics&
-        operator= (statistics&&) = delete;
+        operator= (statistics&&)
+            = delete;
 
         /**
          * @endcond
@@ -898,7 +894,6 @@ namespace os
          */
 
       public:
-
         /**
          * @name Public Member Functions
          * @{
@@ -936,7 +931,6 @@ namespace os
          */
 
       protected:
-
         /**
          * @cond ignore
          */
@@ -955,10 +949,10 @@ namespace os
         /**
          * @endcond
          */
-
       };
 
-#endif /* defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES) || defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES) */
+#endif /* defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES) || \
+          defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES) */
 
 #pragma GCC diagnostic pop
 
@@ -984,10 +978,11 @@ namespace os
        * @param [in] function Pointer to thread function.
        * @param [in] args Pointer to thread function arguments.
        * @param [in] attr Reference to attributes.
-       * @param [in] allocator Reference to allocator. Default a local temporary instance.
+       * @param [in] allocator Reference to allocator. Default a local
+       * temporary instance.
        */
-      thread (func_t function, func_args_t args, const attributes& attr =
-                  initializer,
+      thread (func_t function, func_args_t args,
+              const attributes& attr = initializer,
               const allocator_type& allocator = allocator_type ());
 
       /**
@@ -996,14 +991,14 @@ namespace os
        * @param [in] function Pointer to thread function.
        * @param [in] args Pointer to thread function arguments.
        * @param [in] attr Reference to attributes.
-       * @param [in] allocator Reference to allocator. Default a local temporary instance.
+       * @param [in] allocator Reference to allocator. Default a local
+       * temporary instance.
        */
       thread (const char* name, func_t function, func_args_t args,
               const attributes& attr = initializer,
               const allocator_type& allocator = allocator_type ());
 
     protected:
-
       /**
        * @cond ignore
        */
@@ -1017,7 +1012,6 @@ namespace os
        */
 
     public:
-
       /**
        * @cond ignore
        */
@@ -1026,9 +1020,11 @@ namespace os
       thread (const thread&) = delete;
       thread (thread&&) = delete;
       thread&
-      operator= (const thread&) = delete;
+      operator= (const thread&)
+          = delete;
       thread&
-      operator= (thread&&) = delete;
+      operator= (thread&&)
+          = delete;
 
       /**
        * @endcond
@@ -1037,8 +1033,7 @@ namespace os
       /**
        * @brief Destruct the thread object instance.
        */
-      virtual
-      ~thread ();
+      virtual ~thread ();
 
       /**
        * @}
@@ -1062,7 +1057,6 @@ namespace os
        */
 
     public:
-
       /**
        * @name Public Member Functions
        * @{
@@ -1090,7 +1084,8 @@ namespace os
 
       /**
        * @brief Wait for thread termination.
-       * @param [in] exit_ptr Pointer to thread exit value. (Optional, may be nullptr).
+       * @param [in] exit_ptr Pointer to thread exit value. (Optional, may be
+       * nullptr).
        * @retval result::ok The thread was terminated.
        * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
        */
@@ -1253,7 +1248,7 @@ namespace os
       stack (void);
 
 #if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES) \
-  || defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
+    || defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
       class thread::statistics&
       statistics (void);
@@ -1265,7 +1260,6 @@ namespace os
        */
 
     protected:
-
       /**
        * @name Private Friends
        * @{
@@ -1293,7 +1287,8 @@ namespace os
       friend result_t
       this_thread::flags_timed_wait (flags::mask_t mask,
                                      clock::duration_t timeout,
-                                     flags::mask_t* oflags, flags::mode_t mode);
+                                     flags::mask_t* oflags,
+                                     flags::mode_t mode);
 
       friend result_t
       this_thread::flags_clear (flags::mask_t mask, flags::mask_t* oflags);
@@ -1335,8 +1330,7 @@ namespace os
       friend port::stack::element_t*
       port::scheduler::switch_stacks (port::stack::element_t* sp);
 
-      friend void
-      ::os_rtos_idle_actions (void);
+      friend void ::os_rtos_idle_actions (void);
 
       friend class internal::ready_threads_list;
       friend class internal::thread_children_list;
@@ -1357,7 +1351,6 @@ namespace os
        */
 
     protected:
-
       /**
        * @name Private Member Functions
        * @{
@@ -1395,8 +1388,7 @@ namespace os
        * @param [in] exit_ptr Pointer to object to return (optional).
        * @return  Nothing.
        */
-      [[noreturn]]
-      void
+      [[noreturn]] void
       internal_exit_ (void* exit_ptr = nullptr);
 
       /**
@@ -1405,8 +1397,7 @@ namespace os
        * @par Returns
        *  Nothing.
        */
-      [[noreturn]]
-      static void
+      [[noreturn]] static void
       internal_invoke_with_exit_ (thread* thread);
 
       /**
@@ -1452,7 +1443,8 @@ namespace os
        *  may be `nullptr`.
        * @param [in] mode Mode bits to select if either all or any flags
        *  are expected, and if the flags should be cleared.
-       * @param [in] timeout Timeout to wait, in clock units (ticks or seconds).
+       * @param [in] timeout Timeout to wait, in clock units (ticks or
+       * seconds).
        * @retval result::ok All expected flags are raised.
        * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
        * @retval ETIMEDOUT The expected condition did not occur during the
@@ -1462,7 +1454,8 @@ namespace os
        * @retval ENOTRECOVERABLE Wait failed.
        */
       result_t
-      internal_flags_timed_wait_ (flags::mask_t mask, clock::duration_t timeout,
+      internal_flags_timed_wait_ (flags::mask_t mask,
+                                  clock::duration_t timeout,
                                   flags::mask_t* oflags, flags::mode_t mode);
 
       /**
@@ -1499,7 +1492,8 @@ namespace os
        *  cleared (the other bits are ignored).
        * @retval flags The selected bits from the current thread
        *  event flags mask.
-       * @retval flags::all Cannot be invoked from an Interrupt Service Routines.
+       * @retval flags::all Cannot be invoked from an Interrupt Service
+       * Routines.
        */
       flags::mask_t
       internal_flags_get_ (flags::mask_t mask, flags::mode_t mode);
@@ -1541,7 +1535,6 @@ namespace os
        */
 
     protected:
-
       /**
        * @name Private Member Variables
        * @{
@@ -1552,8 +1545,7 @@ namespace os
        */
 
       // TODO: make it fully intrusive with computed offset.
-      internal::waiting_thread_node ready_node_
-        { *this };
+      internal::waiting_thread_node ready_node_{ *this };
 
       func_t func_ = nullptr;
       func_args_t func_args_ = nullptr;
@@ -1563,22 +1555,20 @@ namespace os
       thread* parent_ = nullptr;
 
     public:
-
       // Intrusive node used to link this thread to parent list.
       utils::double_list_links child_links_;
 
-      using threads_list = utils::intrusive_list<
-      thread, utils::double_list_links, &thread::child_links_>;
+      using threads_list
+          = utils::intrusive_list<thread, utils::double_list_links,
+                                  &thread::child_links_>;
 
       // List of children threads. Force a clear.
-      threads_list children_
-        { true };
+      threads_list children_{ true };
 
       // List of mutexes that this thread owns.
       utils::double_list mutexes_;
 
     protected:
-
       // Thread waiting to join.
       thread* joiner_ = nullptr;
 
@@ -1673,93 +1663,92 @@ namespace os
      *
      * @tparam Allocator Standard allocator used to allocate the stack area.
      */
-    template<typename Allocator = memory::allocator<void*>>
-      class thread_allocated : public thread
-      {
-      public:
+    template <typename Allocator = memory::allocator<void*>>
+    class thread_allocated : public thread
+    {
+    public:
+      /**
+       * @brief Standard allocator type definition.
+       */
+      using allocator_type = Allocator;
 
-        /**
-         * @brief Standard allocator type definition.
-         */
-        using allocator_type = Allocator;
+      /**
+       * @name Constructors & Destructor
+       * @{
+       */
 
-        /**
-         * @name Constructors & Destructor
-         * @{
-         */
+      /**
+       * @brief Construct a thread object instance.
+       * @param [in] function Pointer to thread function.
+       * @param [in] args Pointer to thread function arguments.
+       * @param [in] attr Reference to attributes.
+       * @param [in] allocator Reference to allocator. Default a
+       * local temporary instance.
+       */
+      thread_allocated (func_t function, func_args_t args,
+                        const attributes& attr = initializer,
+                        const allocator_type& allocator = allocator_type ());
 
-        /**
-         * @brief Construct a thread object instance.
-         * @param [in] function Pointer to thread function.
-         * @param [in] args Pointer to thread function arguments.
-         * @param [in] attr Reference to attributes.
-         * @param [in] allocator Reference to allocator. Default a
-         * local temporary instance.
-         */
-        thread_allocated (func_t function, func_args_t args,
-                          const attributes& attr = initializer,
-                          const allocator_type& allocator = allocator_type ());
+      /**
+       * @brief Construct a named thread object instance.
+       * @param [in] name Pointer to name.
+       * @param [in] function Pointer to thread function.
+       * @param [in] args Pointer to thread function arguments.
+       * @param [in] attr Reference to attributes.
+       * @param [in] allocator Reference to allocator. Default a
+       * local temporary instance.
+       */
+      thread_allocated (const char* name, func_t function, func_args_t args,
+                        const attributes& attr = initializer,
+                        const allocator_type& allocator = allocator_type ());
 
-        /**
-         * @brief Construct a named thread object instance.
-         * @param [in] name Pointer to name.
-         * @param [in] function Pointer to thread function.
-         * @param [in] args Pointer to thread function arguments.
-         * @param [in] attr Reference to attributes.
-         * @param [in] allocator Reference to allocator. Default a
-         * local temporary instance.
-         */
-        thread_allocated (const char* name, func_t function, func_args_t args,
-                          const attributes& attr = initializer,
-                          const allocator_type& allocator = allocator_type ());
+      /**
+       * @cond ignore
+       */
 
-        /**
-         * @cond ignore
-         */
+      // The rule of five.
+      thread_allocated (const thread_allocated&) = delete;
+      thread_allocated (thread_allocated&&) = delete;
+      thread_allocated&
+      operator= (const thread_allocated&)
+          = delete;
+      thread_allocated&
+      operator= (thread_allocated&&)
+          = delete;
 
-        // The rule of five.
-        thread_allocated (const thread_allocated&) = delete;
-        thread_allocated (thread_allocated&&) = delete;
-        thread_allocated&
-        operator= (const thread_allocated&) = delete;
-        thread_allocated&
-        operator= (thread_allocated&&) = delete;
+      /**
+       * @endcond
+       */
 
-        /**
-         * @endcond
-         */
+      /**
+       * @brief Destruct the thread object instance.
+       */
+      virtual ~thread_allocated () override;
 
-        /**
-         * @brief Destruct the thread object instance.
-         */
-        virtual
-        ~thread_allocated () override;
+      /**
+       * @}
+       */
 
-        /**
-         * @}
-         */
+      /**
+       * @name Private Member Functions
+       * @{
+       */
 
-        /**
-         * @name Private Member Functions
-         * @{
-         */
+      /**
+       * @cond ignore
+       */
 
-        /**
-         * @cond ignore
-         */
+      virtual void
+      internal_destroy_ (void) override;
 
-        virtual void
-        internal_destroy_ (void) override;
+      /**
+       * @endcond
+       */
 
-        /**
-         * @endcond
-         */
-
-        /**
-         * @}
-         */
-
-      };
+      /**
+       * @}
+       */
+    };
 
     /**
      * @brief Template of a POSIX compliant **thread** with local stack.
@@ -1768,86 +1757,84 @@ namespace os
      *
      * @tparam N Size of statically allocated stack in bytes.
      */
-    template<std::size_t N = port::stack::default_size_bytes>
-      class thread_inclusive : public thread
-      {
-      public:
+    template <std::size_t N = port::stack::default_size_bytes>
+    class thread_inclusive : public thread
+    {
+    public:
+      /**
+       * @brief Local constant based on template definition.
+       */
+      static const std::size_t stack_size_bytes = N;
 
-        /**
-         * @brief Local constant based on template definition.
-         */
-        static const std::size_t stack_size_bytes = N;
+      /**
+       * @name Constructors & Destructor
+       * @{
+       */
 
-        /**
-         * @name Constructors & Destructor
-         * @{
-         */
+      /**
+       * @brief Construct a thread object instance.
+       * @param [in] function Pointer to thread function.
+       * @param [in] args Pointer to thread function arguments.
+       * @param [in] attr Reference to attributes.
+       */
+      thread_inclusive (func_t function, func_args_t args,
+                        const attributes& attr = initializer);
 
-        /**
-         * @brief Construct a thread object instance.
-         * @param [in] function Pointer to thread function.
-         * @param [in] args Pointer to thread function arguments.
-         * @param [in] attr Reference to attributes.
-         */
-        thread_inclusive (func_t function, func_args_t args,
-                          const attributes& attr = initializer);
+      /**
+       * @brief Construct a named thread object instance.
+       * @param [in] name Pointer to name.
+       * @param [in] function Pointer to thread function.
+       * @param [in] args Pointer to thread function arguments.
+       * @param [in] attr Reference to attributes.
+       */
+      thread_inclusive (const char* name, func_t function, func_args_t args,
+                        const attributes& attr = initializer);
 
-        /**
-         * @brief Construct a named thread object instance.
-         * @param [in] name Pointer to name.
-         * @param [in] function Pointer to thread function.
-         * @param [in] args Pointer to thread function arguments.
-         * @param [in] attr Reference to attributes.
-         */
-        thread_inclusive (const char* name, func_t function, func_args_t args,
-                          const attributes& attr = initializer);
+      /**
+       * @cond ignore
+       */
 
-        /**
-         * @cond ignore
-         */
+      // The rule of five.
+      thread_inclusive (const thread_inclusive&) = delete;
+      thread_inclusive (thread_inclusive&&) = delete;
+      thread_inclusive&
+      operator= (const thread_inclusive&)
+          = delete;
+      thread_inclusive&
+      operator= (thread_inclusive&&)
+          = delete;
 
-        // The rule of five.
-        thread_inclusive (const thread_inclusive&) = delete;
-        thread_inclusive (thread_inclusive&&) = delete;
-        thread_inclusive&
-        operator= (const thread_inclusive&) = delete;
-        thread_inclusive&
-        operator= (thread_inclusive&&) = delete;
+      /**
+       * @endcond
+       */
 
-        /**
-         * @endcond
-         */
+      /**
+       * @brief Destruct the thread object instance.
+       */
+      virtual ~thread_inclusive ();
 
-        /**
-         * @brief Destruct the thread object instance.
-         */
-        virtual
-        ~thread_inclusive ();
+      /**
+       * @}
+       */
 
-        /**
-         * @}
-         */
+    private:
+      /**
+       * @cond ignore
+       */
 
-      private:
+      stack::allocation_element_t
+          stack_[(stack_size_bytes + sizeof (stack::allocation_element_t) - 1)
+                 / sizeof (stack::allocation_element_t)];
 
-        /**
-         * @cond ignore
-         */
-
-        stack::allocation_element_t stack_[(stack_size_bytes
-            + sizeof(stack::allocation_element_t) - 1)
-            / sizeof(stack::allocation_element_t)];
-
-        /**
-         * @endcond
-         */
-
-      };
+      /**
+       * @endcond
+       */
+    };
 
 #pragma GCC diagnostic pop
 
-  } /* namespace rtos */
-} /* namespace os */
+  } // namespace rtos
+} // namespace os
 
 // ===== Inline & template implementations ====================================
 
@@ -1900,9 +1887,11 @@ namespace os
        * @warning Cannot be invoked from Interrupt Service Routines.
        */
       inline result_t
-      flags_wait (flags::mask_t mask, flags::mask_t* oflags, flags::mode_t mode)
+      flags_wait (flags::mask_t mask, flags::mask_t* oflags,
+                  flags::mode_t mode)
       {
-        return this_thread::thread ().internal_flags_wait_ (mask, oflags, mode);
+        return this_thread::thread ().internal_flags_wait_ (mask, oflags,
+                                                            mode);
       }
 
       /**
@@ -1966,8 +1955,8 @@ namespace os
       flags_timed_wait (flags::mask_t mask, clock::duration_t timeout,
                         flags::mask_t* oflags, flags::mode_t mode)
       {
-        return this_thread::thread ().internal_flags_timed_wait_ (mask, timeout,
-                                                                  oflags, mode);
+        return this_thread::thread ().internal_flags_timed_wait_ (
+            mask, timeout, oflags, mode);
       }
 
       /**
@@ -2029,9 +2018,12 @@ namespace os
        * parameter value.
        *
        * @par POSIX compatibility
-       *  Inspired by [`pthread_exit()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_exit.html)
-       *  from [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
-       *  ([IEEE Std 1003.1, 2013 Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
+       *  Inspired by
+       * [`pthread_exit()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_exit.html)
+       *  from
+       * [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
+       *  ([IEEE Std 1003.1, 2013
+       * Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
        *
        * @warning Cannot be invoked from Interrupt Service Routines.
        */
@@ -2049,17 +2041,15 @@ namespace os
        * @see __errno()
        *
        */
-      inline int*
-      __attribute__ ((always_inline))
+      inline __attribute__ ((always_inline)) int*
       __errno (void)
       {
         return &this_thread::thread ().errno_;
       }
 
-    } /* namespace this_thread */
+    } // namespace this_thread
 
-    constexpr
-    thread::attributes::attributes ()
+    constexpr thread::attributes::attributes ()
     {
       ;
     }
@@ -2071,8 +2061,7 @@ namespace os
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
-    inline
-    thread::stack::stack ()
+    inline thread::stack::stack ()
     {
       clear ();
     }
@@ -2121,7 +2110,7 @@ namespace os
     inline thread::stack::element_t*
     thread::stack::top (void)
     {
-      return bottom_address_ + (size_bytes_ / sizeof(element_t));
+      return bottom_address_ + (size_bytes_ / sizeof (element_t));
     }
 
     /**
@@ -2215,8 +2204,7 @@ namespace os
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
-    inline
-    thread::context::context ()
+    inline thread::context::context ()
     {
       ;
     }
@@ -2349,9 +2337,9 @@ namespace os
      */
     inline os_thread_user_storage_t*
     thread::user_storage (void)
-      {
-        return &user_storage_;
-      }
+    {
+      return &user_storage_;
+    }
 
 #endif /* defined(OS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE) */
 
@@ -2460,22 +2448,23 @@ namespace os
      * (`rtos::memory::allocator`).
      *
      * @par POSIX compatibility
-     *  Inspired by [`pthread_create()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_create.html)
-     *  from [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
-     *  ([IEEE Std 1003.1, 2013 Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
+     *  Inspired by
+     * [`pthread_create()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_create.html)
+     *  from
+     * [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
+     *  ([IEEE Std 1003.1, 2013
+     * Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
-    template<typename Allocator>
-      inline
-      thread_allocated<Allocator>::thread_allocated (
-          func_t function, func_args_t args, const attributes& attr,
-          const allocator_type& allocator) :
-          thread_allocated
-            { nullptr, function, args, attr, allocator }
-      {
-        ;
-      }
+    template <typename Allocator>
+    inline thread_allocated<Allocator>::thread_allocated (
+        func_t function, func_args_t args, const attributes& attr,
+        const allocator_type& allocator)
+        : thread_allocated{ nullptr, function, args, attr, allocator }
+    {
+      ;
+    }
 
     /**
      * @details
@@ -2512,90 +2501,93 @@ namespace os
      * (`rtos::memory::allocator`).
      *
      * @par POSIX compatibility
-     *  Inspired by [`pthread_create()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_create.html)
-     *  from [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
-     *  ([IEEE Std 1003.1, 2013 Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
+     *  Inspired by
+     * [`pthread_create()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_create.html)
+     *  from
+     * [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
+     *  ([IEEE Std 1003.1, 2013
+     * Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
-    template<typename Allocator>
-      thread_allocated<Allocator>::thread_allocated (
-          const char* name, func_t function, func_args_t args,
-          const attributes& attr, const allocator_type& allocator) :
-          thread
-            { name }
-      {
+    template <typename Allocator>
+    thread_allocated<Allocator>::thread_allocated (
+        const char* name, func_t function, func_args_t args,
+        const attributes& attr, const allocator_type& allocator)
+        : thread{ name }
+    {
 #if defined(OS_TRACE_RTOS_THREAD)
-        trace::printf ("%s @%p %s\n", __func__, this, this->name ());
+      trace::printf ("%s @%p %s\n", __func__, this, this->name ());
 #endif
-        if (attr.th_stack_address != nullptr
-            && attr.th_stack_size_bytes > stack::min_size ())
-          {
-            internal_construct_ (function, args, attr, nullptr, 0);
-          }
-        else
-          {
-            allocator_ = &allocator;
+      if (attr.th_stack_address != nullptr
+          && attr.th_stack_size_bytes > stack::min_size ())
+        {
+          internal_construct_ (function, args, attr, nullptr, 0);
+        }
+      else
+        {
+          allocator_ = &allocator;
 
-            if (attr.th_stack_size_bytes > stack::min_size ())
-              {
-                allocated_stack_size_elements_ = (attr.th_stack_size_bytes
-                    + sizeof(typename allocator_type::value_type) - 1)
-                    / sizeof(typename allocator_type::value_type);
-              }
-            else
-              {
-                allocated_stack_size_elements_ = (stack::default_size ()
-                    + sizeof(typename allocator_type::value_type) - 1)
-                    / sizeof(typename allocator_type::value_type);
-              }
+          if (attr.th_stack_size_bytes > stack::min_size ())
+            {
+              allocated_stack_size_elements_
+                  = (attr.th_stack_size_bytes
+                     + sizeof (typename allocator_type::value_type) - 1)
+                    / sizeof (typename allocator_type::value_type);
+            }
+          else
+            {
+              allocated_stack_size_elements_
+                  = (stack::default_size ()
+                     + sizeof (typename allocator_type::value_type) - 1)
+                    / sizeof (typename allocator_type::value_type);
+            }
 
-            // The reinterpret_cast<> is required since the allocator
-            // uses allocation_element_t, which is usually larger.
-            allocated_stack_address_ =
-                reinterpret_cast<stack::element_t*> ((const_cast<allocator_type&> (allocator)).allocate (
-                    allocated_stack_size_elements_));
+          // The reinterpret_cast<> is required since the allocator
+          // uses allocation_element_t, which is usually larger.
+          allocated_stack_address_ = reinterpret_cast<stack::element_t*> (
+              (const_cast<allocator_type&> (allocator))
+                  .allocate (allocated_stack_size_elements_));
 
-            assert (allocated_stack_address_ != nullptr);
+          assert (allocated_stack_address_ != nullptr);
 
-            internal_construct_ (
-                function,
-                args,
-                attr,
-                allocated_stack_address_,
-                allocated_stack_size_elements_
-                    * sizeof(typename allocator_type::value_type));
-          }
-      }
+          internal_construct_ (
+              function, args, attr, allocated_stack_address_,
+              allocated_stack_size_elements_
+                  * sizeof (typename allocator_type::value_type));
+        }
+    }
 
     /**
      * @cond ignore
      */
 
-    template<typename Allocator>
-      void
-      thread_allocated<Allocator>::internal_destroy_ (void)
-      {
+    template <typename Allocator>
+    void
+    thread_allocated<Allocator>::internal_destroy_ (void)
+    {
 #if defined(OS_TRACE_RTOS_THREAD)
-        trace::printf ("thread_allocated::%s() @%p %s\n", __func__, this,
-                       name ());
+      trace::printf ("thread_allocated::%s() @%p %s\n", __func__, this,
+                     name ());
 #endif
 
-        if (allocated_stack_address_ != nullptr)
-          {
-            internal_check_stack_ ();
+      if (allocated_stack_address_ != nullptr)
+        {
+          internal_check_stack_ ();
 
-            typedef typename std::allocator_traits<allocator_type>::pointer pointer;
+          typedef
+              typename std::allocator_traits<allocator_type>::pointer pointer;
 
-            static_cast<allocator_type*> (const_cast<void*> (allocator_))->deallocate (
-                reinterpret_cast<pointer> (allocated_stack_address_),
-                allocated_stack_size_elements_);
+          static_cast<allocator_type*> (const_cast<void*> (allocator_))
+              ->deallocate (
+                  reinterpret_cast<pointer> (allocated_stack_address_),
+                  allocated_stack_size_elements_);
 
-            allocated_stack_address_ = nullptr;
-          }
+          allocated_stack_address_ = nullptr;
+        }
 
-        thread::internal_destroy_ ();
-      }
+      thread::internal_destroy_ ();
+    }
 
     /**
      * @endcond
@@ -2614,13 +2606,13 @@ namespace os
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
-    template<typename Allocator>
-      thread_allocated<Allocator>::~thread_allocated ()
-      {
+    template <typename Allocator>
+    thread_allocated<Allocator>::~thread_allocated ()
+    {
 #if defined(OS_TRACE_RTOS_THREAD)
-        trace::printf ("%s @%p %s\n", __func__, this, name ());
+      trace::printf ("%s @%p %s\n", __func__, this, name ());
 #endif
-      }
+    }
 
     // ========================================================================
 
@@ -2664,21 +2656,23 @@ namespace os
      * passing the stack size and address.
      *
      * @par POSIX compatibility
-     *  Inspired by [`pthread_create()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_create.html)
-     *  from [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
-     *  ([IEEE Std 1003.1, 2013 Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
+     *  Inspired by
+     * [`pthread_create()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_create.html)
+     *  from
+     * [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
+     *  ([IEEE Std 1003.1, 2013
+     * Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
-    template<std::size_t N>
-      inline
-      thread_inclusive<N>::thread_inclusive (func_t function, func_args_t args,
-                                             const attributes& attr) :
-          thread_inclusive<N>
-            { nullptr, function, args, attr }
-      {
-        ;
-      }
+    template <std::size_t N>
+    inline thread_inclusive<N>::thread_inclusive (func_t function,
+                                                  func_args_t args,
+                                                  const attributes& attr)
+        : thread_inclusive<N>{ nullptr, function, args, attr }
+    {
+      ;
+    }
 
     /**
      * @details
@@ -2720,24 +2714,26 @@ namespace os
      * passing the stack size and address.
      *
      * @par POSIX compatibility
-     *  Inspired by [`pthread_create()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_create.html)
-     *  from [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
-     *  ([IEEE Std 1003.1, 2013 Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
+     *  Inspired by
+     * [`pthread_create()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_create.html)
+     *  from
+     * [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
+     *  ([IEEE Std 1003.1, 2013
+     * Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
-    template<std::size_t N>
-      thread_inclusive<N>::thread_inclusive (const char* name, func_t function,
-                                             func_args_t args,
-                                             const attributes& attr) :
-          thread
-            { name }
-      {
+    template <std::size_t N>
+    thread_inclusive<N>::thread_inclusive (const char* name, func_t function,
+                                           func_args_t args,
+                                           const attributes& attr)
+        : thread{ name }
+    {
 #if defined(OS_TRACE_RTOS_THREAD)
-        trace::printf ("%s @%p %s\n", __func__, this, this->name ());
+      trace::printf ("%s @%p %s\n", __func__, this, this->name ());
 #endif
-        internal_construct_ (function, args, attr, &stack_, stack_size_bytes);
-      }
+      internal_construct_ (function, args, attr, &stack_, stack_size_bytes);
+    }
 
     /**
      * @details
@@ -2750,16 +2746,16 @@ namespace os
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
-    template<std::size_t N>
-      thread_inclusive<N>::~thread_inclusive ()
-      {
+    template <std::size_t N>
+    thread_inclusive<N>::~thread_inclusive ()
+    {
 #if defined(OS_TRACE_RTOS_THREAD)
-        trace::printf ("%s @%p %s\n", __func__, this, name ());
+      trace::printf ("%s @%p %s\n", __func__, this, name ());
 #endif
-      }
+    }
 
-  } /* namespace rtos */
-} /* namespace os */
+  } // namespace rtos
+} // namespace os
 
 // ----------------------------------------------------------------------------
 

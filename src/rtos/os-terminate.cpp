@@ -60,11 +60,10 @@ os_terminate_goodbye (void)
                  st.size () - st.available (), st.size ());
 
 #if defined(OS_HAS_INTERRUPTS_STACK)
-  trace::printf (
-      "Interrupts stack: %u/%u bytes used\n",
-      rtos::interrupts::stack ()->size ()
-          - rtos::interrupts::stack ()->available (),
-      rtos::interrupts::stack ()->size ());
+  trace::printf ("Interrupts stack: %u/%u bytes used\n",
+                 rtos::interrupts::stack ()->size ()
+                     - rtos::interrupts::stack ()->available (),
+                 rtos::interrupts::stack ()->size ());
 #endif /* defined(OS_HAS_INTERRUPTS_STACK) */
 
   trace::printf ("\nHasta la Vista!\n");

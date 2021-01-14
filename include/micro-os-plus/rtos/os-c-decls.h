@@ -40,7 +40,7 @@
 // ----------------------------------------------------------------------------
 
 #include <micro-os-plus/os-versions.h>
- 
+
 #include <micro-os-plus/config.h>
 #include <micro-os-plus/rtos/port/declarations.h>
 
@@ -50,7 +50,7 @@
 
 // ----------------------------------------------------------------------------
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 extern "C"
 {
 #endif
@@ -258,7 +258,7 @@ extern "C"
   } os_internal_evflags_t;
 
   // ==========================================================================
-#define OS_THREAD_PRIO_SHIFT   (4)
+#define OS_THREAD_PRIO_SHIFT (4)
 
   /**
    * @addtogroup cmsis-plus-rtos-c-thread
@@ -339,8 +339,7 @@ extern "C"
    *
    * @see os::rtos::thread::func_t
    */
-  typedef void*
-  (*os_thread_func_t) (os_thread_func_args_t args);
+  typedef void* (*os_thread_func_t) (os_thread_func_args_t args);
 
   /**
    * @brief Type of variables holding thread states.
@@ -384,7 +383,8 @@ extern "C"
    *
    * @see os::rtos::stack::allocation_element_t
    */
-  typedef os_port_thread_stack_allocation_element_t os_thread_stack_allocation_element_t;
+  typedef os_port_thread_stack_allocation_element_t
+      os_thread_stack_allocation_element_t;
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wpadded"
@@ -442,7 +442,7 @@ extern "C"
   } os_thread_context_t;
 
 #if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES) \
-  || defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
+    || defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
   /**
    * @brief Thread statistics.
@@ -586,7 +586,7 @@ extern "C"
 #endif /* defined(OS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE) */
 
 #if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES) \
-  || defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
+    || defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
     os_thread_statistics_t statistics;
 #endif /* defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES) */
 
@@ -701,8 +701,7 @@ extern "C"
    *
    * @see os::rtos::timer::func_t
    */
-  typedef void
-  (*os_timer_func_t) (os_timer_func_args_t args);
+  typedef void (*os_timer_func_t) (os_timer_func_args_t args);
 
   /**
    * @brief Type of variables holding timer types.
@@ -1238,7 +1237,7 @@ extern "C"
 #if defined(OS_BOOL_RTOS_MESSAGE_QUEUE_SIZE_16BITS)
   typedef uint16_t os_mqueue_size_t;
 #else
-  typedef uint8_t os_mqueue_size_t;
+typedef uint8_t os_mqueue_size_t;
 #endif
 
   typedef uint16_t os_mqueue_msg_size_t;
@@ -1488,7 +1487,7 @@ extern "C"
  */
 
 // ============================================================================
-#ifdef  __cplusplus
+#ifdef __cplusplus
 }
 #endif
 

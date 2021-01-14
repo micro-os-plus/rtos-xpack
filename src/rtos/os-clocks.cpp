@@ -47,7 +47,7 @@ os_systick_handler (void)
   // Prevent scheduler actions before starting it.
   if (scheduler::started ())
     {
-      port::clock_systick::internal_interrupt_service_routine();
+      port::clock_systick::internal_interrupt_service_routine ();
     }
 #endif
 
@@ -55,14 +55,14 @@ os_systick_handler (void)
   trace::putchar ('.');
 #endif
 
-    {
-      // ----- Enter critical section -----------------------------------------
-      interrupts::critical_section ics;
+  {
+    // ----- Enter critical section -----------------------------------------
+    interrupts::critical_section ics;
 
-      sysclock.internal_increment_count ();
-      hrclock.internal_increment_count ();
-      // ----- Exit critical section ------------------------------------------
-    }
+    sysclock.internal_increment_count ();
+    hrclock.internal_increment_count ();
+    // ----- Exit critical section ------------------------------------------
+  }
   sysclock.internal_check_timestamps ();
   hrclock.internal_check_timestamps ();
 
@@ -103,7 +103,7 @@ os_rtc_handler (void)
   // Prevent scheduler actions before starting it.
   if (scheduler::started ())
     {
-      port::clock_rtc::internal_interrupt_service_routine();
+      port::clock_rtc::internal_interrupt_service_routine ();
     }
 #endif
 
@@ -111,13 +111,13 @@ os_rtc_handler (void)
   trace_putchar ('!');
 #endif
 
-    {
-      // ----- Enter critical section -----------------------------------------
-      interrupts::critical_section ics;
+  {
+    // ----- Enter critical section -----------------------------------------
+    interrupts::critical_section ics;
 
-      rtclock.internal_increment_count ();
-      // ----- Exit critical section ------------------------------------------
-    }
+    rtclock.internal_increment_count ();
+    // ----- Exit critical section ------------------------------------------
+  }
 
   rtclock.internal_check_timestamps ();
 }
@@ -207,9 +207,9 @@ namespace os
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err(!interrupts::in_handler_mode (), EPERM);
+      os_assert_err (!interrupts::in_handler_mode (), EPERM);
       // Don't call this from critical regions.
-      os_assert_err(!scheduler::locked (), EPERM);
+      os_assert_err (!scheduler::locked (), EPERM);
 
       clock::timestamp_t timestamp = steady_now () + duration;
       for (;;)
@@ -249,9 +249,9 @@ namespace os
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err(!interrupts::in_handler_mode (), EPERM);
+      os_assert_err (!interrupts::in_handler_mode (), EPERM);
       // Don't call this from critical regions.
-      os_assert_err(!scheduler::locked (), EPERM);
+      os_assert_err (!scheduler::locked (), EPERM);
 
       for (;;)
         {
@@ -286,13 +286,14 @@ namespace os
     clock::wait_for (duration_t timeout)
     {
 #if defined(OS_TRACE_RTOS_CLOCKS)
-      trace::printf ("%s(%u)\n", __func__, static_cast<unsigned int> (timeout));
+      trace::printf ("%s(%u)\n", __func__,
+                     static_cast<unsigned int> (timeout));
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err(!interrupts::in_handler_mode (), EPERM);
+      os_assert_err (!interrupts::in_handler_mode (), EPERM);
       // Don't call this from critical regions.
-      os_assert_err(!scheduler::locked (), EPERM);
+      os_assert_err (!scheduler::locked (), EPERM);
 
       clock::timestamp_t timestamp = steady_now () + timeout;
 
@@ -348,7 +349,7 @@ namespace os
     }
 
     clock::offset_t
-    clock::offset (offset_t offset __attribute__((unused)))
+    clock::offset (offset_t offset __attribute__ ((unused)))
     {
       return 0;
     }
@@ -362,35 +363,34 @@ namespace os
       // Prepare a list node pointing to the current thread.
       // Do not worry for being on stack, it is temporarily linked to the
       // list and guaranteed to be removed before this function returns.
-      internal::timeout_thread_node node
-        { timestamp, crt_thread };
+      internal::timeout_thread_node node{ timestamp, crt_thread };
 
-        {
-          // ----- Enter critical section -------------------------------------
-          interrupts::critical_section ics;
+      {
+        // ----- Enter critical section -------------------------------------
+        interrupts::critical_section ics;
 
-          // Remove this thread from the ready list, if there.
-          port::this_thread::prepare_suspend ();
+        // Remove this thread from the ready list, if there.
+        port::this_thread::prepare_suspend ();
 
-          // Add this thread to the clock waiting list.
-          list.link (node);
-          crt_thread.clock_node_ = &node;
-          crt_thread.state_ = thread::state::suspended;
-          // ----- Exit critical section --------------------------------------
-        }
+        // Add this thread to the clock waiting list.
+        list.link (node);
+        crt_thread.clock_node_ = &node;
+        crt_thread.state_ = thread::state::suspended;
+        // ----- Exit critical section --------------------------------------
+      }
 
       port::scheduler::reschedule ();
 
-        {
-          // ----- Enter critical section -------------------------------------
-          interrupts::critical_section ics;
+      {
+        // ----- Enter critical section -------------------------------------
+        interrupts::critical_section ics;
 
-          // Remove the thread from the clock timeout list,
-          // if not already removed by the timer.
-          crt_thread.clock_node_ = nullptr;
-          node.unlink ();
-          // ----- Exit critical section --------------------------------------
-        }
+        // Remove the thread from the clock timeout list,
+        // if not already removed by the timer.
+        crt_thread.clock_node_ = nullptr;
+        node.unlink ();
+        // ----- Exit critical section --------------------------------------
+      }
 
       return result::ok;
     }
@@ -442,9 +442,9 @@ namespace os
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err(!interrupts::in_handler_mode (), EPERM);
+      os_assert_err (!interrupts::in_handler_mode (), EPERM);
       // Don't call this from critical regions.
-      os_assert_err(!scheduler::locked (), EPERM);
+      os_assert_err (!scheduler::locked (), EPERM);
 
       for (;;)
         {
@@ -530,7 +530,8 @@ namespace os
      *    // Put the current thread to sleep for a given number of ticks.
      *    sysclock.sleep_for(7);
      *
-     *    // Put the current thread to sleep for a given number of microseconds.
+     *    // Put the current thread to sleep for a given number of
+     * microseconds.
      *    // For a 1000 Hz clock, the actual value is 4 ticks.
      *    sysclock.sleep_for(clock_systick::ticks_cast((uint64_t)(3500)));
      *
@@ -558,9 +559,7 @@ namespace os
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
-    clock_systick::clock_systick () :
-        clock
-          { "sysclock" }
+    clock_systick::clock_systick () : clock{ "sysclock" }
     {
       ;
     }
@@ -595,19 +594,20 @@ namespace os
 
     result_t
     clock_systick::internal_wait_until_ (timestamp_t timestamp,
-        internal::clock_timestamps_list& list __attribute__((unused)))
-      {
-        result_t res;
+                                         internal::clock_timestamps_list& list
+                                         __attribute__ ((unused)))
+    {
+      result_t res;
 
-        timestamp_t nw = now ();
-        if (nw >= timestamp)
-          {
-            return result::ok;
-          }
-        duration_t ticks = ((duration_t) (timestamp - nw));
-        res = port::clock_systick::wait_for (ticks);
-        return res;
-      }
+      timestamp_t nw = now ();
+      if (nw >= timestamp)
+        {
+          return result::ok;
+        }
+      duration_t ticks = ((duration_t) (timestamp - nw));
+      res = port::clock_systick::wait_for (ticks);
+      return res;
+    }
 
 #endif /* defined(OS_USE_RTOS_PORT_CLOCK_SYSTICK_WAIT_FOR) */
 
@@ -667,9 +667,7 @@ namespace os
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
-    clock_rtc::clock_rtc () :
-        adjustable_clock
-          { "rtclock" }
+    clock_rtc::clock_rtc () : adjustable_clock{ "rtclock" }
     {
       ;
     }
@@ -724,9 +722,7 @@ namespace os
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
-    clock_highres::clock_highres () :
-        clock
-          { "hrclock" }
+    clock_highres::clock_highres () : clock{ "hrclock" }
     {
       ;
     }
@@ -766,9 +762,9 @@ namespace os
       // ----- Exit critical section ------------------------------------------
     }
 
-  // --------------------------------------------------------------------------
+    // ------------------------------------------------------------------------
 
-  } /* namespace rtos */
-} /* namespace os */
+  } // namespace rtos
+} // namespace os
 
 // ----------------------------------------------------------------------------

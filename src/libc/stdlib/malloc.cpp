@@ -25,7 +25,8 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#if (! (defined(__APPLE__) || defined(__linux__) || defined(__unix__))) || defined(__DOXYGEN__)
+#if (!(defined(__APPLE__) || defined(__linux__) || defined(__unix__))) \
+    || defined(__DOXYGEN__)
 
 // ----------------------------------------------------------------------------
 
@@ -49,7 +50,6 @@ using namespace os;
  * @name Standard functions
  * @{
  */
-
 
 // These library functions were modified to use the application
 // memory resource and to be thread safe.
@@ -86,33 +86,35 @@ using namespace os;
  * and is thread safe.
  *
  * @par POSIX compatibility
- *  Inspired by [`malloc()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/malloc.html)
- *  ([IEEE Std 1003.1, 2013 Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
+ *  Inspired by
+ * [`malloc()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/malloc.html)
+ *  ([IEEE Std 1003.1, 2013
+ * Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  */
 void*
 malloc (size_t bytes)
 {
-  assert(!rtos::interrupts::in_handler_mode ());
+  assert (!rtos::interrupts::in_handler_mode ());
 
   void* mem;
-    {
-      // ----- Begin of critical section --------------------------------------
-      rtos::scheduler::critical_section scs;
+  {
+    // ----- Begin of critical section --------------------------------------
+    rtos::scheduler::critical_section scs;
 
-      errno = 0;
-      mem = estd::pmr::get_default_resource ()->allocate (bytes);
-      if (mem == nullptr)
-        {
-          errno = ENOMEM;
-        }
+    errno = 0;
+    mem = estd::pmr::get_default_resource ()->allocate (bytes);
+    if (mem == nullptr)
+      {
+        errno = ENOMEM;
+      }
 
 #if defined(OS_TRACE_LIBC_MALLOC)
-      trace::printf ("::%s(%d)=%p\n", __func__, bytes, mem);
+    trace::printf ("::%s(%d)=%p\n", __func__, bytes, mem);
 #endif
-      // ----- End of critical section ----------------------------------------
-    }
+    // ----- End of critical section ----------------------------------------
+  }
 
   return mem;
 }
@@ -153,15 +155,17 @@ malloc (size_t bytes)
  * and is thread safe.
  *
  * @par POSIX compatibility
- *  Inspired by [`calloc()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/calloc.html)
- *  ([IEEE Std 1003.1, 2013 Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
+ *  Inspired by
+ * [`calloc()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/calloc.html)
+ *  ([IEEE Std 1003.1, 2013
+ * Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  */
 void*
 calloc (size_t nelem, size_t elbytes)
 {
-  assert(!rtos::interrupts::in_handler_mode ());
+  assert (!rtos::interrupts::in_handler_mode ());
 
   errno = 0;
   if (nelem == 0 || elbytes == 0)
@@ -170,17 +174,17 @@ calloc (size_t nelem, size_t elbytes)
     }
 
   void* mem;
-    {
-      // ----- Begin of critical section --------------------------------------
-      rtos::scheduler::critical_section scs;
+  {
+    // ----- Begin of critical section --------------------------------------
+    rtos::scheduler::critical_section scs;
 
-      mem = estd::pmr::get_default_resource ()->allocate (nelem * elbytes);
+    mem = estd::pmr::get_default_resource ()->allocate (nelem * elbytes);
 
 #if defined(OS_TRACE_LIBC_MALLOC)
-      trace::printf ("::%s(%u,%u)=%p\n", __func__, nelem, elbytes, mem);
+    trace::printf ("::%s(%u,%u)=%p\n", __func__, nelem, elbytes, mem);
 #endif
-      // ----- End of critical section ----------------------------------------
-    }
+    // ----- End of critical section ----------------------------------------
+  }
 
   if (mem != nullptr)
     {
@@ -252,44 +256,46 @@ calloc (size_t nelem, size_t elbytes)
  * and is thread safe.
  *
  * @par POSIX compatibility
- *  Inspired by [`realloc()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/realloc.html)
- *  ([IEEE Std 1003.1, 2013 Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
+ *  Inspired by
+ * [`realloc()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/realloc.html)
+ *  ([IEEE Std 1003.1, 2013
+ * Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  */
 void*
 realloc (void* ptr, size_t bytes)
 {
-  assert(!rtos::interrupts::in_handler_mode ());
+  assert (!rtos::interrupts::in_handler_mode ());
 
   void* mem;
 
-    {
-      // ----- Begin of critical section --------------------------------------
-      rtos::scheduler::critical_section scs;
+  {
+    // ----- Begin of critical section --------------------------------------
+    rtos::scheduler::critical_section scs;
 
-      errno = 0;
-      if (ptr == nullptr)
-        {
-          mem = estd::pmr::get_default_resource ()->allocate (bytes);
+    errno = 0;
+    if (ptr == nullptr)
+      {
+        mem = estd::pmr::get_default_resource ()->allocate (bytes);
 #if defined(OS_TRACE_LIBC_MALLOC)
-          trace::printf ("::%s(%p,%u)=%p\n", __func__, ptr, bytes, mem);
+        trace::printf ("::%s(%p,%u)=%p\n", __func__, ptr, bytes, mem);
 #endif
-          if (mem == nullptr)
-            {
-              errno = ENOMEM;
-            }
-          return mem;
-        }
+        if (mem == nullptr)
+          {
+            errno = ENOMEM;
+          }
+        return mem;
+      }
 
-      if (bytes == 0)
-        {
-          estd::pmr::get_default_resource ()->deallocate (ptr, 0);
+    if (bytes == 0)
+      {
+        estd::pmr::get_default_resource ()->deallocate (ptr, 0);
 #if defined(OS_TRACE_LIBC_MALLOC)
-          trace::printf ("::%s(%p,%u)=0\n", __func__, ptr, bytes);
+        trace::printf ("::%s(%p,%u)=0\n", __func__, ptr, bytes);
 #endif
-          return nullptr;
-        }
+        return nullptr;
+      }
 
 #if 0
       /* TODO: There is chance to shrink the chunk if newly requested
@@ -298,22 +304,22 @@ realloc (void* ptr, size_t bytes)
       return ptr;
 #endif
 
-      mem = estd::pmr::get_default_resource ()->allocate (bytes);
-      if (mem != nullptr)
-        {
-          memcpy (mem, ptr, bytes);
-          estd::pmr::get_default_resource ()->deallocate (ptr, 0);
-        }
-      else
-        {
-          errno = ENOMEM;
-        }
+    mem = estd::pmr::get_default_resource ()->allocate (bytes);
+    if (mem != nullptr)
+      {
+        memcpy (mem, ptr, bytes);
+        estd::pmr::get_default_resource ()->deallocate (ptr, 0);
+      }
+    else
+      {
+        errno = ENOMEM;
+      }
 
 #if defined(OS_TRACE_LIBC_MALLOC)
-      trace::printf ("::%s(%p,%u)=%p", __func__, ptr, bytes, mem);
+    trace::printf ("::%s(%p,%u)=%p", __func__, ptr, bytes, mem);
 #endif
-      // ----- End of critical section ----------------------------------------
-    }
+    // ----- End of critical section ----------------------------------------
+  }
 
   return mem;
 }
@@ -343,15 +349,17 @@ realloc (void* ptr, size_t bytes)
  * and is thread safe.
  *
  * @par POSIX compatibility
- *  Inspired by [`free()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/free.html)
- *  ([IEEE Std 1003.1, 2013 Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
+ *  Inspired by
+ * [`free()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/free.html)
+ *  ([IEEE Std 1003.1, 2013
+ * Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  */
 void
 free (void* ptr)
 {
-  assert(!rtos::interrupts::in_handler_mode ());
+  assert (!rtos::interrupts::in_handler_mode ());
 
   if (ptr == nullptr)
     {
@@ -386,25 +394,26 @@ free (void* ptr)
  */
 
 void*
-_malloc_r (struct _reent* impure __attribute__((unused)), size_t size)
+_malloc_r (struct _reent* impure __attribute__ ((unused)), size_t size)
 {
   return malloc (size);
 }
 
 void*
-_calloc_r (struct _reent* impure __attribute__((unused)), size_t n, size_t elem)
+_calloc_r (struct _reent* impure __attribute__ ((unused)), size_t n,
+           size_t elem)
 {
   return calloc (n, elem);
 }
 
 void
-_free_r (struct _reent* impure __attribute__((unused)), void* ptr)
+_free_r (struct _reent* impure __attribute__ ((unused)), void* ptr)
 {
   free (ptr);
 }
 
 void*
-_realloc_r (struct _reent* impure __attribute__((unused)), void* ptr,
+_realloc_r (struct _reent* impure __attribute__ ((unused)), void* ptr,
             size_t size)
 {
   return realloc (ptr, size);
@@ -425,7 +434,7 @@ _realloc_r (struct _reent* impure __attribute__((unused)), void* ptr,
 #pragma GCC diagnostic ignored "-Waggregate-return"
 
 struct mallinfo
-_mallinfo_r (struct _reent* impure __attribute__((unused)))
+_mallinfo_r (struct _reent* impure __attribute__ ((unused)))
 {
   abort ();
 }
@@ -433,44 +442,44 @@ _mallinfo_r (struct _reent* impure __attribute__((unused)))
 #pragma GCC diagnostic pop
 
 void
-_malloc_stats_r (struct _reent* impure __attribute__((unused)))
+_malloc_stats_r (struct _reent* impure __attribute__ ((unused)))
 {
   abort ();
 }
 
 size_t
-_malloc_usable_size_r (struct _reent* reent __attribute__((unused)),
-                       void* ptr __attribute__((unused)))
+_malloc_usable_size_r (struct _reent* reent __attribute__ ((unused)),
+                       void* ptr __attribute__ ((unused)))
 {
   abort ();
 }
 
 int
-_mallopt_r (struct _reent* impure __attribute__((unused)),
-            int parameter_number __attribute__((unused)),
-            int parameter_value __attribute__((unused)))
+_mallopt_r (struct _reent* impure __attribute__ ((unused)),
+            int parameter_number __attribute__ ((unused)),
+            int parameter_value __attribute__ ((unused)))
 {
   abort ();
 }
 
 void*
-_memalign_r (struct _reent* impure __attribute__((unused)),
-             size_t align __attribute__((unused)),
-             size_t s __attribute__((unused)))
+_memalign_r (struct _reent* impure __attribute__ ((unused)),
+             size_t align __attribute__ ((unused)),
+             size_t s __attribute__ ((unused)))
 {
   abort ();
 }
 
 void*
-_pvalloc_r (struct _reent* impure __attribute__((unused)),
-            size_t s __attribute__((unused)))
+_pvalloc_r (struct _reent* impure __attribute__ ((unused)),
+            size_t s __attribute__ ((unused)))
 {
   abort ();
 }
 
 void*
-_valloc_r (struct _reent* impure __attribute__((unused)),
-           size_t s __attribute__((unused)))
+_valloc_r (struct _reent* impure __attribute__ ((unused)),
+           size_t s __attribute__ ((unused)))
 {
   abort ();
 }

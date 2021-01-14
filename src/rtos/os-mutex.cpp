@@ -46,8 +46,10 @@ namespace os
      *
      * @par POSIX compatibility
      *  Inspired by `pthread_mutexattr_t`
-     *  from [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
-     *  ([IEEE Std 1003.1, 2013 Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
+     *  from
+     * [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
+     *  ([IEEE Std 1003.1, 2013
+     * Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
      */
 
     /**
@@ -58,8 +60,10 @@ namespace os
      *
      * @par POSIX compatibility
      *  Inspired by `pthread_mutexattr_t`
-     *  from [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
-     *  ([IEEE Std 1003.1, 2013 Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
+     *  from
+     * [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
+     *  ([IEEE Std 1003.1, 2013
+     * Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
      */
 
     /**
@@ -84,9 +88,12 @@ namespace os
      * SCHED_FIFO scheduling policy.
      *
      * @par POSIX compatibility
-     *  Inspired by [`pthread_mutexattr_setprioceiling()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_mutexattr_getprioceiling.html)
-     *  from [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
-     *  ([IEEE Std 1003.1, 2013 Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
+     *  Inspired by
+     * [`pthread_mutexattr_setprioceiling()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_mutexattr_getprioceiling.html)
+     *  from
+     * [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
+     *  ([IEEE Std 1003.1, 2013
+     * Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
      */
 
     /**
@@ -97,9 +104,12 @@ namespace os
      * @see mutex::protocol
      *
      * @par POSIX compatibility
-     *  Inspired by [`pthread_mutexattr_setprotocol()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_mutexattr_getprotocol.html)
-     *  from [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
-     *  ([IEEE Std 1003.1, 2013 Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
+     *  Inspired by
+     * [`pthread_mutexattr_setprotocol()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_mutexattr_getprotocol.html)
+     *  from
+     * [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
+     *  ([IEEE Std 1003.1, 2013
+     * Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
      *  <br>Differences from the standard:
      *  - the POSIX default is `mutex::protocol::none`.
      */
@@ -113,9 +123,12 @@ namespace os
      * @see mutex::robustness
      *
      * @par POSIX compatibility
-     *  Inspired by [`pthread_mutexattr_setrobust()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_mutexattr_setrobust.html)
-     *  from [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
-     *  ([IEEE Std 1003.1, 2013 Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
+     *  Inspired by
+     * [`pthread_mutexattr_setrobust()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_mutexattr_setrobust.html)
+     *  from
+     * [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
+     *  ([IEEE Std 1003.1, 2013
+     * Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
      */
 
     /**
@@ -126,9 +139,12 @@ namespace os
      * @see mutex::type
      *
      * @par POSIX compatibility
-     *  Inspired by [`pthread_mutexattr_settype()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_mutexattr_settype.html)
-     *  from [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
-     *  ([IEEE Std 1003.1, 2013 Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
+     *  Inspired by
+     * [`pthread_mutexattr_settype()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_mutexattr_settype.html)
+     *  from
+     * [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
+     *  ([IEEE Std 1003.1, 2013
+     * Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
      */
 
     /**
@@ -210,9 +226,12 @@ namespace os
      * other owner thread, in a recursive manner.
      *
      * @par POSIX compatibility
-     *  Inspired by [`pthread_mutexattr_setprotocol()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_mutexattr_getprotocol.html)
-     *  from [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
-     *  ([IEEE Std 1003.1, 2013 Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
+     *  Inspired by
+     * [`pthread_mutexattr_setprotocol()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_mutexattr_getprotocol.html)
+     *  from
+     * [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
+     *  ([IEEE Std 1003.1, 2013
+     * Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
      */
 
     /**
@@ -251,9 +270,12 @@ namespace os
      *   `mutex::reset()` and the mutex destruction.
      *
      * @par POSIX compatibility
-     *  Inspired by [`pthread_mutexattr_setrobust()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_mutexattr_setrobust.html)
-     *  from [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
-     *  ([IEEE Std 1003.1, 2013 Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
+     *  Inspired by
+     * [`pthread_mutexattr_setrobust()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_mutexattr_setrobust.html)
+     *  from
+     * [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
+     *  ([IEEE Std 1003.1, 2013
+     * Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
      */
 
     /**
@@ -275,9 +297,12 @@ namespace os
      * the other mutex types.
      *
      * @par POSIX compatibility
-     *  Inspired by [`pthread_mutexattr_settype()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_mutexattr_settype.html)
-     *  from [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
-     *  ([IEEE Std 1003.1, 2013 Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
+     *  Inspired by
+     * [`pthread_mutexattr_settype()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_mutexattr_settype.html)
+     *  from
+     * [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
+     *  ([IEEE Std 1003.1, 2013
+     * Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
      */
 
     /**
@@ -294,8 +319,8 @@ namespace os
 
     // ------------------------------------------------------------------------
 
-    using mutexes_list = utils::intrusive_list<
-    mutex, utils::double_list_links, &mutex::owner_links_>;
+    using mutexes_list = utils::intrusive_list<mutex, utils::double_list_links,
+                                               &mutex::owner_links_>;
 
     // ------------------------------------------------------------------------
 
@@ -397,8 +422,10 @@ namespace os
      *
      * @par POSIX compatibility
      *  Inspired by `pthread_mutex_t`
-     *  from [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
-     *  ([IEEE Std 1003.1, 2013 Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
+     *  from
+     * [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
+     *  ([IEEE Std 1003.1, 2013
+     * Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
      */
 
     /**
@@ -422,15 +449,16 @@ namespace os
      * object with the default constructor.
      *
      * @par POSIX compatibility
-     *  Inspired by [`pthread_mutex_init()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_mutex_init.html)
-     *  from [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
-     *  ([IEEE Std 1003.1, 2013 Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
+     *  Inspired by
+     * [`pthread_mutex_init()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_mutex_init.html)
+     *  from
+     * [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
+     *  ([IEEE Std 1003.1, 2013
+     * Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
-    mutex::mutex (const attributes& attr) :
-        mutex
-          { nullptr, attr }
+    mutex::mutex (const attributes& attr) : mutex{ nullptr, attr }
     {
       ;
     }
@@ -456,39 +484,42 @@ namespace os
      * object with the default constructor.
      *
      * @par POSIX compatibility
-     *  Inspired by [`pthread_mutex_init()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_mutex_init.html)
-     *  from [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
-     *  ([IEEE Std 1003.1, 2013 Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
+     *  Inspired by
+     * [`pthread_mutex_init()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_mutex_init.html)
+     *  from
+     * [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
+     *  ([IEEE Std 1003.1, 2013
+     * Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
-    mutex::mutex (const char* name, const attributes& attr) :
-        object_named_system
-          { name }, //
-        type_ (attr.mx_type), //
-        protocol_ (attr.mx_protocol), //
-        robustness_ (attr.mx_robustness), //
-        max_count_ ((attr.mx_type == type::recursive) ? attr.mx_max_count : 1)
+    mutex::mutex (const char* name, const attributes& attr)
+        : object_named_system{ name }, //
+          type_ (attr.mx_type), //
+          protocol_ (attr.mx_protocol), //
+          robustness_ (attr.mx_robustness), //
+          max_count_ ((attr.mx_type == type::recursive) ? attr.mx_max_count
+                                                        : 1)
     {
 #if defined(OS_TRACE_RTOS_MUTEX)
       trace::printf ("%s() @%p %s\n", __func__, this, this->name ());
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_throw(!interrupts::in_handler_mode (), EPERM);
+      os_assert_throw (!interrupts::in_handler_mode (), EPERM);
 
-      os_assert_throw(type_ <= type::max_, EINVAL);
-      os_assert_throw(protocol_ <= protocol::max_, EINVAL);
-      os_assert_throw(robustness_ <= robustness::max_, EINVAL);
+      os_assert_throw (type_ <= type::max_, EINVAL);
+      os_assert_throw (protocol_ <= protocol::max_, EINVAL);
+      os_assert_throw (robustness_ <= robustness::max_, EINVAL);
 
 #if !defined(OS_USE_RTOS_PORT_MUTEX)
       clock_ = attr.clock != nullptr ? attr.clock : &sysclock;
 #endif
 
-      os_assert_throw(attr.mx_priority_ceiling >= thread::priority::lowest,
-                      EINVAL);
-      os_assert_throw(attr.mx_priority_ceiling <= thread::priority::highest,
-                      EINVAL);
+      os_assert_throw (attr.mx_priority_ceiling >= thread::priority::lowest,
+                       EINVAL);
+      os_assert_throw (attr.mx_priority_ceiling <= thread::priority::highest,
+                       EINVAL);
 
       initial_prio_ceiling_ = attr.mx_priority_ceiling;
       prio_ceiling_ = attr.mx_priority_ceiling;
@@ -516,9 +547,12 @@ namespace os
      * results in undefined behaviour (for example it may trigger an assert).
      *
      * @par POSIX compatibility
-     *  Inspired by [`pthread_mutex_destroy()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_mutex_destroy.html)
-     *  from [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
-     *  ([IEEE Std 1003.1, 2013 Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
+     *  Inspired by
+     * [`pthread_mutex_destroy()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_mutex_destroy.html)
+     *  from
+     * [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
+     *  ([IEEE Std 1003.1, 2013
+     * Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
@@ -535,9 +569,9 @@ namespace os
 #else
 
       // The mutex must have no owner (must have been unlocked).
-      assert(owner_ == nullptr);
+      assert (owner_ == nullptr);
       // There must be no threads waiting for this mutex.
-      assert(list_.empty ());
+      assert (list_.empty ());
 
 #endif
     }
@@ -588,8 +622,8 @@ namespace os
           count_ = 1;
 
           // Add mutex to the thread list.
-          mutexes_list* th_list =
-              reinterpret_cast<mutexes_list*> (&owner_->mutexes_);
+          mutexes_list* th_list
+              = reinterpret_cast<mutexes_list*> (&owner_->mutexes_);
           th_list->link (*this);
 
           // Count the number of mutexes acquired by the thread.
@@ -679,7 +713,8 @@ namespace os
           else if (type_ == type::normal)
             {
 #if defined(OS_TRACE_RTOS_MUTEX)
-              trace::printf ("%s() @%p %s deadlock\n", __func__, this, name ());
+              trace::printf ("%s() @%p %s deadlock\n", __func__, this,
+                             name ());
 #endif
               return EWOULDBLOCK;
             }
@@ -710,8 +745,8 @@ namespace os
 
               if (owner_links_.unlinked ())
                 {
-                  mutexes_list* th_list =
-                      reinterpret_cast<mutexes_list*> (&owner_->mutexes_);
+                  mutexes_list* th_list
+                      = reinterpret_cast<mutexes_list*> (&owner_->mutexes_);
                   th_list->link (*this);
                 }
 
@@ -726,8 +761,8 @@ namespace os
                 }
 
 #if defined(OS_TRACE_RTOS_MUTEX)
-              trace::printf ("%s() @%p %s boost %u by %p %s \n", __func__, this,
-                             name (), boosted_prio_, th, th->name ());
+              trace::printf ("%s() @%p %s boost %u by %p %s \n", __func__,
+                             this, name (), boosted_prio_, th, th->name ());
 #endif
 
               return EWOULDBLOCK;
@@ -746,109 +781,109 @@ namespace os
           return ENOTRECOVERABLE;
         }
 
-        {
-          // ----- Enter critical section -------------------------------------
-          scheduler::critical_section scs;
+      {
+        // ----- Enter critical section -------------------------------------
+        scheduler::critical_section scs;
 
-          // Is the rightful owner?
-          if (owner_ == th)
-            {
-              if ((type_ == type::recursive) && (count_ > 1))
-                {
-                  --count_;
+        // Is the rightful owner?
+        if (owner_ == th)
+          {
+            if ((type_ == type::recursive) && (count_ > 1))
+              {
+                --count_;
 #if defined(OS_TRACE_RTOS_MUTEX)
-                  trace::printf ("%s() @%p %s >%u\n", __func__, this, name (),
-                                 count_);
+                trace::printf ("%s() @%p %s >%u\n", __func__, this, name (),
+                               count_);
 #endif
-                  return result::ok;
-                }
+                return result::ok;
+              }
 
-              --(owner_->acquired_mutexes_);
+            --(owner_->acquired_mutexes_);
 
-              // Remove this mutex from the thread list; ineffective if
-              // not linked.
-              owner_links_.unlink ();
+            // Remove this mutex from the thread list; ineffective if
+            // not linked.
+            owner_links_.unlink ();
 
-              if (boosted_prio_ != thread::priority::none)
-                {
-                  mutexes_list* thread_mutexes =
-                      reinterpret_cast<mutexes_list*> (&owner_->mutexes_);
+            if (boosted_prio_ != thread::priority::none)
+              {
+                mutexes_list* thread_mutexes
+                    = reinterpret_cast<mutexes_list*> (&owner_->mutexes_);
 
-                  if (thread_mutexes->empty ())
-                    {
-                      // If the owner thread has no more mutexes,
-                      // clear the inherited priority,
-                      // and the assigned priority will take precedence.
-                      boosted_prio_ = thread::priority::none;
-                    }
-                  else
-                    {
-                      // If the owner thread acquired other mutexes too,
-                      // compute the maximum boosted priority.
-                      thread::priority_t max_prio = 0;
-                      for (auto&& mx : *thread_mutexes)
-                        {
-                          if (mx.boosted_prio_ > max_prio)
-                            {
-                              max_prio = mx.boosted_prio_;
-                            }
-                        }
-                      boosted_prio_ = max_prio;
-                    }
-                  // Delayed until end of critical section.
-                  owner_->priority_inherited (boosted_prio_);
-                }
+                if (thread_mutexes->empty ())
+                  {
+                    // If the owner thread has no more mutexes,
+                    // clear the inherited priority,
+                    // and the assigned priority will take precedence.
+                    boosted_prio_ = thread::priority::none;
+                  }
+                else
+                  {
+                    // If the owner thread acquired other mutexes too,
+                    // compute the maximum boosted priority.
+                    thread::priority_t max_prio = 0;
+                    for (auto&& mx : *thread_mutexes)
+                      {
+                        if (mx.boosted_prio_ > max_prio)
+                          {
+                            max_prio = mx.boosted_prio_;
+                          }
+                      }
+                    boosted_prio_ = max_prio;
+                  }
+                // Delayed until end of critical section.
+                owner_->priority_inherited (boosted_prio_);
+              }
 
-              // Delayed until end of critical section.
-              list_.resume_one ();
+            // Delayed until end of critical section.
+            list_.resume_one ();
 
-              // Finally release the mutex.
-              owner_ = nullptr;
-              count_ = 0;
+            // Finally release the mutex.
+            owner_ = nullptr;
+            count_ = 0;
 
 #if defined(OS_TRACE_RTOS_MUTEX)
-              trace::printf ("%s() @%p %s ULCK\n", __func__, this, name ());
+            trace::printf ("%s() @%p %s ULCK\n", __func__, this, name ());
 #endif
 
-              // POSIX: If a robust mutex whose owner died is unlocked without
-              // a call to consistent(), it shall be in a permanently
-              // unusable state and all attempts to lock the mutex
-              // shall fail with the error ENOTRECOVERABLE.
+            // POSIX: If a robust mutex whose owner died is unlocked without
+            // a call to consistent(), it shall be in a permanently
+            // unusable state and all attempts to lock the mutex
+            // shall fail with the error ENOTRECOVERABLE.
 
-              if (owner_dead_)
-                {
-                  owner_dead_ = false;
+            if (owner_dead_)
+              {
+                owner_dead_ = false;
 
-                  if (!consistent_)
-                    {
-                      recoverable_ = false;
-                      return ENOTRECOVERABLE;
-                    }
-                }
+                if (!consistent_)
+                  {
+                    recoverable_ = false;
+                    return ENOTRECOVERABLE;
+                  }
+              }
 
-              return result::ok;
-            }
+            return result::ok;
+          }
 
-          // Not owner, or not locked.
-          if (type_ == type::errorcheck || type_ == type::recursive
-              || robustness_ == robustness::robust)
-            {
+        // Not owner, or not locked.
+        if (type_ == type::errorcheck || type_ == type::recursive
+            || robustness_ == robustness::robust)
+          {
 #if defined(OS_TRACE_RTOS_MUTEX)
-              trace::printf ("%s() EPERM @%p %s \n", __func__, this, name ());
+            trace::printf ("%s() EPERM @%p %s \n", __func__, this, name ());
 #endif
-              return EPERM;
-            }
+            return EPERM;
+          }
 
           // Normal no-robust mutexes owned by other threads have
           // undefined behaviour.
 
 #if defined(OS_TRACE_RTOS_MUTEX)
-          trace::printf ("%s() ENOTRECOVERABLE @%p %s \n", __func__, this,
-                         name ());
+        trace::printf ("%s() ENOTRECOVERABLE @%p %s \n", __func__, this,
+                       name ());
 #endif
-          return ENOTRECOVERABLE;
-          // ----- Exit critical section --------------------------------------
-        }
+        return ENOTRECOVERABLE;
+        // ----- Exit critical section --------------------------------------
+      }
     }
 
     // Called from thread termination, in a critical section.
@@ -908,9 +943,12 @@ namespace os
      * for other threads to acquire.
      *
      * @par POSIX compatibility
-     *  Inspired by [`pthread_mutex_lock()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_mutex_lock.html)
-     *  from [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
-     *  ([IEEE Std 1003.1, 2013 Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
+     *  Inspired by
+     * [`pthread_mutex_lock()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_mutex_lock.html)
+     *  from
+     * [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
+     *  ([IEEE Std 1003.1, 2013
+     * Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
@@ -923,9 +961,9 @@ namespace os
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err(!interrupts::in_handler_mode (), EPERM);
+      os_assert_err (!interrupts::in_handler_mode (), EPERM);
       // Don't try to lock a non-recursive mutex again.
-      os_assert_err(!scheduler::locked (), EPERM);
+      os_assert_err (!scheduler::locked (), EPERM);
 
       if (!recoverable_)
         {
@@ -941,47 +979,46 @@ namespace os
       thread& crt_thread = this_thread::thread ();
 
       result_t res;
-        {
-          // ----- Enter critical section -------------------------------------
-          scheduler::critical_section scs;
+      {
+        // ----- Enter critical section -------------------------------------
+        scheduler::critical_section scs;
 
-          res = internal_try_lock_ (&crt_thread);
-          if (res != EWOULDBLOCK)
-            {
-              return res;
-            }
-          // ----- Exit critical section --------------------------------------
-        }
+        res = internal_try_lock_ (&crt_thread);
+        if (res != EWOULDBLOCK)
+          {
+            return res;
+          }
+        // ----- Exit critical section --------------------------------------
+      }
 
       // Prepare a list node pointing to the current thread.
       // Do not worry for being on stack, it is temporarily linked to the
       // list and guaranteed to be removed before this function returns.
-      internal::waiting_thread_node node
-        { crt_thread };
+      internal::waiting_thread_node node{ crt_thread };
 
       for (;;)
         {
+          {
+            // ----- Enter critical section ---------------------------------
+            scheduler::critical_section scs;
+
+            res = internal_try_lock_ (&crt_thread);
+            if (res != EWOULDBLOCK)
+              {
+                return res;
+              }
+
             {
-              // ----- Enter critical section ---------------------------------
-              scheduler::critical_section scs;
+              // ----- Enter critical section -----------------------------
+              interrupts::critical_section ics;
 
-              res = internal_try_lock_ (&crt_thread);
-              if (res != EWOULDBLOCK)
-                {
-                  return res;
-                }
-
-                {
-                  // ----- Enter critical section -----------------------------
-                  interrupts::critical_section ics;
-
-                  // Add this thread to the mutex waiting list.
-                  scheduler::internal_link_node (list_, node);
-                  // state::suspended set in above link().
-                  // ----- Exit critical section ------------------------------
-                }
-              // ----- Exit critical section ----------------------------------
+              // Add this thread to the mutex waiting list.
+              scheduler::internal_link_node (list_, node);
+              // state::suspended set in above link().
+              // ----- Exit critical section ------------------------------
             }
+            // ----- Exit critical section ----------------------------------
+          }
 
           port::scheduler::reschedule ();
 
@@ -1027,9 +1064,12 @@ namespace os
      * which the mutex is marked permanently unusable.
      *
      * @par POSIX compatibility
-     *  Inspired by [`pthread_mutex_trylock()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_mutex_trylock.html)
-     *  from [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
-     *  ([IEEE Std 1003.1, 2013 Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
+     *  Inspired by
+     * [`pthread_mutex_trylock()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_mutex_trylock.html)
+     *  from
+     * [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
+     *  ([IEEE Std 1003.1, 2013
+     * Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
      *  <br>Differences from the standard:
      *  - for consistency reasons, EWOULDBLOCK is used, instead of EBUSY
      *
@@ -1044,7 +1084,7 @@ namespace os
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err(!interrupts::in_handler_mode (), EPERM);
+      os_assert_err (!interrupts::in_handler_mode (), EPERM);
 
       if (!recoverable_)
         {
@@ -1059,13 +1099,13 @@ namespace os
 
       thread& crt_thread = this_thread::thread ();
 
-        {
-          // ----- Enter critical section -------------------------------------
-          scheduler::critical_section scs;
+      {
+        // ----- Enter critical section -------------------------------------
+        scheduler::critical_section scs;
 
-          return internal_try_lock_ (&crt_thread);
-          // ----- Exit critical section --------------------------------------
-        }
+        return internal_try_lock_ (&crt_thread);
+        // ----- Exit critical section --------------------------------------
+      }
 
 #endif
     }
@@ -1101,9 +1141,12 @@ namespace os
      * is no longer among the threads waiting for the mutex.
      *
      * @par POSIX compatibility
-     *  Inspired by [`pthread_mutex_timedlock()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_mutex_timedlock.html)
-     *  from [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
-     *  ([IEEE Std 1003.1, 2013 Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
+     *  Inspired by
+     * [`pthread_mutex_timedlock()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_mutex_timedlock.html)
+     *  from
+     * [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
+     *  ([IEEE Std 1003.1, 2013
+     * Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
      *  <br>Differences from the standard:
      *  - the timeout is not expressed as an absolute time point, but
      * as a relative number of timer ticks (by default, the SysTick
@@ -1121,9 +1164,9 @@ namespace os
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err(!interrupts::in_handler_mode (), EPERM);
+      os_assert_err (!interrupts::in_handler_mode (), EPERM);
       // Don't try to lock a non-recursive mutex again.
-      os_assert_err(!scheduler::locked (), EPERM);
+      os_assert_err (!scheduler::locked (), EPERM);
 
       if (!recoverable_)
         {
@@ -1142,56 +1185,55 @@ namespace os
 
       // Extra test before entering the loop, with its inherent weight.
       // Trade size for speed.
-        {
-          // ----- Enter critical section -------------------------------------
-          scheduler::critical_section scs;
+      {
+        // ----- Enter critical section -------------------------------------
+        scheduler::critical_section scs;
 
-          res = internal_try_lock_ (&crt_thread);
-          if (res != EWOULDBLOCK)
-            {
-              return res;
-            }
-          // ----- Exit critical section --------------------------------------
-        }
+        res = internal_try_lock_ (&crt_thread);
+        if (res != EWOULDBLOCK)
+          {
+            return res;
+          }
+        // ----- Exit critical section --------------------------------------
+      }
 
       // Prepare a list node pointing to the current thread.
       // Do not worry for being on stack, it is temporarily linked to the
       // list and guaranteed to be removed before this function returns.
-      internal::waiting_thread_node node
-        { crt_thread };
+      internal::waiting_thread_node node{ crt_thread };
 
       internal::clock_timestamps_list& clock_list = clock_->steady_list ();
       clock::timestamp_t timeout_timestamp = clock_->steady_now () + timeout;
 
       // Prepare a timeout node pointing to the current thread.
-      internal::timeout_thread_node timeout_node
-        { timeout_timestamp, crt_thread };
+      internal::timeout_thread_node timeout_node{ timeout_timestamp,
+                                                  crt_thread };
 
       for (;;)
         {
+          {
+            // ----- Enter critical section ---------------------------------
+            scheduler::critical_section scs;
+
+            res = internal_try_lock_ (&crt_thread);
+            if (res != EWOULDBLOCK)
+              {
+                return res;
+              }
+
             {
-              // ----- Enter critical section ---------------------------------
-              scheduler::critical_section scs;
+              // ----- Enter critical section -----------------------------
+              interrupts::critical_section ics;
 
-              res = internal_try_lock_ (&crt_thread);
-              if (res != EWOULDBLOCK)
-                {
-                  return res;
-                }
-
-                {
-                  // ----- Enter critical section -----------------------------
-                  interrupts::critical_section ics;
-
-                  // Add this thread to the mutex waiting list,
-                  // and the clock timeout list.
-                  scheduler::internal_link_node (list_, node, clock_list,
-                                                 timeout_node);
-                  // state::suspended set in above link().
-                  // ----- Exit critical section ------------------------------
-                }
-              // ----- Exit critical section ----------------------------------
+              // Add this thread to the mutex waiting list,
+              // and the clock timeout list.
+              scheduler::internal_link_node (list_, node, clock_list,
+                                             timeout_node);
+              // state::suspended set in above link().
+              // ----- Exit critical section ------------------------------
             }
+            // ----- Exit critical section ----------------------------------
+          }
 
           port::scheduler::reschedule ();
 
@@ -1265,9 +1307,12 @@ namespace os
      * calling thread no longer has any locks on this mutex.
      *
      * @par POSIX compatibility
-     *  Inspired by [`pthread_mutex_unlock()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_mutex_unlock.html)
-     *  from [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
-     *  ([IEEE Std 1003.1, 2013 Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
+     *  Inspired by
+     * [`pthread_mutex_unlock()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_mutex_unlock.html)
+     *  from
+     * [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
+     *  ([IEEE Std 1003.1, 2013
+     * Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
@@ -1280,7 +1325,7 @@ namespace os
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err(!interrupts::in_handler_mode (), EPERM);
+      os_assert_err (!interrupts::in_handler_mode (), EPERM);
 
 #if defined(OS_USE_RTOS_PORT_MUTEX)
 
@@ -1300,9 +1345,12 @@ namespace os
      * Return the current priority ceiling of the mutex.
      *
      * @par POSIX compatibility
-     *  Inspired by [`pthread_mutex_getprioceiling()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_mutex_getprioceiling.html)
-     *  from [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
-     *  ([IEEE Std 1003.1, 2013 Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
+     *  Inspired by
+     * [`pthread_mutex_getprioceiling()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_mutex_getprioceiling.html)
+     *  from
+     * [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
+     *  ([IEEE Std 1003.1, 2013
+     * Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
@@ -1314,7 +1362,7 @@ namespace os
 #endif
 
       // Don't call this from interrupt handlers.
-      assert(!interrupts::in_handler_mode ());
+      assert (!interrupts::in_handler_mode ());
 
 #if defined(OS_USE_RTOS_PORT_MUTEX)
 
@@ -1341,9 +1389,12 @@ namespace os
      * priority ceiling shall not be changed.
      *
      * @par POSIX compatibility
-     *  Inspired by [`pthread_mutex_setprioceiling()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_mutex_setprioceiling.html)
-     *  from [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
-     *  ([IEEE Std 1003.1, 2013 Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
+     *  Inspired by
+     * [`pthread_mutex_setprioceiling()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_mutex_setprioceiling.html)
+     *  from
+     * [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
+     *  ([IEEE Std 1003.1, 2013
+     * Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
@@ -1356,7 +1407,7 @@ namespace os
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err(!interrupts::in_handler_mode (), EPERM);
+      os_assert_err (!interrupts::in_handler_mode (), EPERM);
 
 #if defined(OS_USE_RTOS_PORT_MUTEX)
 
@@ -1407,9 +1458,12 @@ namespace os
      * value `EOWNERDEAD`.
      *
      * @par POSIX compatibility
-     *  Inspired by [`pthread_mutex_consistent()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_mutex_consistent.html)
-     *  from [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
-     *  ([IEEE Std 1003.1, 2013 Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
+     *  Inspired by
+     * [`pthread_mutex_consistent()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_mutex_consistent.html)
+     *  from
+     * [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
+     *  ([IEEE Std 1003.1, 2013
+     * Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
@@ -1421,11 +1475,11 @@ namespace os
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err(!interrupts::in_handler_mode (), EPERM);
+      os_assert_err (!interrupts::in_handler_mode (), EPERM);
       // Don't call this for non-robust mutexes.
-      os_assert_err(robustness_ == robustness::robust, EINVAL);
+      os_assert_err (robustness_ == robustness::robust, EINVAL);
       // Don't call it if already consistent.
-      os_assert_err(!consistent_, EINVAL);
+      os_assert_err (!consistent_, EINVAL);
 
 #if defined(OS_USE_RTOS_PORT_MUTEX)
 
@@ -1442,8 +1496,8 @@ namespace os
 
     /**
      * @details
-     * Return the mutex to the state right after creation. If there were threads
-     * waiting for this mutex, wakeup all, then clear the waiting list.
+     * Return the mutex to the state right after creation. If there were
+     * threads waiting for this mutex, wakeup all, then clear the waiting list.
      *
      * @par POSIX compatibility
      *  Extension to standard, no POSIX similar functionality identified.
@@ -1458,38 +1512,38 @@ namespace os
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err(!interrupts::in_handler_mode (), EPERM);
+      os_assert_err (!interrupts::in_handler_mode (), EPERM);
 
-        {
-          // ----- Enter critical section -------------------------------------
-          scheduler::critical_section scs;
+      {
+        // ----- Enter critical section -------------------------------------
+        scheduler::critical_section scs;
 
-          internal_init_ ();
-          return result::ok;
-          // ----- Exit critical section --------------------------------------
-        }
-
+        internal_init_ ();
+        return result::ok;
+        // ----- Exit critical section --------------------------------------
+      }
     }
 
-  // ==========================================================================
+    // ==========================================================================
 
-  /**
-   * @fn mutex_recursive::mutex_recursive (const attributes& attr)
-   * @copydetails mutex::mutex(const attributes&)
-   */
+    /**
+     * @fn mutex_recursive::mutex_recursive (const attributes& attr)
+     * @copydetails mutex::mutex(const attributes&)
+     */
 
-  /**
-   * @fn mutex_recursive::mutex_recursive (const char* name, const attributes& attr)
-   * @copydetails mutex::mutex(const char* name, const attributes&)
-   */
+    /**
+     * @fn mutex_recursive::mutex_recursive (const char* name, const
+     * attributes& attr)
+     * @copydetails mutex::mutex(const char* name, const attributes&)
+     */
 
-  /**
-   * @fn mutex_recursive::~mutex_recursive ()
-   * @copydetails mutex::~mutex()
-   */
+    /**
+     * @fn mutex_recursive::~mutex_recursive ()
+     * @copydetails mutex::~mutex()
+     */
 
-  // --------------------------------------------------------------------------
-  } /* namespace rtos */
-} /* namespace os */
+    // ------------------------------------------------------------------------
+  } // namespace rtos
+} // namespace os
 
 // ----------------------------------------------------------------------------

@@ -53,14 +53,14 @@ namespace os
        * @ingroup cmsis-plus-rtos-memres
        * @tparam T Type of elements to be allocated.
        */
-      template<typename T>
-        using allocator = allocator_stateless_default_resource<T>;
+      template <typename T>
+      using allocator = allocator_stateless_default_resource<T>;
 
 #endif
 
-    } /* namespace memory */
-  } /* namespace rtos */
-} /* namespace os */
+    } // namespace memory
+  } // namespace rtos
+} // namespace os
 
 // ----------------------------------------------------------------------------
 

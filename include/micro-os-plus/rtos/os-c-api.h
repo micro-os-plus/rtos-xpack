@@ -46,7 +46,7 @@
 
 // ----------------------------------------------------------------------------
 
-#ifdef  __cplusplus
+#ifdef __cplusplus
 extern "C"
 {
 #endif
@@ -131,9 +131,7 @@ extern "C"
    * @par Returns
    *  Nothing.
    */
-  void
-  __attribute__((noreturn))
-  os_sched_start (void);
+  void __attribute__ ((noreturn)) os_sched_start (void);
 
   /**
    * @brief Check if the scheduler was started.
@@ -348,9 +346,7 @@ extern "C"
    * @par Returns
    *  Nothing.
    */
-  void
-  __attribute__((noreturn))
-  os_this_thread_exit (void* exit_ptr);
+  void __attribute__ ((noreturn)) os_this_thread_exit (void* exit_ptr);
 
   /**
    * @brief Wait for thread event flags.
@@ -501,7 +497,8 @@ extern "C"
 
   /**
    * @brief Destruct the thread object instance and deallocate it.
-   * @param [in] thread Pointer to dynamically allocated thread object instance.
+   * @param [in] thread Pointer to dynamically allocated thread object
+   * instance.
    * @par Returns
    *  Nothing.
    */
@@ -961,13 +958,13 @@ extern "C"
    * @param [in] microsec The number of microseconds.
    * @return The number of ticks.
    */
-  inline os_clock_duration_t
-  __attribute__((always_inline))
+  inline __attribute__ ((always_inline)) os_clock_duration_t
   os_sysclock_ticks_cast (uint32_t microsec)
   {
-    return (os_clock_duration_t) ((((microsec)
-        * ((uint32_t) OS_INTEGER_SYSTICK_FREQUENCY_HZ)) + (uint32_t) 1000000ul
-        - 1) / (uint32_t) 1000000ul);
+    return (os_clock_duration_t) (
+        (((microsec) * ((uint32_t)OS_INTEGER_SYSTICK_FREQUENCY_HZ))
+         + (uint32_t)1000000ul - 1)
+        / (uint32_t)1000000ul);
   }
 
   /**
@@ -975,13 +972,13 @@ extern "C"
    * @param [in] microsec The number of microseconds.
    * @return The number of ticks.
    */
-  inline os_clock_duration_t
-  __attribute__((always_inline))
+  inline __attribute__ ((always_inline)) os_clock_duration_t
   os_sysclock_ticks_cast_long (uint64_t microsec)
   {
-    return (os_clock_duration_t) ((((microsec)
-        * ((uint64_t) OS_INTEGER_SYSTICK_FREQUENCY_HZ)) + (uint64_t) 1000000ul
-        - 1) / (uint64_t) 1000000ul);
+    return (os_clock_duration_t) (
+        (((microsec) * ((uint64_t)OS_INTEGER_SYSTICK_FREQUENCY_HZ))
+         + (uint64_t)1000000ul - 1)
+        / (uint64_t)1000000ul);
   }
 
 #pragma GCC diagnostic pop
@@ -1954,7 +1951,8 @@ extern "C"
    */
   void
   os_mempool_construct (os_mempool_t* mempool, const char* name, size_t blocks,
-                        size_t block_size_bytes, const os_mempool_attr_t* attr);
+                        size_t block_size_bytes,
+                        const os_mempool_attr_t* attr);
 
   /**
    * @brief Destruct the statically allocated memory pool object instance.
@@ -2215,7 +2213,8 @@ extern "C"
    * @param [in] msg The address of the message to enqueue.
    * @param [in] nbytes The length of the message. Must be not
    *  higher than the value used when creating the queue.
-   * @param [in] mprio The message priority. Enter 0 if priorities are not used.
+   * @param [in] mprio The message priority. Enter 0 if priorities are not
+   * used.
    * @retval os_ok The message was enqueued.
    * @retval EINVAL A parameter is invalid or outside of a permitted range.
    * @retval EMSGSIZE The specified message length, nbytes,
@@ -2235,7 +2234,8 @@ extern "C"
    * @param [in] msg The address of the message to enqueue.
    * @param [in] nbytes The length of the message. Must be not
    *  higher than the value used when creating the queue.
-   * @param [in] mprio The message priority. Enter 0 if priorities are not used.
+   * @param [in] mprio The message priority. Enter 0 if priorities are not
+   * used.
    * @retval os_ok The message was enqueued.
    * @retval EWOULDBLOCK The specified message queue is full.
    * @retval EINVAL A parameter is invalid or outside of a permitted range.
@@ -2255,7 +2255,8 @@ extern "C"
    * @param [in] nbytes The length of the message. Must be not
    *  higher than the value used when creating the queue.
    * @param [in] timeout The timeout duration.
-   * @param [in] mprio The message priority. Enter 0 if priorities are not used.
+   * @param [in] mprio The message priority. Enter 0 if priorities are not
+   * used.
    * @retval os_ok The message was enqueued.
    * @retval EINVAL A parameter is invalid or outside of a permitted range.
    * @retval EMSGSIZE The specified message length, nbytes,
@@ -2737,7 +2738,7 @@ extern "C"
  */
 
 // --------------------------------------------------------------------------
-#ifdef  __cplusplus
+#ifdef __cplusplus
 }
 #endif
 

@@ -79,9 +79,9 @@ namespace os
 
     namespace memory
     {
-      template<typename T>
-        class allocator_stateless_default_resource;
-    } /* namespace memory */
+      template <typename T>
+      class allocator_stateless_default_resource;
+    }
 
     // ------------------------------------------------------------------------
 
@@ -173,16 +173,15 @@ namespace os
        * values do not overlap POSIX values (check for a definition with
        * the last allocated POSIX error number).
        */
-      enum
-        : result_t
-          {
-            /**
-             * @brief Function completed; no errors or events occurred.
-             */
-            ok = 0,
+      enum : result_t
+      {
+        /**
+         * @brief Function completed; no errors or events occurred.
+         */
+        ok = 0,
 
       };
-    } /* namespace result */
+    } // namespace result
 
     // ------------------------------------------------------------------------
 
@@ -202,7 +201,7 @@ namespace os
        */
       using state_t = port::scheduler::state_t;
 
-    } /* namespace scheduler */
+    } // namespace scheduler
 
     // ------------------------------------------------------------------------
 
@@ -222,7 +221,7 @@ namespace os
        */
       using duration_t = uint64_t;
 
-    } /* namespace statistics */
+    } // namespace statistics
 
     // ------------------------------------------------------------------------
 
@@ -243,7 +242,7 @@ namespace os
        */
       using state_t = port::interrupts::state_t;
 
-    } /* namespace interrupts */
+    } // namespace interrupts
 
     // ------------------------------------------------------------------------
 
@@ -285,44 +284,42 @@ namespace os
         /**
          * @brief Bits used to specify the flags modes.
          */
-        enum
-          : mode_t
-            {
-              /**
-               * @brief Return when all flags are set.
-               */
-              all = 1,
+        enum : mode_t
+        {
+          /**
+           * @brief Return when all flags are set.
+           */
+          all = 1,
 
-              /**
-               * @brief Return when at least one flag is set.
-               */
-              any = 2,
+          /**
+           * @brief Return when at least one flag is set.
+           */
+          any = 2,
 
-              /**
-               * @brief Ask for flags to be cleared after read.
-               */
-              clear = 4
+          /**
+           * @brief Ask for flags to be cleared after read.
+           */
+          clear = 4
         };
-      } /* namespace mode */
+      } // namespace mode
 
       /**
        * @brief Flags sets with special meaning.
        */
-      enum
-        : mask_t
-          {
-            /**
-             * @brief Special mask to represent any flag.
-             */
-            any = 0,
+      enum : mask_t
+      {
+        /**
+         * @brief Special mask to represent any flag.
+         */
+        any = 0,
 
-            /**
-             * Special mask to represent all flags.
-             */
-            all = 0xFFFFFFFF,
+        /**
+         * Special mask to represent all flags.
+         */
+        all = 0xFFFFFFFF,
       };
 
-    } /* namespace flags */
+    } // namespace flags
 
     // ------------------------------------------------------------------------
 
@@ -351,7 +348,6 @@ namespace os
       class object_named
       {
       public:
-
         /**
          * @name Constructors & Destructor
          * @{
@@ -375,9 +371,11 @@ namespace os
         object_named (const object_named&) = default;
         object_named (object_named&&) = default;
         object_named&
-        operator= (const object_named&) = default;
+        operator= (const object_named&)
+            = default;
         object_named&
-        operator= (object_named&&) = default;
+        operator= (object_named&&)
+            = default;
         /**
          * @endcond
          */
@@ -392,7 +390,6 @@ namespace os
          */
 
       public:
-
         /**
          * @name Public Member Functions
          * @{
@@ -412,7 +409,6 @@ namespace os
          */
 
       protected:
-
         /**
          * @name Private Member Variables
          * @{
@@ -445,7 +441,6 @@ namespace os
       class object_named_system : public object_named
       {
       public:
-
         /**
          * @name Constructors & Destructor
          * @{
@@ -469,9 +464,11 @@ namespace os
         object_named_system (const object_named_system&) = default;
         object_named_system (object_named_system&&) = default;
         object_named_system&
-        operator= (const object_named_system&) = default;
+        operator= (const object_named_system&)
+            = default;
         object_named_system&
-        operator= (object_named_system&&) = default;
+        operator= (object_named_system&&)
+            = default;
         /**
          * @endcond
          */
@@ -551,7 +548,6 @@ namespace os
         /**
          * @}
          */
-
       };
 
       // ======================================================================
@@ -563,7 +559,6 @@ namespace os
       class attributes_clocked
       {
       public:
-
         /**
          * @name Constructors & Destructor
          * @{
@@ -574,8 +569,7 @@ namespace os
          * @par Parameters
          *  None.
          */
-        constexpr
-        attributes_clocked ();
+        constexpr attributes_clocked ();
 
         /**
          * @cond ignore
@@ -583,9 +577,11 @@ namespace os
         attributes_clocked (const attributes_clocked&) = default;
         attributes_clocked (attributes_clocked&&) = default;
         attributes_clocked&
-        operator= (const attributes_clocked&) = default;
+        operator= (const attributes_clocked&)
+            = default;
         attributes_clocked&
-        operator= (attributes_clocked&&) = default;
+        operator= (attributes_clocked&&)
+            = default;
         /**
          * @endcond
          */
@@ -620,7 +616,6 @@ namespace os
          */
 
       protected:
-
         /**
          * @name Private Member Variables
          * @{
@@ -630,7 +625,7 @@ namespace os
          * @}
          */
       };
-    } /* namespace internal */
+    } // namespace internal
 
     // ========================================================================
 
@@ -644,7 +639,6 @@ namespace os
     class null_locker
     {
     public:
-
       /**
        * @name Constructors & Destructor
        * @{
@@ -656,8 +650,7 @@ namespace os
        *  None.
        */
 
-      constexpr
-      null_locker ();
+      constexpr null_locker ();
 
       /**
        * @cond ignore
@@ -666,9 +659,11 @@ namespace os
       null_locker (const null_locker&) = delete;
       null_locker (null_locker&&) = delete;
       null_locker&
-      operator= (const null_locker&) = delete;
+      operator= (const null_locker&)
+          = delete;
       null_locker&
-      operator= (null_locker&&) = delete;
+      operator= (null_locker&&)
+          = delete;
 
       /**
        * @endcond
@@ -684,7 +679,6 @@ namespace os
        */
 
     public:
-
       /**
        * @name Public Member Functions
        * @{
@@ -713,12 +707,11 @@ namespace os
       /**
        * @}
        */
-
     };
 
-  // ==========================================================================
-  } /* namespace rtos */
-} /* namespace os */
+    // ==========================================================================
+  } // namespace rtos
+} // namespace os
 
 // ===== Inline & template implementations ====================================
 
@@ -728,8 +721,7 @@ namespace os
   {
     // ========================================================================
 
-    inline
-    null_locker::~null_locker ()
+    inline null_locker::~null_locker ()
     {
       ;
     }
@@ -765,15 +757,13 @@ namespace os
 
       // ======================================================================
 
-      inline
-      object_named_system::object_named_system ()
+      inline object_named_system::object_named_system ()
       {
         ;
       }
 
-      inline
-      object_named_system::object_named_system (const char* name) :
-          object_named (name)
+      inline object_named_system::object_named_system (const char* name)
+          : object_named (name)
       {
         ;
       }
@@ -785,16 +775,15 @@ namespace os
        *
        * @warning Cannot be invoked from Interrupt Service Routines.
        */
-      constexpr
-      attributes_clocked::attributes_clocked ()
+      constexpr attributes_clocked::attributes_clocked ()
       {
         ;
       }
 
-    // ========================================================================
-    } /* namespace internal */
-  } /* namespace rtos */
-} /* namespace os */
+      // ======================================================================
+    } // namespace internal
+  } // namespace rtos
+} // namespace os
 
 // ===== Port related definitions =============================================
 
@@ -835,7 +824,7 @@ namespace os
         using timestamp_t = uint64_t;
 
         using offset_t = int64_t;
-      } /* namespace clock */
+      } // namespace clock
 
       // ----------------------------------------------------------------------
 
@@ -850,7 +839,6 @@ namespace os
         class critical_section
         {
         public:
-
           critical_section () = delete;
 
           // Enter an IRQ critical section
@@ -860,7 +848,6 @@ namespace os
           // Exit an IRQ critical section
           static void
           exit (rtos::interrupts::state_t state);
-
         };
 
         // ====================================================================
@@ -868,7 +855,6 @@ namespace os
         class uncritical_section
         {
         public:
-
           uncritical_section () = delete;
 
           // Enter an IRQ uncritical section
@@ -878,10 +864,9 @@ namespace os
           // Exit an IRQ uncritical section
           static void
           exit (rtos::interrupts::state_t state);
-
         };
 
-      } /* namespace interrupts */
+      } // namespace interrupts
 
       // ----------------------------------------------------------------------
 
@@ -924,7 +909,7 @@ namespace os
         bool
         preemptive (bool);
 
-      } /* namespace scheduler */
+      } // namespace scheduler
 
       // ----------------------------------------------------------------------
 
@@ -937,24 +922,21 @@ namespace os
         void
         yield (void);
 
-      } /* namespace this_thread */
+      } // namespace this_thread
 
       // ====================================================================
 
       class context
       {
       public:
-
         context () = delete;
 
         // Used to avoid a complex casts below,
         // that might confuse the Eclipse formatter.
-        typedef void
-        (*func_t) (void);
+        typedef void (*func_t) (void);
 
         static void
         create (void* context, void* func, void* args);
-
       };
       /* class context */
 
@@ -962,7 +944,6 @@ namespace os
       class thread
       {
       public:
-
         thread () = delete;
 
 #if defined(OS_USE_RTOS_PORT_SCHEDULER)
@@ -970,8 +951,7 @@ namespace os
         static void
         create (rtos::thread* obj);
 
-        [[noreturn]]
-        static void
+        [[noreturn]] static void
         destroy_this (rtos::thread* obj);
 
         static void
@@ -993,7 +973,6 @@ namespace os
         detach (rtos::thread* obj);
 
 #endif
-
       };
       /* class thread */
 
@@ -1001,7 +980,6 @@ namespace os
       class clock_systick
       {
       public:
-
         clock_systick () = delete;
 
         static void
@@ -1018,7 +996,6 @@ namespace os
          */
         static void
         internal_interrupt_service_routine (void);
-
       };
 
       // ======================================================================
@@ -1026,7 +1003,6 @@ namespace os
       class clock_rtc
       {
       public:
-
         clock_rtc () = delete;
 
         /**
@@ -1037,7 +1013,6 @@ namespace os
          */
         static void
         internal_interrupt_service_routine (void);
-
       };
 
       // ======================================================================
@@ -1045,7 +1020,6 @@ namespace os
       class clock_highres
       {
       public:
-
         clock_highres () = delete;
 
         static void
@@ -1061,11 +1035,11 @@ namespace os
         input_clock_frequency_hz (void);
       };
 
-    // ========================================================================
+      // ======================================================================
 
-    } /* namespace port */
-  } /* namespace rtos */
-} /* namespace os */
+    } // namespace port
+  } // namespace rtos
+} // namespace os
 
 // ----------------------------------------------------------------------------
 
@@ -1084,10 +1058,9 @@ extern "C"
   int
   os_main (int argc, char* argv[]);
 
-/**
- * @endcond
- */
-
+  /**
+   * @endcond
+   */
 }
 
 // ----------------------------------------------------------------------------
@@ -1106,11 +1079,16 @@ extern "C"
  * the assertion is disabled and if the condition is true, the
  * given error code is returned.
  */
-#ifdef NDEBUG           /* ANSI standard */
+#ifdef NDEBUG /* ANSI standard */
 #define os_assert_err(__e, __er) \
-  do { if (!(__e)) return __er; } while (false)
+  do \
+    { \
+      if (!(__e)) \
+        return __er; \
+    } \
+  while (false)
 #else
-#define os_assert_err(__e, __er) assert(__e)
+#define os_assert_err(__e, __er) assert (__e)
 #endif
 
 /**
@@ -1121,11 +1099,16 @@ extern "C"
  * ssytem error exception is thrown (which is replaced by an
  * `abort()` if exceptions are disabled).
  */
-#ifdef NDEBUG           /* ANSI standard */
+#ifdef NDEBUG /* ANSI standard */
 #define os_assert_throw(__e, __er) \
-  do { if (!(__e)) os::estd::__throw_system_error(__er, #__e); } while (false)
+  do \
+    { \
+      if (!(__e)) \
+        os::estd::__throw_system_error (__er, #__e); \
+    } \
+  while (false)
 #else
-#define os_assert_throw(__e, __er) assert(__e)
+#define os_assert_throw(__e, __er) assert (__e)
 #endif
 
 #endif /* __cplusplus */
@@ -1136,21 +1119,23 @@ extern "C"
 // Redefine them in `<os-app-config.h>` to the actual values.
 
 #if !defined(OS_INTEGER_SYSTICK_FREQUENCY_HZ)
-#define OS_INTEGER_SYSTICK_FREQUENCY_HZ                     (1000)
+#define OS_INTEGER_SYSTICK_FREQUENCY_HZ (1000)
 #endif
 
 // ----------------------------------------------------------------------------
 
 #if !defined(OS_INTEGER_RTOS_MAIN_STACK_SIZE_BYTES)
-#define OS_INTEGER_RTOS_MAIN_STACK_SIZE_BYTES               (os::rtos::port::stack::default_size_bytes)
+#define OS_INTEGER_RTOS_MAIN_STACK_SIZE_BYTES \
+  (os::rtos::port::stack::default_size_bytes)
 #endif
 
 #if !defined(OS_INTEGER_RTOS_IDLE_STACK_SIZE_BYTES)
-#define OS_INTEGER_RTOS_IDLE_STACK_SIZE_BYTES               (os::rtos::port::stack::default_size_bytes)
+#define OS_INTEGER_RTOS_IDLE_STACK_SIZE_BYTES \
+  (os::rtos::port::stack::default_size_bytes)
 #endif
 
 #if !defined(OS_BOOL_RTOS_SCHEDULER_PREEMPTIVE)
-#define OS_BOOL_RTOS_SCHEDULER_PREEMPTIVE                   (true)
+#define OS_BOOL_RTOS_SCHEDULER_PREEMPTIVE (true)
 #endif
 
 // ----------------------------------------------------------------------------

@@ -164,13 +164,14 @@ namespace os
 
       // ======================================================================
       /**
-       * @brief Scheduler critical section [RAII](https://en.wikipedia.org/wiki/Resource_Acquisition_Is_Initialization) helper.
+       * @brief Scheduler critical section
+       * [RAII](https://en.wikipedia.org/wiki/Resource_Acquisition_Is_Initialization)
+       * helper.
        * @headerfile os.h <micro-os-plus/rtos/os.h>
        */
       class critical_section
       {
       public:
-
         /**
          * @name Constructors & Destructor
          * @{
@@ -191,9 +192,11 @@ namespace os
         critical_section (const critical_section&) = delete;
         critical_section (critical_section&&) = delete;
         critical_section&
-        operator= (const critical_section&) = delete;
+        operator= (const critical_section&)
+            = delete;
         critical_section&
-        operator= (critical_section&&) = delete;
+        operator= (critical_section&&)
+            = delete;
 
         /**
          * @endcond
@@ -209,7 +212,6 @@ namespace os
          */
 
       protected:
-
         /**
          * @name Private Member Variables
          * @{
@@ -236,13 +238,14 @@ namespace os
       // ======================================================================
 
       /**
-       * @brief Scheduler uncritical section [RAII](https://en.wikipedia.org/wiki/Resource_Acquisition_Is_Initialization) helper.
+       * @brief Scheduler uncritical section
+       * [RAII](https://en.wikipedia.org/wiki/Resource_Acquisition_Is_Initialization)
+       * helper.
        * @headerfile os.h <micro-os-plus/rtos/os.h>
        */
       class uncritical_section
       {
       public:
-
         /**
          * @name Constructors & Destructor
          * @{
@@ -263,9 +266,11 @@ namespace os
         uncritical_section (const uncritical_section&) = delete;
         uncritical_section (uncritical_section&&) = delete;
         uncritical_section&
-        operator= (const uncritical_section&) = delete;
+        operator= (const uncritical_section&)
+            = delete;
         uncritical_section&
-        operator= (uncritical_section&&) = delete;
+        operator= (uncritical_section&&)
+            = delete;
 
         /**
          * @endcond
@@ -281,7 +286,6 @@ namespace os
          */
 
       protected:
-
         /**
          * @name Private Member Variables
          * @{
@@ -314,7 +318,6 @@ namespace os
       class lockable
       {
       public:
-
         /**
          * @name Constructors & Destructor
          * @{
@@ -325,8 +328,7 @@ namespace os
          * @par Parameters
          *  None.
          */
-        constexpr
-        lockable ();
+        constexpr lockable ();
 
         /**
          * @cond ignore
@@ -336,9 +338,11 @@ namespace os
         lockable (const lockable&) = delete;
         lockable (lockable&&) = delete;
         lockable&
-        operator= (const lockable&) = delete;
+        operator= (const lockable&)
+            = delete;
         lockable&
-        operator= (lockable&&) = delete;
+        operator= (lockable&&)
+            = delete;
 
         /**
          * @endcond
@@ -354,7 +358,6 @@ namespace os
          */
 
       public:
-
         /**
          * @name Public Member Functions
          * @{
@@ -394,7 +397,6 @@ namespace os
          */
 
       protected:
-
         /**
          * @name Private Member Variables
          * @{
@@ -429,7 +431,8 @@ namespace os
 
         /**
          * @brief Get the total number of context switches.
-         * @return Integer with the total number of context switches since scheduler start.
+         * @return Integer with the total number of context switches since
+         * scheduler start.
          */
         rtos::statistics::counter_t
         context_switches (void);
@@ -463,14 +466,14 @@ namespace os
         extern clock::timestamp_t switch_timestamp_;
         extern rtos::statistics::duration_t cpu_cycles_;
 
-      /**
-       * @endcond
-       */
+        /**
+         * @endcond
+         */
 
 #endif /* defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES) */
 
-      } /* namespace statistics */
-    } /* namespace scheduler */
+      } // namespace statistics
+    } // namespace scheduler
 
     namespace interrupts
     {
@@ -492,13 +495,14 @@ namespace os
       // TODO: make template, parameter IRQ level
 
       /**
-       * @brief Interrupts critical section [RAII](https://en.wikipedia.org/wiki/Resource_Acquisition_Is_Initialization) helper.
+       * @brief Interrupts critical section
+       * [RAII](https://en.wikipedia.org/wiki/Resource_Acquisition_Is_Initialization)
+       * helper.
        * @headerfile os.h <micro-os-plus/rtos/os.h>
        */
       class critical_section
       {
       public:
-
         /**
          * @name Constructors & Destructor
          * @{
@@ -519,9 +523,11 @@ namespace os
         critical_section (const critical_section&) = delete;
         critical_section (critical_section&&) = delete;
         critical_section&
-        operator= (const critical_section&) = delete;
+        operator= (const critical_section&)
+            = delete;
         critical_section&
-        operator= (critical_section&&) = delete;
+        operator= (critical_section&&)
+            = delete;
 
         /**
          * @endcond
@@ -537,7 +543,6 @@ namespace os
          */
 
       public:
-
         /**
          * @name Public Member Functions
          * @{
@@ -554,7 +559,8 @@ namespace os
 
         /**
          * @brief Exit the interrupts critical section.
-         * @param state The value to restore the interrupts priorities register.
+         * @param state The value to restore the interrupts priorities
+         * register.
          * @return  Nothing.
          */
         static void
@@ -565,7 +571,6 @@ namespace os
          */
 
       protected:
-
         /**
          * @name Private Member Variables
          * @{
@@ -592,13 +597,14 @@ namespace os
       // ======================================================================
 
       /**
-       * @brief Interrupts critical section [RAII](https://en.wikipedia.org/wiki/Resource_Acquisition_Is_Initialization) helper.
+       * @brief Interrupts critical section
+       * [RAII](https://en.wikipedia.org/wiki/Resource_Acquisition_Is_Initialization)
+       * helper.
        * @headerfile os.h <micro-os-plus/rtos/os.h>
        */
       class uncritical_section
       {
       public:
-
         /**
          * @name Constructors & Destructor
          * @{
@@ -619,9 +625,11 @@ namespace os
         uncritical_section (const uncritical_section&) = delete;
         uncritical_section (uncritical_section&&) = delete;
         uncritical_section&
-        operator= (const uncritical_section&) = delete;
+        operator= (const uncritical_section&)
+            = delete;
         uncritical_section&
-        operator= (uncritical_section&&) = delete;
+        operator= (uncritical_section&&)
+            = delete;
 
         /**
          * @endcond
@@ -637,7 +645,6 @@ namespace os
          */
 
       public:
-
         /**
          * @name Public Member Functions
          * @{
@@ -666,7 +673,6 @@ namespace os
          */
 
       protected:
-
         /**
          * @name Private Member Variables
          * @{
@@ -699,7 +705,6 @@ namespace os
       class lockable
       {
       public:
-
         /**
          * @name Constructors & Destructor
          * @{
@@ -710,8 +715,7 @@ namespace os
          * @par Parameters
          *  None.
          */
-        constexpr
-        lockable ();
+        constexpr lockable ();
 
         /**
          * @brief Destruct the interrupts lock.
@@ -726,9 +730,11 @@ namespace os
         lockable (const lockable&) = delete;
         lockable (lockable&&) = delete;
         lockable&
-        operator= (const lockable&) = delete;
+        operator= (const lockable&)
+            = delete;
         lockable&
-        operator= (lockable&&) = delete;
+        operator= (lockable&&)
+            = delete;
 
         /**
          * @endcond
@@ -739,7 +745,6 @@ namespace os
          */
 
       public:
-
         /**
          * @name Public Member Functions
          * @{
@@ -779,7 +784,6 @@ namespace os
          */
 
       protected:
-
         /**
          * @name Private Member Variables
          * @{
@@ -801,12 +805,11 @@ namespace os
         /**
          * @}
          */
-
       };
 
-    } /* namespace interrupts */
-  } /* namespace rtos */
-} /* namespace os */
+    } // namespace interrupts
+  } // namespace rtos
+} // namespace os
 
 // ===== Inline & template implementations ====================================
 
@@ -841,7 +844,7 @@ namespace os
 #if !defined(OS_USE_RTOS_PORT_SCHEDULER)
         return is_preemptive_;
 #else
-        return port::scheduler::preemptive();
+        return port::scheduler::preemptive ();
 #endif
       }
 
@@ -907,9 +910,7 @@ namespace os
        *
        * @warning Cannot be invoked from Interrupt Service Routines.
        */
-      inline
-      critical_section::critical_section () :
-          state_ (lock ())
+      inline critical_section::critical_section () : state_ (lock ())
       {
 #if defined(OS_TRACE_RTOS_SCHEDULER)
         trace::printf (" {c ");
@@ -923,8 +924,7 @@ namespace os
        *
        * @warning Cannot be invoked from Interrupt Service Routines.
        */
-      inline
-      critical_section::~critical_section ()
+      inline critical_section::~critical_section ()
       {
 #if defined(OS_TRACE_RTOS_SCHEDULER)
         trace::printf (" c} ");
@@ -938,9 +938,7 @@ namespace os
        *
        * @warning Cannot be invoked from Interrupt Service Routines.
        */
-      inline
-      uncritical_section::uncritical_section () :
-          state_ (unlock ())
+      inline uncritical_section::uncritical_section () : state_ (unlock ())
       {
 #if defined(OS_TRACE_RTOS_SCHEDULER)
         trace::printf (" {u ");
@@ -954,8 +952,7 @@ namespace os
        *
        * @warning Cannot be invoked from Interrupt Service Routines.
        */
-      inline
-      uncritical_section::~uncritical_section ()
+      inline uncritical_section::~uncritical_section ()
       {
 #if defined(OS_TRACE_RTOS_SCHEDULER)
         trace::printf (" u} ");
@@ -968,9 +965,7 @@ namespace os
        *
        * @warning Cannot be invoked from Interrupt Service Routines.
        */
-      constexpr
-      lockable::lockable () :
-          state_ (port::scheduler::state::init)
+      constexpr lockable::lockable () : state_ (port::scheduler::state::init)
       {
         ;
       }
@@ -980,8 +975,7 @@ namespace os
        *
        * @warning Cannot be invoked from Interrupt Service Routines.
        */
-      inline
-      lockable::~lockable ()
+      inline lockable::~lockable ()
       {
         ;
       }
@@ -1073,9 +1067,9 @@ namespace os
 
 #endif /* defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES) */
 
-      } /* namespace statistics */
+      } // namespace statistics
 
-    } /* namespace scheduler */
+    } // namespace scheduler
 
     // ========================================================================
 
@@ -1086,8 +1080,7 @@ namespace os
        *
        * @note Can be invoked from Interrupt Service Routines (obviously).
        */
-      inline bool
-      __attribute__((always_inline))
+      inline __attribute__ ((always_inline)) bool
       in_handler_mode (void)
       {
         return port::interrupts::in_handler_mode ();
@@ -1098,10 +1091,9 @@ namespace os
        *
        * @note Can be invoked from Interrupt Service Routines.
        */
-      inline
-      __attribute__((always_inline))
-      critical_section::critical_section () :
-          state_ (enter ())
+      inline __attribute__ ((always_inline))
+      critical_section::critical_section ()
+          : state_ (enter ())
       {
         ;
       }
@@ -1111,8 +1103,7 @@ namespace os
        *
        * @note Can be invoked from Interrupt Service Routines.
        */
-      inline
-      __attribute__((always_inline))
+      inline __attribute__ ((always_inline))
       critical_section::~critical_section ()
       {
         exit (state_);
@@ -1123,8 +1114,7 @@ namespace os
        *
        * @note Can be invoked from Interrupt Service Routines.
        */
-      inline state_t
-      __attribute__((always_inline))
+      inline __attribute__ ((always_inline)) state_t
       critical_section::enter (void)
       {
         return port::interrupts::critical_section::enter ();
@@ -1135,8 +1125,7 @@ namespace os
        *
        * @note Can be invoked from Interrupt Service Routines.
        */
-      inline void
-      __attribute__((always_inline))
+      inline __attribute__ ((always_inline)) void
       critical_section::exit (state_t state)
       {
         port::interrupts::critical_section::exit (state);
@@ -1149,10 +1138,9 @@ namespace os
        *
        * @note Can be invoked from Interrupt Service Routines.
        */
-      inline
-      __attribute__((always_inline))
-      uncritical_section::uncritical_section () :
-          state_ (enter ())
+      inline __attribute__ ((always_inline))
+      uncritical_section::uncritical_section ()
+          : state_ (enter ())
       {
         ;
       }
@@ -1162,8 +1150,7 @@ namespace os
        *
        * @note Can be invoked from Interrupt Service Routines.
        */
-      inline
-      __attribute__((always_inline))
+      inline __attribute__ ((always_inline))
       uncritical_section::~uncritical_section ()
       {
         exit (state_);
@@ -1174,8 +1161,7 @@ namespace os
        *
        * @note Can be invoked from Interrupt Service Routines.
        */
-      inline state_t
-      __attribute__((always_inline))
+      inline __attribute__ ((always_inline)) state_t
       uncritical_section::enter (void)
       {
         return port::interrupts::uncritical_section::enter ();
@@ -1186,8 +1172,7 @@ namespace os
        *
        * @note Can be invoked from Interrupt Service Routines.
        */
-      inline void
-      __attribute__((always_inline))
+      inline __attribute__ ((always_inline)) void
       uncritical_section::exit (state_t state)
       {
         port::interrupts::uncritical_section::exit (state);
@@ -1200,9 +1185,7 @@ namespace os
        *
        * @note Can be invoked from Interrupt Service Routines.
        */
-      constexpr
-      lockable::lockable () :
-          state_ (port::interrupts::state::init)
+      constexpr lockable::lockable () : state_ (port::interrupts::state::init)
       {
         ;
       }
@@ -1212,9 +1195,7 @@ namespace os
        *
        * @note Can be invoked from Interrupt Service Routines.
        */
-      inline
-      __attribute__((always_inline))
-      lockable::~lockable ()
+      inline __attribute__ ((always_inline)) lockable::~lockable ()
       {
         ;
       }
@@ -1224,8 +1205,7 @@ namespace os
        *
        * @note Can be invoked from Interrupt Service Routines.
        */
-      inline void
-      __attribute__((always_inline))
+      inline __attribute__ ((always_inline)) void
       lockable::lock (void)
       {
         state_ = critical_section::enter ();
@@ -1238,8 +1218,7 @@ namespace os
        *
        * @note Can be invoked from Interrupt Service Routines.
        */
-      inline bool
-      __attribute__((always_inline))
+      inline __attribute__ ((always_inline)) bool
       lockable::try_lock (void)
       {
         state_ = critical_section::enter ();
@@ -1251,18 +1230,17 @@ namespace os
        *
        * @note Can be invoked from Interrupt Service Routines.
        */
-      inline void
-      __attribute__((always_inline))
+      inline __attribute__ ((always_inline)) void
       lockable::unlock (void)
       {
         critical_section::exit (state_);
       }
 
-    // ========================================================================
-    }
+      // ======================================================================
+    } // namespace interrupts
 
-  } /* namespace rtos */
-} /* namespace os */
+  } // namespace rtos
+} // namespace os
 
 // ----------------------------------------------------------------------------
 

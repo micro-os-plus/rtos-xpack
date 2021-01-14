@@ -51,7 +51,6 @@ namespace os
     class condition_variable : public internal::object_named_system
     {
     public:
-
       // ======================================================================
 
       /**
@@ -62,7 +61,6 @@ namespace os
       class attributes : public internal::attributes_clocked
       {
       public:
-
         /**
          * @name Constructors & Destructor
          * @{
@@ -73,16 +71,17 @@ namespace os
          * @par Parameters
          *  None.
          */
-        constexpr
-        attributes ();
+        constexpr attributes ();
 
         // The rule of five.
         attributes (const attributes&) = default;
         attributes (attributes&&) = default;
         attributes&
-        operator= (const attributes&) = default;
+        operator= (const attributes&)
+            = default;
         attributes&
-        operator= (attributes&&) = default;
+        operator= (attributes&&)
+            = default;
 
         /**
          * @brief Destruct the condition variable attributes object instance.
@@ -94,7 +93,6 @@ namespace os
          */
 
       public:
-
         /**
          * @name Public Member Variables
          * @{
@@ -160,9 +158,11 @@ namespace os
       condition_variable (const condition_variable&) = delete;
       condition_variable (condition_variable&&) = delete;
       condition_variable&
-      operator= (const condition_variable&) = delete;
+      operator= (const condition_variable&)
+          = delete;
       condition_variable&
-      operator= (condition_variable&&) = delete;
+      operator= (condition_variable&&)
+          = delete;
 
       /**
        * @endcond
@@ -196,7 +196,6 @@ namespace os
        */
 
     public:
-
       /**
        * @name Public Member Functions
        * @{
@@ -275,7 +274,6 @@ namespace os
        */
 
     protected:
-
       /**
        * @name Private Member Variables
        * @{
@@ -298,11 +296,10 @@ namespace os
       /**
        * @}
        */
-
     };
 
-  } /* namespace rtos */
-} /* namespace os */
+  } // namespace rtos
+} // namespace os
 
 // ===== Inline & template implementations ====================================
 
@@ -310,8 +307,7 @@ namespace os
 {
   namespace rtos
   {
-    constexpr
-    condition_variable::attributes::attributes ()
+    constexpr condition_variable::attributes::attributes ()
     {
       ;
     }
@@ -328,8 +324,8 @@ namespace os
       return this == &rhs;
     }
 
-  } /* namespace rtos */
-} /* namespace os */
+  } // namespace rtos
+} // namespace os
 
 // ----------------------------------------------------------------------------
 

@@ -55,7 +55,6 @@ namespace os
     class event_flags : public internal::object_named_system
     {
     public:
-
       // ======================================================================
 
       /**
@@ -66,7 +65,6 @@ namespace os
       class attributes : public internal::attributes_clocked
       {
       public:
-
         /**
          * @name Constructors & Destructor
          * @{
@@ -77,16 +75,17 @@ namespace os
          * @par Parameters
          *  None.
          */
-        constexpr
-        attributes ();
+        constexpr attributes ();
 
         // The rule of five.
         attributes (const attributes&) = default;
         attributes (attributes&&) = default;
         attributes&
-        operator= (const attributes&) = default;
+        operator= (const attributes&)
+            = default;
         attributes&
-        operator= (attributes&&) = default;
+        operator= (attributes&&)
+            = default;
 
         /**
          * @brief Destruct the event flags attributes object instance.
@@ -98,7 +97,6 @@ namespace os
          */
 
       public:
-
         /**
          * @name Public Member Variables
          * @{
@@ -145,9 +143,11 @@ namespace os
       event_flags (const event_flags&) = delete;
       event_flags (event_flags&&) = delete;
       event_flags&
-      operator= (const event_flags&) = delete;
+      operator= (const event_flags&)
+          = delete;
       event_flags&
-      operator= (event_flags&&) = delete;
+      operator= (event_flags&&)
+          = delete;
 
       /**
        * @endcond
@@ -181,7 +181,6 @@ namespace os
        */
 
     public:
-
       /**
        * @name Public Member Functions
        * @{
@@ -292,7 +291,6 @@ namespace os
        */
 
     protected:
-
       /**
        * @name Private Member Variables
        * @{
@@ -324,13 +322,12 @@ namespace os
       /**
        * @}
        */
-
     };
 
 #pragma GCC diagnostic pop
 
-  } /* namespace rtos */
-} /* namespace os */
+  } // namespace rtos
+} // namespace os
 
 // ===== Inline & template implementations ====================================
 
@@ -338,14 +335,13 @@ namespace os
 {
   namespace rtos
   {
-    constexpr
-    event_flags::attributes::attributes ()
+    constexpr event_flags::attributes::attributes ()
     {
       ;
     }
 
-  } /* namespace rtos */
-} /* namespace os */
+  } // namespace rtos
+} // namespace os
 
 // ----------------------------------------------------------------------------
 

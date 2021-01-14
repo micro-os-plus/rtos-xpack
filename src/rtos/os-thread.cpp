@@ -44,16 +44,16 @@ namespace os
 
     std::size_t thread::stack::min_size_bytes_ = port::stack::min_size_bytes;
 
-    std::size_t thread::stack::default_size_bytes_ =
-        port::stack::default_size_bytes;
+    std::size_t thread::stack::default_size_bytes_
+        = port::stack::default_size_bytes;
 
     /**
      * @endcond
      */
 
     // ------------------------------------------------------------------------
-    using mutexes_list = utils::intrusive_list<
-    mutex, utils::double_list_links, &mutex::owner_links_>;
+    using mutexes_list = utils::intrusive_list<mutex, utils::double_list_links,
+                                               &mutex::owner_links_>;
 
     // ========================================================================
     /**
@@ -66,7 +66,8 @@ namespace os
      * require accessors or mutators.
      *
      * @par POSIX compatibility
-     *  Inspired by `pthread_attr_t` from [<pthread.h>](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
+     *  Inspired by `pthread_attr_t` from
+     * [<pthread.h>](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
      *  (IEEE Std 1003.1, 2013 Edition).
      */
 
@@ -143,8 +144,10 @@ namespace os
      *
      * @par POSIX compatibility
      *  Inspired by `pthread_t`
-     *  from [<pthread.h>](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
-     *  ([IEEE Std 1003.1, 2013 Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
+     *  from
+     * [<pthread.h>](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
+     *  ([IEEE Std 1003.1, 2013
+     * Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
      */
 
     /**
@@ -156,12 +159,12 @@ namespace os
     {
       // Align the bottom of the stack.
       void* pa = bottom_address_;
-      bottom_address_ = static_cast<stack::element_t*> (std::align (
-          sizeof(stack::allocation_element_t), stack::min_size (), pa,
-          size_bytes_));
+      bottom_address_ = static_cast<stack::element_t*> (
+          std::align (sizeof (stack::allocation_element_t), stack::min_size (),
+                      pa, size_bytes_));
 
       // If there is not enough space for the minimal stack, fail.
-      os_assert_throw(bottom_address_ != nullptr, ENOMEM);
+      os_assert_throw (bottom_address_ != nullptr, ENOMEM);
 
       element_t* p = bottom_address_;
       element_t* pend = top ();
@@ -174,7 +177,7 @@ namespace os
 
       // Compute the actual size. The -1 is to leave space for the magic.
       size_bytes_ = ((static_cast<std::size_t> (p - bottom_address_) - 1)
-          * sizeof(element_t));
+                     * sizeof (element_t));
     }
 
     /**
@@ -196,7 +199,7 @@ namespace os
       std::size_t count = 0;
       while (*p == magic)
         {
-          count += sizeof(element_t);
+          count += sizeof (element_t);
           ++p;
         }
 
@@ -231,13 +234,13 @@ namespace os
       catch (std::exception e)
         {
           trace::printf ("%s() @%p %s top exception \"%s\".\n", __func__,
-              thread, thread->name (), e.what ());
+                         thread, thread->name (), e.what ());
           exit_ptr = nullptr;
         }
       catch (...)
         {
           trace::printf ("%s() @%p %s top exception.\n", __func__, thread,
-              thread->name ());
+                         thread->name ());
           exit_ptr = nullptr;
         }
 #else
@@ -253,9 +256,7 @@ namespace os
 #endif
     }
 
-    thread::thread (const char* name) :
-        object_named_system
-          { name }
+    thread::thread (const char* name) : object_named_system{ name }
     {
 #if defined(OS_TRACE_RTOS_THREAD)
       trace::printf ("%s() @%p %s\n", __func__, this, this->name ());
@@ -301,16 +302,18 @@ namespace os
      * (`rtos::memory::allocator`).
      *
      * @par POSIX compatibility
-     *  Inspired by [`pthread_create()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_create.html)
-     *  from [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
-     *  ([IEEE Std 1003.1, 2013 Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
+     *  Inspired by
+     * [`pthread_create()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_create.html)
+     *  from
+     * [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
+     *  ([IEEE Std 1003.1, 2013
+     * Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
     thread::thread (func_t function, func_args_t args, const attributes& attr,
-                    const allocator_type& allocator) :
-        thread
-          { nullptr, function, args, attr, allocator }
+                    const allocator_type& allocator)
+        : thread{ nullptr, function, args, attr, allocator }
     {
       ;
     }
@@ -350,16 +353,18 @@ namespace os
      * (`rtos::memory::allocator`).
      *
      * @par POSIX compatibility
-     *  Inspired by [`pthread_create()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_create.html)
-     *  from [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
-     *  ([IEEE Std 1003.1, 2013 Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
+     *  Inspired by
+     * [`pthread_create()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_create.html)
+     *  from
+     * [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
+     *  ([IEEE Std 1003.1, 2013
+     * Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
     thread::thread (const char* name, func_t function, func_args_t args,
-                    const attributes& attr, const allocator_type& allocator) :
-        object_named_system
-          { name }
+                    const attributes& attr, const allocator_type& allocator)
+        : object_named_system{ name }
     {
 #if defined(OS_TRACE_RTOS_THREAD)
       trace::printf ("%s() @%p %s\n", __func__, this, this->name ());
@@ -374,35 +379,34 @@ namespace os
         }
       else
         {
-          using allocator_type2 = memory::allocator<stack::allocation_element_t>;
+          using allocator_type2
+              = memory::allocator<stack::allocation_element_t>;
 
           if (attr.th_stack_size_bytes > stack::min_size ())
             {
-              allocated_stack_size_elements_ = (attr.th_stack_size_bytes
-                  + sizeof(stack::allocation_element_t) - 1)
-                  / sizeof(stack::allocation_element_t);
+              allocated_stack_size_elements_
+                  = (attr.th_stack_size_bytes
+                     + sizeof (stack::allocation_element_t) - 1)
+                    / sizeof (stack::allocation_element_t);
             }
           else
             {
-              allocated_stack_size_elements_ = (stack::default_size ()
-                  + sizeof(stack::allocation_element_t) - 1)
-                  / sizeof(stack::allocation_element_t);
+              allocated_stack_size_elements_
+                  = (stack::default_size ()
+                     + sizeof (stack::allocation_element_t) - 1)
+                    / sizeof (stack::allocation_element_t);
             }
 
-          allocated_stack_address_ =
-              reinterpret_cast<stack::element_t*> (const_cast<allocator_type2&> (allocator).allocate (
+          allocated_stack_address_ = reinterpret_cast<stack::element_t*> (
+              const_cast<allocator_type2&> (allocator).allocate (
                   allocated_stack_size_elements_));
 
           // Stack allocation failed.
-          assert(allocated_stack_address_ != nullptr);
+          assert (allocated_stack_address_ != nullptr);
 
-          internal_construct_ (
-              function,
-              args,
-              attr,
-              allocated_stack_address_,
-              allocated_stack_size_elements_
-                  * sizeof(stack::allocation_element_t));
+          internal_construct_ (function, args, attr, allocated_stack_address_,
+                               allocated_stack_size_elements_
+                                   * sizeof (stack::allocation_element_t));
         }
     }
 
@@ -416,12 +420,12 @@ namespace os
                                  std::size_t stack_size_bytes)
     {
       // Don't call this from interrupt handlers.
-      os_assert_throw(!interrupts::in_handler_mode (), EPERM);
+      os_assert_throw (!interrupts::in_handler_mode (), EPERM);
 
       // The thread function must be real.
-      assert(function != nullptr);
+      assert (function != nullptr);
       // Don't forget to set the thread priority.
-      assert(attr.th_priority != priority::none);
+      assert (attr.th_priority != priority::none);
 
       clock_ = attr.clock != nullptr ? attr.clock : &sysclock;
 
@@ -431,7 +435,7 @@ namespace os
           if (attr.th_stack_size_bytes > stack::min_size ())
             {
               // The stack address must be real.
-              assert(attr.th_stack_address == nullptr);
+              assert (attr.th_stack_address == nullptr);
             }
 
           stack ().set (static_cast<stack::element_t*> (stack_address),
@@ -449,52 +453,52 @@ namespace os
                      stack ().size_bytes_);
 #endif
 
-        {
-          // Prevent the new thread to execute before all members are set.
-          // ----- Enter critical section -------------------------------------
-          scheduler::critical_section scs;
+      {
+        // Prevent the new thread to execute before all members are set.
+        // ----- Enter critical section -------------------------------------
+        scheduler::critical_section scs;
 
-          // Get attributes from user structure.
-          prio_assigned_ = attr.th_priority;
+        // Get attributes from user structure.
+        prio_assigned_ = attr.th_priority;
 
-          func_ = function;
-          func_args_ = args;
+        func_ = function;
+        func_args_ = args;
 
-          parent_ = this_thread::_thread ();
-          if (scheduler::started () && (parent_ != nullptr))
-            {
-              parent_->children_.link (*this);
-            }
-          else
-            {
-              scheduler::top_threads_list_.link (*this);
-            }
+        parent_ = this_thread::_thread ();
+        if (scheduler::started () && (parent_ != nullptr))
+          {
+            parent_->children_.link (*this);
+          }
+        else
+          {
+            scheduler::top_threads_list_.link (*this);
+          }
 
-          stack ().initialize ();
+        stack ().initialize ();
 
 #if defined(OS_USE_RTOS_PORT_SCHEDULER)
 
-          port::thread::create (this);
-          state_ = state::ready;
+        port::thread::create (this);
+        state_ = state::ready;
 
 #else
 
-          // Create the context.
-          port::context::create (
-              &context_, reinterpret_cast<void*> (internal_invoke_with_exit_),
-              this);
+        // Create the context.
+        port::context::create (
+            &context_, reinterpret_cast<void*> (internal_invoke_with_exit_),
+            this);
 
-          if (!scheduler::started ())
-            {
-              scheduler::current_thread_ = this;
-            }
+        if (!scheduler::started ())
+          {
+            scheduler::current_thread_ = this;
+          }
 
-          // Add to ready list, but do not yield yet.
-          resume ();
+        // Add to ready list, but do not yield yet.
+        resume ();
 
 #endif
-          // ----- Exit critical section --------------------------------------
-        }
+        // ----- Exit critical section --------------------------------------
+      }
       // For just in case the new thread has higher priority.
       this_thread::yield ();
     }
@@ -557,37 +561,36 @@ namespace os
 
 #if defined(OS_USE_RTOS_PORT_SCHEDULER)
 
-        {
-          // ----- Enter critical section -------------------------------------
-          interrupts::critical_section ics;
+      {
+        // ----- Enter critical section -------------------------------------
+        interrupts::critical_section ics;
 
-          state_ = state::ready;
-          port::thread::resume (this);
-          // ----- Exit critical section --------------------------------------
-        }
+        state_ = state::ready;
+        port::thread::resume (this);
+        // ----- Exit critical section --------------------------------------
+      }
 
 #else
 
       // Don't call this from high priority interrupts.
-      assert(port::interrupts::is_priority_valid ());
+      assert (port::interrupts::is_priority_valid ());
 
-        {
-          // ----- Enter critical section -------------------------------------
-          interrupts::critical_section ics;
+      {
+        // ----- Enter critical section -------------------------------------
+        interrupts::critical_section ics;
 
-          // If the thread is not already in the ready list, enqueue it.
-          if (ready_node_.next () == nullptr)
-            {
-              scheduler::ready_threads_list_.link (ready_node_);
-              // state::ready set in above link().
-            }
-          // ----- Exit critical section --------------------------------------
-        }
+        // If the thread is not already in the ready list, enqueue it.
+        if (ready_node_.next () == nullptr)
+          {
+            scheduler::ready_threads_list_.link (ready_node_);
+            // state::ready set in above link().
+          }
+        // ----- Exit critical section --------------------------------------
+      }
 
       port::scheduler::reschedule ();
 
 #endif
-
     }
 
     /**
@@ -612,9 +615,8 @@ namespace os
       else
         {
           // Return the maximum between inherited and assigned.
-          return
-              (prio_inherited_ >= prio_assigned_) ?
-                  prio_inherited_ : prio_assigned_;
+          return (prio_inherited_ >= prio_assigned_) ? prio_inherited_
+                                                     : prio_assigned_;
         }
     }
 
@@ -630,7 +632,7 @@ namespace os
     thread::priority_inherited (void)
     {
       // Don't call this from interrupt handlers.
-      os_assert_err(!interrupts::in_handler_mode (), priority::error);
+      os_assert_err (!interrupts::in_handler_mode (), priority::error);
 
       return prio_inherited_;
     }
@@ -648,9 +650,12 @@ namespace os
      * code of `EINTR`.
      *
      * @par POSIX compatibility
-     *  Inspired by [`pthread_setschedprio()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_setschedprio.html)
-     *  from [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
-     *  ([IEEE Std 1003.1, 2013 Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
+     *  Inspired by
+     * [`pthread_setschedprio()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_setschedprio.html)
+     *  from
+     * [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
+     *  ([IEEE Std 1003.1, 2013
+     * Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
@@ -662,10 +667,10 @@ namespace os
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err(!interrupts::in_handler_mode (), EPERM);
+      os_assert_err (!interrupts::in_handler_mode (), EPERM);
       // Check the priority, it is not in the allowed range.
-      os_assert_err(prio < priority::error, EINVAL);
-      os_assert_err(prio != priority::none, EINVAL);
+      os_assert_err (prio < priority::error, EINVAL);
+      os_assert_err (prio != priority::none, EINVAL);
 
       if (prio_assigned_ == prio)
         {
@@ -730,9 +735,9 @@ namespace os
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err(!interrupts::in_handler_mode (), EPERM);
+      os_assert_err (!interrupts::in_handler_mode (), EPERM);
       // Check the priority, it is not in the allowed range.
-      os_assert_err(prio < priority::error, EINVAL);
+      os_assert_err (prio < priority::error, EINVAL);
 
       // Warning: do not check for `priority::none`, since
       // `mutex::unlock()` sets it when the list of mutexes owned
@@ -792,9 +797,12 @@ namespace os
      * refer to a joinable thread.
      *
      * @par POSIX compatibility
-     *  Inspired by [`pthread_detach()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_detach.html)
-     *  from [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
-     *  ([IEEE Std 1003.1, 2013 Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
+     *  Inspired by
+     * [`pthread_detach()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_detach.html)
+     *  from
+     * [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
+     *  ([IEEE Std 1003.1, 2013
+     * Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
      *
      * The `detach()` function shall not return an error code of `EINTR`.
      *
@@ -808,7 +816,7 @@ namespace os
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err(!interrupts::in_handler_mode (), EPERM);
+      os_assert_err (!interrupts::in_handler_mode (), EPERM);
 
 #if defined(OS_USE_RTOS_PORT_SCHEDULER)
 
@@ -842,9 +850,12 @@ namespace os
      * detached.
      *
      * @par POSIX compatibility
-     *  Inspired by [`pthread_join()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_join.html)
-     *  from [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
-     *  ([IEEE Std 1003.1, 2013 Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
+     *  Inspired by
+     * [`pthread_join()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_join.html)
+     *  from
+     * [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
+     *  ([IEEE Std 1003.1, 2013
+     * Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
      *
      *
      * The join() function may fail if:
@@ -863,12 +874,12 @@ namespace os
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err(!interrupts::in_handler_mode (), EPERM);
+      os_assert_err (!interrupts::in_handler_mode (), EPERM);
       // Don't call this from critical regions.
-      os_assert_err(!scheduler::locked (), EPERM);
+      os_assert_err (!scheduler::locked (), EPERM);
 
       // Fail if current thread
-      assert(this != this_thread::_thread ());
+      assert (this != this_thread::_thread ());
 
       while (state_ != state::destroyed)
         {
@@ -901,9 +912,12 @@ namespace os
      * fully implemented).
      *
      * @par POSIX compatibility
-     *  Inspired by [`pthread_cancel()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_cancel.html)
-     *  from [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
-     *  ([IEEE Std 1003.1, 2013 Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
+     *  Inspired by
+     * [`pthread_cancel()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_cancel.html)
+     *  from
+     * [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
+     *  ([IEEE Std 1003.1, 2013
+     * Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
@@ -915,7 +929,7 @@ namespace os
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err(!interrupts::in_handler_mode (), EPERM);
+      os_assert_err (!interrupts::in_handler_mode (), EPERM);
 
       // TODO: implement according to POSIX specs.
       return result::ok;
@@ -963,16 +977,16 @@ namespace os
       trace::printf ("%s() @%p %s\n", __func__, this, name ());
 #endif
 
-        {
-          // ----- Enter critical section -------------------------------------
-          interrupts::critical_section ics;
+      {
+        // ----- Enter critical section -------------------------------------
+        interrupts::critical_section ics;
 
-          // Remove this thread from the ready list, if there.
-          port::this_thread::prepare_suspend ();
+        // Remove this thread from the ready list, if there.
+        port::this_thread::prepare_suspend ();
 
-          state_ = state::suspended;
-          // ----- Exit critical section --------------------------------------
-        }
+        state_ = state::suspended;
+        // ----- Exit critical section --------------------------------------
+      }
 
       port::scheduler::reschedule ();
     }
@@ -985,43 +999,43 @@ namespace os
 #endif
 
       // Don't call this from interrupt handlers.
-      assert(!interrupts::in_handler_mode ());
+      assert (!interrupts::in_handler_mode ());
+
+      {
+        // ----- Enter critical section -------------------------------------
+        scheduler::critical_section scs;
 
         {
-          // ----- Enter critical section -------------------------------------
-          scheduler::critical_section scs;
-
-            {
-              // ----- Enter critical section ---------------------------------
-              interrupts::critical_section ics;
-
-              ready_node_.unlink ();
-
-              child_links_.unlink ();
-              // ----- Exit critical section ----------------------------------
-            }
-
-          // There must be no children threads still alive.
-          assert(children_.empty ());
-          parent_ = nullptr;
-
-          // There must be no more mutexes locked by this thread.
-          assert(mutexes_.empty ());
-          assert(acquired_mutexes_ == 0);
-
-          func_result_ = exit_ptr;
-          // ----- Exit critical section --------------------------------------
-        }
-
-        {
-          // ----- Enter critical section -------------------------------------
+          // ----- Enter critical section ---------------------------------
           interrupts::critical_section ics;
 
-          // Add to a list of threads to be destroyed by the idle thread.
-          // Also set state::terminated.
-          scheduler::terminated_threads_list_.link (ready_node_);
-          // ----- Exit critical section --------------------------------------
+          ready_node_.unlink ();
+
+          child_links_.unlink ();
+          // ----- Exit critical section ----------------------------------
         }
+
+        // There must be no children threads still alive.
+        assert (children_.empty ());
+        parent_ = nullptr;
+
+        // There must be no more mutexes locked by this thread.
+        assert (mutexes_.empty ());
+        assert (acquired_mutexes_ == 0);
+
+        func_result_ = exit_ptr;
+        // ----- Exit critical section --------------------------------------
+      }
+
+      {
+        // ----- Enter critical section -------------------------------------
+        interrupts::critical_section ics;
+
+        // Add to a list of threads to be destroyed by the idle thread.
+        // Also set state::terminated.
+        scheduler::terminated_threads_list_.link (ready_node_);
+        // ----- Exit critical section --------------------------------------
+      }
 
 #if defined(OS_USE_RTOS_PORT_SCHEDULER)
 
@@ -1036,7 +1050,7 @@ namespace os
 
 #endif
 
-      assert(true);
+      assert (true);
       while (true)
         ;
 
@@ -1048,14 +1062,13 @@ namespace os
     {
       if (stack ().size () > 0)
         {
-          assert(stack ().check_bottom_magic ());
-          assert(stack ().check_top_magic ());
+          assert (stack ().check_bottom_magic ());
+          assert (stack ().check_top_magic ());
 
 #if defined(OS_TRACE_RTOS_THREAD)
-          trace::printf ("%s() @%p %s stack: %u/%u bytes used\n", __func__,
-                         this, name (),
-                         stack ().size () - stack ().available (),
-                         stack ().size ());
+          trace::printf (
+              "%s() @%p %s stack: %u/%u bytes used\n", __func__, this, name (),
+              stack ().size () - stack ().available (), stack ().size ());
 #endif
 
           // Clear stack to avoid further checks
@@ -1075,31 +1088,33 @@ namespace os
 
       if (allocated_stack_address_ != nullptr)
         {
-          typedef typename std::allocator_traits<allocator_type>::pointer pointer;
+          typedef
+              typename std::allocator_traits<allocator_type>::pointer pointer;
 
-          static_cast<allocator_type*> (const_cast<void*> (allocator_))->deallocate (
-              reinterpret_cast<pointer> (allocated_stack_address_),
-              allocated_stack_size_elements_);
+          static_cast<allocator_type*> (const_cast<void*> (allocator_))
+              ->deallocate (
+                  reinterpret_cast<pointer> (allocated_stack_address_),
+                  allocated_stack_size_elements_);
 
           allocated_stack_address_ = nullptr;
         }
 
-        {
-          // ----- Enter critical section -------------------------------------
-          scheduler::critical_section scs;
+      {
+        // ----- Enter critical section -------------------------------------
+        scheduler::critical_section scs;
 
-          mutexes_list& mx_list = reinterpret_cast<mutexes_list&> (mutexes_);
-          while (not mx_list.empty ())
-            {
-              auto* mx = mx_list.unlink_head ();
+        mutexes_list& mx_list = reinterpret_cast<mutexes_list&> (mutexes_);
+        while (not mx_list.empty ())
+          {
+            auto* mx = mx_list.unlink_head ();
 
-              mx->internal_mark_owner_dead_ ();
+            mx->internal_mark_owner_dead_ ();
 
-              // Unlock the mutex as owned by the thread itself.
-              mx->internal_unlock_ (this);
-            }
-          // ----- Exit critical section --------------------------------------
-        }
+            // Unlock the mutex as owned by the thread itself.
+            mx->internal_unlock_ (this);
+          }
+        // ----- Exit critical section --------------------------------------
+      }
 
       state_ = state::destroyed;
 
@@ -1117,9 +1132,12 @@ namespace os
      * @details
      *
      * @par POSIX compatibility
-     *  Inspired by [`pthread_kill()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_kill.html)
-     *  from [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
-     *  ([IEEE Std 1003.1, 2013 Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
+     *  Inspired by
+     * [`pthread_kill()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_kill.html)
+     *  from
+     * [`<pthread.h>`](http://pubs.opengroup.org/onlinepubs/9699919799/basedefs/pthread.h.html)
+     *  ([IEEE Std 1003.1, 2013
+     * Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
@@ -1131,65 +1149,65 @@ namespace os
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err(!interrupts::in_handler_mode (), EPERM);
+      os_assert_err (!interrupts::in_handler_mode (), EPERM);
+
+      {
+        // ----- Enter critical section -------------------------------------
+        scheduler::critical_section scs;
+
+        if (state_ == state::destroyed)
+          {
+#if defined(OS_TRACE_RTOS_THREAD)
+            trace::printf ("%s() @%p %s already gone\n", __func__, this,
+                           name ());
+#endif
+            return result::ok; // Already exited itself
+          }
 
         {
-          // ----- Enter critical section -------------------------------------
-          scheduler::critical_section scs;
+          // ----- Enter critical section ---------------------------------
+          interrupts::critical_section ics;
 
-          if (state_ == state::destroyed)
+          // Remove thread from the funeral list and kill it here.
+          ready_node_.unlink ();
+
+          // If the thread is waiting on an event, remove it from the list.
+          if (waiting_node_ != nullptr)
             {
-#if defined(OS_TRACE_RTOS_THREAD)
-              trace::printf ("%s() @%p %s already gone\n", __func__, this,
-                             name ());
-#endif
-              return result::ok; // Already exited itself
+              waiting_node_->unlink ();
             }
 
+          // If the thread is waiting on a timeout, remove it from the list.
+          if (clock_node_ != nullptr)
             {
-              // ----- Enter critical section ---------------------------------
-              interrupts::critical_section ics;
-
-              // Remove thread from the funeral list and kill it here.
-              ready_node_.unlink ();
-
-              // If the thread is waiting on an event, remove it from the list.
-              if (waiting_node_ != nullptr)
-                {
-                  waiting_node_->unlink ();
-                }
-
-              // If the thread is waiting on a timeout, remove it from the list.
-              if (clock_node_ != nullptr)
-                {
-                  clock_node_->unlink ();
-                }
-
-              child_links_.unlink ();
-              // ----- Exit critical section ----------------------------------
+              clock_node_->unlink ();
             }
 
-          // The must be no more children threads alive.
-          assert(children_.empty ());
-          parent_ = nullptr;
+          child_links_.unlink ();
+          // ----- Exit critical section ----------------------------------
+        }
+
+        // The must be no more children threads alive.
+        assert (children_.empty ());
+        parent_ = nullptr;
 
 #if defined(OS_USE_RTOS_PORT_SCHEDULER)
 
-          port::thread::destroy_other (this);
+        port::thread::destroy_other (this);
 
 #endif
 
-          func_result_ = nullptr;
+        func_result_ = nullptr;
 
-          internal_destroy_ ();
+        internal_destroy_ ();
 
-          // There must be no mutexes locked by this thread.
-          // Must have been cleaned before.
-          assert(mutexes_.empty ());
-          assert(acquired_mutexes_ == 0);
+        // There must be no mutexes locked by this thread.
+        // Must have been cleaned before.
+        assert (mutexes_.empty ());
+        assert (acquired_mutexes_ == 0);
 
-          // ----- Exit critical section --------------------------------------
-        }
+        // ----- Exit critical section --------------------------------------
+      }
 
       return result::ok;
     }
@@ -1236,56 +1254,56 @@ namespace os
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err(!interrupts::in_handler_mode (), EPERM);
+      os_assert_err (!interrupts::in_handler_mode (), EPERM);
       // Don't call this from critical regions.
-      os_assert_err(!scheduler::locked (), EPERM);
+      os_assert_err (!scheduler::locked (), EPERM);
 
-        {
-          // ----- Enter critical section ---------------------------------
-          interrupts::critical_section ics;
+      {
+        // ----- Enter critical section ---------------------------------
+        interrupts::critical_section ics;
 
-          if (event_flags_.check_raised (mask, oflags, mode))
-            {
+        if (event_flags_.check_raised (mask, oflags, mode))
+          {
 #if defined(OS_TRACE_RTOS_THREAD_FLAGS)
-              trace::printf ("%s(0x%X,%u) @%p %s >0x%X\n", __func__, mask, mode,
-                             this, name (), event_flags_.mask ());
+            trace::printf ("%s(0x%X,%u) @%p %s >0x%X\n", __func__, mask, mode,
+                           this, name (), event_flags_.mask ());
 #endif
-              return result::ok;
-            }
-          // ----- Exit critical section ----------------------------------
-        }
+            return result::ok;
+          }
+        // ----- Exit critical section ----------------------------------
+      }
 
 #if defined(OS_TRACE_RTOS_THREAD_FLAGS)
       clock::timestamp_t begin_timestamp = clock_->now ();
 #endif
       for (;;)
         {
-            {
-              // ----- Enter critical section ---------------------------------
-              interrupts::critical_section ics;
+          {
+            // ----- Enter critical section ---------------------------------
+            interrupts::critical_section ics;
 
-              if (event_flags_.check_raised (mask, oflags, mode))
-                {
+            if (event_flags_.check_raised (mask, oflags, mode))
+              {
 #if defined(OS_TRACE_RTOS_THREAD_FLAGS)
-                  clock::duration_t slept_ticks =
-                      static_cast<clock::duration_t> (clock_->now ()
-                          - begin_timestamp);
-                  trace::printf ("%s(0x%X,%u) in %d @%p %s >0x%X\n", __func__,
-                                 mask, mode, slept_ticks, this, name (),
-                                 event_flags_.mask ());
+                clock::duration_t slept_ticks
+                    = static_cast<clock::duration_t> (clock_->now ()
+                                                      - begin_timestamp);
+                trace::printf ("%s(0x%X,%u) in %d @%p %s >0x%X\n", __func__,
+                               mask, mode, slept_ticks, this, name (),
+                               event_flags_.mask ());
 #endif
-                  return result::ok;
-                }
-              // ----- Exit critical section ----------------------------------
-            }
+                return result::ok;
+              }
+            // ----- Exit critical section ----------------------------------
+          }
 
           internal_suspend_ ();
 
           if (interrupted ())
             {
 #if defined(OS_TRACE_RTOS_THREAD_FLAGS)
-              trace::printf ("%s(0x%X,%u) EINTR @%p %s\n", __func__, mask, mode,
-                             this, name ());
+              trace::printf ("%s(0x%X,%u) EINTR @%p %s\n", __func__, mask,
+                             mode, this, name ());
 #endif
               return EINTR;
             }
@@ -1296,7 +1314,8 @@ namespace os
     }
 
     result_t
-    thread::internal_flags_try_wait_ (flags::mask_t mask, flags::mask_t* oflags,
+    thread::internal_flags_try_wait_ (flags::mask_t mask,
+                                      flags::mask_t* oflags,
                                       flags::mode_t mode)
     {
 #if defined(OS_TRACE_RTOS_THREAD_FLAGS)
@@ -1305,30 +1324,30 @@ namespace os
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err(!interrupts::in_handler_mode (), EPERM);
+      os_assert_err (!interrupts::in_handler_mode (), EPERM);
 
-        {
-          // ----- Enter critical section -------------------------------------
-          interrupts::critical_section ics;
+      {
+        // ----- Enter critical section -------------------------------------
+        interrupts::critical_section ics;
 
-          if (event_flags_.check_raised (mask, oflags, mode))
-            {
+        if (event_flags_.check_raised (mask, oflags, mode))
+          {
 #if defined(OS_TRACE_RTOS_THREAD_FLAGS)
-              trace::printf ("%s(0x%X,%u) @%p %s >0x%X\n", __func__, mask, mode,
-                             this, name (), event_flags_.mask ());
+            trace::printf ("%s(0x%X,%u) @%p %s >0x%X\n", __func__, mask, mode,
+                           this, name (), event_flags_.mask ());
 #endif
-              return result::ok;
-            }
-          else
-            {
+            return result::ok;
+          }
+        else
+          {
 #if defined(OS_TRACE_RTOS_THREAD_FLAGS)
-              trace::printf ("%s(0x%X,%u) EWOULDBLOCK @%p %s \n", __func__,
-                             mask, mode, this, name ());
+            trace::printf ("%s(0x%X,%u) EWOULDBLOCK @%p %s \n", __func__, mask,
+                           mode, this, name ());
 #endif
-              return EWOULDBLOCK;
-            }
-          // ----- Exit critical section --------------------------------------
-        }
+            return EWOULDBLOCK;
+          }
+        // ----- Exit critical section --------------------------------------
+      }
     }
 
     result_t
@@ -1343,25 +1362,24 @@ namespace os
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err(!interrupts::in_handler_mode (), EPERM);
+      os_assert_err (!interrupts::in_handler_mode (), EPERM);
       // Don't call this from critical regions.
-      os_assert_err(!scheduler::locked (), EPERM);
+      os_assert_err (!scheduler::locked (), EPERM);
 
-        {
-          // ----- Enter critical section -------------------------------------
-          interrupts::critical_section ics;
+      {
+        // ----- Enter critical section -------------------------------------
+        interrupts::critical_section ics;
 
-          if (event_flags_.check_raised (mask, oflags, mode))
-            {
+        if (event_flags_.check_raised (mask, oflags, mode))
+          {
 #if defined(OS_TRACE_RTOS_THREAD_FLAGS)
-              trace::printf ("%s(0x%X,%u,%u) @%p %s >0x%X\n", __func__, mask,
-                             timeout, mode, this, name (),
-                             event_flags_.mask ());
+            trace::printf ("%s(0x%X,%u,%u) @%p %s >0x%X\n", __func__, mask,
+                           timeout, mode, this, name (), event_flags_.mask ());
 #endif
-              return result::ok;
-            }
-          // ----- Exit critical section --------------------------------------
-        }
+            return result::ok;
+          }
+        // ----- Exit critical section --------------------------------------
+      }
 
       internal::clock_timestamps_list& clock_list = clock_->steady_list ();
       clock::timestamp_t timeout_timestamp = clock_->steady_now () + timeout;
@@ -1371,52 +1389,51 @@ namespace os
 #endif
 
       // Prepare a timeout node pointing to the current thread.
-      internal::timeout_thread_node timeout_node
-        { timeout_timestamp, *this };
+      internal::timeout_thread_node timeout_node{ timeout_timestamp, *this };
 
       for (;;)
         {
-            {
-              // ----- Enter critical section ---------------------------------
-              interrupts::critical_section ics;
+          {
+            // ----- Enter critical section ---------------------------------
+            interrupts::critical_section ics;
 
-              if (event_flags_.check_raised (mask, oflags, mode))
-                {
+            if (event_flags_.check_raised (mask, oflags, mode))
+              {
 #if defined(OS_TRACE_RTOS_THREAD_FLAGS)
-                  clock::duration_t slept_ticks =
-                      static_cast<clock::duration_t> (clock_->steady_now ()
-                          - begin_timestamp);
-                  trace::printf ("%s(0x%X,%u,%u) in %u @%p %s >0x%X\n",
-                                 __func__, mask, timeout, mode,
-                                 static_cast<unsigned int> (slept_ticks), this,
-                                 name (), event_flags_.mask ());
+                clock::duration_t slept_ticks
+                    = static_cast<clock::duration_t> (clock_->steady_now ()
+                                                      - begin_timestamp);
+                trace::printf ("%s(0x%X,%u,%u) in %u @%p %s >0x%X\n", __func__,
+                               mask, timeout, mode,
+                               static_cast<unsigned int> (slept_ticks), this,
+                               name (), event_flags_.mask ());
 #endif
-                  return result::ok;
-                }
+                return result::ok;
+              }
 
-              // Remove this thread from the ready list, if there.
-              port::this_thread::prepare_suspend ();
+            // Remove this thread from the ready list, if there.
+            port::this_thread::prepare_suspend ();
 
-              // Add this thread to the clock timeout list.
-              clock_list.link (timeout_node);
-              timeout_node.thread.clock_node_ = &timeout_node;
+            // Add this thread to the clock timeout list.
+            clock_list.link (timeout_node);
+            timeout_node.thread.clock_node_ = &timeout_node;
 
-              state_ = state::suspended;
-              // ----- Exit critical section ----------------------------------
-            }
+            state_ = state::suspended;
+            // ----- Exit critical section ----------------------------------
+          }
 
           port::scheduler::reschedule ();
 
-            {
-              // ----- Enter critical section ---------------------------------
-              interrupts::critical_section ics;
+          {
+            // ----- Enter critical section ---------------------------------
+            interrupts::critical_section ics;
 
-              // Remove the thread from the clock timeout list,
-              // if not already removed by the timer.
-              timeout_node.thread.clock_node_ = nullptr;
-              timeout_node.unlink ();
-              // ----- Exit critical section ----------------------------------
-            }
+            // Remove the thread from the clock timeout list,
+            // if not already removed by the timer.
+            timeout_node.thread.clock_node_ = nullptr;
+            timeout_node.unlink ();
+            // ----- Exit critical section ----------------------------------
+          }
 
           if (interrupted ())
             {
@@ -1459,7 +1476,7 @@ namespace os
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err(!interrupts::in_handler_mode (), flags::all);
+      os_assert_err (!interrupts::in_handler_mode (), flags::all);
 
       flags::mask_t ret = event_flags_.get (mask, mode);
 
@@ -1485,7 +1502,7 @@ namespace os
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err(!interrupts::in_handler_mode (), EPERM);
+      os_assert_err (!interrupts::in_handler_mode (), EPERM);
 
       result_t res = event_flags_.clear (mask, oflags);
 
@@ -1543,14 +1560,14 @@ namespace os
       thread (void)
       {
         // Don't call this from interrupt handlers.
-        os_assert_throw(!interrupts::in_handler_mode (), EPERM);
+        os_assert_throw (!interrupts::in_handler_mode (), EPERM);
 
         rtos::thread* th;
 
         th = _thread ();
 
         // Could not get the current thread.
-        assert(th != nullptr);
+        assert (th != nullptr);
         return (*th);
       }
 
@@ -1564,7 +1581,7 @@ namespace os
       yield (void)
       {
         // Don't call this from interrupt handlers.
-        os_assert_throw(!interrupts::in_handler_mode (), EPERM);
+        os_assert_throw (!interrupts::in_handler_mode (), EPERM);
 
         if (!scheduler::started ())
           {
@@ -1593,10 +1610,10 @@ namespace os
 #endif
       }
 
-    } /* namespace this_thread */
+    } // namespace this_thread
 
-  // --------------------------------------------------------------------------
-  } /* namespace rtos */
-} /* namespace os */
+    // ------------------------------------------------------------------------
+  } // namespace rtos
+} // namespace os
 
 // ----------------------------------------------------------------------------
