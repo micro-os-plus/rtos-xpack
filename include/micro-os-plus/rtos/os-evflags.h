@@ -32,303 +32,319 @@
 
 #if defined(__cplusplus)
 
-#include <micro-os-plus/rtos/internal/os-flags.h>
 #include <micro-os-plus/rtos/os-decls.h>
+#include <micro-os-plus/rtos/internal/os-flags.h>
 
 // ----------------------------------------------------------------------------
 
 namespace os
 {
-namespace rtos
-{
+  namespace rtos
+  {
 
-// ============================================================================
+    // ========================================================================
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wpadded"
 
-/**
- * @brief Synchronised **event flags**.
- * @headerfile os.h <micro-os-plus/rtos/os.h>
- * @ingroup cmsis-plus-rtos-evflag
- */
-class event_flags : public internal::object_named_system
-{
-public:
-  // ======================================================================
-
-  /**
-   * @brief Event flags attributes.
-   * @headerfile os.h <micro-os-plus/rtos/os.h>
-   * @ingroup cmsis-plus-rtos-evflag
-   */
-  class attributes : public internal::attributes_clocked
-  {
-  public:
     /**
-     * @name Constructors & Destructor
-     * @{
+     * @brief Synchronised **event flags**.
+     * @headerfile os.h <micro-os-plus/rtos/os.h>
+     * @ingroup cmsis-plus-rtos-evflag
      */
+    class event_flags : public internal::object_named_system
+    {
+    public:
 
-    /**
-     * @brief Construct an event flags attributes object instance.
-     * @par Parameters
-     *  None.
-     */
-    constexpr attributes ();
+      // ======================================================================
 
-    // The rule of five.
-    attributes (const attributes&) = default;
-    attributes (attributes&&) = default;
-    attributes& operator= (const attributes&) = default;
-    attributes& operator= (attributes&&) = default;
+      /**
+       * @brief Event flags attributes.
+       * @headerfile os.h <micro-os-plus/rtos/os.h>
+       * @ingroup cmsis-plus-rtos-evflag
+       */
+      class attributes : public internal::attributes_clocked
+      {
+      public:
 
-    /**
-     * @brief Destruct the event flags attributes object instance.
-     */
-    ~attributes () = default;
+        /**
+         * @name Constructors & Destructor
+         * @{
+         */
 
-    /**
-     * @}
-     */
+        /**
+         * @brief Construct an event flags attributes object instance.
+         * @par Parameters
+         *  None.
+         */
+        constexpr
+        attributes ();
 
-  public:
-    /**
-     * @name Public Member Variables
-     * @{
-     */
+        // The rule of five.
+        attributes (const attributes&) = default;
+        attributes (attributes&&) = default;
+        attributes&
+        operator= (const attributes&) = default;
+        attributes&
+        operator= (attributes&&) = default;
 
-    // Public members; no accessors and mutators required.
-    // Warning: must match the type & order of the C file header.
-    // Add more attributes here.
-    /**
-     * @}
-     */
+        /**
+         * @brief Destruct the event flags attributes object instance.
+         */
+        ~attributes () = default;
 
-  }; /* class attributes */
+        /**
+         * @}
+         */
 
-  /**
-   * @brief Default event flags initialiser.
-   * @ingroup cmsis-plus-rtos-evflag
-   */
-  static const attributes initializer;
+      public:
 
-  /**
-   * @name Constructors & Destructor
-   * @{
-   */
+        /**
+         * @name Public Member Variables
+         * @{
+         */
 
-  /**
-   * @brief Construct an event flags object instance.
-   * @param [in] attr Reference to attributes.
-   */
-  event_flags (const attributes& attr = initializer);
+        // Public members; no accessors and mutators required.
+        // Warning: must match the type & order of the C file header.
+        // Add more attributes here.
+        /**
+         * @}
+         */
 
-  /**
-   * @brief Construct a named event flags object instance.
-   * @param [in] name Pointer to name.
-   * @param [in] attr Reference to attributes.
-   */
-  event_flags (const char* name, const attributes& attr = initializer);
+      }; /* class attributes */
 
-  /**
-   * @cond ignore
-   */
+      /**
+       * @brief Default event flags initialiser.
+       * @ingroup cmsis-plus-rtos-evflag
+       */
+      static const attributes initializer;
 
-  // The rule of five.
-  event_flags (const event_flags&) = delete;
-  event_flags (event_flags&&) = delete;
-  event_flags& operator= (const event_flags&) = delete;
-  event_flags& operator= (event_flags&&) = delete;
+      /**
+       * @name Constructors & Destructor
+       * @{
+       */
 
-  /**
-   * @endcond
-   */
+      /**
+       * @brief Construct an event flags object instance.
+       * @param [in] attr Reference to attributes.
+       */
+      event_flags (const attributes& attr = initializer);
 
-  /**
-   * @brief Destruct the event flags object instance.
-   */
-  ~event_flags ();
+      /**
+       * @brief Construct a named event flags object instance.
+       * @param [in] name Pointer to name.
+       * @param [in] attr Reference to attributes.
+       */
+      event_flags (const char* name, const attributes& attr = initializer);
 
-  /**
-   * @}
-   */
+      /**
+       * @cond ignore
+       */
 
-  /**
-   * @name Operators
-   * @{
-   */
+      // The rule of five.
+      event_flags (const event_flags&) = delete;
+      event_flags (event_flags&&) = delete;
+      event_flags&
+      operator= (const event_flags&) = delete;
+      event_flags&
+      operator= (event_flags&&) = delete;
 
-  /**
-   * @brief Compare event flags.
-   * @retval true The given event flags object is the same as this
-   *  event flags.
-   * @retval false The event flags are different.
-   */
-  bool operator== (const event_flags& rhs) const;
+      /**
+       * @endcond
+       */
 
-  /**
-   * @}
-   */
+      /**
+       * @brief Destruct the event flags object instance.
+       */
+      ~event_flags ();
 
-public:
-  /**
-   * @name Public Member Functions
-   * @{
-   */
+      /**
+       * @}
+       */
 
-  /**
-   * @brief Wait for event flags.
-   * @param [in] mask The expected flags (OR-ed bit-mask);
-   *  if `flags::any`, any flag raised will do it.
-   * @param [out] oflags Pointer where to store the current flags;
-   *  may be `nullptr`.
-   * @param [in] mode Mode bits to select if either all or any flags
-   *  in the mask are expected, and if the flags should be cleared.
-   * @retval result::ok All expected flags were raised.
-   * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
-   * @retval EINVAL The mask is outside of the permitted range.
-   * @retval EINTR The operation was interrupted.
-   * @retval ENOTRECOVERABLE Wait failed.
-   */
-  result_t wait (flags::mask_t mask, flags::mask_t* oflags,
-                 flags::mode_t mode = flags::mode::all | flags::mode::clear);
+      /**
+       * @name Operators
+       * @{
+       */
 
-  /**
-   * @brief Try to wait for event flags.
-   * @param [in] mask The expected flags (OR-ed bit-mask);
-   *  if `flags::any`, any flag raised will do it.
-   * @param [out] oflags Pointer where to store the current flags;
-   *  may be `nullptr`.
-   * @param [in] mode Mode bits to select if either all or any flags
-   *  in the mask are expected, and if the flags should be cleared.
-   * @retval result::ok All expected flags were raised.
-   * @retval EINVAL The mask is outside of the permitted range.
-   * @retval EWOULDBLOCK The expected condition did not occur.
-   * @retval ENOTRECOVERABLE Wait failed.
-   */
-  result_t try_wait (flags::mask_t mask, flags::mask_t* oflags = nullptr,
-                     flags::mode_t mode
-                     = flags::mode::all | flags::mode::clear);
+      /**
+       * @brief Compare event flags.
+       * @retval true The given event flags object is the same as this
+       *  event flags.
+       * @retval false The event flags are different.
+       */
+      bool
+      operator== (const event_flags& rhs) const;
 
-  /**
-   * @brief Timed wait for event flags.
-   * @param [in] mask The expected flags (OR-ed bit-mask);
-   *  if `flags::any`, any flag raised will do it.
-   * @param [out] oflags Pointer where to store the current flags;
-   *  may be `nullptr`.
-   * @param [in] mode Mode bits to select if either all or any flags
-   *  in the mask are expected, and if the flags should be cleared.
-   * @param [in] timeout Timeout to wait.
-   * @retval result::ok All expected flags are raised.
-   * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
-   * @retval ETIMEDOUT The expected condition did not occur during the
-   *  entire timeout duration.
-   * @retval EINVAL The mask is outside of the permitted range.
-   * @retval EINTR The operation was interrupted.
-   * @retval ENOTRECOVERABLE Wait failed.
-   */
-  result_t timed_wait (flags::mask_t mask, clock::duration_t timeout,
-                       flags::mask_t* oflags = nullptr,
-                       flags::mode_t mode
-                       = flags::mode::all | flags::mode::clear);
+      /**
+       * @}
+       */
 
-  /**
-   * @brief Raise event flags.
-   * @param [in] mask The OR-ed flags to raise.
-   * @param [out] oflags Optional pointer where to store the
-   *  new value of the flags; may be `nullptr`.
-   * @retval result::ok The flags were raised.
-   * @retval EINVAL The mask is zero.
-   * @retval ENOTRECOVERABLE Raise failed.
-   */
-  result_t raise (flags::mask_t mask, flags::mask_t* oflags = nullptr);
+    public:
 
-  /**
-   * @brief Clear event flags.
-   * @param [in] mask The OR-ed flags to clear.
-   * @param [out] oflags Optional pointer where to store the
-   *  previous value of the flags; may be `nullptr`.
-   * @retval result::ok The flags were cleared.
-   * @retval EINVAL The mask is zero.
-   */
-  result_t clear (flags::mask_t mask, flags::mask_t* oflags = nullptr);
+      /**
+       * @name Public Member Functions
+       * @{
+       */
 
-  /**
-   * @brief Get (and possibly clear) event flags.
-   * @param [in] mask The OR-ed flags to get/clear; can be `flags::any`.
-   * @param [in] mode Mode bits to select if the flags should be
-   *  cleared (the other bits are ignored).
-   * @return The selected bits from the flags mask.
-   */
-  flags::mask_t get (flags::mask_t mask,
-                     flags::mode_t mode = flags::mode::clear);
+      /**
+       * @brief Wait for event flags.
+       * @param [in] mask The expected flags (OR-ed bit-mask);
+       *  if `flags::any`, any flag raised will do it.
+       * @param [out] oflags Pointer where to store the current flags;
+       *  may be `nullptr`.
+       * @param [in] mode Mode bits to select if either all or any flags
+       *  in the mask are expected, and if the flags should be cleared.
+       * @retval result::ok All expected flags were raised.
+       * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
+       * @retval EINVAL The mask is outside of the permitted range.
+       * @retval EINTR The operation was interrupted.
+       * @retval ENOTRECOVERABLE Wait failed.
+       */
+      result_t
+      wait (flags::mask_t mask, flags::mask_t* oflags,
+            flags::mode_t mode = flags::mode::all | flags::mode::clear);
 
-  /**
-   * @brief Check if there are threads waiting.
-   * @par Parameters
-   *  None.
-   * @retval true There are threads waiting.
-   * @retval false There are no threads waiting.
-   */
-  bool waiting (void);
+      /**
+       * @brief Try to wait for event flags.
+       * @param [in] mask The expected flags (OR-ed bit-mask);
+       *  if `flags::any`, any flag raised will do it.
+       * @param [out] oflags Pointer where to store the current flags;
+       *  may be `nullptr`.
+       * @param [in] mode Mode bits to select if either all or any flags
+       *  in the mask are expected, and if the flags should be cleared.
+       * @retval result::ok All expected flags were raised.
+       * @retval EINVAL The mask is outside of the permitted range.
+       * @retval EWOULDBLOCK The expected condition did not occur.
+       * @retval ENOTRECOVERABLE Wait failed.
+       */
+      result_t
+      try_wait (flags::mask_t mask, flags::mask_t* oflags = nullptr,
+                flags::mode_t mode = flags::mode::all | flags::mode::clear);
 
-  /**
-   * @}
-   */
+      /**
+       * @brief Timed wait for event flags.
+       * @param [in] mask The expected flags (OR-ed bit-mask);
+       *  if `flags::any`, any flag raised will do it.
+       * @param [out] oflags Pointer where to store the current flags;
+       *  may be `nullptr`.
+       * @param [in] mode Mode bits to select if either all or any flags
+       *  in the mask are expected, and if the flags should be cleared.
+       * @param [in] timeout Timeout to wait.
+       * @retval result::ok All expected flags are raised.
+       * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
+       * @retval ETIMEDOUT The expected condition did not occur during the
+       *  entire timeout duration.
+       * @retval EINVAL The mask is outside of the permitted range.
+       * @retval EINTR The operation was interrupted.
+       * @retval ENOTRECOVERABLE Wait failed.
+       */
+      result_t
+      timed_wait (flags::mask_t mask, clock::duration_t timeout,
+                  flags::mask_t* oflags = nullptr,
+                  flags::mode_t mode = flags::mode::all | flags::mode::clear);
 
-protected:
-  /**
-   * @name Private Member Variables
-   * @{
-   */
+      /**
+       * @brief Raise event flags.
+       * @param [in] mask The OR-ed flags to raise.
+       * @param [out] oflags Optional pointer where to store the
+       *  new value of the flags; may be `nullptr`.
+       * @retval result::ok The flags were raised.
+       * @retval EINVAL The mask is zero.
+       * @retval ENOTRECOVERABLE Raise failed.
+       */
+      result_t
+      raise (flags::mask_t mask, flags::mask_t* oflags = nullptr);
 
-  /**
-   * @cond ignore
-   */
+      /**
+       * @brief Clear event flags.
+       * @param [in] mask The OR-ed flags to clear.
+       * @param [out] oflags Optional pointer where to store the
+       *  previous value of the flags; may be `nullptr`.
+       * @retval result::ok The flags were cleared.
+       * @retval EINVAL The mask is zero.
+       */
+      result_t
+      clear (flags::mask_t mask, flags::mask_t* oflags = nullptr);
+
+      /**
+       * @brief Get (and possibly clear) event flags.
+       * @param [in] mask The OR-ed flags to get/clear; can be `flags::any`.
+       * @param [in] mode Mode bits to select if the flags should be
+       *  cleared (the other bits are ignored).
+       * @return The selected bits from the flags mask.
+       */
+      flags::mask_t
+      get (flags::mask_t mask, flags::mode_t mode = flags::mode::clear);
+
+      /**
+       * @brief Check if there are threads waiting.
+       * @par Parameters
+       *  None.
+       * @retval true There are threads waiting.
+       * @retval false There are no threads waiting.
+       */
+      bool
+      waiting (void);
+
+      /**
+       * @}
+       */
+
+    protected:
+
+      /**
+       * @name Private Member Variables
+       * @{
+       */
+
+      /**
+       * @cond ignore
+       */
 
 #if !defined(OS_USE_RTOS_PORT_EVENT_FLAGS)
-  internal::waiting_threads_list list_;
-  clock* clock_;
+      internal::waiting_threads_list list_;
+      clock* clock_;
 #endif
 
 #if defined(OS_USE_RTOS_PORT_EVENT_FLAGS)
-  friend class port::event_flags;
-  os_evflags_port_data_t port_;
+      friend class port::event_flags;
+      os_evflags_port_data_t port_;
 #endif
 
-  /**
-   * @brief The event flags.
-   */
-  internal::event_flags event_flags_;
+      /**
+       * @brief The event flags.
+       */
+      internal::event_flags event_flags_;
 
-  /**
-   * @endcond
-   */
+      /**
+       * @endcond
+       */
 
-  /**
-   * @}
-   */
-};
+      /**
+       * @}
+       */
+
+    };
 
 #pragma GCC diagnostic pop
 
-} /* namespace rtos */
+  } /* namespace rtos */
 } /* namespace os */
 
 // ===== Inline & template implementations ====================================
 
 namespace os
 {
-namespace rtos
-{
-constexpr
-event_flags::attributes::attributes ()
-{
-  ;
-}
+  namespace rtos
+  {
+    constexpr
+    event_flags::attributes::attributes ()
+    {
+      ;
+    }
 
-} /* namespace rtos */
+  } /* namespace rtos */
 } /* namespace os */
 
 // ----------------------------------------------------------------------------

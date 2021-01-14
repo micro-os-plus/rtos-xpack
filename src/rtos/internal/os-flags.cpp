@@ -25,142 +25,141 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#include <micro-os-plus/rtos/os.h>
 #include <micro-os-plus/diag/trace.h>
 #include <micro-os-plus/rtos/internal/os-flags.h>
-#include <micro-os-plus/rtos/os.h>
 
 // ----------------------------------------------------------------------------
 
 namespace os
 {
-namespace rtos
-{
-namespace internal
-{
-// ----------------------------------------------------------------------------
-
-result_t
-event_flags::raise (flags::mask_t mask, flags::mask_t* oflags)
-{
-  os_assert_err (mask != 0, EINVAL);
-
-  assert (port::interrupts::is_priority_valid ());
-
+  namespace rtos
   {
-    // ----- Enter critical section -------------------------------------
-    interrupts::critical_section ics;
-
-    if (oflags != nullptr)
-      {
-        *oflags = flags_mask_;
-      }
-
-    flags_mask_ |= mask;
-
-    // ----- Exit critical section --------------------------------------
-  }
-  return result::ok;
-}
-
-bool
-event_flags::check_raised (flags::mask_t mask, flags::mask_t* oflags,
-                           flags::mode_t mode)
-{
-  if (mask == flags::any)
+    namespace internal
     {
-      // Any flag will do it.
-      if (flags_mask_ != 0)
-        {
-          if (oflags != nullptr)
-            {
-              *oflags = flags_mask_;
-            }
+      // ------------------------------------------------------------------------
 
-          if (mode & flags::mode::clear)
-            {
-              // Clear them all.
-              flags_mask_ = 0;
-            }
-          return true;
-        }
-    }
-  else if (((((mode & flags::mode::all) != 0))
-            && ((flags_mask_ & mask) == mask))
-           || (((mode & flags::mode::any) != 0)
-               && ((flags_mask_ & mask) != 0)))
-    {
-      if (oflags != nullptr)
-        {
-          *oflags = (flags_mask_ & mask);
-        }
-
-      if (mode & flags::mode::clear)
-        {
-          // Clear desired flags.
-          flags_mask_ &= ~mask;
-        }
-      return true;
-    }
-
-  return false;
-}
-
-flags::mask_t
-event_flags::get (flags::mask_t mask, flags::mode_t mode)
-{
-  flags::mask_t ret;
-  {
-    // ----- Enter critical section -------------------------------------
-    interrupts::critical_section ics;
-
-    if (mask == 0)
+      result_t
+      event_flags::raise (flags::mask_t mask, flags::mask_t* oflags)
       {
-        // Return the entire mask.
-        ret = flags_mask_;
-      }
-    else
-      {
-        ret = flags_mask_ & mask;
-        if ((mode & flags::mode::clear) != 0)
+        os_assert_err(mask != 0, EINVAL);
+
+        assert(port::interrupts::is_priority_valid ());
+
           {
+            // ----- Enter critical section -------------------------------------
+            interrupts::critical_section ics;
+
+            if (oflags != nullptr)
+              {
+                *oflags = flags_mask_;
+              }
+
+            flags_mask_ |= mask;
+
+            // ----- Exit critical section --------------------------------------
+          }
+        return result::ok;
+      }
+
+      bool
+      event_flags::check_raised (flags::mask_t mask, flags::mask_t* oflags,
+                                 flags::mode_t mode)
+      {
+        if (mask == flags::any)
+          {
+            // Any flag will do it.
+            if (flags_mask_ != 0)
+              {
+                if (oflags != nullptr)
+                  {
+                    *oflags = flags_mask_;
+                  }
+
+                if (mode & flags::mode::clear)
+                  {
+                    // Clear them all.
+                    flags_mask_ = 0;
+                  }
+                return true;
+              }
+          }
+        else if (((((mode & flags::mode::all) != 0))
+            && ((flags_mask_ & mask) == mask))
+            || (((mode & flags::mode::any) != 0) && ((flags_mask_ & mask) != 0)))
+          {
+            if (oflags != nullptr)
+              {
+                *oflags = (flags_mask_ & mask);
+              }
+
+            if (mode & flags::mode::clear)
+              {
+                // Clear desired flags.
+                flags_mask_ &= ~mask;
+              }
+            return true;
+          }
+
+        return false;
+      }
+
+      flags::mask_t
+      event_flags::get (flags::mask_t mask, flags::mode_t mode)
+      {
+        flags::mask_t ret;
+          {
+            // ----- Enter critical section -------------------------------------
+            interrupts::critical_section ics;
+
+            if (mask == 0)
+              {
+                // Return the entire mask.
+                ret = flags_mask_;
+              }
+            else
+              {
+                ret = flags_mask_ & mask;
+                if ((mode & flags::mode::clear) != 0)
+                  {
+                    // Clear the selected bits; leave the rest untouched.
+                    flags_mask_ &= ~mask;
+                  }
+              }
+            // ----- Exit critical section --------------------------------------
+          }
+
+        // Return the selected bits.
+        return ret;
+      }
+
+      result_t
+      event_flags::clear (flags::mask_t mask, flags::mask_t* oflags)
+      {
+        os_assert_err(mask != 0, EINVAL);
+
+          {
+            // ----- Enter critical section -------------------------------------
+            interrupts::critical_section ics;
+
+            if (oflags != nullptr)
+              {
+                *oflags = flags_mask_;
+              }
+
             // Clear the selected bits; leave the rest untouched.
             flags_mask_ &= ~mask;
+
+            // ----- Exit critical section --------------------------------------
           }
-      }
-    // ----- Exit critical section --------------------------------------
-  }
 
-  // Return the selected bits.
-  return ret;
-}
-
-result_t
-event_flags::clear (flags::mask_t mask, flags::mask_t* oflags)
-{
-  os_assert_err (mask != 0, EINVAL);
-
-  {
-    // ----- Enter critical section -------------------------------------
-    interrupts::critical_section ics;
-
-    if (oflags != nullptr)
-      {
-        *oflags = flags_mask_;
+        return result::ok;
       }
 
-    // Clear the selected bits; leave the rest untouched.
-    flags_mask_ &= ~mask;
+    // --------------------------------------------------------------------------
 
-    // ----- Exit critical section --------------------------------------
-  }
-
-  return result::ok;
-}
-
-// ----------------------------------------------------------------------------
-
-} /* namespace internal */
-} /* namespace rtos */
+    } /* namespace internal */
+  } /* namespace rtos */
 } /* namespace os */
 
 // ----------------------------------------------------------------------------

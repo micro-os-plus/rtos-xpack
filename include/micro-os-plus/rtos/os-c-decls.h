@@ -40,17 +40,17 @@
 // ----------------------------------------------------------------------------
 
 #include <micro-os-plus/os-versions.h>
-
+ 
 #include <micro-os-plus/config.h>
 #include <micro-os-plus/rtos/port/declarations.h>
 
-#include <stdbool.h>
-#include <stddef.h>
 #include <stdint.h>
+#include <stddef.h>
+#include <stdbool.h>
 
 // ----------------------------------------------------------------------------
 
-#ifdef __cplusplus
+#ifdef  __cplusplus
 extern "C"
 {
 #endif
@@ -132,8 +132,8 @@ extern "C"
    */
   enum
   {
-    os_flags_mode_all = 1,   //
-    os_flags_mode_any = 2,   //
+    os_flags_mode_all = 1, //
+    os_flags_mode_any = 2, //
     os_flags_mode_clear = 4, //
   };
 
@@ -258,7 +258,7 @@ extern "C"
   } os_internal_evflags_t;
 
   // ==========================================================================
-#define OS_THREAD_PRIO_SHIFT (4)
+#define OS_THREAD_PRIO_SHIFT   (4)
 
   /**
    * @addtogroup cmsis-plus-rtos-c-thread
@@ -339,7 +339,8 @@ extern "C"
    *
    * @see os::rtos::thread::func_t
    */
-  typedef void* (*os_thread_func_t) (os_thread_func_args_t args);
+  typedef void*
+  (*os_thread_func_t) (os_thread_func_args_t args);
 
   /**
    * @brief Type of variables holding thread states.
@@ -383,8 +384,7 @@ extern "C"
    *
    * @see os::rtos::stack::allocation_element_t
    */
-  typedef os_port_thread_stack_allocation_element_t
-      os_thread_stack_allocation_element_t;
+  typedef os_port_thread_stack_allocation_element_t os_thread_stack_allocation_element_t;
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wpadded"
@@ -441,8 +441,8 @@ extern "C"
 
   } os_thread_context_t;
 
-#if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)               \
-    || defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
+#if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES) \
+  || defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
   /**
    * @brief Thread statistics.
@@ -585,8 +585,8 @@ extern "C"
     os_thread_user_storage_t user_storage; //
 #endif /* defined(OS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE) */
 
-#if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)               \
-    || defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
+#if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES) \
+  || defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
     os_thread_statistics_t statistics;
 #endif /* defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES) */
 
@@ -677,7 +677,7 @@ extern "C"
    */
   enum
   {
-    os_timer_once = 0,    //
+    os_timer_once = 0, //
     os_timer_periodic = 1 //
   };
 
@@ -701,7 +701,8 @@ extern "C"
    *
    * @see os::rtos::timer::func_t
    */
-  typedef void (*os_timer_func_t) (os_timer_func_args_t args);
+  typedef void
+  (*os_timer_func_t) (os_timer_func_args_t args);
 
   /**
    * @brief Type of variables holding timer types.
@@ -1237,7 +1238,7 @@ extern "C"
 #if defined(OS_BOOL_RTOS_MESSAGE_QUEUE_SIZE_16BITS)
   typedef uint16_t os_mqueue_size_t;
 #else
-typedef uint8_t os_mqueue_size_t;
+  typedef uint8_t os_mqueue_size_t;
 #endif
 
   typedef uint16_t os_mqueue_msg_size_t;
@@ -1440,12 +1441,14 @@ typedef uint8_t os_mqueue_size_t;
   /**
    * @brief SysTick interrupt handler.
    */
-  void os_systick_handler (void);
+  void
+  os_systick_handler (void);
 
   /**
    * @brief RTC interrupt handler.
    */
-  void os_rtc_handler (void);
+  void
+  os_rtc_handler (void);
 
   /**
    * @}
@@ -1485,7 +1488,7 @@ typedef uint8_t os_mqueue_size_t;
  */
 
 // ============================================================================
-#ifdef __cplusplus
+#ifdef  __cplusplus
 }
 #endif
 

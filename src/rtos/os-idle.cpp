@@ -34,9 +34,11 @@ using namespace os::rtos;
 
 // ----------------------------------------------------------------------------
 
-void* os_idle (thread::func_args_t args);
+void*
+os_idle (thread::func_args_t args);
 
-void os_rtos_idle_actions (void);
+void
+os_rtos_idle_actions (void);
 
 /**
  * @details
@@ -56,24 +58,28 @@ void os_rtos_idle_actions (void);
  * it must return `false`, which will make the idle thread proceed as
  * usual, by entering a shallow sleep waiting for the next interrupt.
  */
-bool __attribute__ ((weak)) os_rtos_idle_enter_power_saving_mode_hook (void)
+bool
+__attribute__((weak))
+os_rtos_idle_enter_power_saving_mode_hook (void)
 {
   return false;
 }
 
-void __attribute__ ((weak)) os_rtos_idle_actions (void)
+void
+__attribute__((weak))
+os_rtos_idle_actions (void)
 {
   while (!scheduler::terminated_threads_list_.empty ())
     {
       internal::waiting_thread_node* node;
-      {
-        // ----- Enter critical section ---------------------------------
-        interrupts::critical_section ics;
-        node = const_cast<internal::waiting_thread_node*> (
-            scheduler::terminated_threads_list_.head ());
-        node->unlink ();
-        // ----- Exit critical section ----------------------------------
-      }
+        {
+          // ----- Enter critical section ---------------------------------
+          interrupts::critical_section ics;
+          node =
+              const_cast<internal::waiting_thread_node*> (scheduler::terminated_threads_list_.head ());
+          node->unlink ();
+          // ----- Exit critical section ----------------------------------
+        }
       node->thread_->internal_destroy_ ();
 
       this_thread::yield ();
@@ -82,7 +88,7 @@ void __attribute__ ((weak)) os_rtos_idle_actions (void)
 #if defined(OS_HAS_INTERRUPTS_STACK)
   // Simple test to verify that the interrupts
   // did not underflow the stack.
-  assert (rtos::interrupts::stack ()->check_bottom_magic ());
+  assert(rtos::interrupts::stack ()->check_bottom_magic ());
 #endif
 
   if (!os_rtos_idle_enter_power_saving_mode_hook ())
@@ -109,9 +115,8 @@ thread* os_idle_thread;
 
 #if defined(OS_EXCLUDE_DYNAMIC_MEMORY_ALLOCATIONS)
 
-static thread_inclusive<OS_INTEGER_RTOS_IDLE_STACK_SIZE_BYTES> os_idle_thread_{
-  "idle", os_idle, nullptr
-};
+static thread_inclusive<OS_INTEGER_RTOS_IDLE_STACK_SIZE_BYTES> os_idle_thread_
+  { "idle", os_idle, nullptr};
 
 #else
 
@@ -121,7 +126,9 @@ static std::unique_ptr<thread> os_idle_thread_;
 
 #pragma GCC diagnostic pop
 
-void __attribute__ ((weak)) os_startup_create_thread_idle (void)
+void
+__attribute__((weak))
+os_startup_create_thread_idle (void)
 {
 #if defined(OS_EXCLUDE_DYNAMIC_MEMORY_ALLOCATIONS)
 
@@ -134,8 +141,8 @@ void __attribute__ ((weak)) os_startup_create_thread_idle (void)
   attr.th_stack_size_bytes = OS_INTEGER_RTOS_IDLE_STACK_SIZE_BYTES;
 
   // No need for an explicit delete, it is deallocated by the unique_ptr.
-  os_idle_thread_
-      = std::unique_ptr<thread> (new thread ("idle", os_idle, nullptr, attr));
+  os_idle_thread_ = std::unique_ptr<thread> (
+      new thread ("idle", os_idle, nullptr, attr));
 
   os_idle_thread = os_idle_thread_.get ();
 
@@ -143,7 +150,7 @@ void __attribute__ ((weak)) os_startup_create_thread_idle (void)
 }
 
 void*
-os_idle (thread::func_args_t args __attribute__ ((unused)))
+os_idle (thread::func_args_t args __attribute__((unused)))
 {
 
   // The thread was created with the default priority, and the

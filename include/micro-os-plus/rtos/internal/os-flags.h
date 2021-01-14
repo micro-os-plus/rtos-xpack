@@ -30,7 +30,7 @@
 
 // ----------------------------------------------------------------------------
 
-#ifdef __cplusplus
+#ifdef  __cplusplus
 
 #include <micro-os-plus/rtos/os-decls.h>
 
@@ -38,158 +38,169 @@
 
 namespace os
 {
-namespace rtos
-{
-namespace internal
-{
+  namespace rtos
+  {
+    namespace internal
+    {
 
-// ============================================================================
+      // ======================================================================
 
-/**
- * @brief Internal event flags implementation.
- */
-class event_flags
-{
+      /**
+       * @brief Internal event flags implementation.
+       */
+      class event_flags
+      {
 
-public:
-  /**
-   * @name Constructors & Destructor
-   * @{
-   */
+      public:
 
-  /**
-   * @brief Construct an internal event flags object instance.
-   */
-  event_flags () = default;
+        /**
+         * @name Constructors & Destructor
+         * @{
+         */
 
-  /**
-   * @cond ignore
-   */
+        /**
+         * @brief Construct an internal event flags object instance.
+         */
+        event_flags () = default;
 
-  event_flags (const event_flags&) = delete;
-  event_flags (event_flags&&) = delete;
-  event_flags& operator= (const event_flags&) = delete;
-  event_flags& operator= (event_flags&&) = delete;
+        /**
+         * @cond ignore
+         */
 
-  /**
-   * @endcond
-   */
+        event_flags (const event_flags&) = delete;
+        event_flags (event_flags&&) = delete;
+        event_flags&
+        operator= (const event_flags&) = delete;
+        event_flags&
+        operator= (event_flags&&) = delete;
 
-  /**
-   * @brief Destruct the internal event flags object instance.
-   */
-  ~event_flags () = default;
+        /**
+         * @endcond
+         */
 
-  /**
-   * @}
-   */
+        /**
+         * @brief Destruct the internal event flags object instance.
+         */
+        ~event_flags () = default;
 
-public:
-  /**
-   * @name Public Member Functions
-   * @{
-   */
+        /**
+         * @}
+         */
 
-  /**
-   * @brief Raise event flags.
-   * @param [in] mask The OR-ed flags to raise.
-   * @param [out] oflags Optional pointer where to store the
-   *  new value of the flags; may be `nullptr`.
-   * @retval result::ok The flags were raised.
-   * @retval EINVAL The mask is zero.
-   * @retval ENOTRECOVERABLE Raise failed.
-   */
-  result_t raise (flags::mask_t mask, flags::mask_t* oflags);
+      public:
 
-  /**
-   * @brief Check if expected flags are raised.
-   * @param [in] mask The expected flags (OR-ed bit-mask);
-   *  if `flags::any`, any flag raised will do it.
-   * @param [out] oflags Pointer where to store the current flags;
-   *  may be `nullptr`.
-   * @param [in] mode Mode bits to select if either all or any flags
-   *  in the mask are expected, and if the flags should be cleared.
-   * @retval true The expected flags are raised.
-   * @retval false The expected flags are not raised.
-   */
-  bool check_raised (flags::mask_t mask, flags::mask_t* oflags,
-                     flags::mode_t mode);
+        /**
+         * @name Public Member Functions
+         * @{
+         */
 
-  /**
-   * @brief Get (and possibly clear) event flags.
-   * @param [in] mask The OR-ed flags to get/clear; can be `flags::any`.
-   * @param [in] mode Mode bits to select if the flags should be
-   *  cleared (the other bits are ignored).
-   * @return The selected bits from the flags mask.
-   */
-  flags::mask_t get (flags::mask_t mask, flags::mode_t mode);
+        /**
+         * @brief Raise event flags.
+         * @param [in] mask The OR-ed flags to raise.
+         * @param [out] oflags Optional pointer where to store the
+         *  new value of the flags; may be `nullptr`.
+         * @retval result::ok The flags were raised.
+         * @retval EINVAL The mask is zero.
+         * @retval ENOTRECOVERABLE Raise failed.
+         */
+        result_t
+        raise (flags::mask_t mask, flags::mask_t* oflags);
 
-  /**
-   * @brief Clear event flags.
-   * @param [in] mask The OR-ed flags to clear.
-   * @param [out] oflags Optional pointer where to store the
-   *  previous value of the flags; may be `nullptr`.
-   * @retval result::ok The flags were cleared.
-   * @retval EINVAL The mask is zero.
-   */
-  result_t clear (flags::mask_t mask, flags::mask_t* oflags);
+        /**
+         * @brief Check if expected flags are raised.
+         * @param [in] mask The expected flags (OR-ed bit-mask);
+         *  if `flags::any`, any flag raised will do it.
+         * @param [out] oflags Pointer where to store the current flags;
+         *  may be `nullptr`.
+         * @param [in] mode Mode bits to select if either all or any flags
+         *  in the mask are expected, and if the flags should be cleared.
+         * @retval true The expected flags are raised.
+         * @retval false The expected flags are not raised.
+         */
+        bool
+        check_raised (flags::mask_t mask, flags::mask_t* oflags,
+                      flags::mode_t mode);
 
-  /**
-   * @brief Get the flags mask.
-   * @return The internal bit-mask.
-   */
-  flags::mask_t mask (void);
+        /**
+         * @brief Get (and possibly clear) event flags.
+         * @param [in] mask The OR-ed flags to get/clear; can be `flags::any`.
+         * @param [in] mode Mode bits to select if the flags should be
+         *  cleared (the other bits are ignored).
+         * @return The selected bits from the flags mask.
+         */
+        flags::mask_t
+        get (flags::mask_t mask, flags::mode_t mode);
 
-  /**
-   * @}
-   */
+        /**
+         * @brief Clear event flags.
+         * @param [in] mask The OR-ed flags to clear.
+         * @param [out] oflags Optional pointer where to store the
+         *  previous value of the flags; may be `nullptr`.
+         * @retval result::ok The flags were cleared.
+         * @retval EINVAL The mask is zero.
+         */
+        result_t
+        clear (flags::mask_t mask, flags::mask_t* oflags);
 
-protected:
-  /**
-   * @name Private Member Variables
-   * @{
-   */
+        /**
+         * @brief Get the flags mask.
+         * @return The internal bit-mask.
+         */
+        flags::mask_t
+        mask (void);
 
-  /**
-   * @cond ignore
-   */
+        /**
+         * @}
+         */
 
-  /**
-   * @brief Bit-mask with all flags.
-   */
-  flags::mask_t volatile flags_mask_ = 0;
+      protected:
 
-  /**
-   * @endcond
-   */
+        /**
+         * @name Private Member Variables
+         * @{
+         */
 
-  /**
-   * @}
-   */
-};
-/* class event_flags */
+        /**
+         * @cond ignore
+         */
 
-// ----------------------------------------------------------------------------
-} /* namespace internal */
-} /* namespace rtos */
+        /**
+         * @brief Bit-mask with all flags.
+         */
+        flags::mask_t volatile flags_mask_ = 0;
+
+        /**
+         * @endcond
+         */
+
+        /**
+         * @}
+         */
+
+      };
+    /* class event_flags */
+
+    // ------------------------------------------------------------------------
+    } /* namespace internal */
+  } /* namespace rtos */
 } /* namespace os */
 
 namespace os
 {
-namespace rtos
-{
-namespace internal
-{
+  namespace rtos
+  {
+    namespace internal
+    {
 
-inline flags::mask_t
-event_flags::mask (void)
-{
-  return flags_mask_;
-}
+      inline flags::mask_t
+      event_flags::mask (void)
+      {
+        return flags_mask_;
+      }
 
-// ----------------------------------------------------------------------------
-} /* namespace internal */
-} /* namespace rtos */
+    // ------------------------------------------------------------------------
+    } /* namespace internal */
+  } /* namespace rtos */
 } /* namespace os */
 
 #endif /* __cplusplus */

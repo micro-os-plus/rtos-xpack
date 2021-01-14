@@ -40,13 +40,13 @@
 
 #include <micro-os-plus/rtos/os-hooks.h>
 
-#include <stdbool.h>
-#include <stddef.h>
 #include <stdint.h>
+#include <stddef.h>
+#include <stdbool.h>
 
 // ----------------------------------------------------------------------------
 
-#ifdef __cplusplus
+#ifdef  __cplusplus
 extern "C"
 {
 #endif
@@ -101,7 +101,8 @@ extern "C"
    * The returned value is used in semihosted tests, to inform the
    * host on the result of the test.
    */
-  int os_main (int argc, char* argv[]);
+  int
+  os_main (int argc, char* argv[]);
 
   /**
    * @}
@@ -120,7 +121,8 @@ extern "C"
    * @retval os_ok The scheduler was initialised.
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
    */
-  os_result_t os_sched_initialize (void);
+  os_result_t
+  os_sched_initialize (void);
 
   /**
    * @brief Start the RTOS scheduler.
@@ -129,7 +131,9 @@ extern "C"
    * @par Returns
    *  Nothing.
    */
-  void __attribute__ ((noreturn)) os_sched_start (void);
+  void
+  __attribute__((noreturn))
+  os_sched_start (void);
 
   /**
    * @brief Check if the scheduler was started.
@@ -138,7 +142,8 @@ extern "C"
    * @retval true The scheduler was started.
    * @retval false The scheduler was not started.
    */
-  bool os_sched_is_started (void);
+  bool
+  os_sched_is_started (void);
 
   /**
    * @brief Lock the scheduler.
@@ -146,7 +151,8 @@ extern "C"
    *  None.
    * @return The previous state of the scheduler lock.
    */
-  os_sched_state_t os_sched_lock (void);
+  os_sched_state_t
+  os_sched_lock (void);
 
   /**
    * @brief Unlock the scheduler.
@@ -154,14 +160,16 @@ extern "C"
    *  None.
    * @return The previous state of the scheduler lock.
    */
-  os_sched_state_t os_sched_unlock (void);
+  os_sched_state_t
+  os_sched_unlock (void);
 
   /**
    * @brief Lock/unlock the scheduler.
    * @param [in] state The new state of the scheduler lock.
    * @return The previous state of the scheduler lock.
    */
-  os_sched_state_t os_sched_set_locked (os_sched_state_t state);
+  os_sched_state_t
+  os_sched_set_locked (os_sched_state_t state);
 
   /**
    * @brief Check if the scheduler is locked.
@@ -170,7 +178,8 @@ extern "C"
    * @retval true The scheduler is locked.
    * @retval false The scheduler is switching threads (not locked).
    */
-  bool os_sched_is_locked (void);
+  bool
+  os_sched_is_locked (void);
 
   /**
    * @brief Check if the scheduler is in preemptive mode.
@@ -179,14 +188,16 @@ extern "C"
    * @retval true The scheduler is in preemptive mode.
    * @retval false The scheduler is not in preemptive mode.
    */
-  bool os_sched_is_preemptive (void);
+  bool
+  os_sched_is_preemptive (void);
 
   /**
    * @brief Set the scheduler preemptive mode.
    * @param [in] state The new state of the scheduler preemptive mode.
    * @return The previous state of the preemptive mode.
    */
-  bool os_sched_set_preemptive (bool state);
+  bool
+  os_sched_set_preemptive (bool state);
 
   /**
    * @}
@@ -205,7 +216,8 @@ extern "C"
    * @return Integer with the total number of context switches since
    *  scheduler start.
    */
-  os_statistics_counter_t os_sched_stat_get_context_switches (void);
+  os_statistics_counter_t
+  os_sched_stat_get_context_switches (void);
 
 #endif /* defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES) */
 
@@ -216,7 +228,8 @@ extern "C"
    * @return Integer with the number of CPU cycles, possibly
    * divided by some prescaller.
    */
-  os_statistics_duration_t os_sched_stat_get_cpu_cycles (void);
+  os_statistics_duration_t
+  os_sched_stat_get_cpu_cycles (void);
 
 #endif /* defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES) */
 
@@ -237,7 +250,8 @@ extern "C"
    * @retval true Execution is in an exception handler context.
    * @retval false Execution is in a thread context.
    */
-  bool os_irq_in_handler_mode (void);
+  bool
+  os_irq_in_handler_mode (void);
 
   /**
    * @brief Enter an interrupts critical section.
@@ -245,7 +259,8 @@ extern "C"
    *  None.
    * @return The previous value of the interrupts priority register.
    */
-  os_irq_state_t os_irq_critical_enter (void);
+  os_irq_state_t
+  os_irq_critical_enter (void);
 
   /**
    * @brief Exit the interrupts critical section.
@@ -253,7 +268,8 @@ extern "C"
    * @par Returns
    *  Nothing.
    */
-  void os_irq_critical_exit (os_irq_state_t state);
+  void
+  os_irq_critical_exit (os_irq_state_t state);
 
   // --------------------------------------------------------------------------
 
@@ -263,7 +279,8 @@ extern "C"
    *  None.
    * @return The previous value of the interrupts priority register.
    */
-  os_irq_state_t os_irq_uncritical_enter (void);
+  os_irq_state_t
+  os_irq_uncritical_enter (void);
 
   /**
    * @brief Exit the interrupts uncritical section.
@@ -271,7 +288,8 @@ extern "C"
    * @par Returns
    *  Nothing.
    */
-  void os_irq_uncritical_exit (os_irq_state_t state);
+  void
+  os_irq_uncritical_exit (os_irq_state_t state);
 
 #if defined(OS_HAS_INTERRUPTS_STACK) || defined(__DOXYGEN__)
 
@@ -281,7 +299,8 @@ extern "C"
    *  None.
    * @return A pointer to the interrupts stack object instance.
    */
-  os_thread_stack_t* os_irq_get_stack (void);
+  os_thread_stack_t*
+  os_irq_get_stack (void);
 
 #endif
 
@@ -310,7 +329,8 @@ extern "C"
    *  None.
    * @return Pointer to the current running thread object instance.
    */
-  os_thread_t* os_this_thread (void);
+  os_thread_t*
+  os_this_thread (void);
 
   /**
    * @brief Suspend the current running thread to wait for an event.
@@ -319,7 +339,8 @@ extern "C"
    * @par Returns
    *  Nothing.
    */
-  void os_this_thread_suspend (void);
+  void
+  os_this_thread_suspend (void);
 
   /**
    * @brief Terminate the current running thread.
@@ -327,7 +348,9 @@ extern "C"
    * @par Returns
    *  Nothing.
    */
-  void __attribute__ ((noreturn)) os_this_thread_exit (void* exit_ptr);
+  void
+  __attribute__((noreturn))
+  os_this_thread_exit (void* exit_ptr);
 
   /**
    * @brief Wait for thread event flags.
@@ -343,9 +366,9 @@ extern "C"
    * @retval EINTR The operation was interrupted.
    * @retval ENOTRECOVERABLE Wait failed.
    */
-  os_result_t os_this_thread_flags_wait (os_flags_mask_t mask,
-                                         os_flags_mask_t* oflags,
-                                         os_flags_mode_t mode);
+  os_result_t
+  os_this_thread_flags_wait (os_flags_mask_t mask, os_flags_mask_t* oflags,
+                             os_flags_mode_t mode);
 
   /**
    * @brief Try to wait for thread event flags.
@@ -360,9 +383,9 @@ extern "C"
    * @retval EWOULDBLOCK The expected condition did not occur.
    * @retval ENOTRECOVERABLE Wait failed.
    */
-  os_result_t os_this_thread_flags_try_wait (os_flags_mask_t mask,
-                                             os_flags_mask_t* oflags,
-                                             os_flags_mode_t mode);
+  os_result_t
+  os_this_thread_flags_try_wait (os_flags_mask_t mask, os_flags_mask_t* oflags,
+                                 os_flags_mode_t mode);
 
   /**
    * @brief Timed wait for thread event flags.
@@ -381,10 +404,11 @@ extern "C"
    * @retval EINTR The operation was interrupted.
    * @retval ENOTRECOVERABLE Wait failed.
    */
-  os_result_t os_this_thread_flags_timed_wait (os_flags_mask_t mask,
-                                               os_clock_duration_t timeout,
-                                               os_flags_mask_t* oflags,
-                                               os_flags_mode_t mode);
+  os_result_t
+  os_this_thread_flags_timed_wait (os_flags_mask_t mask,
+                                   os_clock_duration_t timeout,
+                                   os_flags_mask_t* oflags,
+                                   os_flags_mode_t mode);
 
   /**
    * @brief Clear thread event flags.
@@ -395,8 +419,8 @@ extern "C"
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
    * @retval EINVAL The mask is zero.
    */
-  os_result_t os_this_thread_flags_clear (os_flags_mask_t mask,
-                                          os_flags_mask_t* oflags);
+  os_result_t
+  os_this_thread_flags_clear (os_flags_mask_t mask, os_flags_mask_t* oflags);
 
   /**
    * @brief Get/clear thread event flags.
@@ -407,8 +431,8 @@ extern "C"
    *  event flags mask.
    * @retval sig::all Cannot be invoked from an Interrupt Service Routines.
    */
-  os_flags_mask_t os_this_thread_flags_get (os_flags_mask_t mask,
-                                            os_flags_mode_t mode);
+  os_flags_mask_t
+  os_this_thread_flags_get (os_flags_mask_t mask, os_flags_mode_t mode);
 
   /**
    * @}
@@ -426,7 +450,8 @@ extern "C"
    * @par Returns
    *  Nothing.
    */
-  void os_thread_attr_init (os_thread_attr_t* attr);
+  void
+  os_thread_attr_init (os_thread_attr_t* attr);
 
   /**
    * @}
@@ -447,10 +472,10 @@ extern "C"
    * @par Returns
    *  Nothing.
    */
-  void os_thread_construct (os_thread_t* thread, const char* name,
-                            os_thread_func_t func,
-                            const os_thread_func_args_t args,
-                            const os_thread_attr_t* attr);
+  void
+  os_thread_construct (os_thread_t* thread, const char* name,
+                       os_thread_func_t func, const os_thread_func_args_t args,
+                       const os_thread_attr_t* attr);
 
   /**
    * @brief Destruct the statically allocated thread object instance.
@@ -458,7 +483,8 @@ extern "C"
    * @par Returns
    *  Nothing.
    */
-  void os_thread_destruct (os_thread_t* thread);
+  void
+  os_thread_destruct (os_thread_t* thread);
 
   /**
    * @brief Allocate a thread object instance and construct it.
@@ -468,18 +494,19 @@ extern "C"
    * @param [in] attr Pointer to attributes (may be NULL)
    * @return Pointer to new thread object instance.
    */
-  os_thread_t* os_thread_new (const char* name, os_thread_func_t func,
-                              const os_thread_func_args_t args,
-                              const os_thread_attr_t* attr);
+  os_thread_t*
+  os_thread_new (const char* name, os_thread_func_t func,
+                 const os_thread_func_args_t args,
+                 const os_thread_attr_t* attr);
 
   /**
    * @brief Destruct the thread object instance and deallocate it.
-   * @param [in] thread Pointer to dynamically allocated thread object
-   * instance.
+   * @param [in] thread Pointer to dynamically allocated thread object instance.
    * @par Returns
    *  Nothing.
    */
-  void os_thread_delete (os_thread_t* thread);
+  void
+  os_thread_delete (os_thread_t* thread);
 
   /**
    * @}
@@ -495,14 +522,16 @@ extern "C"
    * @param [in] thread Pointer to thread object instance.
    * @return Null terminated string.
    */
-  const char* os_thread_get_name (os_thread_t* thread);
+  const char*
+  os_thread_get_name (os_thread_t* thread);
 
   /**
    * @brief Get the thread current scheduling priority.
    * @param [in] thread Pointer to thread object instance.
    * @return The thread priority.
    */
-  os_thread_prio_t os_thread_get_priority (os_thread_t* thread);
+  os_thread_prio_t
+  os_thread_get_priority (os_thread_t* thread);
 
   /**
    * @brief Set the thread dynamic scheduling priority.
@@ -513,8 +542,8 @@ extern "C"
    * @retval EINVAL The value of prio is invalid for the
    *  scheduling policy of the specified thread.
    */
-  os_result_t os_thread_set_priority (os_thread_t* thread,
-                                      os_thread_prio_t prio);
+  os_result_t
+  os_thread_set_priority (os_thread_t* thread, os_thread_prio_t prio);
 
   /**
    * @brief Wait for thread termination.
@@ -523,7 +552,8 @@ extern "C"
    * @retval os_ok The thread was terminated.
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
    */
-  os_result_t os_thread_join (os_thread_t* thread, void** exit_ptr);
+  os_result_t
+  os_thread_join (os_thread_t* thread, void** exit_ptr);
 
   /**
    * @brief Resume the thread.
@@ -531,7 +561,8 @@ extern "C"
    * @par Returns
    *  Nothing.
    */
-  void os_thread_resume (os_thread_t* thread);
+  void
+  os_thread_resume (os_thread_t* thread);
 
   /**
    * @brief Raise thread event flags.
@@ -543,15 +574,17 @@ extern "C"
    * @retval EINVAL The mask is zero.
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
    */
-  os_result_t os_thread_flags_raise (os_thread_t* thread, os_flags_mask_t mask,
-                                     os_flags_mask_t* oflags);
+  os_result_t
+  os_thread_flags_raise (os_thread_t* thread, os_flags_mask_t mask,
+                         os_flags_mask_t* oflags);
 
   /**
    * @brief Get the thread scheduler state.
    * @param [in] thread Pointer to thread object instance.
    * @return Thread scheduler state.
    */
-  os_thread_state_t os_thread_get_state (os_thread_t* thread);
+  os_thread_state_t
+  os_thread_get_state (os_thread_t* thread);
 
 #if defined(OS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE) || defined(__DOXYGEN__)
 
@@ -560,7 +593,8 @@ extern "C"
    * @param [in] thread Pointer to thread object instance.
    * @return The address of the thread user storage.
    */
-  os_thread_user_storage_t* os_thread_get_user_storage (os_thread_t* thread);
+  os_thread_user_storage_t*
+  os_thread_get_user_storage (os_thread_t* thread);
 
 #endif /* defined(OS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE) */
 
@@ -569,7 +603,8 @@ extern "C"
    * @param [in] thread Pointer to thread object instance.
    * @return A pointer to the context stack object instance.
    */
-  os_thread_stack_t* os_thread_get_stack (os_thread_t* thread);
+  os_thread_stack_t*
+  os_thread_get_stack (os_thread_t* thread);
 
   /**
    * @}
@@ -600,14 +635,16 @@ extern "C"
    *  None.
    * @return  The default stack size in bytes.
    */
-  size_t os_thread_stack_get_default_size (void);
+  size_t
+  os_thread_stack_get_default_size (void);
 
   /**
    * @brief Set the default stack size.
    * @param [in] size_bytes Default stack size in bytes.
    * @return  The previous value of the default stack size in bytes.
    */
-  size_t os_thread_stack_set_default_size (size_t size_bytes);
+  size_t
+  os_thread_stack_set_default_size (size_t size_bytes);
 
   /**
    * @brief Get the min stack size.
@@ -615,14 +652,16 @@ extern "C"
    *  None.
    * @return  The min stack size in bytes.
    */
-  size_t os_thread_stack_get_min_size (void);
+  size_t
+  os_thread_stack_get_min_size (void);
 
   /**
    * @brief Set the min stack size.
    * @param [in] size_bytes Minimum stack size in bytes.
    * @return  The previous value of the min stack size in bytes.
    */
-  size_t os_thread_stack_set_min_size (size_t size_bytes);
+  size_t
+  os_thread_stack_set_min_size (size_t size_bytes);
 
   /**
    * @brief Get the stack lowest reserved address.
@@ -645,14 +684,16 @@ extern "C"
    * @param [in] stack Pointer to stack object instance.
    * @return  The stack size in bytes.
    */
-  size_t os_thread_stack_get_size (os_thread_stack_t* stack);
+  size_t
+  os_thread_stack_get_size (os_thread_stack_t* stack);
 
   /**
    * @brief Compute how much available stack remains.
    * @param [in] stack Pointer to stack object instance.
    * @return Number of available bytes.
    */
-  size_t os_thread_stack_get_available (os_thread_stack_t* stack);
+  size_t
+  os_thread_stack_get_available (os_thread_stack_t* stack);
 
   /**
    * @brief Check if bottom magic word is still there.
@@ -660,7 +701,8 @@ extern "C"
    * @retval true  The magic word is still there.
    * @retval false  The magic word was overwritten.
    */
-  bool os_thread_stack_check_bottom_magic (os_thread_stack_t* stack);
+  bool
+  os_thread_stack_check_bottom_magic (os_thread_stack_t* stack);
 
   /**
    * @brief Check if top magic word is still there.
@@ -668,7 +710,8 @@ extern "C"
    * @retval true  The magic word is still there.
    * @retval false  The magic word was overwritten.
    */
-  bool os_thread_stack_check_top_magic (os_thread_stack_t* stack);
+  bool
+  os_thread_stack_check_top_magic (os_thread_stack_t* stack);
 
   /**
    * @}
@@ -699,7 +742,8 @@ extern "C"
    * @return A long integer with the accumulated number of CPU cycles,
    * possibly divided by some prescaller.
    */
-  os_statistics_duration_t os_thread_stat_get_cpu_cycles (os_thread_t* thread);
+  os_statistics_duration_t
+  os_thread_stat_get_cpu_cycles (os_thread_t* thread);
 
 #endif /* defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES) */
 
@@ -719,7 +763,8 @@ extern "C"
    * list of top threads.
    * @return An iterator positioned at the list begin.
    */
-  os_iterator_t os_children_threads_iter_begin (os_thread_t* thread);
+  os_iterator_t
+  os_children_threads_iter_begin (os_thread_t* thread);
 
   /**
    * @brief Get the end of the list of children threads.
@@ -727,21 +772,24 @@ extern "C"
    * list of top threads.
    * @return An iterator positioned at the list end.
    */
-  os_iterator_t os_children_threads_iter_end (os_thread_t* thread);
+  os_iterator_t
+  os_children_threads_iter_end (os_thread_t* thread);
 
   /**
    * @brief Get the thread from the current iterator position.
    * @param [in] iterator An active iterator.
    * @return The pointer to the thread object instance.
    */
-  os_thread_t* os_children_threads_iter_get (os_iterator_t iterator);
+  os_thread_t*
+  os_children_threads_iter_get (os_iterator_t iterator);
 
   /**
    * @brief Advance the iterator to the next position.
    * @param [in] iterator An active iterator.
    * @return An iterator positioned at the next list element.
    */
-  os_iterator_t os_children_threads_iter_next (os_iterator_t iterator);
+  os_iterator_t
+  os_children_threads_iter_next (os_iterator_t iterator);
 
   /**
    * @}
@@ -767,7 +815,8 @@ extern "C"
    * @param [in] clock Pointer to clock object instance.
    * @return Null terminated string.
    */
-  const char* os_clock_get_name (os_clock_t* clock);
+  const char*
+  os_clock_get_name (os_clock_t* clock);
 
   /**
    * @brief Tell the current time, possibly adjusted for epoch.
@@ -775,14 +824,16 @@ extern "C"
    * @return The clock current timestamp (time units from startup
    * plus the epoch offset).
    */
-  os_clock_timestamp_t os_clock_now (os_clock_t* clock);
+  os_clock_timestamp_t
+  os_clock_now (os_clock_t* clock);
 
   /**
    * @brief Tell the current time since startup.
    * @param [in] clock Pointer to clock object instance.
    * @return The clock current timestamp (time units from startup).
    */
-  os_clock_timestamp_t os_clock_steady_now (os_clock_t* clock);
+  os_clock_timestamp_t
+  os_clock_steady_now (os_clock_t* clock);
 
   /**
    * @brief Sleep for a relative duration.
@@ -793,8 +844,8 @@ extern "C"
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
    * @retval EINTR The sleep was interrupted.
    */
-  os_result_t os_clock_sleep_for (os_clock_t* clock,
-                                  os_clock_duration_t duration);
+  os_result_t
+  os_clock_sleep_for (os_clock_t* clock, os_clock_duration_t duration);
 
   /**
    * @brief Sleep until an absolute timestamp.
@@ -804,8 +855,8 @@ extern "C"
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
    * @retval EINTR The sleep was interrupted.
    */
-  os_result_t os_clock_sleep_until (os_clock_t* clock,
-                                    os_clock_timestamp_t timestamp);
+  os_result_t
+  os_clock_sleep_until (os_clock_t* clock, os_clock_timestamp_t timestamp);
 
   /**
    * @brief Timed wait for an event.
@@ -816,15 +867,16 @@ extern "C"
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
    * @retval EINTR The sleep was interrupted.
    */
-  os_result_t os_clock_wait_for (os_clock_t* clock,
-                                 os_clock_duration_t timeout);
+  os_result_t
+  os_clock_wait_for (os_clock_t* clock, os_clock_duration_t timeout);
 
   /**
    * @brief Get adjustment offset.
    * @param [in] clock Pointer to clock object instance.
    * @return Integer value representing the offset to epoch.
    */
-  os_clock_offset_t os_clock_get_offset (os_clock_t* clock);
+  os_clock_offset_t
+  os_clock_get_offset (os_clock_t* clock);
 
   /**
    * @brief Set adjustment offset.
@@ -832,26 +884,29 @@ extern "C"
    * @param [in] offset Integer representing the offset to epoch (positive).
    * @return Integer value representing the previous offset to epoch.
    */
-  os_clock_offset_t os_clock_set_offset (os_clock_t* clock,
-                                         os_clock_offset_t offset);
+  os_clock_offset_t
+  os_clock_set_offset (os_clock_t* clock, os_clock_offset_t offset);
 
   /**
    * @brief Get `sysclock` (the system clock).
    * @return The address of the clock_systick instance.
    */
-  os_clock_t* os_clock_get_sysclock (void);
+  os_clock_t*
+  os_clock_get_sysclock (void);
 
   /**
    * @brief Get `rtclock` (the real-time clock).
    * @return The address of the clock_rtc instance.
    */
-  os_clock_t* os_clock_get_rtclock (void);
+  os_clock_t*
+  os_clock_get_rtclock (void);
 
   /**
    * @brief Get `hrclock` (the high resolution clock).
    * @return The address of the clock_highres instance.
    */
-  os_clock_t* os_clock_get_hrclock (void);
+  os_clock_t*
+  os_clock_get_hrclock (void);
 
   // --------------------------------------------------------------------------
 
@@ -861,7 +916,8 @@ extern "C"
    *  None.
    * @return The number of SysTick input clocks since startup.
    */
-  os_clock_timestamp_t os_sysclock_now (void);
+  os_clock_timestamp_t
+  os_sysclock_now (void);
 
   /**
    * @brief Sleep for a relative duration.
@@ -871,7 +927,8 @@ extern "C"
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
    * @retval EINTR The sleep was interrupted.
    */
-  os_result_t os_sysclock_sleep_for (os_clock_duration_t duration);
+  os_result_t
+  os_sysclock_sleep_for (os_clock_duration_t duration);
 
   /**
    * @brief Sleep until an absolute timestamp.
@@ -880,7 +937,8 @@ extern "C"
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
    * @retval EINTR The sleep was interrupted.
    */
-  os_result_t os_sysclock_sleep_until (os_clock_timestamp_t timestamp);
+  os_result_t
+  os_sysclock_sleep_until (os_clock_timestamp_t timestamp);
 
   /**
    * @brief Timed wait for an event.
@@ -890,7 +948,8 @@ extern "C"
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
    * @retval EINTR The sleep was interrupted.
    */
-  os_result_t os_sysclock_wait_for (os_clock_duration_t timeout);
+  os_result_t
+  os_sysclock_wait_for (os_clock_duration_t timeout);
 
 #pragma GCC diagnostic push
 #if defined(__cplusplus)
@@ -902,13 +961,13 @@ extern "C"
    * @param [in] microsec The number of microseconds.
    * @return The number of ticks.
    */
-  inline os_clock_duration_t __attribute__ ((always_inline))
+  inline os_clock_duration_t
+  __attribute__((always_inline))
   os_sysclock_ticks_cast (uint32_t microsec)
   {
-    return (os_clock_duration_t) (
-        (((microsec) * ((uint32_t)OS_INTEGER_SYSTICK_FREQUENCY_HZ))
-         + (uint32_t)1000000ul - 1)
-        / (uint32_t)1000000ul);
+    return (os_clock_duration_t) ((((microsec)
+        * ((uint32_t) OS_INTEGER_SYSTICK_FREQUENCY_HZ)) + (uint32_t) 1000000ul
+        - 1) / (uint32_t) 1000000ul);
   }
 
   /**
@@ -916,13 +975,13 @@ extern "C"
    * @param [in] microsec The number of microseconds.
    * @return The number of ticks.
    */
-  inline os_clock_duration_t __attribute__ ((always_inline))
+  inline os_clock_duration_t
+  __attribute__((always_inline))
   os_sysclock_ticks_cast_long (uint64_t microsec)
   {
-    return (os_clock_duration_t) (
-        (((microsec) * ((uint64_t)OS_INTEGER_SYSTICK_FREQUENCY_HZ))
-         + (uint64_t)1000000ul - 1)
-        / (uint64_t)1000000ul);
+    return (os_clock_duration_t) ((((microsec)
+        * ((uint64_t) OS_INTEGER_SYSTICK_FREQUENCY_HZ)) + (uint64_t) 1000000ul
+        - 1) / (uint64_t) 1000000ul);
   }
 
 #pragma GCC diagnostic pop
@@ -952,7 +1011,8 @@ extern "C"
    * @par Returns
    *  Nothing.
    */
-  void os_timer_attr_init (os_timer_attr_t* attr);
+  void
+  os_timer_attr_init (os_timer_attr_t* attr);
 
   /**
    * @brief Initialise the periodic timer attributes.
@@ -960,13 +1020,15 @@ extern "C"
    * @par Returns
    *  Nothing.
    */
-  void os_timer_attr_periodic_init (os_timer_attr_t* attr);
+  void
+  os_timer_attr_periodic_init (os_timer_attr_t* attr);
 
   /**
    * @brief Get a periodic timer attributes object instance.
    * @return Pointer to timer attributes object instance.
    */
-  const os_timer_attr_t* os_timer_attr_get_periodic (void);
+  const os_timer_attr_t*
+  os_timer_attr_get_periodic (void);
 
   /**
    * @}
@@ -987,9 +1049,10 @@ extern "C"
    * @par Returns
    *  Nothing.
    */
-  void os_timer_construct (os_timer_t* timer, const char* name,
-                           os_timer_func_t function, os_timer_func_args_t args,
-                           const os_timer_attr_t* attr);
+  void
+  os_timer_construct (os_timer_t* timer, const char* name,
+                      os_timer_func_t function, os_timer_func_args_t args,
+                      const os_timer_attr_t* attr);
 
   /**
    * @brief Destruct the statically allocated timer object instance.
@@ -997,7 +1060,8 @@ extern "C"
    * @par Returns
    *  Nothing.
    */
-  void os_timer_destruct (os_timer_t* timer);
+  void
+  os_timer_destruct (os_timer_t* timer);
 
   /**
    * @brief Allocate a timer object instance and construct it.
@@ -1007,9 +1071,9 @@ extern "C"
    * @param [in] attr Pointer to attributes (may be NULL).
    * @return Pointer to new timer object instance.
    */
-  os_timer_t* os_timer_new (const char* name, os_timer_func_t function,
-                            os_timer_func_args_t args,
-                            const os_timer_attr_t* attr);
+  os_timer_t*
+  os_timer_new (const char* name, os_timer_func_t function,
+                os_timer_func_args_t args, const os_timer_attr_t* attr);
 
   /**
    * @brief Destruct the timer object instance and deallocate it.
@@ -1017,7 +1081,8 @@ extern "C"
    * @par Returns
    *  Nothing.
    */
-  void os_timer_delete (os_timer_t* timer);
+  void
+  os_timer_delete (os_timer_t* timer);
 
   /**
    * @}
@@ -1033,7 +1098,8 @@ extern "C"
    * @param [in] timer Pointer to timer object instance.
    * @return Null terminated string.
    */
-  const char* os_timer_get_name (os_timer_t* timer);
+  const char*
+  os_timer_get_name (os_timer_t* timer);
 
   /**
    * @brief Start or restart the timer.
@@ -1043,7 +1109,8 @@ extern "C"
    * @retval ENOTRECOVERABLE Timer could not be started.
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
    */
-  os_result_t os_timer_start (os_timer_t* timer, os_clock_duration_t period);
+  os_result_t
+  os_timer_start (os_timer_t* timer, os_clock_duration_t period);
 
   /**
    * @brief Stop the timer.
@@ -1053,7 +1120,8 @@ extern "C"
    * @retval EAGAIN The timer is not yet started.
    * @retval ENOTRECOVERABLE Timer could not be stopped.
    */
-  os_result_t os_timer_stop (os_timer_t* timer);
+  os_result_t
+  os_timer_stop (os_timer_t* timer);
 
   /**
    * @}
@@ -1093,7 +1161,8 @@ extern "C"
    * @par Returns
    *  Nothing.
    */
-  void os_mutex_attr_init (os_mutex_attr_t* attr);
+  void
+  os_mutex_attr_init (os_mutex_attr_t* attr);
 
   /**
    * @brief Initialise the recursive mutex attributes.
@@ -1101,13 +1170,15 @@ extern "C"
    * @par Returns
    *  Nothing.
    */
-  void os_mutex_attr_recursive_init (os_mutex_attr_t* attr);
+  void
+  os_mutex_attr_recursive_init (os_mutex_attr_t* attr);
 
   /**
    * @brief Get a recursive mutex attributes object instance.
    * @return Pointer to mutex attributes object instance.
    */
-  const os_mutex_attr_t* os_mutex_attr_get_recursive (void);
+  const os_mutex_attr_t*
+  os_mutex_attr_get_recursive (void);
 
   /**
    * @}
@@ -1126,8 +1197,9 @@ extern "C"
    * @par Returns
    *  Nothing.
    */
-  void os_mutex_construct (os_mutex_t* mutex, const char* name,
-                           const os_mutex_attr_t* attr);
+  void
+  os_mutex_construct (os_mutex_t* mutex, const char* name,
+                      const os_mutex_attr_t* attr);
 
   /**
    * @brief Construct a statically allocated recursive mutex object instance.
@@ -1137,8 +1209,9 @@ extern "C"
    * @par Returns
    *  Nothing.
    */
-  void os_mutex_recursive_construct (os_mutex_t* mutex, const char* name,
-                                     const os_mutex_attr_t* attr);
+  void
+  os_mutex_recursive_construct (os_mutex_t* mutex, const char* name,
+                                const os_mutex_attr_t* attr);
 
   /**
    * @brief Destruct the statically allocated mutex object instance.
@@ -1146,7 +1219,8 @@ extern "C"
    * @par Returns
    *  Nothing.
    */
-  void os_mutex_destruct (os_mutex_t* mutex);
+  void
+  os_mutex_destruct (os_mutex_t* mutex);
 
   /**
    * @brief Allocate a mutex object instance and construct it.
@@ -1154,7 +1228,8 @@ extern "C"
    * @param [in] attr Pointer to attributes (may be NULL).
    * @return Pointer to new mutex object instance.
    */
-  os_mutex_t* os_mutex_new (const char* name, const os_mutex_attr_t* attr);
+  os_mutex_t*
+  os_mutex_new (const char* name, const os_mutex_attr_t* attr);
 
   /**
    * @brief Allocated a recursive mutex object instance and construct it.
@@ -1162,8 +1237,8 @@ extern "C"
    * @param [in] attr Pointer to attributes (may be NULL).
    * @return Pointer to new recursive mutex object instance.
    */
-  os_mutex_t* os_mutex_recursive_new (const char* name,
-                                      const os_mutex_attr_t* attr);
+  os_mutex_t*
+  os_mutex_recursive_new (const char* name, const os_mutex_attr_t* attr);
 
   /**
    * @brief Destruct the mutex object instance and deallocate it.
@@ -1171,7 +1246,8 @@ extern "C"
    * @par Returns
    *  Nothing.
    */
-  void os_mutex_delete (os_mutex_t* mutex);
+  void
+  os_mutex_delete (os_mutex_t* mutex);
 
   /**
    * @}
@@ -1187,7 +1263,8 @@ extern "C"
    * @param [in] mutex Pointer to mutex object instance.
    * @return Null terminated string.
    */
-  const char* os_mutex_get_name (os_mutex_t* mutex);
+  const char*
+  os_mutex_get_name (os_mutex_t* mutex);
 
   /**
    * @brief Lock/acquire the mutex.
@@ -1209,7 +1286,8 @@ extern "C"
    * @retval EDEADLK The mutex type is `os_mutex_type_errorcheck` and
    *  the current thread already owns the mutex.
    */
-  os_result_t os_mutex_lock (os_mutex_t* mutex);
+  os_result_t
+  os_mutex_lock (os_mutex_t* mutex);
 
   /**
    * @brief Try to lock/acquire the mutex.
@@ -1233,7 +1311,8 @@ extern "C"
    * @retval EWOULDBLOCK The mutex could not be acquired because it was
    *  already locked.
    */
-  os_result_t os_mutex_try_lock (os_mutex_t* mutex);
+  os_result_t
+  os_mutex_try_lock (os_mutex_t* mutex);
 
   /**
    * @brief Timed attempt to lock/acquire the mutex.
@@ -1257,8 +1336,8 @@ extern "C"
    *  calling thread and it is up to the new owner to make the
    *  state consistent.
    */
-  os_result_t os_mutex_timed_lock (os_mutex_t* mutex,
-                                   os_clock_duration_t timeout);
+  os_result_t
+  os_mutex_timed_lock (os_mutex_t* mutex, os_clock_duration_t timeout);
 
   /**
    * @brief Unlock/release the mutex.
@@ -1270,14 +1349,16 @@ extern "C"
    *  and the current thread does not own the mutex.
    * @retval ENOTRECOVERABLE The mutex was not unlocked.
    */
-  os_result_t os_mutex_unlock (os_mutex_t* mutex);
+  os_result_t
+  os_mutex_unlock (os_mutex_t* mutex);
 
   /**
    * @brief Get the priority ceiling of a mutex.
    * @param [in] mutex Pointer to mutex object instance.
    * @return The priority ceiling.
    */
-  os_thread_prio_t os_mutex_get_prio_ceiling (os_mutex_t* mutex);
+  os_thread_prio_t
+  os_mutex_get_prio_ceiling (os_mutex_t* mutex);
 
   /**
    * @brief Change the priority ceiling of a mutex.
@@ -1288,9 +1369,9 @@ extern "C"
    * @retval os_ok The priority was changed.
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
    */
-  os_result_t os_mutex_set_prio_ceiling (os_mutex_t* mutex,
-                                         os_thread_prio_t prio_ceiling,
-                                         os_thread_prio_t* old_prio_ceiling);
+  os_result_t
+  os_mutex_set_prio_ceiling (os_mutex_t* mutex, os_thread_prio_t prio_ceiling,
+                             os_thread_prio_t* old_prio_ceiling);
 
   /**
    * @brief Mark mutex as consistent.
@@ -1300,42 +1381,48 @@ extern "C"
    * @retval EINVAL The mutex object referenced by mutex is not robust
    *  or does not protect an inconsistent state.
    */
-  os_result_t os_mutex_mark_consistent (os_mutex_t* mutex);
+  os_result_t
+  os_mutex_mark_consistent (os_mutex_t* mutex);
 
   /**
    * @brief Get the thread that owns the mutex.
    * @param [in] mutex Pointer to mutex object instance.
    * @return Pointer to thread or `NULL` if not owned.
    */
-  os_thread_t* os_mutex_get_owner (os_mutex_t* mutex);
+  os_thread_t*
+  os_mutex_get_owner (os_mutex_t* mutex);
 
   /**
    * @brief Get the mutex type.
    * @param [in] mutex Pointer to mutex object instance.
    * @return An integer encoding the @ref os::rtos::mutex::type.
    */
-  os_mutex_type_t os_mutex_get_type (os_mutex_t* mutex);
+  os_mutex_type_t
+  os_mutex_get_type (os_mutex_t* mutex);
 
   /**
    * @brief Get the mutex protocol.
    * @param [in] mutex Pointer to mutex object instance.
    * @return An integer encoding the @ref os::rtos::mutex::protocol.
    */
-  os_mutex_protocol_t os_mutex_get_protocol (os_mutex_t* mutex);
+  os_mutex_protocol_t
+  os_mutex_get_protocol (os_mutex_t* mutex);
 
   /**
    * @brief Get the mutex robustness.
    * @param [in] mutex Pointer to mutex object instance.
    * @return An integer encoding the @ref os::rtos::mutex::robustness.
    */
-  os_mutex_robustness_t os_mutex_get_robustness (os_mutex_t* mutex);
+  os_mutex_robustness_t
+  os_mutex_get_robustness (os_mutex_t* mutex);
 
   /**
    * @brief Reset the mutex.
    * @param [in] mutex Pointer to mutex object instance.
    * @retval os_ok The mutex was reset.
    */
-  os_result_t os_mutex_reset (os_mutex_t* mutex);
+  os_result_t
+  os_mutex_reset (os_mutex_t* mutex);
 
   /**
    * @}
@@ -1376,7 +1463,8 @@ extern "C"
    * @par Returns
    *  Nothing.
    */
-  void os_condvar_attr_init (os_condvar_attr_t* attr);
+  void
+  os_condvar_attr_init (os_condvar_attr_t* attr);
 
   /**
    * @}
@@ -1404,8 +1492,9 @@ extern "C"
    * @par Returns
    *  Nothing.
    */
-  void os_condvar_construct (os_condvar_t* condvar, const char* name,
-                             const os_condvar_attr_t* attr);
+  void
+  os_condvar_construct (os_condvar_t* condvar, const char* name,
+                        const os_condvar_attr_t* attr);
 
   /**
    * @brief Destruct the statically allocated condition variable
@@ -1414,7 +1503,8 @@ extern "C"
    * @par Returns
    *  Nothing.
    */
-  void os_condvar_destruct (os_condvar_t* condvar);
+  void
+  os_condvar_destruct (os_condvar_t* condvar);
 
   /**
    * @brief Allocate a condition variable object instance and construct it.
@@ -1430,8 +1520,8 @@ extern "C"
    *  The constructor shall not fail with an error code of `EINTR`.
    * @return Pointer to new condition variable object instance.
    */
-  os_condvar_t* os_condvar_new (const char* name,
-                                const os_condvar_attr_t* attr);
+  os_condvar_t*
+  os_condvar_new (const char* name, const os_condvar_attr_t* attr);
 
   /**
    * @brief Destruct the condition variable object instance and deallocate it.
@@ -1440,7 +1530,8 @@ extern "C"
    * @par Returns
    *  Nothing.
    */
-  void os_condvar_delete (os_condvar_t* condvar);
+  void
+  os_condvar_delete (os_condvar_t* condvar);
 
   /**
    * @}
@@ -1456,7 +1547,8 @@ extern "C"
    * @param [in] condvar Pointer to condition variable object instance.
    * @return Null terminated string.
    */
-  const char* os_condvar_get_name (os_condvar_t* condvar);
+  const char*
+  os_condvar_get_name (os_condvar_t* condvar);
 
   /**
    * @brief Notify one thread waiting for a condition variable.
@@ -1466,7 +1558,8 @@ extern "C"
    * @par Errors
    *  The function shall not fail with an error code of `EINTR`.
    */
-  os_result_t os_condvar_signal (os_condvar_t* condvar);
+  os_result_t
+  os_condvar_signal (os_condvar_t* condvar);
 
   /**
    * @brief Notify all threads waiting for a condition variable.
@@ -1476,7 +1569,8 @@ extern "C"
    * @par Errors
    *  The function shall not fail with an error code of `EINTR`.
    */
-  os_result_t os_condvar_broadcast (os_condvar_t* condvar);
+  os_result_t
+  os_condvar_broadcast (os_condvar_t* condvar);
 
   /**
    * @brief Wait for a condition variable to be notified.
@@ -1496,7 +1590,8 @@ extern "C"
    * @par Errors
    *  The function shall not fail with an error code of `EINTR`.
    */
-  os_result_t os_condvar_wait (os_condvar_t* condvar, os_mutex_t* mutex);
+  os_result_t
+  os_condvar_wait (os_condvar_t* condvar, os_mutex_t* mutex);
 
   /**
    * @brief Timed wait for a condition variable to be notified.
@@ -1518,8 +1613,9 @@ extern "C"
    * @par Errors
    *  The function shall not fail with an error code of `EINTR`.
    */
-  os_result_t os_condvar_timed_wait (os_condvar_t* condvar, os_mutex_t* mutex,
-                                     os_clock_duration_t timeout);
+  os_result_t
+  os_condvar_timed_wait (os_condvar_t* condvar, os_mutex_t* mutex,
+                         os_clock_duration_t timeout);
 
   /**
    * @}
@@ -1559,7 +1655,8 @@ extern "C"
    * @par Returns
    *  Nothing.
    */
-  void os_semaphore_attr_init (os_semaphore_attr_t* attr);
+  void
+  os_semaphore_attr_init (os_semaphore_attr_t* attr);
 
   /**
    * @brief Initialise the binary semaphore attributes.
@@ -1587,7 +1684,8 @@ extern "C"
    * @brief Get a binary semaphore attributes object instance.
    * @return Pointer to semaphore attributes object instance.
    */
-  const os_semaphore_attr_t* os_semaphore_attr_get_binary (void);
+  const os_semaphore_attr_t*
+  os_semaphore_attr_get_binary (void);
 
   /**
    * @}
@@ -1606,8 +1704,9 @@ extern "C"
    * @par Returns
    *  Nothing.
    */
-  void os_semaphore_construct (os_semaphore_t* semaphore, const char* name,
-                               const os_semaphore_attr_t* attr);
+  void
+  os_semaphore_construct (os_semaphore_t* semaphore, const char* name,
+                          const os_semaphore_attr_t* attr);
 
   /**
    * @brief Construct a statically allocated binary semaphore object instance.
@@ -1642,7 +1741,8 @@ extern "C"
    * @par Returns
    *  Nothing.
    */
-  void os_semaphore_destruct (os_semaphore_t* semaphore);
+  void
+  os_semaphore_destruct (os_semaphore_t* semaphore);
 
   /**
    * @brief Allocated a semaphore object instance and construct it.
@@ -1650,8 +1750,8 @@ extern "C"
    * @param [in] attr Pointer to attributes (may be NULL).
    * @return Pointer to new semaphore object instance.
    */
-  os_semaphore_t* os_semaphore_new (const char* name,
-                                    const os_semaphore_attr_t* attr);
+  os_semaphore_t*
+  os_semaphore_new (const char* name, const os_semaphore_attr_t* attr);
 
   /**
    * @brief Allocate a binary semaphore object instance and construct it.
@@ -1681,7 +1781,8 @@ extern "C"
    * @par Returns
    *  Nothing.
    */
-  void os_semaphore_delete (os_semaphore_t* semaphore);
+  void
+  os_semaphore_delete (os_semaphore_t* semaphore);
 
   /**
    * @}
@@ -1697,7 +1798,8 @@ extern "C"
    * @param [in] semaphore Pointer to semaphore object instance.
    * @return Null terminated string.
    */
-  const char* os_semaphore_get_name (os_semaphore_t* semaphore);
+  const char*
+  os_semaphore_get_name (os_semaphore_t* semaphore);
 
   /**
    * @brief Post (unlock) the semaphore.
@@ -1707,7 +1809,8 @@ extern "C"
    * @retval ENOTRECOVERABLE The semaphore could not be posted
    *  (extension to POSIX).
    */
-  os_result_t os_semaphore_post (os_semaphore_t* semaphore);
+  os_result_t
+  os_semaphore_post (os_semaphore_t* semaphore);
 
   /**
    * @brief Lock the semaphore, possibly waiting.
@@ -1719,7 +1822,8 @@ extern "C"
    * @retval EDEADLK A deadlock condition was detected.
    * @retval EINTR The operation was interrupted.
    */
-  os_result_t os_semaphore_wait (os_semaphore_t* semaphore);
+  os_result_t
+  os_semaphore_wait (os_semaphore_t* semaphore);
 
   /**
    * @brief Try to lock the semaphore.
@@ -1732,7 +1836,8 @@ extern "C"
    * @retval EDEADLK A deadlock condition was detected.
    * @retval EINTR The operation was interrupted.
    */
-  os_result_t os_semaphore_try_wait (os_semaphore_t* semaphore);
+  os_result_t
+  os_semaphore_try_wait (os_semaphore_t* semaphore);
 
   /**
    * @brief Timed wait to lock the semaphore.
@@ -1749,15 +1854,17 @@ extern "C"
    * @retval EDEADLK A deadlock condition was detected.
    * @retval EINTR The operation was interrupted.
    */
-  os_result_t os_semaphore_timed_wait (os_semaphore_t* semaphore,
-                                       os_clock_duration_t timeout);
+  os_result_t
+  os_semaphore_timed_wait (os_semaphore_t* semaphore,
+                           os_clock_duration_t timeout);
 
   /**
    * @brief Get the semaphore count value.
    * @param [in] semaphore Pointer to semaphore object instance.
    * @return The semaphore count value.
    */
-  os_semaphore_count_t os_semaphore_get_value (os_semaphore_t* semaphore);
+  os_semaphore_count_t
+  os_semaphore_get_value (os_semaphore_t* semaphore);
 
   /**
    * @brief Reset the semaphore.
@@ -1765,7 +1872,8 @@ extern "C"
    * @retval os_ok The semaphore was reset.
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
    */
-  os_result_t os_semaphore_reset (os_semaphore_t* semaphore);
+  os_result_t
+  os_semaphore_reset (os_semaphore_t* semaphore);
 
   /**
    * @brief Get the semaphore initial count value.
@@ -1780,7 +1888,8 @@ extern "C"
    * @param [in] semaphore Pointer to semaphore object instance.
    * @return The numeric value set from attributes.
    */
-  os_semaphore_count_t os_semaphore_get_max_value (os_semaphore_t* semaphore);
+  os_semaphore_count_t
+  os_semaphore_get_max_value (os_semaphore_t* semaphore);
 
   /**
    * @}
@@ -1821,7 +1930,8 @@ extern "C"
    * @par Returns
    *  Nothing.
    */
-  void os_mempool_attr_init (os_mempool_attr_t* attr);
+  void
+  os_mempool_attr_init (os_mempool_attr_t* attr);
 
   /**
    * @}
@@ -1842,9 +1952,9 @@ extern "C"
    * @par Returns
    *  Nothing.
    */
-  void os_mempool_construct (os_mempool_t* mempool, const char* name,
-                             size_t blocks, size_t block_size_bytes,
-                             const os_mempool_attr_t* attr);
+  void
+  os_mempool_construct (os_mempool_t* mempool, const char* name, size_t blocks,
+                        size_t block_size_bytes, const os_mempool_attr_t* attr);
 
   /**
    * @brief Destruct the statically allocated memory pool object instance.
@@ -1852,7 +1962,8 @@ extern "C"
    * @par Returns
    *  Nothing.
    */
-  void os_mempool_destruct (os_mempool_t* mempool);
+  void
+  os_mempool_destruct (os_mempool_t* mempool);
 
   /**
    * @brief Allocate a memory pool object instance and construct it.
@@ -1862,9 +1973,9 @@ extern "C"
    * @param [in] attr Pointer to attributes (may be NULL).
    * @return Pointer to new memory pool object instance.
    */
-  os_mempool_t* os_mempool_new (const char* name, size_t blocks,
-                                size_t block_size_bytes,
-                                const os_mempool_attr_t* attr);
+  os_mempool_t*
+  os_mempool_new (const char* name, size_t blocks, size_t block_size_bytes,
+                  const os_mempool_attr_t* attr);
 
   /**
    * @brief Destruct the memory pool object instance and deallocate it.
@@ -1873,7 +1984,8 @@ extern "C"
    * @par Returns
    *  Nothing.
    */
-  void os_mempool_delete (os_mempool_t* mempool);
+  void
+  os_mempool_delete (os_mempool_t* mempool);
 
   /**
    * @}
@@ -1889,21 +2001,24 @@ extern "C"
    * @param [in] mempool Pointer to memory pool object instance.
    * @return Null terminated string.
    */
-  const char* os_mempool_get_name (os_mempool_t* mempool);
+  const char*
+  os_mempool_get_name (os_mempool_t* mempool);
 
   /**
    * @brief Allocate a memory block.
    * @param [in] mempool Pointer to memory pool object instance.
    * @return Pointer to memory block, or `NULL` if interrupted.
    */
-  void* os_mempool_alloc (os_mempool_t* mempool);
+  void*
+  os_mempool_alloc (os_mempool_t* mempool);
 
   /**
    * @brief Try to allocate a memory block.
    * @param [in] mempool Pointer to memory pool object instance.
    * @return Pointer to memory block, or `NULL` if no memory available.
    */
-  void* os_mempool_try_alloc (os_mempool_t* mempool);
+  void*
+  os_mempool_try_alloc (os_mempool_t* mempool);
 
   /**
    * @brief Allocate a memory block with timeout.
@@ -1911,8 +2026,8 @@ extern "C"
    * @param [in] timeout Timeout to wait, in clock units (ticks or seconds).
    * @return Pointer to memory block, or `NULL` if timeout.
    */
-  void* os_mempool_timed_alloc (os_mempool_t* mempool,
-                                os_clock_duration_t timeout);
+  void*
+  os_mempool_timed_alloc (os_mempool_t* mempool, os_clock_duration_t timeout);
 
   /**
    * @brief Free the memory block.
@@ -1921,28 +2036,32 @@ extern "C"
    * @retval os_ok The memory block was released.
    * @retval EINVAL The block does not belong to the memory pool.
    */
-  os_result_t os_mempool_free (os_mempool_t* mempool, void* block);
+  os_result_t
+  os_mempool_free (os_mempool_t* mempool, void* block);
 
   /**
    * @brief Get memory pool capacity.
    * @param [in] mempool Pointer to memory pool object instance.
    * @return The max number of blocks in the pool.
    */
-  size_t os_mempool_get_capacity (os_mempool_t* mempool);
+  size_t
+  os_mempool_get_capacity (os_mempool_t* mempool);
 
   /**
    * @brief Get blocks count.
    * @param [in] mempool Pointer to memory pool object instance.
    * @return The number of blocks used from the queue.
    */
-  size_t os_mempool_get_count (os_mempool_t* mempool);
+  size_t
+  os_mempool_get_count (os_mempool_t* mempool);
 
   /**
    * @brief Get block size.
    * @param [in] mempool Pointer to memory pool object instance.
    * @return The block size, in bytes.
    */
-  size_t os_mempool_get_block_size (os_mempool_t* mempool);
+  size_t
+  os_mempool_get_block_size (os_mempool_t* mempool);
 
   /**
    * @brief Check if the memory pool is empty.
@@ -1950,7 +2069,8 @@ extern "C"
    * @retval true The memory pool has no allocated blocks.
    * @retval false The memory pool has allocated blocks.
    */
-  bool os_mempool_is_empty (os_mempool_t* mempool);
+  bool
+  os_mempool_is_empty (os_mempool_t* mempool);
 
   /**
    * @brief Check if the memory pool is full.
@@ -1958,7 +2078,8 @@ extern "C"
    * @retval true All memory blocks are allocated.
    * @retval false There are still memory blocks that can be allocated.
    */
-  bool os_mempool_is_full (os_mempool_t* mempool);
+  bool
+  os_mempool_is_full (os_mempool_t* mempool);
 
   /**
    * @brief Reset the memory pool.
@@ -1966,14 +2087,16 @@ extern "C"
    * @retval os_ok The memory pool was reset.
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
    */
-  os_result_t os_mempool_reset (os_mempool_t* mempool);
+  os_result_t
+  os_mempool_reset (os_mempool_t* mempool);
 
   /**
    * @brief Get the pool storage address.
    * @param [in] mempool Pointer to memory pool object instance.
    * @return Pointer to storage.
    */
-  void* os_mempool_get_pool (os_mempool_t* mempool);
+  void*
+  os_mempool_get_pool (os_mempool_t* mempool);
 
   /**
    * @}
@@ -2012,7 +2135,8 @@ extern "C"
    * @par Returns
    *  Nothing.
    */
-  void os_mqueue_attr_init (os_mqueue_attr_t* attr);
+  void
+  os_mqueue_attr_init (os_mqueue_attr_t* attr);
 
   /**
    * @}
@@ -2033,9 +2157,9 @@ extern "C"
    * @par Returns
    *  Nothing.
    */
-  void os_mqueue_construct (os_mqueue_t* mqueue, const char* name, size_t msgs,
-                            size_t msg_size_bytes,
-                            const os_mqueue_attr_t* attr);
+  void
+  os_mqueue_construct (os_mqueue_t* mqueue, const char* name, size_t msgs,
+                       size_t msg_size_bytes, const os_mqueue_attr_t* attr);
 
   /**
    * @brief Destruct the statically allocated message queue object instance.
@@ -2043,7 +2167,8 @@ extern "C"
    * @par Returns
    *  Nothing.
    */
-  void os_mqueue_destruct (os_mqueue_t* mqueue);
+  void
+  os_mqueue_destruct (os_mqueue_t* mqueue);
 
   /**
    * @brief Allocate a message queue object instance and construct it.
@@ -2053,9 +2178,9 @@ extern "C"
    * @param [in] attr Pointer to attributes (may be NULL).
    * @return Pointer to new message queue object instance.
    */
-  os_mqueue_t* os_mqueue_new (const char* name, size_t msgs,
-                              size_t msg_size_bytes,
-                              const os_mqueue_attr_t* attr);
+  os_mqueue_t*
+  os_mqueue_new (const char* name, size_t msgs, size_t msg_size_bytes,
+                 const os_mqueue_attr_t* attr);
 
   /**
    * @brief Destruct the message queue object instance and deallocate it.
@@ -2064,7 +2189,8 @@ extern "C"
    * @par Returns
    *  Nothing.
    */
-  void os_mqueue_delete (os_mqueue_t* mqueue);
+  void
+  os_mqueue_delete (os_mqueue_t* mqueue);
 
   /**
    * @}
@@ -2080,7 +2206,8 @@ extern "C"
    * @param [in] mqueue Pointer to message queue object instance.
    * @return Null terminated string.
    */
-  const char* os_mqueue_get_name (os_mqueue_t* mqueue);
+  const char*
+  os_mqueue_get_name (os_mqueue_t* mqueue);
 
   /**
    * @brief Send a message to the queue.
@@ -2088,8 +2215,7 @@ extern "C"
    * @param [in] msg The address of the message to enqueue.
    * @param [in] nbytes The length of the message. Must be not
    *  higher than the value used when creating the queue.
-   * @param [in] mprio The message priority. Enter 0 if priorities are not
-   * used.
+   * @param [in] mprio The message priority. Enter 0 if priorities are not used.
    * @retval os_ok The message was enqueued.
    * @retval EINVAL A parameter is invalid or outside of a permitted range.
    * @retval EMSGSIZE The specified message length, nbytes,
@@ -2099,8 +2225,9 @@ extern "C"
    *  (extension to POSIX).
    * @retval EINTR The operation was interrupted.
    */
-  os_result_t os_mqueue_send (os_mqueue_t* mqueue, const void* msg,
-                              size_t nbytes, os_mqueue_prio_t mprio);
+  os_result_t
+  os_mqueue_send (os_mqueue_t* mqueue, const void* msg, size_t nbytes,
+                  os_mqueue_prio_t mprio);
 
   /**
    * @brief Try to send a message to the queue.
@@ -2108,8 +2235,7 @@ extern "C"
    * @param [in] msg The address of the message to enqueue.
    * @param [in] nbytes The length of the message. Must be not
    *  higher than the value used when creating the queue.
-   * @param [in] mprio The message priority. Enter 0 if priorities are not
-   * used.
+   * @param [in] mprio The message priority. Enter 0 if priorities are not used.
    * @retval os_ok The message was enqueued.
    * @retval EWOULDBLOCK The specified message queue is full.
    * @retval EINVAL A parameter is invalid or outside of a permitted range.
@@ -2118,8 +2244,9 @@ extern "C"
    * @retval ENOTRECOVERABLE The message could not be enqueue
    *  (extension to POSIX).
    */
-  os_result_t os_mqueue_try_send (os_mqueue_t* mqueue, const void* msg,
-                                  size_t nbytes, os_mqueue_prio_t mprio);
+  os_result_t
+  os_mqueue_try_send (os_mqueue_t* mqueue, const void* msg, size_t nbytes,
+                      os_mqueue_prio_t mprio);
 
   /**
    * @brief Send a message to the queue with timeout.
@@ -2128,8 +2255,7 @@ extern "C"
    * @param [in] nbytes The length of the message. Must be not
    *  higher than the value used when creating the queue.
    * @param [in] timeout The timeout duration.
-   * @param [in] mprio The message priority. Enter 0 if priorities are not
-   * used.
+   * @param [in] mprio The message priority. Enter 0 if priorities are not used.
    * @retval os_ok The message was enqueued.
    * @retval EINVAL A parameter is invalid or outside of a permitted range.
    * @retval EMSGSIZE The specified message length, nbytes,
@@ -2141,9 +2267,9 @@ extern "C"
    *  (extension to POSIX).
    * @retval EINTR The operation was interrupted.
    */
-  os_result_t os_mqueue_timed_send (os_mqueue_t* mqueue, const void* msg,
-                                    size_t nbytes, os_clock_duration_t timeout,
-                                    os_mqueue_prio_t mprio);
+  os_result_t
+  os_mqueue_timed_send (os_mqueue_t* mqueue, const void* msg, size_t nbytes,
+                        os_clock_duration_t timeout, os_mqueue_prio_t mprio);
 
   /**
    * @brief Receive a message from the queue.
@@ -2164,8 +2290,9 @@ extern "C"
    *  problem with the message.
    * @retval EINTR The operation was interrupted.
    */
-  os_result_t os_mqueue_receive (os_mqueue_t* mqueue, void* msg, size_t nbytes,
-                                 os_mqueue_prio_t* mprio);
+  os_result_t
+  os_mqueue_receive (os_mqueue_t* mqueue, void* msg, size_t nbytes,
+                     os_mqueue_prio_t* mprio);
 
   /**
    * @brief Try to receive a message from the queue.
@@ -2185,8 +2312,9 @@ extern "C"
    *  problem with the message.
    * @retval EWOULDBLOCK The specified message queue is empty.
    */
-  os_result_t os_mqueue_try_receive (os_mqueue_t* mqueue, void* msg,
-                                     size_t nbytes, os_mqueue_prio_t* mprio);
+  os_result_t
+  os_mqueue_try_receive (os_mqueue_t* mqueue, void* msg, size_t nbytes,
+                         os_mqueue_prio_t* mprio);
 
   /**
    * @brief Receive a message from the queue with timeout.
@@ -2210,31 +2338,34 @@ extern "C"
    * @retval ETIMEDOUT No message arrived on the queue before the
    *  specified timeout expired.
    */
-  os_result_t os_mqueue_timed_receive (os_mqueue_t* mqueue, void* msg,
-                                       size_t nbytes,
-                                       os_clock_duration_t timeout,
-                                       os_mqueue_prio_t* mprio);
+  os_result_t
+  os_mqueue_timed_receive (os_mqueue_t* mqueue, void* msg, size_t nbytes,
+                           os_clock_duration_t timeout,
+                           os_mqueue_prio_t* mprio);
 
   /**
    * @brief Get queue capacity.
    * @param [in] mqueue Pointer to message queue object instance.
    * @return The max number of messages that can be queued.
    */
-  size_t os_mqueue_get_capacity (os_mqueue_t* mqueue);
+  size_t
+  os_mqueue_get_capacity (os_mqueue_t* mqueue);
 
   /**
    * @brief Get queue length.
    * @param [in] mqueue Pointer to message queue object instance.
    * @return The number of messages in the queue.
    */
-  size_t os_mqueue_get_length (os_mqueue_t* mqueue);
+  size_t
+  os_mqueue_get_length (os_mqueue_t* mqueue);
 
   /**
    * @brief Get message size.
    * @param [in] mqueue Pointer to message queue object instance.
    * @return The message size, in bytes.
    */
-  size_t os_mqueue_get_msg_size (os_mqueue_t* mqueue);
+  size_t
+  os_mqueue_get_msg_size (os_mqueue_t* mqueue);
 
   /**
    * @brief Check if the queue is empty.
@@ -2242,7 +2373,8 @@ extern "C"
    * @retval true The queue has no messages.
    * @retval false The queue has some messages.
    */
-  bool os_mqueue_is_empty (os_mqueue_t* mqueue);
+  bool
+  os_mqueue_is_empty (os_mqueue_t* mqueue);
 
   /**
    * @brief Check if the queue is full.
@@ -2250,7 +2382,8 @@ extern "C"
    * @retval true The queue is full.
    * @retval false The queue is not full.
    */
-  bool os_mqueue_is_full (os_mqueue_t* mqueue);
+  bool
+  os_mqueue_is_full (os_mqueue_t* mqueue);
 
   /**
    * @brief Reset the message queue.
@@ -2258,7 +2391,8 @@ extern "C"
    * @retval os_ok The queue was reset.
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
    */
-  os_result_t os_mqueue_reset (os_mqueue_t* mqueue);
+  os_result_t
+  os_mqueue_reset (os_mqueue_t* mqueue);
 
   /**
    * @}
@@ -2297,7 +2431,8 @@ extern "C"
    * @par Returns
    *  Nothing.
    */
-  void os_evflags_attr_init (os_evflags_attr_t* attr);
+  void
+  os_evflags_attr_init (os_evflags_attr_t* attr);
 
   /**
    * @}
@@ -2316,8 +2451,9 @@ extern "C"
    * @par Returns
    *  Nothing.
    */
-  void os_evflags_construct (os_evflags_t* evflags, const char* name,
-                             const os_evflags_attr_t* attr);
+  void
+  os_evflags_construct (os_evflags_t* evflags, const char* name,
+                        const os_evflags_attr_t* attr);
 
   /**
    * @brief Destruct the statically allocated event flags object instance.
@@ -2325,7 +2461,8 @@ extern "C"
    * @par Returns
    *  Nothing.
    */
-  void os_evflags_destruct (os_evflags_t* evflags);
+  void
+  os_evflags_destruct (os_evflags_t* evflags);
 
   /**
    * @brief Allocate an event flags object instance and construct it.
@@ -2333,8 +2470,8 @@ extern "C"
    * @param [in] attr Pointer to attributes (may be NULL).
    * @return Pointer to new event flags object instance.
    */
-  os_evflags_t* os_evflags_new (const char* name,
-                                const os_evflags_attr_t* attr);
+  os_evflags_t*
+  os_evflags_new (const char* name, const os_evflags_attr_t* attr);
 
   /**
    * @brief Destruct the event flags object instance and deallocate it.
@@ -2343,7 +2480,8 @@ extern "C"
    * @par Returns
    *  Nothing.
    */
-  void os_evflags_delete (os_evflags_t* evflags);
+  void
+  os_evflags_delete (os_evflags_t* evflags);
 
   /**
    * @}
@@ -2359,7 +2497,8 @@ extern "C"
    * @param [in] evflags Pointer to event flags object instance.
    * @return Null terminated string.
    */
-  const char* os_evflags_get_name (os_evflags_t* evflags);
+  const char*
+  os_evflags_get_name (os_evflags_t* evflags);
 
   /**
    * @brief Wait for event flags.
@@ -2376,8 +2515,9 @@ extern "C"
    * @retval EINTR The operation was interrupted.
    * @retval ENOTRECOVERABLE Wait failed.
    */
-  os_result_t os_evflags_wait (os_evflags_t* evflags, os_flags_mask_t mask,
-                               os_flags_mask_t* oflags, os_flags_mode_t mode);
+  os_result_t
+  os_evflags_wait (os_evflags_t* evflags, os_flags_mask_t mask,
+                   os_flags_mask_t* oflags, os_flags_mode_t mode);
 
   /**
    * @brief Try to wait for event flags.
@@ -2393,9 +2533,9 @@ extern "C"
    * @retval EWOULDBLOCK The expected condition did not occur.
    * @retval ENOTRECOVERABLE Wait failed.
    */
-  os_result_t os_evflags_try_wait (os_evflags_t* evflags, os_flags_mask_t mask,
-                                   os_flags_mask_t* oflags,
-                                   os_flags_mode_t mode);
+  os_result_t
+  os_evflags_try_wait (os_evflags_t* evflags, os_flags_mask_t mask,
+                       os_flags_mask_t* oflags, os_flags_mode_t mode);
 
   /**
    * @brief Timed wait for event flags.
@@ -2415,11 +2555,10 @@ extern "C"
    * @retval EINTR The operation was interrupted.
    * @retval ENOTRECOVERABLE Wait failed.
    */
-  os_result_t os_evflags_timed_wait (os_evflags_t* evflags,
-                                     os_flags_mask_t mask,
-                                     os_clock_duration_t timeout,
-                                     os_flags_mask_t* oflags,
-                                     os_flags_mode_t mode);
+  os_result_t
+  os_evflags_timed_wait (os_evflags_t* evflags, os_flags_mask_t mask,
+                         os_clock_duration_t timeout, os_flags_mask_t* oflags,
+                         os_flags_mode_t mode);
 
   /**
    * @brief Raise event flags.
@@ -2431,8 +2570,9 @@ extern "C"
    * @retval EINVAL The mask is zero.
    * @retval ENOTRECOVERABLE Raise failed.
    */
-  os_result_t os_evflags_raise (os_evflags_t* evflags, os_flags_mask_t mask,
-                                os_flags_mask_t* oflags);
+  os_result_t
+  os_evflags_raise (os_evflags_t* evflags, os_flags_mask_t mask,
+                    os_flags_mask_t* oflags);
 
   /**
    * @brief Clear event flags.
@@ -2443,8 +2583,9 @@ extern "C"
    * @retval os_ok The flags were cleared.
    * @retval EINVAL The mask is zero.
    */
-  os_result_t os_evflags_clear (os_evflags_t* evflags, os_flags_mask_t mask,
-                                os_flags_mask_t* oflags);
+  os_result_t
+  os_evflags_clear (os_evflags_t* evflags, os_flags_mask_t mask,
+                    os_flags_mask_t* oflags);
 
   /**
    * @brief Get (and possibly clear) event flags.
@@ -2454,8 +2595,9 @@ extern "C"
    *  cleared (the other bits are ignored).
    * @return The selected bits from the flags mask.
    */
-  os_flags_mask_t os_evflags_get (os_evflags_t* evflags, os_flags_mask_t mask,
-                                  os_flags_mode_t mode);
+  os_flags_mask_t
+  os_evflags_get (os_evflags_t* evflags, os_flags_mask_t mask,
+                  os_flags_mode_t mode);
 
   /**
    * @brief Check if there are threads waiting.
@@ -2463,7 +2605,8 @@ extern "C"
    * @retval true There are threads waiting.
    * @retval false There are no threads waiting.
    */
-  bool os_evflags_are_waiting (os_evflags_t* evflags);
+  bool
+  os_evflags_are_waiting (os_evflags_t* evflags);
 
   /**
    * @}
@@ -2500,7 +2643,8 @@ extern "C"
    * @brief Get the application default memory resource (free store).
    * @return Pointer to memory resource object instance.
    */
-  os_memory_t* os_memory_get_default (void);
+  os_memory_t*
+  os_memory_get_default (void);
 
   /**
    * @brief Allocate a block of memory.
@@ -2508,8 +2652,8 @@ extern "C"
    * @param bytes Number of bytes to allocate.
    * @param alignment Integer (power of 2) with alignment constraints.
    */
-  void* os_memory_allocate (os_memory_t* memory, size_t bytes,
-                            size_t alignment);
+  void*
+  os_memory_allocate (os_memory_t* memory, size_t bytes, size_t alignment);
 
   /**
    * @brief Deallocate the previously allocated block of memory.
@@ -2518,8 +2662,9 @@ extern "C"
    * @param bytes Number of bytes to deallocate (may be 0 if unknown).
    * @param alignment Integer (power of 2) with alignment constraints.
    */
-  void os_memory_deallocate (os_memory_t* memory, void* addr, size_t bytes,
-                             size_t alignment);
+  void
+  os_memory_deallocate (os_memory_t* memory, void* addr, size_t bytes,
+                        size_t alignment);
 
   /**
    * @brief Reset the memory manager to the initial state.
@@ -2529,7 +2674,8 @@ extern "C"
    * @par Returns
    *  Nothing.
    */
-  void os_memory_reset (os_memory_t* memory);
+  void
+  os_memory_reset (os_memory_t* memory);
 
   /**
    * @brief Coalesce free blocks.
@@ -2539,42 +2685,48 @@ extern "C"
    * @retval true if the operation resulted in larger blocks.
    * @retval false if the operation was ineffective.
    */
-  bool os_memory_coalesce (os_memory_t* memory);
+  bool
+  os_memory_coalesce (os_memory_t* memory);
 
   /**
    * @brief Get the total size of managed memory.
    * @param memory Pointer to a memory resource object instance.
    * @return Number of bytes.
    */
-  size_t os_memory_get_total_bytes (os_memory_t* memory);
+  size_t
+  os_memory_get_total_bytes (os_memory_t* memory);
 
   /**
    * @brief Get the total size of allocated chunks.
    * @param memory Pointer to a memory resource object instance.
    * @return Number of bytes.
    */
-  size_t os_memory_get_allocated_bytes (os_memory_t* memory);
+  size_t
+  os_memory_get_allocated_bytes (os_memory_t* memory);
 
   /**
    * @brief Get the total size of free chunks.
    * @param memory Pointer to a memory resource object instance.
    * @return Number of bytes.
    */
-  size_t os_memory_get_free_bytes (os_memory_t* memory);
+  size_t
+  os_memory_get_free_bytes (os_memory_t* memory);
 
   /**
    * @brief Get the number of allocated chunks.
    * @param memory Pointer to a memory resource object instance.
    * @return Number of chunks.
    */
-  size_t os_memory_get_allocated_chunks (os_memory_t* memory);
+  size_t
+  os_memory_get_allocated_chunks (os_memory_t* memory);
 
   /**
    * @brief Get the number of free chunks.
    * @param memory Pointer to a memory resource object instance.
    * @return Number of chunks.
    */
-  size_t os_memory_get_free_chunks (os_memory_t* memory);
+  size_t
+  os_memory_get_free_chunks (os_memory_t* memory);
 
 /**
  * @}
@@ -2584,8 +2736,8 @@ extern "C"
  * @}
  */
 
-// ----------------------------------------------------------------------------
-#ifdef __cplusplus
+// --------------------------------------------------------------------------
+#ifdef  __cplusplus
 }
 #endif
 

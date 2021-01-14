@@ -28,8 +28,8 @@
 #ifndef MICRO_OS_PLUS_RTOS_OS_HOOKS_H_
 #define MICRO_OS_PLUS_RTOS_OS_HOOKS_H_
 
-#include <stdbool.h>
 #include <stddef.h>
+#include <stdbool.h>
 
 // ----------------------------------------------------------------------------
 
@@ -55,7 +55,9 @@ extern "C"
    * @par Returns
    *  Does not return.
    */
-  void __attribute__ ((noreturn)) _start (void);
+  void
+  __attribute__ ((noreturn))
+  _start (void);
 
   /**
    * @brief Create the idle thread.
@@ -64,13 +66,14 @@ extern "C"
    * @par Returns
    *  Nothing.
    */
-  void os_startup_create_thread_idle (void);
+  void
+  os_startup_create_thread_idle (void);
 
   /**
    * @}
    */
 
-  /**
+   /**
    * @name Hooks
    * @{
    */
@@ -82,7 +85,8 @@ extern "C"
    * @retval true The hook entered a power saving mode.
    * @retval false The hook did not enter a power saving mode.
    */
-  bool os_rtos_idle_enter_power_saving_mode_hook (void);
+  bool
+  os_rtos_idle_enter_power_saving_mode_hook (void);
 
   /**
    * @brief Hook to handle out of memory in the application free store.
@@ -91,7 +95,8 @@ extern "C"
    * @par Returns
    *  Nothing.
    */
-  void os_rtos_application_out_of_memory_hook (void);
+  void
+  os_rtos_application_out_of_memory_hook (void);
 
   /**
    * @brief Hook to handle out of memory in the RTOS dynamic memory.
@@ -100,15 +105,16 @@ extern "C"
    * @par Returns
    *  Nothing.
    */
-  void os_rtos_system_out_of_memory_hook (void);
+  void
+  os_rtos_system_out_of_memory_hook (void);
 
-  /**
-   * @}
-   */
+/**
+ * @}
+ */
 
-  /**
-   * @}
-   */
+/**
+ * @}
+ */
 
 #if defined(__cplusplus)
 }
