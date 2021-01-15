@@ -102,7 +102,9 @@
 #include <micro-os-plus/rtos/os-evflags.h>
 
 #include <micro-os-plus/rtos/os-hooks.h>
+#if (!(defined(__APPLE__) || defined(__linux__) || defined(__unix__)))
 #include <micro-os-plus/startup/hooks.h>
+#endif // Unix
 
 // More or less at the end, when all other definitions are available.
 #include <micro-os-plus/rtos/os-inlines.h>
