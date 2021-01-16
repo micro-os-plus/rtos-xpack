@@ -34,7 +34,7 @@ namespace
 #if defined(OS_HAS_INTERRUPTS_STACK)
   // Object used to manage the interrupts stack.
   class os::rtos::thread::stack interrupts_stack;
-#endif /* defined(OS_HAS_INTERRUPTS_STACK) */
+#endif // defined(OS_HAS_INTERRUPTS_STACK)
   ;
   // Avoid formatter bug
 } // namespace
@@ -203,18 +203,18 @@ namespace os
 
         scheduler::statistics::context_switches_ = 0;
 
-#endif /* defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES) */
+#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
 #if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
         scheduler::statistics::cpu_cycles_ = 0;
         scheduler::statistics::switch_timestamp_ = hrclock.now ();
 
-#endif /* defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES) */
+#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
 #if !defined(OS_USE_RTOS_PORT_SCHEDULER)
         is_preemptive_ = OS_BOOL_RTOS_SCHEDULER_PREEMPTIVE;
-#endif /* defined(OS_USE_RTOS_PORT_SCHEDULER) */
+#endif // defined(OS_USE_RTOS_PORT_SCHEDULER)
 
         is_started_ = true;
 
@@ -428,7 +428,7 @@ namespace os
         // Remember the timestamp for the next context switch.
         scheduler::statistics::switch_timestamp_ = now;
 
-#endif /* defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES) */
+#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
         // The very core of the scheduler, if not locked, re-link the
         // current thread and return the top priority thread.
@@ -457,10 +457,10 @@ namespace os
         // Increment new thread context switches.
         scheduler::current_thread_->statistics_.context_switches_++;
 
-#endif /* defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES) */
+#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
       }
 
-#endif /* !defined(OS_USE_RTOS_PORT_SCHEDULER) */
+#endif // !defined(OS_USE_RTOS_PORT_SCHEDULER)
 
       namespace statistics
       {
@@ -468,14 +468,14 @@ namespace os
 
         rtos::statistics::counter_t context_switches_;
 
-#endif /* defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES) */
+#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
 #if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
         clock::timestamp_t switch_timestamp_;
         rtos::statistics::duration_t cpu_cycles_;
 
-#endif /* defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES) */
+#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
       } // namespace statistics
 
@@ -569,7 +569,7 @@ namespace os
         return &interrupts_stack;
       }
 
-#endif /* defined(OS_HAS_INTERRUPTS_STACK) */
+#endif // defined(OS_HAS_INTERRUPTS_STACK)
 
       ;
       // Avoid formatter bug.

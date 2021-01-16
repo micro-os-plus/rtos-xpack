@@ -990,8 +990,8 @@ namespace os
 
 // ----------------------------------------------------------------------------
 
-#endif /* __cplusplus */
+#endif // __cplusplus
 
-#endif /* MICRO_OS_PLUS_RTOS_INTERNAL_OS_LISTS_H_ */
+#endif // MICRO_OS_PLUS_RTOS_INTERNAL_OS_LISTS_H_
 
 // ----------------------------------------------------------------------------

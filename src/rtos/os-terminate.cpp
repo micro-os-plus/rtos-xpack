@@ -50,9 +50,9 @@ os_terminate_goodbye (void)
 
 #if defined(OS_INTEGER_RTOS_DYNAMIC_MEMORY_SIZE_BYTES)
   rtos::memory::get_default_resource ()->trace_print_statistics ();
-#endif /* defined(OS_INTEGER_RTOS_DYNAMIC_MEMORY_SIZE_BYTES) */
+#endif // defined(OS_INTEGER_RTOS_DYNAMIC_MEMORY_SIZE_BYTES)
 
-#endif /* !defined(OS_EXCLUDE_DYNAMIC_MEMORY_ALLOCATIONS) */
+#endif // !defined(OS_EXCLUDE_DYNAMIC_MEMORY_ALLOCATIONS)
 
   class rtos::thread::stack& st = os_main_thread->stack ();
 
@@ -64,10 +64,10 @@ os_terminate_goodbye (void)
                  rtos::interrupts::stack ()->size ()
                      - rtos::interrupts::stack ()->available (),
                  rtos::interrupts::stack ()->size ());
-#endif /* defined(OS_HAS_INTERRUPTS_STACK) */
+#endif // defined(OS_HAS_INTERRUPTS_STACK)
 
   trace::printf ("\nHasta la Vista!\n");
 
-#endif /* defined(TRACE) */
+#endif // defined(TRACE)
 }
 // ----------------------------------------------------------------------------

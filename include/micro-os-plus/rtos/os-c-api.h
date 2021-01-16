@@ -217,7 +217,7 @@ extern "C"
   os_statistics_counter_t
   os_sched_stat_get_context_switches (void);
 
-#endif /* defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES) */
+#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
 #if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
@@ -229,7 +229,7 @@ extern "C"
   os_statistics_duration_t
   os_sched_stat_get_cpu_cycles (void);
 
-#endif /* defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES) */
+#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
   /**
    * @}
@@ -593,7 +593,7 @@ extern "C"
   os_thread_user_storage_t*
   os_thread_get_user_storage (os_thread_t* thread);
 
-#endif /* defined(OS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE) */
+#endif // defined(OS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE)
 
   /**
    * @brief Get the thread context stack.
@@ -730,7 +730,7 @@ extern "C"
   os_statistics_counter_t
   os_thread_stat_get_context_switches (os_thread_t* thread);
 
-#endif /* defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES) */
+#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
 #if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
@@ -742,7 +742,7 @@ extern "C"
   os_statistics_duration_t
   os_thread_stat_get_cpu_cycles (os_thread_t* thread);
 
-#endif /* defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES) */
+#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
   /**
    * @}
@@ -2744,6 +2744,6 @@ extern "C"
 
 // ----------------------------------------------------------------------------
 
-#endif /* MICRO_OS_PLUS_RTOS_OS_C_API_H_ */
+#endif // MICRO_OS_PLUS_RTOS_OS_C_API_H_
 
 // ----------------------------------------------------------------------------

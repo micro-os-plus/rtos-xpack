@@ -530,7 +530,7 @@ os_sched_stat_get_context_switches (void)
       scheduler::statistics::context_switches ());
 }
 
-#endif /* defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES) */
+#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
 #if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
@@ -549,7 +549,7 @@ os_sched_stat_get_cpu_cycles (void)
       scheduler::statistics::cpu_cycles ());
 }
 
-#endif /* defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES) */
+#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
 // ----------------------------------------------------------------------------
 
@@ -1004,7 +1004,7 @@ os_thread_get_user_storage (os_thread_t* thread)
   return (reinterpret_cast<rtos::thread&> (*thread)).user_storage ();
 }
 
-#endif /* defined(OS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE) */
+#endif // defined(OS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE)
 
 /**
  * @details
@@ -1194,7 +1194,7 @@ os_thread_stat_get_context_switches (os_thread_t* thread)
           .context_switches ());
 }
 
-#endif /* defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES) */
+#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
 #if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
@@ -1214,7 +1214,7 @@ os_thread_stat_get_cpu_cycles (os_thread_t* thread)
       (reinterpret_cast<rtos::thread&> (*thread)).statistics ().cpu_cycles ());
 }
 
-#endif /* defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES) */
+#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
 // ----------------------------------------------------------------------------
 

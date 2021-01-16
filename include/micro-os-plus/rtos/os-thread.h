@@ -911,7 +911,7 @@ namespace os
         rtos::statistics::counter_t
         context_switches (void);
 
-#endif /* defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES) */
+#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
 #if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
@@ -924,7 +924,7 @@ namespace os
         rtos::statistics::duration_t
         cpu_cycles (void);
 
-#endif /* defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES) */
+#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
         /**
          * @}
@@ -940,11 +940,11 @@ namespace os
 
 #if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
         rtos::statistics::counter_t context_switches_ = 0;
-#endif /* defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES) */
+#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
 #if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
         rtos::statistics::duration_t cpu_cycles_ = 0;
-#endif /* defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES) */
+#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
         /**
          * @endcond
@@ -1206,7 +1206,7 @@ namespace os
       os_thread_user_storage_t*
       user_storage (void);
 
-#endif /* defined(OS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE) */
+#endif // defined(OS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE)
 
       /**
        * @brief Raise thread event flags.
@@ -1627,13 +1627,13 @@ namespace os
 
 #if defined(OS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE) || defined(__DOXYGEN__)
       os_thread_user_storage_t user_storage_;
-#endif /* defined(OS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE) */
+#endif // defined(OS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE)
 
 #if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
       class statistics statistics_;
 
-#endif /* defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES) */
+#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
       // Add other internal data
 
@@ -2244,7 +2244,7 @@ namespace os
       return context_switches_;
     }
 
-#endif /* defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES) */
+#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
 #if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
@@ -2266,7 +2266,7 @@ namespace os
       return cpu_cycles_;
     }
 
-#endif /* defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES) */
+#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
     // ========================================================================
 
@@ -2341,7 +2341,7 @@ namespace os
       return &user_storage_;
     }
 
-#endif /* defined(OS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE) */
+#endif // defined(OS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE)
 
 #if !defined(OS_USE_RTOS_PORT_SCHEDULER)
 
@@ -2399,7 +2399,7 @@ namespace os
       return statistics_;
     }
 
-#endif /* defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES) */
+#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
 #if defined(OS_INCLUDE_RTOS_THREAD_PUBLIC_FLAGS_CLEAR)
 
@@ -2759,8 +2759,8 @@ namespace os
 
 // ----------------------------------------------------------------------------
 
-#endif /* __cplusplus */
+#endif // __cplusplus
 
-#endif /* MICRO_OS_PLUS_RTOS_OS_THREAD_H_ */
+#endif // MICRO_OS_PLUS_RTOS_OS_THREAD_H_
 
 // ----------------------------------------------------------------------------

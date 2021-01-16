@@ -78,13 +78,13 @@ os_systick_handler (void)
       os_rtc_handler ();
     }
 
-#endif /* !defined(OS_INCLUDE_RTOS_REALTIME_CLOCK_DRIVER) */
+#endif // !defined(OS_INCLUDE_RTOS_REALTIME_CLOCK_DRIVER)
 
 #if !defined(OS_USE_RTOS_PORT_SCHEDULER)
 
   port::scheduler::reschedule ();
 
-#endif /* !defined(OS_USE_RTOS_PORT_SCHEDULER) */
+#endif // !defined(OS_USE_RTOS_PORT_SCHEDULER)
 
 #if defined(OS_TRACE_RTOS_SYSCLOCK_TICK)
   trace::putchar (',');
@@ -609,7 +609,7 @@ namespace os
       return res;
     }
 
-#endif /* defined(OS_USE_RTOS_PORT_CLOCK_SYSTICK_WAIT_FOR) */
+#endif // defined(OS_USE_RTOS_PORT_CLOCK_SYSTICK_WAIT_FOR)
 
     // ========================================================================
 

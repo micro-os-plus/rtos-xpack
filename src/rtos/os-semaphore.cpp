@@ -266,7 +266,7 @@ namespace os
       // the list is protected by inner `resume_one()`.
       list_.resume_all ();
 
-#endif /* !defined(OS_USE_RTOS_PORT_SEMAPHORE) */
+#endif // !defined(OS_USE_RTOS_PORT_SEMAPHORE)
     }
 
     /*

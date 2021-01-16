@@ -119,7 +119,7 @@ static thread_inclusive<OS_INTEGER_RTOS_IDLE_STACK_SIZE_BYTES> os_idle_thread_{
 
 static std::unique_ptr<thread> os_idle_thread_;
 
-#endif /* defined(OS_EXCLUDE_DYNAMIC_MEMORY_ALLOCATIONS) */
+#endif // defined(OS_EXCLUDE_DYNAMIC_MEMORY_ALLOCATIONS)
 
 #pragma GCC diagnostic pop
 
@@ -141,7 +141,7 @@ void __attribute__ ((weak)) os_startup_create_thread_idle (void)
 
   os_idle_thread = os_idle_thread_.get ();
 
-#endif /* defined(OS_EXCLUDE_DYNAMIC_MEMORY_ALLOCATIONS) */
+#endif // defined(OS_EXCLUDE_DYNAMIC_MEMORY_ALLOCATIONS)
 }
 
 void*
@@ -172,6 +172,6 @@ os_idle (thread::func_args_t args __attribute__ ((unused)))
 /**
  * @endcond
  */
-#endif /* !defined(OS_USE_RTOS_PORT_SCHEDULER) */
+#endif // !defined(OS_USE_RTOS_PORT_SCHEDULER)
 
 // ----------------------------------------------------------------------------

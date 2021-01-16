@@ -57,7 +57,7 @@ namespace os
       extern bool is_preemptive_;
       extern thread* volatile current_thread_;
       extern internal::ready_threads_list ready_threads_list_;
-#endif /* !defined(OS_USE_RTOS_PORT_SCHEDULER) */
+#endif // !defined(OS_USE_RTOS_PORT_SCHEDULER)
 
       extern internal::terminated_threads_list terminated_threads_list_;
 
@@ -447,7 +447,7 @@ namespace os
          * @endcond
          */
 
-#endif /* defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES) */
+#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
 #if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
@@ -470,7 +470,7 @@ namespace os
          * @endcond
          */
 
-#endif /* defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES) */
+#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
       } // namespace statistics
     } // namespace scheduler
@@ -1040,7 +1040,7 @@ namespace os
           return context_switches_;
         }
 
-#endif /* defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES) */
+#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
 #if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
@@ -1065,7 +1065,7 @@ namespace os
           return cpu_cycles_;
         }
 
-#endif /* defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES) */
+#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
       } // namespace statistics
 
@@ -1244,8 +1244,8 @@ namespace os
 
 // ----------------------------------------------------------------------------
 
-#endif /* __cplusplus */
+#endif // __cplusplus
 
-#endif /* MICRO_OS_PLUS_RTOS_OS_SCHED_H_ */
+#endif // MICRO_OS_PLUS_RTOS_OS_SCHED_H_
 
 // ----------------------------------------------------------------------------

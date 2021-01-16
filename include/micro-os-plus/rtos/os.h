@@ -156,7 +156,7 @@ namespace os
       stack (void);
 
 #else
-#endif /* defined(OS_HAS_INTERRUPTS_STACK) */
+#endif // defined(OS_HAS_INTERRUPTS_STACK)
 
       ;
       // Avoid formatter bug.
@@ -186,10 +186,10 @@ namespace os
   } // namespace rtos
 } // namespace os
 
-#endif /* __cplusplus */
+#endif // __cplusplus
 
 // ----------------------------------------------------------------------------
 
-#endif /* MICRO_OS_PLUS_RTOS_OS_H_ */
+#endif // MICRO_OS_PLUS_RTOS_OS_H_
 
 // ----------------------------------------------------------------------------

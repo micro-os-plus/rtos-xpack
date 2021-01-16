@@ -462,11 +462,11 @@ extern "C"
 
 #if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
     os_statistics_counter_t context_switches;
-#endif /* defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES) */
+#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
 #if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
     os_statistics_duration_t cpu_cycles;
-#endif /* defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES) */
+#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
     /**
      * @endcond
@@ -583,12 +583,12 @@ extern "C"
     os_internal_evflags_t event_flags;
 #if defined(OS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE)
     os_thread_user_storage_t user_storage; //
-#endif /* defined(OS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE) */
+#endif // defined(OS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE)
 
 #if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES) \
     || defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
     os_thread_statistics_t statistics;
-#endif /* defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES) */
+#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
 #if defined(OS_USE_RTOS_PORT_SCHEDULER)
     os_thread_port_data_t port;
@@ -1491,6 +1491,6 @@ typedef uint8_t os_mqueue_size_t;
 }
 #endif
 
-#endif /* MICRO_OS_PLUS_RTOS_OS_C_STRUCTS_H_ */
+#endif // MICRO_OS_PLUS_RTOS_OS_C_STRUCTS_H_
 
 // ----------------------------------------------------------------------------

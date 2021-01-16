@@ -898,8 +898,8 @@ namespace os
 
 // ----------------------------------------------------------------------------
 
-#endif /* __cplusplus */
+#endif // __cplusplus
 
-#endif /* MICRO_OS_PLUS_RTOS_OS_MUTEX_H_ */
+#endif // MICRO_OS_PLUS_RTOS_OS_MUTEX_H_
 
 // ----------------------------------------------------------------------------

@@ -600,7 +600,7 @@ namespace os
       bool
       internal_try_receive_ (void* msg, std::size_t nbytes, priority_t* mprio);
 
-#endif /* !defined(OS_USE_RTOS_PORT_MESSAGE_QUEUE) */
+#endif // !defined(OS_USE_RTOS_PORT_MESSAGE_QUEUE)
 
       /**
        * @endcond
@@ -660,7 +660,7 @@ namespace os
        * the beginning is required.
        */
       void* volatile first_free_ = nullptr;
-#endif /* !defined(OS_USE_RTOS_PORT_MESSAGE_QUEUE) */
+#endif // !defined(OS_USE_RTOS_PORT_MESSAGE_QUEUE)
 
       /**
        * @brief The static address where the queue is stored
@@ -710,7 +710,7 @@ namespace os
        * @brief Index of the first message in the queue.
        */
       index_t head_ = 0;
-#endif /* !defined(OS_USE_RTOS_PORT_MESSAGE_QUEUE) */
+#endif // !defined(OS_USE_RTOS_PORT_MESSAGE_QUEUE)
 
       /**
        * @endcond
@@ -1876,8 +1876,8 @@ namespace os
 
 // ----------------------------------------------------------------------------
 
-#endif /* __cplusplus */
+#endif // __cplusplus
 
-#endif /* MICRO_OS_PLUS_RTOS_OS_MQUEUE_H_ */
+#endif // MICRO_OS_PLUS_RTOS_OS_MQUEUE_H_
 
 // ----------------------------------------------------------------------------

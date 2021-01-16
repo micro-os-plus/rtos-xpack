@@ -1457,7 +1457,7 @@ namespace os
                        allocated_chunks (), free_bytes (), free_chunks (),
                        max_allocated_bytes (), allocations (),
                        deallocations ());
-#endif /* defined(TRACE) */
+#endif // defined(TRACE)
       }
 
       // ======================================================================
@@ -1747,7 +1747,7 @@ namespace os
         // Make the unique pointer with the object and the deleter.
         return std::unique_ptr<T, D> (p, D (alloc));
 
-#endif /* defined(__EXCEPTIONS) */
+#endif // defined(__EXCEPTIONS)
       }
 
       // ----------------------------------------------------------------------
@@ -1757,8 +1757,8 @@ namespace os
 
 // ----------------------------------------------------------------------------
 
-#endif /* __cplusplus */
+#endif // __cplusplus
 
-#endif /* MICRO_OS_PLUS_RTOS_OS_MEMORY_H_ */
+#endif // MICRO_OS_PLUS_RTOS_OS_MEMORY_H_
 
 // ----------------------------------------------------------------------------

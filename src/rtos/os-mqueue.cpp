@@ -650,7 +650,7 @@ namespace os
       send_list_.resume_all ();
       receive_list_.resume_all ();
 
-#endif /* !defined(OS_USE_RTOS_PORT_MESSAGE_QUEUE) */
+#endif // !defined(OS_USE_RTOS_PORT_MESSAGE_QUEUE)
     }
 
 #if !defined(OS_USE_RTOS_PORT_MESSAGE_QUEUE)
@@ -749,7 +749,7 @@ namespace os
       return true;
     }
 
-#endif /* !defined(OS_USE_RTOS_PORT_MESSAGE_QUEUE) */
+#endif // !defined(OS_USE_RTOS_PORT_MESSAGE_QUEUE)
 
 #if !defined(OS_USE_RTOS_PORT_MESSAGE_QUEUE)
 
@@ -827,7 +827,7 @@ namespace os
       return true;
     }
 
-#endif /* !defined(OS_USE_RTOS_PORT_MESSAGE_QUEUE) */
+#endif // !defined(OS_USE_RTOS_PORT_MESSAGE_QUEUE)
 
     /**
      * @endcond

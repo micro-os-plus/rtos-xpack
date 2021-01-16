@@ -103,7 +103,7 @@ using main_thread
 static std::aligned_storage<sizeof (main_thread), alignof (main_thread)>::type
     os_main_thread_;
 
-#endif /* defined(OS_EXCLUDE_DYNAMIC_MEMORY_ALLOCATIONS) */
+#endif // defined(OS_EXCLUDE_DYNAMIC_MEMORY_ALLOCATIONS)
 
 /**
  * @brief Default implementation of `main()`.
@@ -125,7 +125,7 @@ int
 #if defined(OS_HAS_INTERRUPTS_STACK)
   trace::printf ("Interrupts stack size: %u bytes.\n",
                  interrupts::stack ()->size ());
-#endif /* defined(OS_HAS_INTERRUPTS_STACK) */
+#endif // defined(OS_HAS_INTERRUPTS_STACK)
 
 #if defined(__clang__)
   trace::printf ("Built with clang " __VERSION__);
@@ -166,11 +166,11 @@ int
       "main", reinterpret_cast<thread::func_t> (_main_trampoline), nullptr,
       attr);
 
-#endif /* defined(OS_EXCLUDE_DYNAMIC_MEMORY_ALLOCATIONS) */
+#endif // defined(OS_EXCLUDE_DYNAMIC_MEMORY_ALLOCATIONS)
 
 #if !defined(OS_USE_RTOS_PORT_SCHEDULER)
   os_startup_create_thread_idle ();
-#endif /* !defined(OS_USE_RTOS_PORT_SCHEDULER) */
+#endif // !defined(OS_USE_RTOS_PORT_SCHEDULER)
 
   // Execution will proceed to first registered thread, possibly
   // "idle", which will immediately lower its priority,

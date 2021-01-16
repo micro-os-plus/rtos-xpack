@@ -68,7 +68,7 @@ static std::aligned_storage<sizeof (application_memory_resource),
                             alignof (application_memory_resource)>::type
     application_free_store;
 
-#endif /* !defined(OS_EXCLUDE_DYNAMIC_MEMORY_ALLOCATIONS) */
+#endif // !defined(OS_EXCLUDE_DYNAMIC_MEMORY_ALLOCATIONS)
 
 /**
  * @details
@@ -139,7 +139,7 @@ os_startup_initialize_free_store (void* heap_address,
       reinterpret_cast<rtos::memory::memory_resource*> (
           &application_free_store));
 
-#endif /* defined(OS_INTEGER_RTOS_DYNAMIC_MEMORY_SIZE_BYTES) */
+#endif // defined(OS_INTEGER_RTOS_DYNAMIC_MEMORY_SIZE_BYTES)
 
 #if defined(OS_INTEGER_RTOS_ALLOC_THREAD_POOL_SIZE)
 
@@ -156,7 +156,7 @@ os_startup_initialize_free_store (void* heap_address,
     rtos::memory::set_resource_typed<rtos::thread> (mr);
   }
 
-#endif /* defined(OS_INTEGER_RTOS_ALLOC_THREAD_POOL_SIZE) */
+#endif // defined(OS_INTEGER_RTOS_ALLOC_THREAD_POOL_SIZE)
 
 #if defined(OS_INTEGER_RTOS_ALLOC_CONDITION_VARIABLE_POOL_SIZE)
 
@@ -174,7 +174,7 @@ os_startup_initialize_free_store (void* heap_address,
     rtos::memory::set_resource_typed<rtos::condition_variable> (mr);
   }
 
-#endif /* defined(OS_INTEGER_RTOS_ALLOC_CONDITION_VARIABLE_POOL_SIZE) */
+#endif // defined(OS_INTEGER_RTOS_ALLOC_CONDITION_VARIABLE_POOL_SIZE)
 
 #if defined(OS_INTEGER_RTOS_ALLOC_EVENT_FLAGS_POOL_SIZE)
 
@@ -192,7 +192,7 @@ os_startup_initialize_free_store (void* heap_address,
     rtos::memory::set_resource_typed<rtos::event_flags> (mr);
   }
 
-#endif /* defined(OS_INTEGER_RTOS_ALLOC_EVENT_FLAGS_POOL_SIZE) */
+#endif // defined(OS_INTEGER_RTOS_ALLOC_EVENT_FLAGS_POOL_SIZE)
 
 #if defined(OS_INTEGER_RTOS_ALLOC_MEMORY_POOL_POOL_SIZE)
 
@@ -210,7 +210,7 @@ os_startup_initialize_free_store (void* heap_address,
     rtos::memory::set_resource_typed<rtos::memory_pool> (mr);
   }
 
-#endif /* defined(OS_INTEGER_RTOS_ALLOC_MEMORY_POOL_POOL_SIZE) */
+#endif // defined(OS_INTEGER_RTOS_ALLOC_MEMORY_POOL_POOL_SIZE)
 
 #if defined(OS_INTEGER_RTOS_ALLOC_MESSAGE_QUEUE_POOL_SIZE)
 
@@ -228,7 +228,7 @@ os_startup_initialize_free_store (void* heap_address,
     rtos::memory::set_resource_typed<rtos::message_queue> (mr);
   }
 
-#endif /* defined(OS_INTEGER_RTOS_ALLOC_MESSAGE_QUEUE_POOL_SIZE) */
+#endif // defined(OS_INTEGER_RTOS_ALLOC_MESSAGE_QUEUE_POOL_SIZE)
 
 #if defined(OS_INTEGER_RTOS_ALLOC_MUTEX_POOL_SIZE)
 
@@ -245,7 +245,7 @@ os_startup_initialize_free_store (void* heap_address,
     rtos::memory::set_resource_typed<rtos::mutex> (mr);
   }
 
-#endif /* defined(OS_INTEGER_RTOS_ALLOC_MUTEX_POOL_SIZE) */
+#endif // defined(OS_INTEGER_RTOS_ALLOC_MUTEX_POOL_SIZE)
 
 #if defined(OS_INTEGER_RTOS_ALLOC_SEMAPHORE_POOL_SIZE)
 
@@ -263,7 +263,7 @@ os_startup_initialize_free_store (void* heap_address,
     rtos::memory::set_resource_typed<rtos::semaphore> (mr);
   }
 
-#endif /* defined(OS_INTEGER_RTOS_ALLOC_SEMAPHORE_POOL_SIZE) */
+#endif // defined(OS_INTEGER_RTOS_ALLOC_SEMAPHORE_POOL_SIZE)
 
 #if defined(OS_INTEGER_RTOS_ALLOC_TIMER_POOL_SIZE)
 
@@ -280,9 +280,9 @@ os_startup_initialize_free_store (void* heap_address,
     rtos::memory::set_resource_typed<rtos::timer> (mr);
   }
 
-#endif /* defined(OS_INTEGER_RTOS_ALLOC_TIMER_POOL_SIZE) */
+#endif // defined(OS_INTEGER_RTOS_ALLOC_TIMER_POOL_SIZE)
 
-#endif /* !defined(OS_EXCLUDE_DYNAMIC_MEMORY_ALLOCATIONS) */
+#endif // !defined(OS_EXCLUDE_DYNAMIC_MEMORY_ALLOCATIONS)
 }
 
 /**
@@ -331,6 +331,6 @@ void __attribute__ ((weak)) os_rtos_system_out_of_memory_hook (void)
 
 // ----------------------------------------------------------------------------
 
-#endif /* ! Unix */
+#endif // ! Unix
 
 // ----------------------------------------------------------------------------

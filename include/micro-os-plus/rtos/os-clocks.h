@@ -554,7 +554,7 @@ namespace os
       internal_wait_until_ (timestamp_t timestamp,
                             internal::clock_timestamps_list& list);
 
-#endif /* defined(OS_USE_RTOS_PORT_CLOCK_SYSTICK_WAIT_FOR) */
+#endif // defined(OS_USE_RTOS_PORT_CLOCK_SYSTICK_WAIT_FOR)
 
       /**
        * @endcond
@@ -896,8 +896,8 @@ namespace os
 
 // ----------------------------------------------------------------------------
 
-#endif /* __cplusplus */
+#endif // __cplusplus
 
-#endif /* MICRO_OS_PLUS_RTOS_OS_CLOCKS_H_ */
+#endif // MICRO_OS_PLUS_RTOS_OS_CLOCKS_H_
 
 // ----------------------------------------------------------------------------
