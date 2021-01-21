@@ -11,47 +11,53 @@
 
 message(STATUS "Including micro-os-plus-rtos...")
 
+# -----------------------------------------------------------------------------
+
 function(target_sources_micro_os_plus_rtos target)
 
-  get_filename_component(PARENT_DIR ${CMAKE_CURRENT_FUNCTION_LIST_DIR} DIRECTORY)
+  get_filename_component(xpack_root_folder ${CMAKE_CURRENT_FUNCTION_LIST_DIR} DIRECTORY)
 
   target_sources(
     ${target}
 
     PRIVATE
-      ${PARENT_DIR}/src/libc/stdlib/malloc.cpp
-      ${PARENT_DIR}/src/rtos/internal/os-flags.cpp
-      ${PARENT_DIR}/src/rtos/internal/os-lists.cpp
-      ${PARENT_DIR}/src/rtos/os-clocks.cpp
-      ${PARENT_DIR}/src/rtos/os-condvar.cpp
-      ${PARENT_DIR}/src/rtos/os-core.cpp
-      ${PARENT_DIR}/src/rtos/os-c-wrapper.cpp
-      ${PARENT_DIR}/src/rtos/os-evflags.cpp
-      ${PARENT_DIR}/src/rtos/os-idle.cpp
-      ${PARENT_DIR}/src/rtos/os-main.cpp
-      ${PARENT_DIR}/src/rtos/os-memory.cpp
-      ${PARENT_DIR}/src/rtos/os-mempool.cpp
-      ${PARENT_DIR}/src/rtos/os-mqueue.cpp
-      ${PARENT_DIR}/src/rtos/os-mutex.cpp
-      ${PARENT_DIR}/src/rtos/os-semaphore.cpp
-      ${PARENT_DIR}/src/rtos/os-terminate.cpp
-      ${PARENT_DIR}/src/rtos/os-thread.cpp
-      ${PARENT_DIR}/src/rtos/os-timer.cpp
-      ${PARENT_DIR}/src/startup/initialise-free-store.cpp
-      ${PARENT_DIR}/src/startup/initialise-interrupts-stack.cpp
-    )
+      ${xpack_root_folder}/src/libc/stdlib/malloc.cpp
+      ${xpack_root_folder}/src/rtos/internal/os-flags.cpp
+      ${xpack_root_folder}/src/rtos/internal/os-lists.cpp
+      ${xpack_root_folder}/src/rtos/os-clocks.cpp
+      ${xpack_root_folder}/src/rtos/os-condvar.cpp
+      ${xpack_root_folder}/src/rtos/os-core.cpp
+      ${xpack_root_folder}/src/rtos/os-c-wrapper.cpp
+      ${xpack_root_folder}/src/rtos/os-evflags.cpp
+      ${xpack_root_folder}/src/rtos/os-idle.cpp
+      ${xpack_root_folder}/src/rtos/os-main.cpp
+      ${xpack_root_folder}/src/rtos/os-memory.cpp
+      ${xpack_root_folder}/src/rtos/os-mempool.cpp
+      ${xpack_root_folder}/src/rtos/os-mqueue.cpp
+      ${xpack_root_folder}/src/rtos/os-mutex.cpp
+      ${xpack_root_folder}/src/rtos/os-semaphore.cpp
+      ${xpack_root_folder}/src/rtos/os-terminate.cpp
+      ${xpack_root_folder}/src/rtos/os-thread.cpp
+      ${xpack_root_folder}/src/rtos/os-timer.cpp
+      ${xpack_root_folder}/src/startup/initialise-free-store.cpp
+      # ${xpack_root_folder}/src/startup/initialise-interrupts-stack.cpp
+  )
+
 endfunction()
+
+# -----------------------------------------------------------------------------
 
 function(target_include_directories_micro_os_plus_rtos target)
 
-  get_filename_component(PARENT_DIR ${CMAKE_CURRENT_FUNCTION_LIST_DIR} DIRECTORY)
+  get_filename_component(xpack_root_folder ${CMAKE_CURRENT_FUNCTION_LIST_DIR} DIRECTORY)
 
   target_include_directories(
     ${target}
 
     PUBLIC
-      ${PARENT_DIR}/include
+      ${xpack_root_folder}/include
   )
+
 endfunction()
 
 # -----------------------------------------------------------------------------
