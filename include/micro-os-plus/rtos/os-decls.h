@@ -421,7 +421,8 @@ namespace os
         /**
          * @brief Pointer to name.
          */
-        const char* const name_ = "-";
+        const char* /* const */ name_ = "-";
+        // Second const not liked by clang, it disables assignment operators.
 
         /**
          * @endcond
