@@ -34,8 +34,8 @@ In the `micro-os-plus/web-jekyll` GitHub repo:
 
 - select the `develop` branch
 - add a new file to `_posts/micro-test-plus/releases`
-- name the file like `2020-12-19-micro-test-plus-v0-1-0-released.md`
-- name the post like: **µOS++ µTest++ v7.0.0 released**
+- name the file like `2020-12-19-micro-test-plus-v7-0-0-released.md`
+- name the post like: **µOS++ rtos v7.0.0 released**
 - update the `date:` field with the current date
 - update the GitHub Actions URLs using the actual test pages
 
@@ -105,6 +105,6 @@ Post an announcement to the forum.
 
 - in a separate browser windows, open [TweetDeck](https://tweetdeck.twitter.com/)
 - using the `@micro_os_plus` account
-- paste the release name like **µOS++ µTest++ v7.0.0 released**
+- paste the release name like **µOS++ rtos v7.0.0 released**
 - paste the link to the Web page release
 - click the **Tweet** button
