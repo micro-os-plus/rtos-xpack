@@ -86,6 +86,8 @@
 
 #include <micro-os-plus/rtos/os-decls.h>
 
+#include <micro-os-plus/diag/trace.h>
+
 #include <micro-os-plus/rtos/os-sched.h>
 
 // Includes a reference to critical sections.

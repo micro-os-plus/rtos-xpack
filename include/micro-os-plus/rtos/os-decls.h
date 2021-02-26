@@ -30,15 +30,8 @@
 
 // ----------------------------------------------------------------------------
 
-#include <micro-os-plus/os-versions.h>
-
-// Include the application specific definitions.
-#include <micro-os-plus/config.h>
-// Include the non-portable portable types, enums and constants declarations.
+// Include the port specific C declarations.
 #include <micro-os-plus/rtos/os-c-decls.h>
-#include <micro-os-plus/rtos/port/declarations.h>
-
-#include <micro-os-plus/diag/trace.h>
 
 // ----------------------------------------------------------------------------
 

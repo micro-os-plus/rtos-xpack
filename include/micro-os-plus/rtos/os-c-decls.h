@@ -41,7 +41,11 @@
 
 #include <micro-os-plus/os-versions.h>
 
+#if defined(OS_USE_OS_APP_CONFIG_H)
+// Include the application specific definitions.
 #include <micro-os-plus/config.h>
+#endif
+
 #include <micro-os-plus/rtos/port/declarations.h>
 
 #include <stdint.h>
