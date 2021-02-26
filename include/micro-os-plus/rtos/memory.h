@@ -25,8 +25,8 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef MICRO_OS_PLUS_RTOS_OS_MEMORY_H_
-#define MICRO_OS_PLUS_RTOS_OS_MEMORY_H_
+#ifndef MICRO_OS_PLUS_RTOS_MEMORY_H_
+#define MICRO_OS_PLUS_RTOS_MEMORY_H_
 
 // ----------------------------------------------------------------------------
 
@@ -143,7 +143,7 @@ namespace os
 
       /**
        * @brief Memory resource manager (abstract class).
-       * @headerfile os.h <micro-os-plus/rtos/os.h>
+       * @headerfile os.h <micro-os-plus/rtos.h>
        *
        * @details
        * This class is based on the standard C++17 memory manager, with
@@ -515,7 +515,7 @@ namespace os
       /**
        * @brief Standard allocator based on the RTOS system default memory
        * manager.
-       * @headerfile os.h <micro-os-plus/rtos/os.h>
+       * @headerfile os.h <micro-os-plus/rtos.h>
        * @tparam T Type of elements to be allocated.
        *
        * @details
@@ -663,7 +663,7 @@ namespace os
 
       /**
        * @brief Allocator using memory resources.
-       * @headerfile os.h <micro-os-plus/rtos/os.h>
+       * @headerfile os.h <micro-os-plus/rtos.h>
        * @tparam T Type of elements to be allocated.
        * @tparam L Type of lockable object.
        * @tparam get_resource Function to get the default resource.
@@ -1759,6 +1759,6 @@ namespace os
 
 #endif // __cplusplus
 
-#endif // MICRO_OS_PLUS_RTOS_OS_MEMORY_H_
+#endif // MICRO_OS_PLUS_RTOS_MEMORY_H_
 
 // ----------------------------------------------------------------------------

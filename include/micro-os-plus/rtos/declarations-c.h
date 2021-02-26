@@ -34,12 +34,13 @@
  * the validation checks in os-c-wrapper.cpp will fail.
  */
 
-#ifndef MICRO_OS_PLUS_RTOS_OS_C_DECLS_H_
-#define MICRO_OS_PLUS_RTOS_OS_C_DECLS_H_
+#ifndef MICRO_OS_PLUS_RTOS_DECLARATIONS_C_H_
+#define MICRO_OS_PLUS_RTOS_DECLARATIONS_C_H_
 
 // ----------------------------------------------------------------------------
 
-#include <micro-os-plus/os-versions.h>
+#include <micro-os-plus/version.h>
+#include <micro-os-plus/rtos/defines.h>
 
 #if defined(OS_USE_OS_APP_CONFIG_H)
 // Include the application specific definitions.
@@ -395,7 +396,7 @@ extern "C"
 
   /**
    * @brief Thread stack.
-   * @headerfile os-c-api.h <micro-os-plus/rtos/os-c-api.h>
+   * @headerfile c-api.h <micro-os-plus/rtos/c-api.h>
    *
    * @details
    * The members of this structure are hidden and should not
@@ -420,7 +421,7 @@ extern "C"
 
   /**
    * @brief Thread context.
-   * @headerfile os-c-api.h <micro-os-plus/rtos/os-c-api.h>
+   * @headerfile c-api.h <micro-os-plus/rtos/c-api.h>
    *
    * @details
    * The members of this structure are hidden and should not
@@ -450,7 +451,7 @@ extern "C"
 
   /**
    * @brief Thread statistics.
-   * @headerfile os-c-api.h <micro-os-plus/rtos/os-c-api.h>
+   * @headerfile c-api.h <micro-os-plus/rtos/c-api.h>
    *
    * @details
    * The members of this structure are hidden and should not
@@ -482,7 +483,7 @@ extern "C"
 
   /**
    * @brief Thread attributes.
-   * @headerfile os-c-api.h <micro-os-plus/rtos/os-c-api.h>
+   * @headerfile c-api.h <micro-os-plus/rtos/c-api.h>
    *
    * @details
    * Initialise this structure with `os_thread_attr_init()`, and then
@@ -541,7 +542,7 @@ extern "C"
 
   /**
    * @brief Thread object storage.
-   * @headerfile os-c-api.h <micro-os-plus/rtos/os-c-api.h>
+   * @headerfile c-api.h <micro-os-plus/rtos/c-api.h>
    *
    * @details
    * This C structure has the same size as the C++ `os::rtos::thread` object
@@ -622,7 +623,7 @@ extern "C"
 
   /**
    * @brief Clock object storage.
-   * @headerfile os-c-api.h <micro-os-plus/rtos/os-c-api.h>
+   * @headerfile c-api.h <micro-os-plus/rtos/c-api.h>
    *
    * @details
    * This C structure has the same size as the C++ `os::rtos::clock` object.
@@ -726,7 +727,7 @@ extern "C"
 
   /**
    * @brief Timer attributes.
-   * @headerfile os-c-api.h <micro-os-plus/rtos/os-c-api.h>
+   * @headerfile c-api.h <micro-os-plus/rtos/c-api.h>
    *
    * @details
    * Initialise this structure with `os_timer_attr_init()` and then
@@ -750,7 +751,7 @@ extern "C"
 
   /**
    * @brief Timer object storage.
-   * @headerfile os-c-api.h <micro-os-plus/rtos/os-c-api.h>
+   * @headerfile c-api.h <micro-os-plus/rtos/c-api.h>
    *
    * @details
    * This C structure has the same size as the C++ `os::rtos::timer` object
@@ -891,7 +892,7 @@ extern "C"
 
   /**
    * @brief Mutex attributes.
-   * @headerfile os-c-api.h <micro-os-plus/rtos/os-c-api.h>
+   * @headerfile c-api.h <micro-os-plus/rtos/c-api.h>
    *
    * @details
    * Initialise this structure with `os_mutex_attr_init()` and then
@@ -935,7 +936,7 @@ extern "C"
 
   /**
    * @brief Mutex object storage.
-   * @headerfile os-c-api.h <micro-os-plus/rtos/os-c-api.h>
+   * @headerfile c-api.h <micro-os-plus/rtos/c-api.h>
    *
    * @details
    * This C structure has the same size as the C++ `os::rtos::mutex` object
@@ -997,7 +998,7 @@ extern "C"
 
   /**
    * @brief Condition variable attributes.
-   * @headerfile os-c-api.h <micro-os-plus/rtos/os-c-api.h>
+   * @headerfile c-api.h <micro-os-plus/rtos/c-api.h>
    *
    * @details
    * Initialise this structure with `os_condvar_attr_init()` and then
@@ -1016,7 +1017,7 @@ extern "C"
 
   /**
    * @brief Condition variable object storage.
-   * @headerfile os-c-api.h <micro-os-plus/rtos/os-c-api.h>
+   * @headerfile c-api.h <micro-os-plus/rtos/c-api.h>
    *
    * @details
    * This C structure has the same size as the C++
@@ -1071,7 +1072,7 @@ extern "C"
 
   /**
    * @brief Semaphore attributes.
-   * @headerfile os-c-api.h <micro-os-plus/rtos/os-c-api.h>
+   * @headerfile c-api.h <micro-os-plus/rtos/c-api.h>
    *
    * @details
    * Initialise this structure with `os_semaphore_attr_init()` and then
@@ -1100,7 +1101,7 @@ extern "C"
 
   /**
    * @brief Semaphore object storage.
-   * @headerfile os-c-api.h <micro-os-plus/rtos/os-c-api.h>
+   * @headerfile c-api.h <micro-os-plus/rtos/c-api.h>
    *
    * @details
    * This C structure has the same size as the C++ `os::rtos::semaphore`
@@ -1157,7 +1158,7 @@ extern "C"
 
   /**
    * @brief Memory pool attributes.
-   * @headerfile os-c-api.h <micro-os-plus/rtos/os-c-api.h>
+   * @headerfile c-api.h <micro-os-plus/rtos/c-api.h>
    *
    * @details
    * Initialise this structure with `os_mempool_attr_init()` and then
@@ -1186,7 +1187,7 @@ extern "C"
 
   /**
    * @brief Memory pool object storage.
-   * @headerfile os-c-api.h <micro-os-plus/rtos/os-c-api.h>
+   * @headerfile c-api.h <micro-os-plus/rtos/c-api.h>
    *
    * @details
    * This C structure has the same size as the C++ `os::rtos::memory_pool`
@@ -1264,7 +1265,7 @@ typedef uint8_t os_mqueue_size_t;
 
   /**
    * @brief Message queue attributes.
-   * @headerfile os-c-api.h <micro-os-plus/rtos/os-c-api.h>
+   * @headerfile c-api.h <micro-os-plus/rtos/c-api.h>
    *
    * @details
    * Initialise this structure with `os_mqueue_attr_init()` and then
@@ -1293,7 +1294,7 @@ typedef uint8_t os_mqueue_size_t;
 
   /**
    * @brief Message queue object storage.
-   * @headerfile os-c-api.h <micro-os-plus/rtos/os-c-api.h>
+   * @headerfile c-api.h <micro-os-plus/rtos/c-api.h>
    *
    * @details
    * This C structure has the same size as the C++ `os::rtos::message_queue`
@@ -1367,7 +1368,7 @@ typedef uint8_t os_mqueue_size_t;
 
   /**
    * @brief Event flags attributes.
-   * @headerfile os-c-api.h <micro-os-plus/rtos/os-c-api.h>
+   * @headerfile c-api.h <micro-os-plus/rtos/c-api.h>
    *
    * @details
    * Initialise this structure with `os_evflags_attr_init()` and then
@@ -1386,7 +1387,7 @@ typedef uint8_t os_mqueue_size_t;
 
   /**
    * @brief Event flags object storage.
-   * @headerfile os-c-api.h <micro-os-plus/rtos/os-c-api.h>
+   * @headerfile c-api.h <micro-os-plus/rtos/c-api.h>
    *
    * @details
    * This C structure has the same size as the C++ `os::rtos::event_flags`
@@ -1469,7 +1470,7 @@ typedef uint8_t os_mqueue_size_t;
 
   /**
    * @brief Memory resource object storage.
-   * @headerfile os-c-api.h <micro-os-plus/rtos/os-c-api.h>
+   * @headerfile c-api.h <micro-os-plus/rtos/c-api.h>
    *
    * @details
    * A pointer to this structure can be used as a pointer to the
@@ -1495,6 +1496,6 @@ typedef uint8_t os_mqueue_size_t;
 }
 #endif
 
-#endif // MICRO_OS_PLUS_RTOS_OS_C_STRUCTS_H_
+#endif // MICRO_OS_PLUS_RTOS_DECLARATIONS_C_H_
 
 // ----------------------------------------------------------------------------

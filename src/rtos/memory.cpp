@@ -33,7 +33,7 @@
  * References are to ISO/IEC 14882:2011(E) Third edition (2011-09-01).
  */
 
-#include <micro-os-plus/rtos/os.h>
+#include <micro-os-plus/rtos.h>
 #include <micro-os-plus/estd/memory_resource>
 #include <micro-os-plus/memory/malloc.h>
 #include <micro-os-plus/memory/null.h>

@@ -25,14 +25,14 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef MICRO_OS_PLUS_RTOS_OS_TYPES_H_
-#define MICRO_OS_PLUS_RTOS_OS_TYPES_H_
+#ifndef MICRO_OS_PLUS_RTOS_TYPES_H_
+#define MICRO_OS_PLUS_RTOS_TYPES_H_
 
 // ----------------------------------------------------------------------------
 
 #if defined(__cplusplus)
 
-// This file is included at the end of os-decls.h.
+// This file is included at the end of declarations.h.
 
 // Include the application specific definitions.
 #include <micro-os-plus/config.h>
@@ -65,13 +65,13 @@ namespace os
 // ----------------------------------------------------------------------------
 
 #if defined(OS_INCLUDE_RTOS_CUSTOM_TYPES)
-#include <micro-os-plus/rtos/os-app-types.h>
+#include <micro-os-plus/rtos/custom-types.h>
 #endif
 
 // ----------------------------------------------------------------------------
 
 #endif // __cplusplus
 
-#endif // MICRO_OS_PLUS_RTOS_OS_TYPES_H_
+#endif // MICRO_OS_PLUS_RTOS_TYPES_H_
 
 // ----------------------------------------------------------------------------

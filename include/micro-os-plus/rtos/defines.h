@@ -25,8 +25,8 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef MICRO_OS_PLUS_OS_VERSIONS_H_
-#define MICRO_OS_PLUS_OS_VERSIONS_H_
+#ifndef MICRO_OS_PLUS_DEFINES_H_
+#define MICRO_OS_PLUS_DEFINES_H_
 
 // ----------------------------------------------------------------------------
 
@@ -73,6 +73,6 @@
 
 // ----------------------------------------------------------------------------
 
-#endif // MICRO_OS_PLUS_OS_VERSIONS_H_
+#endif // MICRO_OS_PLUS_DEFINES_H_
 
 // ----------------------------------------------------------------------------

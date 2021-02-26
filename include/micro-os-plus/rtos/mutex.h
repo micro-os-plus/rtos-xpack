@@ -25,14 +25,14 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef MICRO_OS_PLUS_RTOS_OS_MUTEX_H_
-#define MICRO_OS_PLUS_RTOS_OS_MUTEX_H_
+#ifndef MICRO_OS_PLUS_RTOS_MUTEX_H_
+#define MICRO_OS_PLUS_RTOS_MUTEX_H_
 
 // ----------------------------------------------------------------------------
 
 #if defined(__cplusplus)
 
-#include <micro-os-plus/rtos/os-decls.h>
+#include <micro-os-plus/rtos/declarations.h>
 
 // ----------------------------------------------------------------------------
 
@@ -47,7 +47,7 @@ namespace os
 
     /**
      * @brief POSIX compliant **mutex**.
-     * @headerfile os.h <micro-os-plus/rtos/os.h>
+     * @headerfile os.h <micro-os-plus/rtos.h>
      * @ingroup cmsis-plus-rtos-mutex
      */
     class mutex : public internal::object_named_system
@@ -61,7 +61,7 @@ namespace os
 
       /**
        * @brief Mutex protocols.
-       * @headerfile os.h <micro-os-plus/rtos/os.h>
+       * @headerfile os.h <micro-os-plus/rtos.h>
        * @ingroup cmsis-plus-rtos-mutex
        */
       struct protocol
@@ -106,7 +106,7 @@ namespace os
 
       /**
        * @brief Mutex robustness.
-       * @headerfile os.h <micro-os-plus/rtos/os.h>
+       * @headerfile os.h <micro-os-plus/rtos.h>
        * @ingroup cmsis-plus-rtos-mutex
        */
       struct robustness
@@ -146,7 +146,7 @@ namespace os
 
       /**
        * @brief Mutex types.
-       * @headerfile os.h <micro-os-plus/rtos/os.h>
+       * @headerfile os.h <micro-os-plus/rtos.h>
        * @ingroup cmsis-plus-rtos-mutex
        */
       struct type
@@ -197,7 +197,7 @@ namespace os
 
       /**
        * @brief %Mutex attributes.
-       * @headerfile os.h <micro-os-plus/rtos/os.h>
+       * @headerfile os.h <micro-os-plus/rtos.h>
        * @ingroup cmsis-plus-rtos-mutex
        */
       class attributes : public internal::attributes_clocked
@@ -297,7 +297,7 @@ namespace os
 
       /**
        * @brief Recursive mutex attributes.
-       * @headerfile os.h <micro-os-plus/rtos/os.h>
+       * @headerfile os.h <micro-os-plus/rtos.h>
        * @ingroup cmsis-plus-rtos-mutex
        */
       class attributes_recursive : public attributes
@@ -699,7 +699,7 @@ namespace os
 
     /**
      * @brief POSIX compliant **recursive mutex**.
-     * @headerfile os.h <micro-os-plus/rtos/os.h>
+     * @headerfile os.h <micro-os-plus/rtos.h>
      * @ingroup cmsis-plus-rtos-mutex
      */
     class mutex_recursive : public mutex
@@ -900,6 +900,6 @@ namespace os
 
 #endif // __cplusplus
 
-#endif // MICRO_OS_PLUS_RTOS_OS_MUTEX_H_
+#endif // MICRO_OS_PLUS_RTOS_MUTEX_H_
 
 // ----------------------------------------------------------------------------

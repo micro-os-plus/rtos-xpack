@@ -25,15 +25,15 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef MICRO_OS_PLUS_RTOS_OS_MQUEUE_H_
-#define MICRO_OS_PLUS_RTOS_OS_MQUEUE_H_
+#ifndef MICRO_OS_PLUS_RTOS_MEMORY_QUEUE_H_
+#define MICRO_OS_PLUS_RTOS_MEMORY_QUEUE_H_
 
 // ----------------------------------------------------------------------------
 
 #if defined(__cplusplus)
 
-#include <micro-os-plus/rtos/os-decls.h>
-#include <micro-os-plus/rtos/os-memory.h>
+#include <micro-os-plus/rtos/declarations.h>
+#include <micro-os-plus/rtos/memory.h>
 
 #include <micro-os-plus/diag/trace.h>
 
@@ -52,7 +52,7 @@ namespace os
     /**
      * @brief POSIX compliant **message queue**, using the
      * default RTOS allocator.
-     * @headerfile os.h <micro-os-plus/rtos/os.h>
+     * @headerfile os.h <micro-os-plus/rtos.h>
      * @ingroup cmsis-plus-rtos-mqueue
      */
     class message_queue : public internal::object_named_system
@@ -135,7 +135,7 @@ namespace os
 
       /**
        * @brief Message queue attributes.
-       * @headerfile os.h <micro-os-plus/rtos/os.h>
+       * @headerfile os.h <micro-os-plus/rtos.h>
        * @ingroup cmsis-plus-rtos-mqueue
        */
       class attributes : public internal::attributes_clocked
@@ -213,7 +213,7 @@ namespace os
 
       /**
        * @brief Storage for a static message queue.
-       * @headerfile os.h <micro-os-plus/rtos/os.h>
+       * @headerfile os.h <micro-os-plus/rtos.h>
        * @details
        * Each message is stored in an element
        * extended to a multiple of pointers. The lists are kept in two arrays
@@ -725,7 +725,7 @@ namespace os
 
     /**
      * @brief Template of a POSIX compliant **message queue** with allocator.
-     * @headerfile os.h <micro-os-plus/rtos/os.h>
+     * @headerfile os.h <micro-os-plus/rtos.h>
      * @ingroup cmsis-plus-rtos-mqueue
      */
     template <typename Allocator = memory::allocator<void*>>
@@ -804,7 +804,7 @@ namespace os
     /**
      * @brief Template of a POSIX compliant **message queue** with
      * message type and allocator.
-     * @headerfile os.h <micro-os-plus/rtos/os.h>
+     * @headerfile os.h <micro-os-plus/rtos.h>
      * @ingroup cmsis-plus-rtos-mqueue
      */
     template <typename T, typename Allocator = memory::allocator<void*>>
@@ -1013,7 +1013,7 @@ namespace os
     /**
      * @brief Template of a POSIX compliant **message queue** with
      * message type and local storage.
-     * @headerfile os.h <micro-os-plus/rtos/os.h>
+     * @headerfile os.h <micro-os-plus/rtos.h>
      * @ingroup cmsis-plus-rtos-mqueue
      */
     template <typename T, std::size_t N>
@@ -1878,6 +1878,6 @@ namespace os
 
 #endif // __cplusplus
 
-#endif // MICRO_OS_PLUS_RTOS_OS_MQUEUE_H_
+#endif // MICRO_OS_PLUS_RTOS_MEMORY_QUEUE_H_
 
 // ----------------------------------------------------------------------------

@@ -77,39 +77,39 @@
  * but at least they are consistent in POSIX.
  */
 
-#ifndef MICRO_OS_PLUS_RTOS_OS_H_
-#define MICRO_OS_PLUS_RTOS_OS_H_
+#ifndef MICRO_OS_PLUS_RTOS_H_
+#define MICRO_OS_PLUS_RTOS_H_
 
 // ----------------------------------------------------------------------------
 
 #if defined(__cplusplus)
 
-#include <micro-os-plus/rtos/os-decls.h>
+#include <micro-os-plus/rtos/declarations.h>
 
 #include <micro-os-plus/diag/trace.h>
 
-#include <micro-os-plus/rtos/os-sched.h>
+#include <micro-os-plus/rtos/scheduler.h>
 
 // Includes a reference to critical sections.
-#include <micro-os-plus/rtos/os-memory.h>
+#include <micro-os-plus/rtos/memory.h>
 
-#include <micro-os-plus/rtos/os-thread.h>
-#include <micro-os-plus/rtos/os-clocks.h>
-#include <micro-os-plus/rtos/os-timer.h>
-#include <micro-os-plus/rtos/os-mutex.h>
-#include <micro-os-plus/rtos/os-condvar.h>
-#include <micro-os-plus/rtos/os-semaphore.h>
-#include <micro-os-plus/rtos/os-mempool.h>
-#include <micro-os-plus/rtos/os-mqueue.h>
-#include <micro-os-plus/rtos/os-evflags.h>
+#include <micro-os-plus/rtos/thread.h>
+#include <micro-os-plus/rtos/clocks.h>
+#include <micro-os-plus/rtos/timer.h>
+#include <micro-os-plus/rtos/mutex.h>
+#include <micro-os-plus/rtos/condition-variable.h>
+#include <micro-os-plus/rtos/semaphore.h>
+#include <micro-os-plus/rtos/memory-pool.h>
+#include <micro-os-plus/rtos/message-queue.h>
+#include <micro-os-plus/rtos/event-flags.h>
 
-#include <micro-os-plus/rtos/os-hooks.h>
+#include <micro-os-plus/rtos/hooks.h>
 #if (!(defined(__APPLE__) || defined(__linux__) || defined(__unix__)))
 #include <micro-os-plus/startup/hooks.h>
 #endif // Unix
 
 // More or less at the end, when all other definitions are available.
-#include <micro-os-plus/rtos/os-inlines.h>
+#include <micro-os-plus/rtos/inlines.h>
 #include <micro-os-plus/rtos/port/inlines.h>
 
 namespace os
@@ -192,6 +192,6 @@ namespace os
 
 // ----------------------------------------------------------------------------
 
-#endif // MICRO_OS_PLUS_RTOS_OS_H_
+#endif // MICRO_OS_PLUS_RTOS_H_
 
 // ----------------------------------------------------------------------------

@@ -25,14 +25,14 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef MICRO_OS_PLUS_RTOS_OS_SEMAPHORE_H_
-#define MICRO_OS_PLUS_RTOS_OS_SEMAPHORE_H_
+#ifndef MICRO_OS_PLUS_RTOS_SEMAPHORE_H_
+#define MICRO_OS_PLUS_RTOS_SEMAPHORE_H_
 
 // ----------------------------------------------------------------------------
 
 #if defined(__cplusplus)
 
-#include <micro-os-plus/rtos/os-decls.h>
+#include <micro-os-plus/rtos/declarations.h>
 
 // ----------------------------------------------------------------------------
 
@@ -47,7 +47,7 @@ namespace os
 
     /**
      * @brief POSIX compliant **semaphore**.
-     * @headerfile os.h <micro-os-plus/rtos/os.h>
+     * @headerfile os.h <micro-os-plus/rtos.h>
      * @ingroup cmsis-plus-rtos-semaphore
      */
     class semaphore : public internal::object_named_system
@@ -74,7 +74,7 @@ namespace os
 
       /**
        * @brief Semaphore attributes.
-       * @headerfile os.h <micro-os-plus/rtos/os.h>
+       * @headerfile os.h <micro-os-plus/rtos.h>
        * @ingroup cmsis-plus-rtos-semaphore
        */
       class attributes : public internal::attributes_clocked
@@ -152,7 +152,7 @@ namespace os
       // ======================================================================
       /**
        * @brief Binary semaphore attributes.
-       * @headerfile os.h <micro-os-plus/rtos/os.h>
+       * @headerfile os.h <micro-os-plus/rtos.h>
        * @ingroup cmsis-plus-rtos-semaphore
        */
       class attributes_binary : public attributes
@@ -200,7 +200,7 @@ namespace os
 
       /**
        * @brief Counting semaphore attributes.
-       * @headerfile os.h <micro-os-plus/rtos/os.h>
+       * @headerfile os.h <micro-os-plus/rtos.h>
        * @ingroup cmsis-plus-rtos-semaphore
        */
       class attributes_counting : public attributes
@@ -495,7 +495,7 @@ namespace os
 
     /**
      * @brief POSIX compliant **binary semaphore**.
-     * @headerfile os.h <micro-os-plus/rtos/os.h>
+     * @headerfile os.h <micro-os-plus/rtos.h>
      * @ingroup cmsis-plus-rtos-semaphore
      */
     class semaphore_binary : public semaphore
@@ -568,7 +568,7 @@ namespace os
 
     /**
      * @brief POSIX compliant **counting semaphore**.
-     * @headerfile os.h <micro-os-plus/rtos/os.h>
+     * @headerfile os.h <micro-os-plus/rtos.h>
      * @ingroup cmsis-plus-rtos-semaphore
      */
     class semaphore_counting : public semaphore
@@ -946,6 +946,6 @@ namespace os
 
 #endif // __cplusplus
 
-#endif // MICRO_OS_PLUS_RTOS_OS_SEMAPHORE_H_
+#endif // MICRO_OS_PLUS_RTOS_SEMAPHORE_H_
 
 // ----------------------------------------------------------------------------

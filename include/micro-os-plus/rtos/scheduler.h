@@ -25,15 +25,15 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef MICRO_OS_PLUS_RTOS_OS_SCHED_H_
-#define MICRO_OS_PLUS_RTOS_OS_SCHED_H_
+#ifndef MICRO_OS_PLUS_RTOS_SCHEDULER_H_
+#define MICRO_OS_PLUS_RTOS_SCHEDULER_H_
 
 // ----------------------------------------------------------------------------
 
 #if defined(__cplusplus)
 
-#include <micro-os-plus/rtos/os-decls.h>
-#include <micro-os-plus/rtos/os-clocks.h>
+#include <micro-os-plus/rtos/declarations.h>
+#include <micro-os-plus/rtos/clocks.h>
 
 // ----------------------------------------------------------------------------
 
@@ -167,7 +167,7 @@ namespace os
        * @brief Scheduler critical section
        * [RAII](https://en.wikipedia.org/wiki/Resource_Acquisition_Is_Initialization)
        * helper.
-       * @headerfile os.h <micro-os-plus/rtos/os.h>
+       * @headerfile os.h <micro-os-plus/rtos.h>
        */
       class critical_section
       {
@@ -241,7 +241,7 @@ namespace os
        * @brief Scheduler uncritical section
        * [RAII](https://en.wikipedia.org/wiki/Resource_Acquisition_Is_Initialization)
        * helper.
-       * @headerfile os.h <micro-os-plus/rtos/os.h>
+       * @headerfile os.h <micro-os-plus/rtos.h>
        */
       class uncritical_section
       {
@@ -313,7 +313,7 @@ namespace os
 
       /**
        * @brief %Scheduler standard locker.
-       * @headerfile os.h <micro-os-plus/rtos/os.h>
+       * @headerfile os.h <micro-os-plus/rtos.h>
        */
       class lockable
       {
@@ -498,7 +498,7 @@ namespace os
        * @brief Interrupts critical section
        * [RAII](https://en.wikipedia.org/wiki/Resource_Acquisition_Is_Initialization)
        * helper.
-       * @headerfile os.h <micro-os-plus/rtos/os.h>
+       * @headerfile os.h <micro-os-plus/rtos.h>
        */
       class critical_section
       {
@@ -600,7 +600,7 @@ namespace os
        * @brief Interrupts critical section
        * [RAII](https://en.wikipedia.org/wiki/Resource_Acquisition_Is_Initialization)
        * helper.
-       * @headerfile os.h <micro-os-plus/rtos/os.h>
+       * @headerfile os.h <micro-os-plus/rtos.h>
        */
       class uncritical_section
       {
@@ -700,7 +700,7 @@ namespace os
 
       /**
        * @brief Interrupts standard locker.
-       * @headerfile os.h <micro-os-plus/rtos/os.h>
+       * @headerfile os.h <micro-os-plus/rtos.h>
        */
       class lockable
       {
@@ -1246,6 +1246,6 @@ namespace os
 
 #endif // __cplusplus
 
-#endif // MICRO_OS_PLUS_RTOS_OS_SCHED_H_
+#endif // MICRO_OS_PLUS_RTOS_SCHEDULER_H_
 
 // ----------------------------------------------------------------------------

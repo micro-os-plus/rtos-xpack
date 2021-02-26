@@ -25,14 +25,14 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef MICRO_OS_PLUS_RTOS_OS_CONDVAR_H_
-#define MICRO_OS_PLUS_RTOS_OS_CONDVAR_H_
+#ifndef MICRO_OS_PLUS_RTOS_CONDITION_VARIABLE_H_
+#define MICRO_OS_PLUS_RTOS_CONDITION_VARIABLE_H_
 
 // ----------------------------------------------------------------------------
 
 #if defined(__cplusplus)
 
-#include <micro-os-plus/rtos/os-decls.h>
+#include <micro-os-plus/rtos/declarations.h>
 
 // ----------------------------------------------------------------------------
 
@@ -45,7 +45,7 @@ namespace os
 
     /**
      * @brief POSIX compliant **condition variable**.
-     * @headerfile os.h <micro-os-plus/rtos/os.h>
+     * @headerfile os.h <micro-os-plus/rtos.h>
      * @ingroup cmsis-plus-rtos-condvar
      */
     class condition_variable : public internal::object_named_system
@@ -55,7 +55,7 @@ namespace os
 
       /**
        * @brief Condition variable attributes.
-       * @headerfile os.h <micro-os-plus/rtos/os.h>
+       * @headerfile os.h <micro-os-plus/rtos.h>
        * @ingroup cmsis-plus-rtos-condvar
        */
       class attributes : public internal::attributes_clocked
@@ -331,6 +331,6 @@ namespace os
 
 #endif // __cplusplus
 
-#endif // MICRO_OS_PLUS_RTOS_OS_CONDVAR_H_
+#endif // MICRO_OS_PLUS_RTOS_CONDITION_VARIABLE_H_
 
 // ----------------------------------------------------------------------------

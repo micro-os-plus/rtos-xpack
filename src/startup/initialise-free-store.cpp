@@ -30,7 +30,7 @@
 
 // ----------------------------------------------------------------------------
 
-#include <micro-os-plus/rtos/os-hooks.h>
+#include <micro-os-plus/rtos/hooks.h>
 #include <micro-os-plus/memory/first-fit-top.h>
 #include <micro-os-plus/memory/lifo.h>
 #include <micro-os-plus/memory/block-pool.h>

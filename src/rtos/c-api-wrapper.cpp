@@ -29,8 +29,8 @@
  * The code provides an implementation of the C API for the µOS++ RTOS.
  */
 
-#include <micro-os-plus/rtos/os.h>
-#include <micro-os-plus/rtos/os-c-api.h>
+#include <micro-os-plus/rtos.h>
+#include <micro-os-plus/rtos/c-api.h>
 
 // ----------------------------------------------------------------------------
 

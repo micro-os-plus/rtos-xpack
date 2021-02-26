@@ -25,13 +25,13 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef MICRO_OS_PLUS_RTOS_OS_DECLS_H_
-#define MICRO_OS_PLUS_RTOS_OS_DECLS_H_
+#ifndef MICRO_OS_PLUS_RTOS_DECLARATIONS_H_
+#define MICRO_OS_PLUS_RTOS_DECLARATIONS_H_
 
 // ----------------------------------------------------------------------------
 
 // Include the port specific C declarations.
-#include <micro-os-plus/rtos/os-c-decls.h>
+#include <micro-os-plus/rtos/declarations-c.h>
 
 // ----------------------------------------------------------------------------
 
@@ -336,7 +336,7 @@ namespace os
 
       /**
        * @brief Base class for named objects.
-       * @headerfile os.h <micro-os-plus/rtos/os.h>
+       * @headerfile os.h <micro-os-plus/rtos.h>
        */
       class object_named
       {
@@ -430,7 +430,7 @@ namespace os
 
       /**
        * @brief Base class for named system objects.
-       * @headerfile os.h <micro-os-plus/rtos/os.h>
+       * @headerfile os.h <micro-os-plus/rtos.h>
        */
       class object_named_system : public object_named
       {
@@ -548,7 +548,7 @@ namespace os
 
       /**
        * @brief Base class for attributes.
-       * @headerfile os.h <micro-os-plus/rtos/os.h>
+       * @headerfile os.h <micro-os-plus/rtos.h>
        */
       class attributes_clocked
       {
@@ -625,7 +625,7 @@ namespace os
 
     /**
      * @brief Null locker.
-     * @headerfile os.h <micro-os-plus/rtos/os.h>
+     * @headerfile os.h <micro-os-plus/rtos.h>
      * @details
      * This dummy object can be passed as parameter to templates
      * requiring a lockable, but it does nothing.
@@ -1038,7 +1038,7 @@ namespace os
 // ----------------------------------------------------------------------------
 
 // Must be included after the declarations
-#include <micro-os-plus/rtos/internal/os-lists.h>
+#include <micro-os-plus/rtos/internal/lists.h>
 
 // ----------------------------------------------------------------------------
 
@@ -1059,7 +1059,7 @@ extern "C"
 
 // ----------------------------------------------------------------------------
 
-#include <micro-os-plus/rtos/os-types.h>
+#include <micro-os-plus/rtos/types.h>
 
 // ----------------------------------------------------------------------------
 
@@ -1134,6 +1134,6 @@ extern "C"
 
 // ----------------------------------------------------------------------------
 
-#endif // MICRO_OS_PLUS_RTOS_OS_DECLS_H_
+#endif // MICRO_OS_PLUS_RTOS_DECLARATIONS_H_
 
 // ----------------------------------------------------------------------------

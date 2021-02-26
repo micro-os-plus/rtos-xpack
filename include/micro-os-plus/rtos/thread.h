@@ -25,16 +25,16 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef MICRO_OS_PLUS_RTOS_OS_THREAD_H_
-#define MICRO_OS_PLUS_RTOS_OS_THREAD_H_
+#ifndef MICRO_OS_PLUS_RTOS_THREAD_H_
+#define MICRO_OS_PLUS_RTOS_THREAD_H_
 
 // ----------------------------------------------------------------------------
 
 #if defined(__cplusplus)
 
-#include <micro-os-plus/rtos/os-decls.h>
-#include <micro-os-plus/rtos/os-clocks.h>
-#include <micro-os-plus/rtos/internal/os-flags.h>
+#include <micro-os-plus/rtos/declarations.h>
+#include <micro-os-plus/rtos/clocks.h>
+#include <micro-os-plus/rtos/internal/event-flags.h>
 
 #if !defined(__ARM_EABI__)
 #include <memory>
@@ -226,7 +226,7 @@ namespace os
     /**
      * @brief POSIX compliant **thread**, using the
      * default RTOS allocator.
-     * @headerfile os.h <micro-os-plus/rtos/os.h>
+     * @headerfile os.h <micro-os-plus/rtos.h>
      * @ingroup cmsis-plus-rtos-thread
      */
     class thread : public internal::object_named_system
@@ -256,7 +256,7 @@ namespace os
        * @details
        * The os::rtos::thread::priority definition is a container for
        * priorities not restricted to an enumeration.
-       * @headerfile os.h <micro-os-plus/rtos/os.h>
+       * @headerfile os.h <micro-os-plus/rtos.h>
        * @ingroup cmsis-plus-rtos-thread
        */
       struct priority
@@ -340,7 +340,7 @@ namespace os
        * @details
        * The os::rtos::thread::state definition is a container for
        * thread states.
-       * @headerfile os.h <micro-os-plus/rtos/os.h>
+       * @headerfile os.h <micro-os-plus/rtos.h>
        * @ingroup cmsis-plus-rtos-thread
        */
       struct state
@@ -398,7 +398,7 @@ namespace os
 
       /**
        * @brief Thread stack.
-       * @headerfile os.h <micro-os-plus/rtos/os.h>
+       * @headerfile os.h <micro-os-plus/rtos.h>
        * @ingroup cmsis-plus-rtos-thread
        */
       class stack
@@ -624,7 +624,7 @@ namespace os
       // ======================================================================
       /**
        * @brief Thread context.
-       * @headerfile os.h <micro-os-plus/rtos/os.h>
+       * @headerfile os.h <micro-os-plus/rtos.h>
        * @ingroup cmsis-plus-rtos-thread
        */
       class context
@@ -759,7 +759,7 @@ namespace os
 
       /**
        * @brief Thread attributes.
-       * @headerfile os.h <micro-os-plus/rtos/os.h>
+       * @headerfile os.h <micro-os-plus/rtos.h>
        * @ingroup cmsis-plus-rtos-thread
        */
       class attributes : public internal::attributes_clocked
@@ -848,7 +848,7 @@ namespace os
 
       /**
        * @brief Thread statistics.
-       * @headerfile os.h <micro-os-plus/rtos/os.h>
+       * @headerfile os.h <micro-os-plus/rtos.h>
        * @ingroup cmsis-plus-rtos-thread
        */
       class statistics
@@ -1658,7 +1658,7 @@ namespace os
 
     /**
      * @brief Template of a POSIX compliant **thread** with allocator.
-     * @headerfile os.h <micro-os-plus/rtos/os.h>
+     * @headerfile os.h <micro-os-plus/rtos.h>
      * @ingroup cmsis-plus-rtos-thread
      *
      * @tparam Allocator Standard allocator used to allocate the stack area.
@@ -1752,7 +1752,7 @@ namespace os
 
     /**
      * @brief Template of a POSIX compliant **thread** with local stack.
-     * @headerfile os.h <micro-os-plus/rtos/os.h>
+     * @headerfile os.h <micro-os-plus/rtos.h>
      * @ingroup cmsis-plus-rtos-thread
      *
      * @tparam N Size of statically allocated stack in bytes.
@@ -2761,6 +2761,6 @@ namespace os
 
 #endif // __cplusplus
 
-#endif // MICRO_OS_PLUS_RTOS_OS_THREAD_H_
+#endif // MICRO_OS_PLUS_RTOS_THREAD_H_
 
 // ----------------------------------------------------------------------------

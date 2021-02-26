@@ -26,6 +26,7 @@ message(STATUS "Including micro-os-plus-rtos...")
 find_package(micro-os-plus-utils-lists REQUIRED)
 find_package(micro-os-plus-memory-allocators REQUIRED)
 find_package(micro-os-plus-libs-cpp REQUIRED)
+find_package(micro-os-plus-version REQUIRED)
 # find_package(micro-os-plus-libs-cpp-estd REQUIRED)
 
 # -----------------------------------------------------------------------------
@@ -66,6 +67,7 @@ if(NOT TARGET micro-os-plus-rtos-interface)
       micro-os-plus::libs-cpp
       # micro-os-plus::libs-cpp-estd
       micro-os-plus::architecture
+      micro-os-plus::version
   )
 
   # ---------------------------------------------------------------------------

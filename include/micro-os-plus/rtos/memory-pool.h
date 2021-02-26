@@ -25,15 +25,15 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef MICRO_OS_PLUS_RTOS_OS_MEMPOOL_H_
-#define MICRO_OS_PLUS_RTOS_OS_MEMPOOL_H_
+#ifndef MICRO_OS_PLUS_RTOS_MEMORY_POOL_H_
+#define MICRO_OS_PLUS_RTOS_MEMORY_POOL_H_
 
 // ----------------------------------------------------------------------------
 
 #if defined(__cplusplus)
 
-#include <micro-os-plus/rtos/os-decls.h>
-#include <micro-os-plus/rtos/os-memory.h>
+#include <micro-os-plus/rtos/declarations.h>
+#include <micro-os-plus/rtos/memory.h>
 
 #include <micro-os-plus/diag/trace.h>
 
@@ -52,7 +52,7 @@ namespace os
     /**
      * @brief Synchronised **memory pool**, using the
      * default RTOS allocator.
-     * @headerfile os.h <micro-os-plus/rtos/os.h>
+     * @headerfile os.h <micro-os-plus/rtos.h>
      * @ingroup cmsis-plus-rtos-mempool
      */
     class memory_pool : public internal::object_named_system
@@ -82,7 +82,7 @@ namespace os
 
       /**
        * @brief Memory pool attributes.
-       * @headerfile os.h <micro-os-plus/rtos/os.h>
+       * @headerfile os.h <micro-os-plus/rtos.h>
        * @ingroup cmsis-plus-rtos-mempool
        */
       class attributes : public internal::attributes_clocked
@@ -525,7 +525,7 @@ namespace os
 
     /**
      * @brief Template of a synchronised **memory pool** with allocator.
-     * @headerfile os.h <micro-os-plus/rtos/os.h>
+     * @headerfile os.h <micro-os-plus/rtos.h>
      * @ingroup cmsis-plus-rtos-mempool
      */
     template <typename Allocator = memory::allocator<void*>>
@@ -603,7 +603,7 @@ namespace os
     /**
      * @brief Template of a synchronised **memory pool** with
      * block type and allocator.
-     * @headerfile os.h <micro-os-plus/rtos/os.h>
+     * @headerfile os.h <micro-os-plus/rtos.h>
      * @ingroup cmsis-plus-rtos-mempool
      */
     template <typename T, typename Allocator = memory::allocator<void*>>
@@ -729,7 +729,7 @@ namespace os
     /**
      * @brief Template of a synchronised **memory pool** with
      * block type and local storage.
-     * @headerfile os.h <micro-os-plus/rtos/os.h>
+     * @headerfile os.h <micro-os-plus/rtos.h>
      * @ingroup cmsis-plus-rtos-mempool
      */
     template <typename T, std::size_t N>
@@ -1400,6 +1400,6 @@ namespace os
 
 #endif // __cplusplus
 
-#endif // MICRO_OS_PLUS_RTOS_OS_MEMPOOL_H_
+#endif // MICRO_OS_PLUS_RTOS_MEMORY_POOL_H_
 
 // ----------------------------------------------------------------------------

@@ -25,7 +25,7 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <micro-os-plus/rtos/os.h>
+#include <micro-os-plus/rtos.h>
 
 #include <memory>
 #include <stdexcept>
@@ -113,7 +113,7 @@ namespace os
      * @par Example
      *
      * @code{.cpp}
-     * #include <micro-os-plus/rtos/os.h>
+     * #include <micro-os-plus/rtos.h>
      * #include <cstdlib>
      *
      * using namespace os::rtos;

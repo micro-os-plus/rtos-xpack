@@ -30,15 +30,15 @@
  * and tries to remain functionally close to the CMSIS specifications.
  */
 
-#ifndef MICRO_OS_PLUS_RTOS_OS_C_API_H_
-#define MICRO_OS_PLUS_RTOS_OS_C_API_H_
+#ifndef MICRO_OS_PLUS_RTOS_C_API_H_
+#define MICRO_OS_PLUS_RTOS_C_API_H_
 
 // ----------------------------------------------------------------------------
 
 // Include the µOS++ C API structures declarations.
-#include <micro-os-plus/rtos/os-c-decls.h>
+#include <micro-os-plus/rtos/declarations-c.h>
 
-#include <micro-os-plus/rtos/os-hooks.h>
+#include <micro-os-plus/rtos/hooks.h>
 
 #include <stdint.h>
 #include <stddef.h>
@@ -86,7 +86,7 @@ extern "C"
   /**
    * @brief Application entry point, running on the main thread context.
    * @ingroup cmsis-plus-rtos-c
-   * @headerfile os.h <micro-os-plus/rtos/os-c-api.h>
+   * @headerfile os.h <micro-os-plus/rtos/c-api.h>
    * @param argc Count of arguments.
    * @param argv Array of string arguments.
    * @retval 0 The program terminated normally.
@@ -2744,6 +2744,6 @@ extern "C"
 
 // ----------------------------------------------------------------------------
 
-#endif // MICRO_OS_PLUS_RTOS_OS_C_API_H_
+#endif // MICRO_OS_PLUS_RTOS_C_API_H_
 
 // ----------------------------------------------------------------------------

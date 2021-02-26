@@ -25,9 +25,9 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#include <micro-os-plus/rtos/os.h>
+#include <micro-os-plus/rtos.h>
 #include <micro-os-plus/diag/trace.h>
-#include <micro-os-plus/rtos/internal/os-flags.h>
+#include <micro-os-plus/rtos/internal/event-flags.h>
 
 // ----------------------------------------------------------------------------
 

@@ -25,14 +25,14 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef MICRO_OS_PLUS_RTOS_INTERNAL_OS_FLAGS_H_
-#define MICRO_OS_PLUS_RTOS_INTERNAL_OS_FLAGS_H_
+#ifndef MICRO_OS_PLUS_RTOS_INTERNAL_EVENT_FLAGS_H_
+#define MICRO_OS_PLUS_RTOS_INTERNAL_EVENT_FLAGS_H_
 
 // ----------------------------------------------------------------------------
 
 #ifdef __cplusplus
 
-#include <micro-os-plus/rtos/os-decls.h>
+#include <micro-os-plus/rtos/declarations.h>
 
 #include <micro-os-plus/diag/trace.h>
 
@@ -203,6 +203,6 @@ namespace os
 
 #endif // __cplusplus
 
-#endif // MICRO_OS_PLUS_RTOS_INTERNAL_OS_FLAGS_H_
+#endif // MICRO_OS_PLUS_RTOS_INTERNAL_EVENT_FLAGS_H_
 
 // ----------------------------------------------------------------------------

@@ -25,8 +25,8 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef MICRO_OS_PLUS_RTOS_INTERNAL_OS_LISTS_H_
-#define MICRO_OS_PLUS_RTOS_INTERNAL_OS_LISTS_H_
+#ifndef MICRO_OS_PLUS_RTOS_INTERNAL_LISTS_H_
+#define MICRO_OS_PLUS_RTOS_INTERNAL_LISTS_H_
 
 // ----------------------------------------------------------------------------
 
@@ -992,6 +992,6 @@ namespace os
 
 #endif // __cplusplus
 
-#endif // MICRO_OS_PLUS_RTOS_INTERNAL_OS_LISTS_H_
+#endif // MICRO_OS_PLUS_RTOS_INTERNAL_LISTS_H_
 
 // ----------------------------------------------------------------------------

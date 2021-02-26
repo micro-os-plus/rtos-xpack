@@ -25,14 +25,14 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef MICRO_OS_PLUS_RTOS_OS_TIMER_H_
-#define MICRO_OS_PLUS_RTOS_OS_TIMER_H_
+#ifndef MICRO_OS_PLUS_RTOS_TIMER_H_
+#define MICRO_OS_PLUS_RTOS_TIMER_H_
 
 // ----------------------------------------------------------------------------
 
 #if defined(__cplusplus)
 
-#include <micro-os-plus/rtos/os-decls.h>
+#include <micro-os-plus/rtos/declarations.h>
 
 // ----------------------------------------------------------------------------
 
@@ -47,7 +47,7 @@ namespace os
 
     /**
      * @brief User single-shot or periodic **timer**.
-     * @headerfile os.h <micro-os-plus/rtos/os.h>
+     * @headerfile os.h <micro-os-plus/rtos.h>
      * @ingroup cmsis-plus-rtos-timer
      */
     class timer : public internal::object_named_system
@@ -99,7 +99,7 @@ namespace os
 
       /**
        * @brief Timer states
-       * @headerfile os.h <micro-os-plus/rtos/os.h>
+       * @headerfile os.h <micro-os-plus/rtos.h>
        * @ingroup cmsis-plus-rtos-timer
        */
       struct state
@@ -122,7 +122,7 @@ namespace os
 
       /**
        * @brief Timer attributes.
-       * @headerfile os.h <micro-os-plus/rtos/os.h>
+       * @headerfile os.h <micro-os-plus/rtos.h>
        * @ingroup cmsis-plus-rtos-timer
        */
       class attributes : public internal::attributes_clocked
@@ -199,7 +199,7 @@ namespace os
 
       /**
        * @brief Periodic timer attributes.
-       * @headerfile os.h <micro-os-plus/rtos/os.h>
+       * @headerfile os.h <micro-os-plus/rtos.h>
        * @ingroup cmsis-plus-rtos-timer
        */
       class attributes_periodic : public attributes
@@ -481,6 +481,6 @@ namespace os
 
 #endif // __cplusplus
 
-#endif // MICRO_OS_PLUS_RTOS_OS_TIMER_H_
+#endif // MICRO_OS_PLUS_RTOS_TIMER_H_
 
 // ----------------------------------------------------------------------------
