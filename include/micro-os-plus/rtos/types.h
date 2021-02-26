@@ -34,8 +34,14 @@
 
 // This file is included at the end of declarations.h.
 
-// Include the application specific definitions.
+// ----------------------------------------------------------------------------
+
+#if defined(HAVE_MICRO_OS_PLUS_CONFIG_H)
 #include <micro-os-plus/config.h>
+#endif // HAVE_MICRO_OS_PLUS_CONFIG_H
+
+// ----------------------------------------------------------------------------
+
 #include <memory>
 
 namespace os

@@ -21,3 +21,6 @@ The following changes were performed as part of the migration:
 - the `src/libcpp/cxx.cpp` file was removed
 - the `src/semihosting/c-syscalls-semihosting.cpp` file was removed
 - the `src/startup/exception-handlers.c` file was removed
+
+os.h -> <micro-os-plus/rtos.h>
+
