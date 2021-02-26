@@ -41,29 +41,13 @@ if(NOT TARGET micro-os-plus-rtos-interface)
 
   # ---------------------------------------------------------------------------
 
+  file(GLOB_RECURSE source_files CONFIGURE_DEPENDS "${xpack_current_folder}/src/*.c*")
+
   target_sources(
     micro-os-plus-rtos-interface
 
     INTERFACE
-      ${xpack_current_folder}/src/libc/stdlib/malloc.cpp
-      ${xpack_current_folder}/src/rtos/internal/os-flags.cpp
-      ${xpack_current_folder}/src/rtos/internal/os-lists.cpp
-      ${xpack_current_folder}/src/rtos/os-clocks.cpp
-      ${xpack_current_folder}/src/rtos/os-condvar.cpp
-      ${xpack_current_folder}/src/rtos/os-core.cpp
-      ${xpack_current_folder}/src/rtos/os-c-wrapper.cpp
-      ${xpack_current_folder}/src/rtos/os-evflags.cpp
-      ${xpack_current_folder}/src/rtos/os-idle.cpp
-      ${xpack_current_folder}/src/rtos/os-main.cpp
-      ${xpack_current_folder}/src/rtos/os-memory.cpp
-      ${xpack_current_folder}/src/rtos/os-mempool.cpp
-      ${xpack_current_folder}/src/rtos/os-mqueue.cpp
-      ${xpack_current_folder}/src/rtos/os-mutex.cpp
-      ${xpack_current_folder}/src/rtos/os-semaphore.cpp
-      ${xpack_current_folder}/src/rtos/os-terminate.cpp
-      ${xpack_current_folder}/src/rtos/os-thread.cpp
-      ${xpack_current_folder}/src/rtos/os-timer.cpp
-      ${xpack_current_folder}/src/startup/initialise-free-store.cpp
+      ${source_files}
   )
 
   target_include_directories(
