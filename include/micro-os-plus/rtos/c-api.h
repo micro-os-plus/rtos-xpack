@@ -52,7 +52,7 @@ extern "C"
 #endif
 
   /**
-   * @addtogroup cmsis-plus-rtos-c-core
+   * @addtogroup micro-os-plus-rtos-c-core
    * @{
    */
 
@@ -85,7 +85,7 @@ extern "C"
 
   /**
    * @brief Application entry point, running on the main thread context.
-   * @ingroup cmsis-plus-rtos-c
+   * @ingroup micro-os-plus-rtos-c
    * @headerfile os.h <micro-os-plus/rtos/c-api.h>
    * @param argc Count of arguments.
    * @param argv Array of string arguments.
@@ -312,7 +312,7 @@ extern "C"
 
   // --------------------------------------------------------------------------
   /**
-   * @addtogroup cmsis-plus-rtos-c-thread
+   * @addtogroup micro-os-plus-rtos-c-thread
    * @{
    */
 
@@ -798,7 +798,7 @@ extern "C"
 
   // --------------------------------------------------------------------------
   /**
-   * @addtogroup cmsis-plus-rtos-c-clock
+   * @addtogroup micro-os-plus-rtos-c-clock
    * @{
    */
 
@@ -993,7 +993,7 @@ extern "C"
 
   // --------------------------------------------------------------------------
   /**
-   * @addtogroup cmsis-plus-rtos-c-timer
+   * @addtogroup micro-os-plus-rtos-c-timer
    * @{
    */
 
@@ -1143,7 +1143,7 @@ extern "C"
 
   // --------------------------------------------------------------------------
   /**
-   * @addtogroup cmsis-plus-rtos-c-mutex
+   * @addtogroup micro-os-plus-rtos-c-mutex
    * @{
    */
 
@@ -1445,7 +1445,7 @@ extern "C"
 
   // --------------------------------------------------------------------------
   /**
-   * @addtogroup cmsis-plus-rtos-c-condvar
+   * @addtogroup micro-os-plus-rtos-c-condvar
    * @{
    */
 
@@ -1637,7 +1637,7 @@ extern "C"
 
   // --------------------------------------------------------------------------
   /**
-   * @addtogroup cmsis-plus-rtos-c-semaphore
+   * @addtogroup micro-os-plus-rtos-c-semaphore
    * @{
    */
 
@@ -1912,7 +1912,7 @@ extern "C"
 
   // --------------------------------------------------------------------------
   /**
-   * @addtogroup cmsis-plus-rtos-c-mempool
+   * @addtogroup micro-os-plus-rtos-c-mempool
    * @{
    */
 
@@ -2118,7 +2118,7 @@ extern "C"
 
   // --------------------------------------------------------------------------
   /**
-   * @addtogroup cmsis-plus-rtos-c-mqueue
+   * @addtogroup micro-os-plus-rtos-c-mqueue
    * @{
    */
 
@@ -2417,7 +2417,7 @@ extern "C"
 
   // --------------------------------------------------------------------------
   /**
-   * @addtogroup cmsis-plus-rtos-c-evflag
+   * @addtogroup micro-os-plus-rtos-c-evflag
    * @{
    */
 
@@ -2631,7 +2631,7 @@ extern "C"
 
   // --------------------------------------------------------------------------
   /**
-   * @addtogroup cmsis-plus-rtos-c-memres
+   * @addtogroup micro-os-plus-rtos-c-memres
    * @{
    */
 

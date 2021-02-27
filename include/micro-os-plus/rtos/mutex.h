@@ -48,21 +48,21 @@ namespace os
     /**
      * @brief POSIX compliant **mutex**.
      * @headerfile os.h <micro-os-plus/rtos.h>
-     * @ingroup cmsis-plus-rtos-mutex
+     * @ingroup micro-os-plus-rtos-mutex
      */
     class mutex : public internal::object_named_system
     {
     public:
       /**
        * @brief Type of variables holding mutex protocols.
-       * @ingroup cmsis-plus-rtos-mutex
+       * @ingroup micro-os-plus-rtos-mutex
        */
       using protocol_t = uint8_t;
 
       /**
        * @brief Mutex protocols.
        * @headerfile os.h <micro-os-plus/rtos.h>
-       * @ingroup cmsis-plus-rtos-mutex
+       * @ingroup micro-os-plus-rtos-mutex
        */
       struct protocol
       {
@@ -100,14 +100,14 @@ namespace os
 
       /**
        * @brief Type of variables holding mutex robustness.
-       * @ingroup cmsis-plus-rtos-mutex
+       * @ingroup micro-os-plus-rtos-mutex
        */
       using robustness_t = uint8_t;
 
       /**
        * @brief Mutex robustness.
        * @headerfile os.h <micro-os-plus/rtos.h>
-       * @ingroup cmsis-plus-rtos-mutex
+       * @ingroup micro-os-plus-rtos-mutex
        */
       struct robustness
       {
@@ -140,14 +140,14 @@ namespace os
 
       /**
        * @brief Type of variables holding mutex behaviours.
-       * @ingroup cmsis-plus-rtos-mutex
+       * @ingroup micro-os-plus-rtos-mutex
        */
       using type_t = uint8_t;
 
       /**
        * @brief Mutex types.
        * @headerfile os.h <micro-os-plus/rtos.h>
-       * @ingroup cmsis-plus-rtos-mutex
+       * @ingroup micro-os-plus-rtos-mutex
        */
       struct type
       {
@@ -183,13 +183,13 @@ namespace os
 
       /**
        * @brief Type of variables holding mutex recursion counters.
-       * @ingroup cmsis-plus-rtos-mutex
+       * @ingroup micro-os-plus-rtos-mutex
        */
       using count_t = uint16_t;
 
       /**
        * @brief Constant with the maximum value for the recursion counter.
-       * @ingroup cmsis-plus-rtos-mutex
+       * @ingroup micro-os-plus-rtos-mutex
        */
       static constexpr count_t max_count = 0xFFFF;
 
@@ -198,7 +198,7 @@ namespace os
       /**
        * @brief %Mutex attributes.
        * @headerfile os.h <micro-os-plus/rtos.h>
-       * @ingroup cmsis-plus-rtos-mutex
+       * @ingroup micro-os-plus-rtos-mutex
        */
       class attributes : public internal::attributes_clocked
       {
@@ -289,7 +289,7 @@ namespace os
 
       /**
        * @brief Default normal mutex initialiser.
-       * @ingroup cmsis-plus-rtos-mutex
+       * @ingroup micro-os-plus-rtos-mutex
        */
       static const attributes initializer_normal;
 
@@ -298,7 +298,7 @@ namespace os
       /**
        * @brief Recursive mutex attributes.
        * @headerfile os.h <micro-os-plus/rtos.h>
-       * @ingroup cmsis-plus-rtos-mutex
+       * @ingroup micro-os-plus-rtos-mutex
        */
       class attributes_recursive : public attributes
       {
@@ -338,7 +338,7 @@ namespace os
 
       /**
        * @brief Default recursive mutex initialiser.
-       * @ingroup cmsis-plus-rtos-mutex
+       * @ingroup micro-os-plus-rtos-mutex
        */
       static const attributes_recursive initializer_recursive;
 
@@ -700,7 +700,7 @@ namespace os
     /**
      * @brief POSIX compliant **recursive mutex**.
      * @headerfile os.h <micro-os-plus/rtos.h>
-     * @ingroup cmsis-plus-rtos-mutex
+     * @ingroup micro-os-plus-rtos-mutex
      */
     class mutex_recursive : public mutex
     {

@@ -39,7 +39,7 @@ extern "C"
 #endif // __cplusplus
 
   /**
-   * @addtogroup cmsis-plus-app-hooks
+   * @addtogroup micro-os-plus-app-hooks
    * @{
    */
 

@@ -48,32 +48,32 @@ namespace os
     /**
      * @brief User single-shot or periodic **timer**.
      * @headerfile os.h <micro-os-plus/rtos.h>
-     * @ingroup cmsis-plus-rtos-timer
+     * @ingroup micro-os-plus-rtos-timer
      */
     class timer : public internal::object_named_system
     {
     public:
       /**
        * @brief Timer call back function arguments.
-       * @ingroup cmsis-plus-rtos-timer
+       * @ingroup micro-os-plus-rtos-timer
        */
       using func_args_t = void*;
 
       /**
        * @brief Entry point of a timer call back function.
-       * @ingroup cmsis-plus-rtos-timer
+       * @ingroup micro-os-plus-rtos-timer
        */
       using func_t = void (*) (func_args_t args);
 
       /**
        * @brief Type of of variables holding timer run types.
-       * @ingroup cmsis-plus-rtos-timer
+       * @ingroup micro-os-plus-rtos-timer
        */
       using type_t = uint8_t;
 
       /**
        * @brief Timer run types.
-       * @ingroup cmsis-plus-rtos-timer
+       * @ingroup micro-os-plus-rtos-timer
        */
       struct run
       {
@@ -93,14 +93,14 @@ namespace os
 
       /**
        * @brief Type of of variables holding timer states.
-       * @ingroup cmsis-plus-rtos-timer
+       * @ingroup micro-os-plus-rtos-timer
        */
       using state_t = uint8_t;
 
       /**
        * @brief Timer states
        * @headerfile os.h <micro-os-plus/rtos.h>
-       * @ingroup cmsis-plus-rtos-timer
+       * @ingroup micro-os-plus-rtos-timer
        */
       struct state
       {
@@ -123,7 +123,7 @@ namespace os
       /**
        * @brief Timer attributes.
        * @headerfile os.h <micro-os-plus/rtos.h>
-       * @ingroup cmsis-plus-rtos-timer
+       * @ingroup micro-os-plus-rtos-timer
        */
       class attributes : public internal::attributes_clocked
       {
@@ -200,7 +200,7 @@ namespace os
       /**
        * @brief Periodic timer attributes.
        * @headerfile os.h <micro-os-plus/rtos.h>
-       * @ingroup cmsis-plus-rtos-timer
+       * @ingroup micro-os-plus-rtos-timer
        */
       class attributes_periodic : public attributes
       {
@@ -240,7 +240,7 @@ namespace os
 
       /**
        * @brief Default periodic timer initialiser.
-       * @ingroup cmsis-plus-rtos-timer
+       * @ingroup micro-os-plus-rtos-timer
        */
       static const attributes_periodic periodic_initializer;
 

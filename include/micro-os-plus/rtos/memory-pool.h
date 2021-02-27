@@ -53,7 +53,7 @@ namespace os
      * @brief Synchronised **memory pool**, using the
      * default RTOS allocator.
      * @headerfile os.h <micro-os-plus/rtos.h>
-     * @ingroup cmsis-plus-rtos-mempool
+     * @ingroup micro-os-plus-rtos-mempool
      */
     class memory_pool : public internal::object_named_system
     {
@@ -65,7 +65,7 @@ namespace os
        * @details
        * A numeric value that can hold the maximum size of the
        * memory pool, usually a 16-bits unsigned value.
-       * @ingroup cmsis-plus-rtos-mempool
+       * @ingroup micro-os-plus-rtos-mempool
        */
       using size_t = uint16_t;
 
@@ -73,7 +73,7 @@ namespace os
        * @brief Maximum pool size.
        * @details
        * A constant numeric value used to validate the pool size.
-       * @ingroup cmsis-plus-rtos-mempool
+       * @ingroup micro-os-plus-rtos-mempool
        */
       static constexpr memory_pool::size_t max_size
           = static_cast<memory_pool::size_t> (0 - 1);
@@ -83,7 +83,7 @@ namespace os
       /**
        * @brief Memory pool attributes.
        * @headerfile os.h <micro-os-plus/rtos.h>
-       * @ingroup cmsis-plus-rtos-mempool
+       * @ingroup micro-os-plus-rtos-mempool
        */
       class attributes : public internal::attributes_clocked
       {
@@ -147,7 +147,7 @@ namespace os
 
       /**
        * @brief Default memory pool initialiser.
-       * @ingroup cmsis-plus-rtos-mempool
+       * @ingroup micro-os-plus-rtos-mempool
        */
       static const attributes initializer;
 
@@ -526,7 +526,7 @@ namespace os
     /**
      * @brief Template of a synchronised **memory pool** with allocator.
      * @headerfile os.h <micro-os-plus/rtos.h>
-     * @ingroup cmsis-plus-rtos-mempool
+     * @ingroup micro-os-plus-rtos-mempool
      */
     template <typename Allocator = memory::allocator<void*>>
     class memory_pool_allocated : public memory_pool
@@ -604,7 +604,7 @@ namespace os
      * @brief Template of a synchronised **memory pool** with
      * block type and allocator.
      * @headerfile os.h <micro-os-plus/rtos.h>
-     * @ingroup cmsis-plus-rtos-mempool
+     * @ingroup micro-os-plus-rtos-mempool
      */
     template <typename T, typename Allocator = memory::allocator<void*>>
     class memory_pool_typed : public memory_pool_allocated<Allocator>
@@ -730,7 +730,7 @@ namespace os
      * @brief Template of a synchronised **memory pool** with
      * block type and local storage.
      * @headerfile os.h <micro-os-plus/rtos.h>
-     * @ingroup cmsis-plus-rtos-mempool
+     * @ingroup micro-os-plus-rtos-mempool
      */
     template <typename T, std::size_t N>
     class memory_pool_inclusive : public memory_pool

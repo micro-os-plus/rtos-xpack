@@ -31,7 +31,7 @@
 // ----------------------------------------------------------------------------
 
 /**
- * @ingroup cmsis-plus-app-config-info
+ * @ingroup micro-os-plus-app-config-info
  * @{
  */
 

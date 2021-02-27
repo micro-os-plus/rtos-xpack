@@ -149,7 +149,7 @@ namespace os
 
       /**
        * @brief Get the interrupts stack
-       * @ingroup cmsis-plus-rtos-core
+       * @ingroup micro-os-plus-rtos-core
        * @par Parameters
        *  None.
        * @return Pointer to stack object instance.
@@ -168,7 +168,7 @@ namespace os
     /**
      * @brief  Create an object that is owned by a `shared_ptr` and is
      *  allocated using the RTOS system allocator.
-     * @ingroup cmsis-plus-rtos-memres
+     * @ingroup micro-os-plus-rtos-memres
      * @param  args  Arguments for the _T_ object's constructor.
      * @return A shared_ptr that owns the newly created object.
      * @throw * An exception may be thrown from `allocate()` or

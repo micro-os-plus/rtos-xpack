@@ -93,7 +93,7 @@ namespace os
       // ----------------------------------------------------------------------
 
       /**
-       * @addtogroup cmsis-plus-rtos-memres
+       * @addtogroup micro-os-plus-rtos-memres
        * @{
        */
 

@@ -46,7 +46,7 @@ namespace os
     /**
      * @brief POSIX compliant **condition variable**.
      * @headerfile os.h <micro-os-plus/rtos.h>
-     * @ingroup cmsis-plus-rtos-condvar
+     * @ingroup micro-os-plus-rtos-condvar
      */
     class condition_variable : public internal::object_named_system
     {
@@ -56,7 +56,7 @@ namespace os
       /**
        * @brief Condition variable attributes.
        * @headerfile os.h <micro-os-plus/rtos.h>
-       * @ingroup cmsis-plus-rtos-condvar
+       * @ingroup micro-os-plus-rtos-condvar
        */
       class attributes : public internal::attributes_clocked
       {
@@ -109,7 +109,7 @@ namespace os
 
       /**
        * @brief Default condition variable initialiser.
-       * @ingroup cmsis-plus-rtos-condvar
+       * @ingroup micro-os-plus-rtos-condvar
        */
       static const attributes initializer;
 

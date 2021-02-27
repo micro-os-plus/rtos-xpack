@@ -90,7 +90,7 @@ extern "C"
   } os_internal_clock_timestamps_list_t;
 
   /**
-   * @addtogroup cmsis-plus-rtos-c-core
+   * @addtogroup micro-os-plus-rtos-c-core
    * @{
    */
 
@@ -269,7 +269,7 @@ extern "C"
 #define OS_THREAD_PRIO_SHIFT (4)
 
   /**
-   * @addtogroup cmsis-plus-rtos-c-thread
+   * @addtogroup micro-os-plus-rtos-c-thread
    * @{
    */
 
@@ -617,7 +617,7 @@ extern "C"
 
   // ==========================================================================
   /**
-   * @addtogroup cmsis-plus-rtos-c-clock
+   * @addtogroup micro-os-plus-rtos-c-clock
    * @{
    */
 
@@ -676,7 +676,7 @@ extern "C"
 #pragma GCC diagnostic pop
 
   /**
-   * @addtogroup cmsis-plus-rtos-c-timer
+   * @addtogroup micro-os-plus-rtos-c-timer
    * @{
    */
 
@@ -807,7 +807,7 @@ extern "C"
   typedef uint8_t os_mutex_robustness_t;
 
   /**
-   * @addtogroup cmsis-plus-rtos-c-mutex
+   * @addtogroup micro-os-plus-rtos-c-mutex
    * @{
    */
 
@@ -995,7 +995,7 @@ extern "C"
 
   // ==========================================================================
   /**
-   * @addtogroup cmsis-plus-rtos-c-condvar
+   * @addtogroup micro-os-plus-rtos-c-condvar
    * @{
    */
 
@@ -1059,7 +1059,7 @@ extern "C"
 
   // ==========================================================================
   /**
-   * @addtogroup cmsis-plus-rtos-c-semaphore
+   * @addtogroup micro-os-plus-rtos-c-semaphore
    * @{
    */
 
@@ -1152,7 +1152,7 @@ extern "C"
   typedef uint16_t os_mempool_size_t;
 
   /**
-   * @addtogroup cmsis-plus-rtos-c-mempool
+   * @addtogroup micro-os-plus-rtos-c-mempool
    * @{
    */
 
@@ -1252,7 +1252,7 @@ typedef uint8_t os_mqueue_size_t;
   typedef os_mqueue_size_t os_mqueue_index_t;
 
   /**
-   * @addtogroup cmsis-plus-rtos-c-mqueue
+   * @addtogroup micro-os-plus-rtos-c-mqueue
    * @{
    */
 
@@ -1362,7 +1362,7 @@ typedef uint8_t os_mqueue_size_t;
 
   // ==========================================================================
   /**
-   * @addtogroup cmsis-plus-rtos-c-evflag
+   * @addtogroup micro-os-plus-rtos-c-evflag
    * @{
    */
 
@@ -1436,7 +1436,7 @@ typedef uint8_t os_mqueue_size_t;
 
   // ==========================================================================
   /**
-   * @addtogroup cmsis-plus-rtos-c-clock
+   * @addtogroup micro-os-plus-rtos-c-clock
    * @{
    */
 
@@ -1467,7 +1467,7 @@ typedef uint8_t os_mqueue_size_t;
 
   // ==========================================================================
   /**
-   * @addtogroup cmsis-plus-rtos-c-memres
+   * @addtogroup micro-os-plus-rtos-c-memres
    * @{
    */
 

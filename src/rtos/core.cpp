@@ -640,7 +640,7 @@ __errno (void);
 
 /**
  * @brief Per-thread error support.
- * @ingroup cmsis-plus-rtos-c
+ * @ingroup micro-os-plus-rtos-c
  * @details
  * Standard C libraries define `errno` as a macro to a function returning
  * a pointer. This function returns such a pointer, specific to each

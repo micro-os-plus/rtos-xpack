@@ -50,7 +50,7 @@ namespace os
     /**
      * @brief Synchronised **event flags**.
      * @headerfile os.h <micro-os-plus/rtos.h>
-     * @ingroup cmsis-plus-rtos-evflag
+     * @ingroup micro-os-plus-rtos-evflag
      */
     class event_flags : public internal::object_named_system
     {
@@ -60,7 +60,7 @@ namespace os
       /**
        * @brief Event flags attributes.
        * @headerfile os.h <micro-os-plus/rtos.h>
-       * @ingroup cmsis-plus-rtos-evflag
+       * @ingroup micro-os-plus-rtos-evflag
        */
       class attributes : public internal::attributes_clocked
       {
@@ -113,7 +113,7 @@ namespace os
 
       /**
        * @brief Default event flags initialiser.
-       * @ingroup cmsis-plus-rtos-evflag
+       * @ingroup micro-os-plus-rtos-evflag
        */
       static const attributes initializer;
 

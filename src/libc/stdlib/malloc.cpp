@@ -42,7 +42,7 @@ using namespace os;
 // ----------------------------------------------------------------------------
 
 /**
- * @addtogroup cmsis-plus-rtos-c-memres
+ * @addtogroup micro-os-plus-rtos-c-memres
  * @{
  */
 

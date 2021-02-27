@@ -180,7 +180,7 @@ namespace os
 
     /**
      * @brief Scheduler namespace.
-     * @ingroup cmsis-plus-rtos-core
+     * @ingroup micro-os-plus-rtos-core
      */
     namespace scheduler
     {
@@ -200,7 +200,7 @@ namespace os
 
     /**
      * @brief Statistics namespace.
-     * @ingroup cmsis-plus-rtos-core
+     * @ingroup micro-os-plus-rtos-core
      */
     namespace statistics
     {
@@ -220,7 +220,7 @@ namespace os
 
     /**
      * @brief Interrupts namespace.
-     * @ingroup cmsis-plus-rtos-core
+     * @ingroup micro-os-plus-rtos-core
      */
     namespace interrupts
     {
@@ -241,7 +241,7 @@ namespace os
 
     /**
      * @brief Generic flags namespace.
-     * @ingroup cmsis-plus-rtos-core
+     * @ingroup micro-os-plus-rtos-core
      * @details
      * The os::rtos::flags namespace groups event types and enumerations.
      */
@@ -318,7 +318,7 @@ namespace os
 
     /**
      * @brief A convenience namespace to access the current running thread.
-     * @ingroup cmsis-plus-rtos-thread
+     * @ingroup micro-os-plus-rtos-thread
      */
     namespace this_thread
     {

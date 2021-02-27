@@ -56,7 +56,7 @@ namespace os
       /**
        * @brief Type of allocator used by the system objects.
        *  Must be stateless.
-       * @ingroup cmsis-plus-rtos-memres
+       * @ingroup micro-os-plus-rtos-memres
        * @tparam T Type of elements to be allocated.
        */
       template <typename T>

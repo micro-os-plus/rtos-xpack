@@ -48,7 +48,7 @@ namespace os
     /**
      * @brief POSIX compliant **semaphore**.
      * @headerfile os.h <micro-os-plus/rtos.h>
-     * @ingroup cmsis-plus-rtos-semaphore
+     * @ingroup micro-os-plus-rtos-semaphore
      */
     class semaphore : public internal::object_named_system
     {
@@ -58,7 +58,7 @@ namespace os
        * @details
        * A numeric value enough to hold the semaphore counter,
        * usually a 16-bits signed value.
-       * @ingroup cmsis-plus-rtos-semaphore
+       * @ingroup micro-os-plus-rtos-semaphore
        */
       using count_t = int16_t;
 
@@ -66,7 +66,7 @@ namespace os
        * @brief Maximum semaphore value.
        * @details
        * Used to validate the semaphore initial count and max count.
-       * @ingroup cmsis-plus-rtos-semaphore
+       * @ingroup micro-os-plus-rtos-semaphore
        */
       static constexpr count_t max_count_value = 0x7FFF;
 
@@ -75,7 +75,7 @@ namespace os
       /**
        * @brief Semaphore attributes.
        * @headerfile os.h <micro-os-plus/rtos.h>
-       * @ingroup cmsis-plus-rtos-semaphore
+       * @ingroup micro-os-plus-rtos-semaphore
        */
       class attributes : public internal::attributes_clocked
       {
@@ -153,7 +153,7 @@ namespace os
       /**
        * @brief Binary semaphore attributes.
        * @headerfile os.h <micro-os-plus/rtos.h>
-       * @ingroup cmsis-plus-rtos-semaphore
+       * @ingroup micro-os-plus-rtos-semaphore
        */
       class attributes_binary : public attributes
       {
@@ -192,7 +192,7 @@ namespace os
 
       /**
        * @brief Default binary semaphore initialiser.
-       * @ingroup cmsis-plus-rtos-semaphore
+       * @ingroup micro-os-plus-rtos-semaphore
        */
       static const attributes_binary initializer_binary;
 
@@ -201,7 +201,7 @@ namespace os
       /**
        * @brief Counting semaphore attributes.
        * @headerfile os.h <micro-os-plus/rtos.h>
-       * @ingroup cmsis-plus-rtos-semaphore
+       * @ingroup micro-os-plus-rtos-semaphore
        */
       class attributes_counting : public attributes
       {
@@ -496,7 +496,7 @@ namespace os
     /**
      * @brief POSIX compliant **binary semaphore**.
      * @headerfile os.h <micro-os-plus/rtos.h>
-     * @ingroup cmsis-plus-rtos-semaphore
+     * @ingroup micro-os-plus-rtos-semaphore
      */
     class semaphore_binary : public semaphore
     {
@@ -569,7 +569,7 @@ namespace os
     /**
      * @brief POSIX compliant **counting semaphore**.
      * @headerfile os.h <micro-os-plus/rtos.h>
-     * @ingroup cmsis-plus-rtos-semaphore
+     * @ingroup micro-os-plus-rtos-semaphore
      */
     class semaphore_counting : public semaphore
     {

@@ -49,7 +49,7 @@ namespace os
     /**
      * @brief Generic clock.
      * @headerfile os.h <micro-os-plus/rtos.h>
-     * @ingroup cmsis-plus-rtos-clock
+     * @ingroup micro-os-plus-rtos-clock
      */
     class clock : public internal::object_named
     {
@@ -66,7 +66,7 @@ namespace os
        * @details
        * A numeric type intended to store a clock duration, either in ticks
        * or in seconds.
-       * @ingroup cmsis-plus-rtos-clock
+       * @ingroup micro-os-plus-rtos-clock
        */
       using duration_t = port::clock::duration_t;
 
@@ -75,7 +75,7 @@ namespace os
        * @details
        * A numeric type intended to store a clock timestamp, either in ticks
        * or in seconds.
-       * @ingroup cmsis-plus-rtos-clock
+       * @ingroup micro-os-plus-rtos-clock
        */
       using timestamp_t = port::clock::timestamp_t;
 
@@ -85,7 +85,7 @@ namespace os
        * A numeric type intended to store a clock offset
        * (difference to epoch), either in ticks
        * or in seconds.
-       * @ingroup cmsis-plus-rtos-clock
+       * @ingroup micro-os-plus-rtos-clock
        */
       using offset_t = port::clock::offset_t;
 
@@ -312,7 +312,7 @@ namespace os
     /**
      * @brief Adjustable (non-steady) clock.
      * @headerfile os.h <micro-os-plus/rtos.h>
-     * @ingroup cmsis-plus-rtos-clock
+     * @ingroup micro-os-plus-rtos-clock
      */
     class adjustable_clock : public clock
     {
@@ -447,7 +447,7 @@ namespace os
     /**
      * @brief SysTick derived clock.
      * @headerfile os.h <micro-os-plus/rtos.h>
-     * @ingroup cmsis-plus-rtos-clock
+     * @ingroup micro-os-plus-rtos-clock
      */
     class clock_systick : public clock
     {
@@ -568,7 +568,7 @@ namespace os
     /**
      * @brief The system clock object instance.
      * @headerfile os.h <micro-os-plus/rtos.h>
-     * @ingroup cmsis-plus-rtos-clock
+     * @ingroup micro-os-plus-rtos-clock
      */
     extern clock_systick sysclock;
 
@@ -577,7 +577,7 @@ namespace os
     /**
      * @brief Real time clock.
      * @headerfile os.h <micro-os-plus/rtos.h>
-     * @ingroup cmsis-plus-rtos-clock
+     * @ingroup micro-os-plus-rtos-clock
      */
     class clock_rtc : public adjustable_clock
     {
@@ -683,7 +683,7 @@ namespace os
     /**
      * @brief The real time clock object instance.
      * @headerfile os.h <micro-os-plus/rtos.h>
-     * @ingroup cmsis-plus-rtos-clock
+     * @ingroup micro-os-plus-rtos-clock
      */
     extern clock_rtc rtclock;
 
@@ -692,7 +692,7 @@ namespace os
     /**
      * @brief High Resolution derived clock.
      * @headerfile os.h <micro-os-plus/rtos.h>
-     * @ingroup cmsis-plus-rtos-clock
+     * @ingroup micro-os-plus-rtos-clock
      */
     class clock_highres : public clock
     {
@@ -777,7 +777,7 @@ namespace os
     /**
      * @brief The high resolution clock object instance.
      * @headerfile os.h <micro-os-plus/rtos.h>
-     * @ingroup cmsis-plus-rtos-clock
+     * @ingroup micro-os-plus-rtos-clock
      */
     extern clock_highres hrclock;
 
