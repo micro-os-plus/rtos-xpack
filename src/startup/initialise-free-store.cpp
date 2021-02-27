@@ -148,10 +148,9 @@ os_startup_initialize_free_store (void* heap_address,
   {
     static_assert (MICRO_OS_PLUS_INTEGER_RTOS_ALLOC_THREAD_POOL_SIZE > 1,
                    "Mutex pool size must be >1.");
-    rtos::memory::memory_resource* mr
-        = new memory::block_pool_typed_inclusive<
-            rtos::thread, MICRO_OS_PLUS_INTEGER_RTOS_ALLOC_THREAD_POOL_SIZE> (
-            "pool-th");
+    rtos::memory::memory_resource* mr = new memory::block_pool_typed_inclusive<
+        rtos::thread, MICRO_OS_PLUS_INTEGER_RTOS_ALLOC_THREAD_POOL_SIZE> (
+        "pool-th");
 
     // Configure the memory manager to throw an exception when out of memory.
     mr->out_of_memory_handler (os_rtos_system_out_of_memory_hook);
@@ -167,11 +166,10 @@ os_startup_initialize_free_store (void* heap_address,
     static_assert (
         MICRO_OS_PLUS_INTEGER_RTOS_ALLOC_CONDITION_VARIABLE_POOL_SIZE > 1,
         "Mutex pool size must be >1.");
-    rtos::memory::memory_resource* mr
-        = new memory::block_pool_typed_inclusive<
-            rtos::condition_variable,
-            MICRO_OS_PLUS_INTEGER_RTOS_ALLOC_CONDITION_VARIABLE_POOL_SIZE> (
-            "pool-cv");
+    rtos::memory::memory_resource* mr = new memory::block_pool_typed_inclusive<
+        rtos::condition_variable,
+        MICRO_OS_PLUS_INTEGER_RTOS_ALLOC_CONDITION_VARIABLE_POOL_SIZE> (
+        "pool-cv");
 
     // Configure the memory manager to throw an exception when out of memory.
     mr->out_of_memory_handler (os_rtos_system_out_of_memory_hook);
@@ -186,11 +184,9 @@ os_startup_initialize_free_store (void* heap_address,
   {
     static_assert (MICRO_OS_PLUS_INTEGER_RTOS_ALLOC_EVENT_FLAGS_POOL_SIZE > 1,
                    "Mutex pool size must be >1.");
-    rtos::memory::memory_resource* mr
-        = new memory::block_pool_typed_inclusive<
-            rtos::event_flags,
-            MICRO_OS_PLUS_INTEGER_RTOS_ALLOC_EVENT_FLAGS_POOL_SIZE> (
-            "pool-ef");
+    rtos::memory::memory_resource* mr = new memory::block_pool_typed_inclusive<
+        rtos::event_flags,
+        MICRO_OS_PLUS_INTEGER_RTOS_ALLOC_EVENT_FLAGS_POOL_SIZE> ("pool-ef");
 
     // Configure the memory manager to throw an exception when out of memory.
     mr->out_of_memory_handler (os_rtos_system_out_of_memory_hook);
@@ -205,11 +201,9 @@ os_startup_initialize_free_store (void* heap_address,
   {
     static_assert (MICRO_OS_PLUS_INTEGER_RTOS_ALLOC_MEMORY_POOL_POOL_SIZE > 1,
                    "Mutex pool size must be >1.");
-    rtos::memory::memory_resource* mr
-        = new memory::block_pool_typed_inclusive<
-            rtos::memory_pool,
-            MICRO_OS_PLUS_INTEGER_RTOS_ALLOC_MEMORY_POOL_POOL_SIZE> (
-            "pool-mp");
+    rtos::memory::memory_resource* mr = new memory::block_pool_typed_inclusive<
+        rtos::memory_pool,
+        MICRO_OS_PLUS_INTEGER_RTOS_ALLOC_MEMORY_POOL_POOL_SIZE> ("pool-mp");
 
     // Configure the memory manager to throw an exception when out of memory.
     mr->out_of_memory_handler (os_rtos_system_out_of_memory_hook);
@@ -225,11 +219,9 @@ os_startup_initialize_free_store (void* heap_address,
     static_assert (MICRO_OS_PLUS_INTEGER_RTOS_ALLOC_MESSAGE_QUEUE_POOL_SIZE
                        > 1,
                    "Mutex pool size must be >1.");
-    rtos::memory::memory_resource* mr
-        = new memory::block_pool_typed_inclusive<
-            rtos::message_queue,
-            MICRO_OS_PLUS_INTEGER_RTOS_ALLOC_MESSAGE_QUEUE_POOL_SIZE> (
-            "pool-mq");
+    rtos::memory::memory_resource* mr = new memory::block_pool_typed_inclusive<
+        rtos::message_queue,
+        MICRO_OS_PLUS_INTEGER_RTOS_ALLOC_MESSAGE_QUEUE_POOL_SIZE> ("pool-mq");
 
     // Configure the memory manager to throw an exception when out of memory.
     mr->out_of_memory_handler (os_rtos_system_out_of_memory_hook);
@@ -244,10 +236,9 @@ os_startup_initialize_free_store (void* heap_address,
   {
     static_assert (MICRO_OS_PLUS_INTEGER_RTOS_ALLOC_MUTEX_POOL_SIZE > 1,
                    "Mutex pool size must be >1.");
-    rtos::memory::memory_resource* mr
-        = new memory::block_pool_typed_inclusive<
-            rtos::mutex, MICRO_OS_PLUS_INTEGER_RTOS_ALLOC_MUTEX_POOL_SIZE> (
-            "pool-mx");
+    rtos::memory::memory_resource* mr = new memory::block_pool_typed_inclusive<
+        rtos::mutex, MICRO_OS_PLUS_INTEGER_RTOS_ALLOC_MUTEX_POOL_SIZE> (
+        "pool-mx");
 
     // Configure the memory manager to throw an exception when out of memory.
     mr->out_of_memory_handler (os_rtos_system_out_of_memory_hook);
@@ -262,10 +253,9 @@ os_startup_initialize_free_store (void* heap_address,
   {
     static_assert (MICRO_OS_PLUS_INTEGER_RTOS_ALLOC_SEMAPHORE_POOL_SIZE > 1,
                    "Semaphore pool size must be >1.");
-    rtos::memory::memory_resource* mr
-        = new memory::block_pool_typed_inclusive<
-            rtos::semaphore,
-            MICRO_OS_PLUS_INTEGER_RTOS_ALLOC_MUTEX_POOL_SIZE> ("pool-sp");
+    rtos::memory::memory_resource* mr = new memory::block_pool_typed_inclusive<
+        rtos::semaphore, MICRO_OS_PLUS_INTEGER_RTOS_ALLOC_MUTEX_POOL_SIZE> (
+        "pool-sp");
 
     // Configure the memory manager to throw an exception when out of memory.
     mr->out_of_memory_handler (os_rtos_system_out_of_memory_hook);
@@ -280,10 +270,9 @@ os_startup_initialize_free_store (void* heap_address,
   {
     static_assert (MICRO_OS_PLUS_INTEGER_RTOS_ALLOC_TIMER_POOL_SIZE > 1,
                    "Mutex pool size must be >1.");
-    rtos::memory::memory_resource* mr
-        = new memory::block_pool_typed_inclusive<
-            rtos::timer, MICRO_OS_PLUS_INTEGER_RTOS_ALLOC_TIMER_POOL_SIZE> (
-            "pool-tm");
+    rtos::memory::memory_resource* mr = new memory::block_pool_typed_inclusive<
+        rtos::timer, MICRO_OS_PLUS_INTEGER_RTOS_ALLOC_TIMER_POOL_SIZE> (
+        "pool-tm");
 
     // Configure the memory manager to throw an exception when out of memory.
     mr->out_of_memory_handler (os_rtos_system_out_of_memory_hook);

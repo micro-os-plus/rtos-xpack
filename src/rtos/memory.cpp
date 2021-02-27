@@ -67,11 +67,13 @@ namespace micro_os_plus
 
       static std::aligned_storage<
           sizeof (micro_os_plus::memory::malloc_memory_resource),
-          alignof (micro_os_plus::memory::malloc_memory_resource)>::type malloc_res;
+          alignof (micro_os_plus::memory::malloc_memory_resource)>::type
+          malloc_res;
 
       static std::aligned_storage<
           sizeof (micro_os_plus::memory::null_memory_resource),
-          alignof (micro_os_plus::memory::null_memory_resource)>::type null_res;
+          alignof (micro_os_plus::memory::null_memory_resource)>::type
+          null_res;
 
       static std::aligned_storage<
           sizeof (micro_os_plus::memory::new_delete_memory_resource),
@@ -88,9 +90,11 @@ namespace micro_os_plus
 
             trace::printf ("rtos::memory::%s() \n", __func__);
 
-            new (&malloc_res) micro_os_plus::memory::malloc_memory_resource ("malloc");
+            new (&malloc_res)
+                micro_os_plus::memory::malloc_memory_resource ("malloc");
             new (&null_res) micro_os_plus::memory::null_memory_resource ();
-            new (&new_delete_res) micro_os_plus::memory::new_delete_memory_resource ();
+            new (&new_delete_res)
+                micro_os_plus::memory::new_delete_memory_resource ();
           }
       }
 
