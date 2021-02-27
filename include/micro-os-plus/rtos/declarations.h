@@ -45,7 +45,7 @@
 /**
  * @brief System namespace.
  */
-namespace os
+namespace micro_os_plus
 {
   /**
    * @brief RTOS namespace.
@@ -243,7 +243,8 @@ namespace os
      * @brief Generic flags namespace.
      * @ingroup micro-os-plus-rtos-core
      * @details
-     * The os::rtos::flags namespace groups event types and enumerations.
+     * The micro_os_plus::rtos::flags namespace groups event types and
+     * enumerations.
      */
     namespace flags
     {
@@ -598,10 +599,11 @@ namespace os
          * @brief Attribute with the address of the clock to be used
          *  for timeouts.
          * @details
-         * It may be one of `os::rtos::sysclock`, `os::rtos::rtclock`,
-         * or any other user object derived from class `os::rtos::clock`.
+         * It may be one of `micro_os_plus::rtos::sysclock`,
+         * `micro_os_plus::rtos::rtclock`, or any other user object derived
+         * from class `micro_os_plus::rtos::clock`.
          *
-         * If `nullptr`, the default clock is `os::rtos::sysclock`.
+         * If `nullptr`, the default clock is `micro_os_plus::rtos::sysclock`.
          */
         rtos::clock* clock = nullptr;
 
@@ -705,11 +707,11 @@ namespace os
 
     // ==========================================================================
   } // namespace rtos
-} // namespace os
+} // namespace micro_os_plus
 
 // ===== Inline & template implementations ====================================
 
-namespace os
+namespace micro_os_plus
 {
   namespace rtos
   {
@@ -777,11 +779,11 @@ namespace os
       // ======================================================================
     } // namespace internal
   } // namespace rtos
-} // namespace os
+} // namespace micro_os_plus
 
 // ===== Port related definitions =============================================
 
-namespace os
+namespace micro_os_plus
 {
   namespace rtos
   {
@@ -1033,7 +1035,7 @@ namespace os
 
     } // namespace port
   } // namespace rtos
-} // namespace os
+} // namespace micro_os_plus
 
 // ----------------------------------------------------------------------------
 
@@ -1098,7 +1100,7 @@ extern "C"
   do \
     { \
       if (!(__e)) \
-        os::estd::__throw_system_error (__er, #__e); \
+        micro_os_plus::estd::__throw_system_error (__er, #__e); \
     } \
   while (false)
 #else
@@ -1120,12 +1122,12 @@ extern "C"
 
 #if !defined(MICRO_OS_PLUS_INTEGER_RTOS_MAIN_STACK_SIZE_BYTES)
 #define MICRO_OS_PLUS_INTEGER_RTOS_MAIN_STACK_SIZE_BYTES \
-  (os::rtos::port::stack::default_size_bytes)
+  (micro_os_plus::rtos::port::stack::default_size_bytes)
 #endif
 
 #if !defined(MICRO_OS_PLUS_INTEGER_RTOS_IDLE_STACK_SIZE_BYTES)
 #define MICRO_OS_PLUS_INTEGER_RTOS_IDLE_STACK_SIZE_BYTES \
-  (os::rtos::port::stack::default_size_bytes)
+  (micro_os_plus::rtos::port::stack::default_size_bytes)
 #endif
 
 #if !defined(MICRO_OS_PLUS_BOOL_RTOS_SCHEDULER_PREEMPTIVE)

@@ -30,7 +30,8 @@
 
 // ----------------------------------------------------------------------------
 
-using namespace os;
+using namespace micro_os_plus;
+using namespace micro_os_plus::rtos;
 
 // ----------------------------------------------------------------------------
 
@@ -114,8 +115,6 @@ int
 #endif
     main (int argc, char* argv[])
 {
-  using namespace os::rtos;
-
   port::scheduler::greeting ();
 
   trace::printf ("Scheduler frequency: %u ticks/sec.\n",

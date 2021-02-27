@@ -59,7 +59,7 @@ os_rtos_idle_actions (void);
  * @endcond
  */
 
-namespace os
+namespace micro_os_plus
 {
   namespace rtos
   {
@@ -254,8 +254,8 @@ namespace os
       /**
        * @brief Thread priorities.
        * @details
-       * The os::rtos::thread::priority definition is a container for
-       * priorities not restricted to an enumeration.
+       * The micro_os_plus::rtos::thread::priority definition is a container
+       * for priorities not restricted to an enumeration.
        * @headerfile os.h <micro-os-plus/rtos.h>
        * @ingroup micro-os-plus-rtos-thread
        */
@@ -338,7 +338,7 @@ namespace os
       /**
        * @brief Thread states.
        * @details
-       * The os::rtos::thread::state definition is a container for
+       * The micro_os_plus::rtos::thread::state definition is a container for
        * thread states.
        * @headerfile os.h <micro-os-plus/rtos.h>
        * @ingroup micro-os-plus-rtos-thread
@@ -410,7 +410,7 @@ namespace os
          * The stack is organised as an array of platform words
          * (usually 4-bytes long on Cortex-M cores).
          */
-        using element_t = os::rtos::port::stack::element_t;
+        using element_t = micro_os_plus::rtos::port::stack::element_t;
 
         /**
          * @brief Type of a stack allocation element.
@@ -419,9 +419,9 @@ namespace os
          * larger chunks, usually 8-bytes long on Cortex-M cores.
          */
         using allocation_element_t
-            = os::rtos::port::stack::allocation_element_t;
+            = micro_os_plus::rtos::port::stack::allocation_element_t;
 
-        static const element_t magic = os::rtos::port::stack::magic;
+        static const element_t magic = micro_os_plus::rtos::port::stack::magic;
 
         /**
          * @name Constructors & Destructor
@@ -1837,11 +1837,11 @@ namespace os
 #pragma GCC diagnostic pop
 
   } // namespace rtos
-} // namespace os
+} // namespace micro_os_plus
 
 // ===== Inline & template implementations ====================================
 
-namespace os
+namespace micro_os_plus
 {
   namespace rtos
   {
@@ -2759,7 +2759,7 @@ namespace os
     }
 
   } // namespace rtos
-} // namespace os
+} // namespace micro_os_plus
 
 // ----------------------------------------------------------------------------
 

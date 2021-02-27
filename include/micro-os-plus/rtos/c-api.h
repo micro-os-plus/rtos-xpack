@@ -1393,7 +1393,7 @@ extern "C"
   /**
    * @brief Get the mutex type.
    * @param [in] mutex Pointer to mutex object instance.
-   * @return An integer encoding the @ref os::rtos::mutex::type.
+   * @return An integer encoding the @ref micro_os_plus::rtos::mutex::type.
    */
   os_mutex_type_t
   os_mutex_get_type (os_mutex_t* mutex);
@@ -1401,7 +1401,7 @@ extern "C"
   /**
    * @brief Get the mutex protocol.
    * @param [in] mutex Pointer to mutex object instance.
-   * @return An integer encoding the @ref os::rtos::mutex::protocol.
+   * @return An integer encoding the @ref micro_os_plus::rtos::mutex::protocol.
    */
   os_mutex_protocol_t
   os_mutex_get_protocol (os_mutex_t* mutex);
@@ -1409,7 +1409,8 @@ extern "C"
   /**
    * @brief Get the mutex robustness.
    * @param [in] mutex Pointer to mutex object instance.
-   * @return An integer encoding the @ref os::rtos::mutex::robustness.
+   * @return An integer encoding the @ref
+   * micro_os_plus::rtos::mutex::robustness.
    */
   os_mutex_robustness_t
   os_mutex_get_robustness (os_mutex_t* mutex);

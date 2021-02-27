@@ -112,7 +112,7 @@
 #include <micro-os-plus/rtos/inlines.h>
 #include <micro-os-plus/rtos/port/inlines.h>
 
-namespace os
+namespace micro_os_plus
 {
   namespace rtos
   {
@@ -186,7 +186,7 @@ namespace os
     }
 
   } // namespace rtos
-} // namespace os
+} // namespace micro_os_plus
 
 #endif // __cplusplus
 

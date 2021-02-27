@@ -56,8 +56,8 @@
  * @brief Tell the world that `std::tread` is available.
  * @details
  * For cross builds, standard thread definitions (available in the
- * `os::estd::` namespace) are also aliased or redefined in the `std::`
- * namespace.
+ * `micro_os_plus::estd::` namespace) are also aliased or redefined in the
+ * `std::` namespace.
  */
 
 #if (!(defined(__APPLE__) || defined(__linux__) || defined(__unix__)))

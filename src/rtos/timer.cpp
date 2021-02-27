@@ -29,7 +29,7 @@
 
 // ----------------------------------------------------------------------------
 
-namespace os
+namespace micro_os_plus
 {
   namespace rtos
   {
@@ -83,7 +83,7 @@ namespace os
      * #include <micro-os-plus/rtos.h>
      * #include <cstdlib>
      *
-     * using namespace os::rtos;
+     * using namespace micro_os_plus::rtos;
      *
      * // Thread function.
      * void
@@ -377,6 +377,6 @@ namespace os
     // ------------------------------------------------------------------------
 
   } // namespace rtos
-} // namespace os
+} // namespace micro_os_plus
 
 // ----------------------------------------------------------------------------

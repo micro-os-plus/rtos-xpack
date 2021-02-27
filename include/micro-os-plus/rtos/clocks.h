@@ -36,7 +36,7 @@
 
 // ----------------------------------------------------------------------------
 
-namespace os
+namespace micro_os_plus
 {
   namespace rtos
   {
@@ -783,11 +783,11 @@ namespace os
     extern clock_highres hrclock;
 
   } // namespace rtos
-} // namespace os
+} // namespace micro_os_plus
 
 // ===== Inline & template implementations ====================================
 
-namespace os
+namespace micro_os_plus
 {
   namespace rtos
   {
@@ -893,7 +893,7 @@ namespace os
     // ========================================================================
 
   } // namespace rtos
-} // namespace os
+} // namespace micro_os_plus
 
 // ----------------------------------------------------------------------------
 

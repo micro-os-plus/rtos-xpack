@@ -29,7 +29,7 @@
 
 // ----------------------------------------------------------------------------
 
-namespace os
+namespace micro_os_plus
 {
   namespace rtos
   {
@@ -37,7 +37,7 @@ namespace os
 
     /**
      * @details
-     * The os::rtos::semaphore namespace groups semaphore types,
+     * The micro_os_plus::rtos::semaphore namespace groups semaphore types,
      * attributes and initialisers.
      */
 
@@ -762,6 +762,6 @@ namespace os
     // ------------------------------------------------------------------------
 
   } // namespace rtos
-} // namespace os
+} // namespace micro_os_plus
 
 // ----------------------------------------------------------------------------

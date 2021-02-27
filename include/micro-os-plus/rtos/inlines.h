@@ -35,7 +35,7 @@
 // ----------------------------------------------------------------------------
 #if defined(__cplusplus)
 
-namespace os
+namespace micro_os_plus
 {
   namespace rtos
   {
@@ -159,7 +159,7 @@ namespace os
 
     } // namespace internal
   } // namespace rtos
-} // namespace os
+} // namespace micro_os_plus
 
 #endif // __cplusplus
 

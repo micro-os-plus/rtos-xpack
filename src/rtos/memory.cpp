@@ -40,11 +40,11 @@
 
 // ----------------------------------------------------------------------------
 
-using namespace os;
+using namespace micro_os_plus;
 
 // ----------------------------------------------------------------------------
 
-namespace os
+namespace micro_os_plus
 {
   namespace rtos
   {
@@ -66,16 +66,16 @@ namespace os
       // static objects will want to deallocate memory they manage.
 
       static std::aligned_storage<
-          sizeof (os::memory::malloc_memory_resource),
-          alignof (os::memory::malloc_memory_resource)>::type malloc_res;
+          sizeof (micro_os_plus::memory::malloc_memory_resource),
+          alignof (micro_os_plus::memory::malloc_memory_resource)>::type malloc_res;
 
       static std::aligned_storage<
-          sizeof (os::memory::null_memory_resource),
-          alignof (os::memory::null_memory_resource)>::type null_res;
+          sizeof (micro_os_plus::memory::null_memory_resource),
+          alignof (micro_os_plus::memory::null_memory_resource)>::type null_res;
 
       static std::aligned_storage<
-          sizeof (os::memory::new_delete_memory_resource),
-          alignof (os::memory::new_delete_memory_resource)>::type
+          sizeof (micro_os_plus::memory::new_delete_memory_resource),
+          alignof (micro_os_plus::memory::new_delete_memory_resource)>::type
           new_delete_res;
 
       void
@@ -88,9 +88,9 @@ namespace os
 
             trace::printf ("rtos::memory::%s() \n", __func__);
 
-            new (&malloc_res) os::memory::malloc_memory_resource ("malloc");
-            new (&null_res) os::memory::null_memory_resource ();
-            new (&new_delete_res) os::memory::new_delete_memory_resource ();
+            new (&malloc_res) micro_os_plus::memory::malloc_memory_resource ("malloc");
+            new (&null_res) micro_os_plus::memory::null_memory_resource ();
+            new (&new_delete_res) micro_os_plus::memory::new_delete_memory_resource ();
           }
       }
 
@@ -506,9 +506,9 @@ namespace os
 
     } // namespace memory
   } // namespace rtos
-} // namespace os
+} // namespace micro_os_plus
 
-namespace os
+namespace micro_os_plus
 {
   namespace estd
   {
@@ -546,6 +546,6 @@ namespace os
       // Avoid formatter bug
     } // namespace pmr
   } // namespace estd
-} // namespace os
+} // namespace micro_os_plus
 
 // ----------------------------------------------------------------------------

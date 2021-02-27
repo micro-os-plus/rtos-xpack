@@ -44,7 +44,7 @@
 
 #include <memory>
 
-namespace os
+namespace micro_os_plus
 {
   namespace rtos
   {
@@ -67,7 +67,7 @@ namespace os
 
     } // namespace memory
   } // namespace rtos
-} // namespace os
+} // namespace micro_os_plus
 
 // ----------------------------------------------------------------------------
 

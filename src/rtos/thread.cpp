@@ -32,7 +32,7 @@
 
 // ----------------------------------------------------------------------------
 
-namespace os
+namespace micro_os_plus
 {
   namespace rtos
   {
@@ -116,7 +116,7 @@ namespace os
      * #include <micro-os-plus/rtos.h>
      * #include <cstdlib>
      *
-     * using namespace os::rtos;
+     * using namespace micro_os_plus::rtos;
      *
      * // Thread function.
      * void*
@@ -1520,8 +1520,8 @@ namespace os
     // ------------------------------------------------------------------------
     /**
      * @details
-     * The os::rtos::this_thread namespace groups functions related to
-     * the current thread.
+     * The micro_os_plus::rtos::this_thread namespace groups functions related
+     * to the current thread.
      */
     namespace this_thread
     {
@@ -1614,6 +1614,6 @@ namespace os
 
     // ------------------------------------------------------------------------
   } // namespace rtos
-} // namespace os
+} // namespace micro_os_plus
 
 // ----------------------------------------------------------------------------

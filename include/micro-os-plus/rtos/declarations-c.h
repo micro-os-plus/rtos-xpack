@@ -103,7 +103,7 @@ extern "C"
    * when the call was successful, must be `0`
    * (`os_ok`) or an error code defined in `<errno.h>` otherwise.
    *
-   * @see os::rtos::result_t
+   * @see micro_os_plus::rtos::result_t
    */
   typedef uint32_t os_result_t;
 
@@ -116,7 +116,7 @@ extern "C"
    *
    * Both thread event flags and generic event flags use this definition.
    *
-   * @see os::rtos::flags::mode_t
+   * @see micro_os_plus::rtos::flags::mode_t
    */
   typedef uint32_t os_flags_mode_t;
 
@@ -129,14 +129,14 @@ extern "C"
    *
    * Both thread event flags and generic event flags use this definition.
    *
-   * @see os::rtos::flags::mask_t
+   * @see micro_os_plus::rtos::flags::mask_t
    */
   typedef uint32_t os_flags_mask_t;
 
   /**
    * @brief Bits used to specify the flags modes.
    *
-   * @see os::rtos::flags::mode
+   * @see micro_os_plus::rtos::flags::mode
    */
   enum
   {
@@ -165,7 +165,7 @@ extern "C"
    * locked or not, but for recursive locks it might also be a
    * numeric counter.
    *
-   * @see os::rtos::scheduler::state_t
+   * @see micro_os_plus::rtos::scheduler::state_t
    */
   typedef os_port_scheduler_state_t os_sched_state_t;
 
@@ -179,7 +179,7 @@ extern "C"
    * Used to temporarily store the CPU register
    * during critical sections.
    *
-   * @see os::rtos::interrupts::state_t
+   * @see micro_os_plus::rtos::interrupts::state_t
    */
   typedef os_port_irq_state_t os_irq_state_t;
 
@@ -194,7 +194,7 @@ extern "C"
    * A numeric type intended to store a clock timestamp, either in ticks
    * cycles or seconds.
    *
-   * @see os::rtos::clock::timestamp_t
+   * @see micro_os_plus::rtos::clock::timestamp_t
    */
   typedef os_port_clock_timestamp_t os_clock_timestamp_t;
 
@@ -205,7 +205,7 @@ extern "C"
    * A numeric type intended to store a clock duration, either in ticks
    * cycles, or seconds.
    *
-   * @see os::rtos::clock::duration_t
+   * @see micro_os_plus::rtos::clock::duration_t
    */
   typedef os_port_clock_duration_t os_clock_duration_t;
 
@@ -217,7 +217,7 @@ extern "C"
    * (difference to epoch), either in ticks
    * or in seconds.
    *
-   * @see os::rtos::clock::duration_t
+   * @see micro_os_plus::rtos::clock::duration_t
    */
   typedef os_port_clock_offset_t os_clock_offset_t;
 
@@ -240,14 +240,14 @@ extern "C"
   /**
    * @brief Type of variables holding context switches counters.
    *
-   * @see os::rtos::statistics::counter_t
+   * @see micro_os_plus::rtos::statistics::counter_t
    */
   typedef uint64_t os_statistics_counter_t;
 
   /**
    * @brief Type of variables holding durations in CPU cycles.
    *
-   * @see os::rtos::statistics::duration_t
+   * @see micro_os_plus::rtos::statistics::duration_t
    */
   typedef uint64_t os_statistics_duration_t;
 
@@ -258,7 +258,7 @@ extern "C"
   /**
    * @brief Internal event flags.
    *
-   * @see os::rtos::internal::event_flags
+   * @see micro_os_plus::rtos::internal::event_flags
    */
   typedef struct os_internal_evflags_s
   {
@@ -276,7 +276,7 @@ extern "C"
   /**
    * @brief Thread priorities; intermediate values are also possible.
    *
-   * @see os::rtos::thread::state
+   * @see micro_os_plus::rtos::thread::state
    */
   enum
   {
@@ -303,7 +303,7 @@ extern "C"
   /**
    * @brief An enumeration with all possible thread states.
    *
-   * @see os::rtos::thread::state
+   * @see micro_os_plus::rtos::thread::state
    */
   enum
   {
@@ -339,7 +339,7 @@ extern "C"
    * Useful to cast other similar types
    * to silence possible compiler warnings.
    *
-   * @see os::rtos::thread::func_args_t
+   * @see micro_os_plus::rtos::thread::func_args_t
    */
   typedef void* os_thread_func_args_t;
 
@@ -350,14 +350,14 @@ extern "C"
    * Useful to cast other similar types
    * to silence possible compiler warnings.
    *
-   * @see os::rtos::thread::func_t
+   * @see micro_os_plus::rtos::thread::func_t
    */
   typedef void* (*os_thread_func_t) (os_thread_func_args_t args);
 
   /**
    * @brief Type of variables holding thread states.
    *
-   * @see os::rtos::thread::state_t
+   * @see micro_os_plus::rtos::thread::state_t
    */
   typedef uint8_t os_thread_state_t;
 
@@ -371,7 +371,7 @@ extern "C"
    *
    * Higher values represent higher priorities.
    *
-   * @see os::rtos::thread::priority_t
+   * @see micro_os_plus::rtos::thread::priority_t
    */
   typedef uint8_t os_thread_prio_t;
 
@@ -384,7 +384,7 @@ extern "C"
    * A numeric type intended to store a stack word
    * as stored by push instructions.
    *
-   * @see os::rtos::stack::element_t
+   * @see micro_os_plus::rtos::stack::element_t
    */
   typedef os_port_thread_stack_element_t os_thread_stack_element_t;
 
@@ -394,7 +394,7 @@ extern "C"
    * @details
    * A numeric type intended to be used for stack allocations.
    *
-   * @see os::rtos::stack::allocation_element_t
+   * @see micro_os_plus::rtos::stack::allocation_element_t
    */
   typedef os_port_thread_stack_allocation_element_t
       os_thread_stack_allocation_element_t;
@@ -410,7 +410,7 @@ extern "C"
    * The members of this structure are hidden and should not
    * be accessed directly, but through associated functions.
    *
-   * @see os::rtos::thread::stack
+   * @see micro_os_plus::rtos::thread::stack
    */
   typedef struct os_thread_stack_s
   {
@@ -435,7 +435,7 @@ extern "C"
    * The members of this structure are hidden and should not
    * be accessed directly, but through associated functions.
    *
-   * @see os::rtos::thread::context
+   * @see micro_os_plus::rtos::thread::context
    */
   typedef struct os_thread_context_s
   {
@@ -465,7 +465,7 @@ extern "C"
    * The members of this structure are hidden and should not
    * be accessed directly, but through associated functions.
    *
-   * @see os::rtos::thread::statistics
+   * @see micro_os_plus::rtos::thread::statistics
    */
   typedef struct os_thread_statistics_s
   {
@@ -497,7 +497,7 @@ extern "C"
    * Initialise this structure with `os_thread_attr_init()`, and then
    * set any of the individual members directly.
    *
-   * @see os::rtos::thread::attributes
+   * @see micro_os_plus::rtos::thread::attributes
    */
   typedef struct os_thread_attr_s
   {
@@ -553,8 +553,9 @@ extern "C"
    * @headerfile c-api.h <micro-os-plus/rtos/c-api.h>
    *
    * @details
-   * This C structure has the same size as the C++ `os::rtos::thread` object
-   * and must be initialised with `os_thread_create()`.
+   * This C structure has the same size as the C++
+   * `micro_os_plus::rtos::thread` object and must be initialised with
+   * `os_thread_create()`.
    *
    * Later on a pointer to it can be used both in C and C++
    * to refer to the thread object instance.
@@ -562,7 +563,7 @@ extern "C"
    * The members of this structure are hidden and should not
    * be used directly, but only through specific functions.
    *
-   * @see os::rtos::thread
+   * @see micro_os_plus::rtos::thread
    */
   typedef struct os_thread_s
   {
@@ -634,12 +635,13 @@ extern "C"
    * @headerfile c-api.h <micro-os-plus/rtos/c-api.h>
    *
    * @details
-   * This C structure has the same size as the C++ `os::rtos::clock` object.
+   * This C structure has the same size as the C++ `micro_os_plus::rtos::clock`
+   * object.
    *
    * The members of this structure are hidden and should not
    * be used directly, but only through specific functions.
    *
-   * @see os::rtos::clock
+   * @see micro_os_plus::rtos::clock
    */
   typedef struct os_clock_s
   {
@@ -701,7 +703,7 @@ extern "C"
    * Useful to cast other similar types
    * to silence possible compiler warnings.
    *
-   * @see os::rtos::timer::func_args_t
+   * @see micro_os_plus::rtos::timer::func_args_t
    */
   typedef void* os_timer_func_args_t;
 
@@ -712,21 +714,21 @@ extern "C"
    * Useful to cast other similar types
    * to silence possible compiler warnings.
    *
-   * @see os::rtos::timer::func_t
+   * @see micro_os_plus::rtos::timer::func_t
    */
   typedef void (*os_timer_func_t) (os_timer_func_args_t args);
 
   /**
    * @brief Type of variables holding timer types.
    *
-   * @see os::rtos::timer::type_t
+   * @see micro_os_plus::rtos::timer::type_t
    */
   typedef uint8_t os_timer_type_t;
 
   /**
    * @brief Type of variables holding timer states.
    *
-   * @see os::rtos::timer::state_t
+   * @see micro_os_plus::rtos::timer::state_t
    */
   typedef uint8_t os_timer_state_t;
 
@@ -741,7 +743,7 @@ extern "C"
    * Initialise this structure with `os_timer_attr_init()` and then
    * set any of the individual members directly.
    *
-   * @see os::rtos::timer::attributes
+   * @see micro_os_plus::rtos::timer::attributes
    */
   typedef struct os_timer_attr_s
   {
@@ -762,8 +764,8 @@ extern "C"
    * @headerfile c-api.h <micro-os-plus/rtos/c-api.h>
    *
    * @details
-   * This C structure has the same size as the C++ `os::rtos::timer` object
-   * and must be initialised with `os_timer_create()`.
+   * This C structure has the same size as the C++ `micro_os_plus::rtos::timer`
+   * object and must be initialised with `os_timer_create()`.
    *
    * Later on a pointer to it can be used both in C and C++
    * to refer to the timer object instance.
@@ -771,7 +773,7 @@ extern "C"
    * The members of this structure are hidden and should not
    * be used directly, but only through specific functions.
    *
-   * @see os::rtos::timer
+   * @see micro_os_plus::rtos::timer
    */
   typedef struct os_timer_s
   {
@@ -819,7 +821,7 @@ extern "C"
   /**
    * @brief An enumeration with mutex protocols.
    *
-   * @see os::rtos::mutex::protocol
+   * @see micro_os_plus::rtos::mutex::protocol
    */
   enum
   {
@@ -847,7 +849,7 @@ extern "C"
   /**
    * @brief An enumeration with mutex robustness.
    *
-   * @see os::rtos::mutex::robustness
+   * @see micro_os_plus::rtos::mutex::robustness
    */
   enum
   {
@@ -870,7 +872,7 @@ extern "C"
   /**
    * @brief An enumeration with mutex types.
    *
-   * @see os::rtos::mutex::type
+   * @see micro_os_plus::rtos::mutex::type
    */
   enum
   {
@@ -906,7 +908,7 @@ extern "C"
    * Initialise this structure with `os_mutex_attr_init()` and then
    * set any of the individual members directly.
    *
-   * @see os::rtos::mutex::attributes
+   * @see micro_os_plus::rtos::mutex::attributes
    */
   typedef struct os_mutex_attr_s
   {
@@ -947,8 +949,8 @@ extern "C"
    * @headerfile c-api.h <micro-os-plus/rtos/c-api.h>
    *
    * @details
-   * This C structure has the same size as the C++ `os::rtos::mutex` object
-   * and must be initialised with `os_mutex_create()`.
+   * This C structure has the same size as the C++ `micro_os_plus::rtos::mutex`
+   * object and must be initialised with `os_mutex_create()`.
    *
    * Later on a pointer to it can be used both in C and C++
    * to refer to the mutex object instance.
@@ -956,7 +958,7 @@ extern "C"
    * The members of this structure are hidden and should not
    * be used directly, but only through specific functions.
    *
-   * @see os::rtos::mutex
+   * @see micro_os_plus::rtos::mutex
    */
   typedef struct os_mutex_s
   {
@@ -1012,7 +1014,7 @@ extern "C"
    * Initialise this structure with `os_condvar_attr_init()` and then
    * set any of the individual members directly.
    *
-   * @see os::rtos::condition_variable::attributes
+   * @see micro_os_plus::rtos::condition_variable::attributes
    */
   typedef struct os_condvar_attr_s
   {
@@ -1029,7 +1031,7 @@ extern "C"
    *
    * @details
    * This C structure has the same size as the C++
-   * @ref os::rtos::condition_variable
+   * @ref micro_os_plus::rtos::condition_variable
    * object and must be initialised with os_condvar_create().
    *
    * Later on a pointer to it can be used both in C and C++
@@ -1038,7 +1040,7 @@ extern "C"
    * The members of this structure are hidden and should not
    * be used directly, but only through specific functions.
    *
-   * @see os::rtos::condition_variable
+   * @see micro_os_plus::rtos::condition_variable
    */
   typedef struct os_condvar_s
   {
@@ -1071,7 +1073,7 @@ extern "C"
   /**
    * @brief Type of variables holding semaphore counts.
    *
-   * @see os::rtos::semaphore::count_t
+   * @see micro_os_plus::rtos::semaphore::count_t
    */
   typedef int16_t os_semaphore_count_t;
 
@@ -1086,7 +1088,7 @@ extern "C"
    * Initialise this structure with `os_semaphore_attr_init()` and then
    * set any of the individual members directly.
    *
-   * @see os::rtos::semaphore::attributes
+   * @see micro_os_plus::rtos::semaphore::attributes
    */
   typedef struct os_semaphore_attr_s
   {
@@ -1112,8 +1114,9 @@ extern "C"
    * @headerfile c-api.h <micro-os-plus/rtos/c-api.h>
    *
    * @details
-   * This C structure has the same size as the C++ `os::rtos::semaphore`
-   * object and must be initialised with `os_semaphore_create()`.
+   * This C structure has the same size as the C++
+   * `micro_os_plus::rtos::semaphore` object and must be initialised with
+   * `os_semaphore_create()`.
    *
    * Later on a pointer to it can be used both in C and C++
    * to refer to the semaphore object instance.
@@ -1121,7 +1124,7 @@ extern "C"
    * The members of this structure are hidden and should not
    * be used directly, but only through specific functions.
    *
-   * @see os::rtos::semaphore
+   * @see micro_os_plus::rtos::semaphore
    */
   typedef struct os_semaphore_s
   {
@@ -1172,7 +1175,7 @@ extern "C"
    * Initialise this structure with `os_mempool_attr_init()` and then
    * set any of the individual members directly.
    *
-   * @see os::rtos::memory_pool::attributes
+   * @see micro_os_plus::rtos::memory_pool::attributes
    */
   typedef struct os_mempool_attr_s
   {
@@ -1198,8 +1201,9 @@ extern "C"
    * @headerfile c-api.h <micro-os-plus/rtos/c-api.h>
    *
    * @details
-   * This C structure has the same size as the C++ `os::rtos::memory_pool`
-   * object and must be initialised with `os_mempool_create()`.
+   * This C structure has the same size as the C++
+   * `micro_os_plus::rtos::memory_pool` object and must be initialised with
+   * `os_mempool_create()`.
    *
    * Later on a pointer to it can be used both in C and C++
    * to refer to the memory pool object instance.
@@ -1207,7 +1211,7 @@ extern "C"
    * The members of this structure are hidden and should not
    * be used directly, but only through specific functions.
    *
-   * @see os::rtos::memory_pool
+   * @see micro_os_plus::rtos::memory_pool
    */
   typedef struct os_mempool_s
   {
@@ -1264,7 +1268,7 @@ typedef uint8_t os_mqueue_size_t;
   /**
    * @brief Type of variables holding message queue priorities.
    *
-   * @see os::rtos::message_queue::priority_t
+   * @see micro_os_plus::rtos::message_queue::priority_t
    */
   typedef uint8_t os_mqueue_prio_t;
 
@@ -1279,7 +1283,7 @@ typedef uint8_t os_mqueue_size_t;
    * Initialise this structure with `os_mqueue_attr_init()` and then
    * set any of the individual members directly.
    *
-   * @see os::rtos::message_queue::attributes
+   * @see micro_os_plus::rtos::message_queue::attributes
    */
   typedef struct os_mqueue_attr_s
   {
@@ -1305,8 +1309,9 @@ typedef uint8_t os_mqueue_size_t;
    * @headerfile c-api.h <micro-os-plus/rtos/c-api.h>
    *
    * @details
-   * This C structure has the same size as the C++ `os::rtos::message_queue`
-   * object and must be initialised with `os_mqueue_create()`.
+   * This C structure has the same size as the C++
+   * `micro_os_plus::rtos::message_queue` object and must be initialised with
+   * `os_mqueue_create()`.
    *
    * Later on a pointer to it can be used both in C and C++
    * to refer to the message queue object instance.
@@ -1314,7 +1319,7 @@ typedef uint8_t os_mqueue_size_t;
    * The members of this structure are hidden and should not
    * be used directly, but only through specific functions.
    *
-   * @see os::rtos::message_queue
+   * @see micro_os_plus::rtos::message_queue
    */
   typedef struct os_mqueue_s
   {
@@ -1382,7 +1387,7 @@ typedef uint8_t os_mqueue_size_t;
    * Initialise this structure with `os_evflags_attr_init()` and then
    * set any of the individual members directly.
    *
-   * @see os::rtos::event_flags::attributes
+   * @see micro_os_plus::rtos::event_flags::attributes
    */
   typedef struct os_evflags_attr_s
   {
@@ -1398,8 +1403,9 @@ typedef uint8_t os_mqueue_size_t;
    * @headerfile c-api.h <micro-os-plus/rtos/c-api.h>
    *
    * @details
-   * This C structure has the same size as the C++ `os::rtos::event_flags`
-   * object and must be initialised with `os_evflags_create()`.
+   * This C structure has the same size as the C++
+   * `micro_os_plus::rtos::event_flags` object and must be initialised with
+   * `os_evflags_create()`.
    *
    * Later on a pointer to it can be used both in C and C++
    * to refer to the event flags object instance.
@@ -1407,7 +1413,7 @@ typedef uint8_t os_mqueue_size_t;
    * The members of this structure are hidden and should not
    * be used directly, but only through specific functions.
    *
-   * @see os::rtos::event_flags
+   * @see micro_os_plus::rtos::event_flags
    */
   typedef struct os_evflags_s
   {
@@ -1482,12 +1488,12 @@ typedef uint8_t os_mqueue_size_t;
    *
    * @details
    * A pointer to this structure can be used as a pointer to the
-   * `os::rtos::memory::memory_resource` object.
+   * `micro_os_plus::rtos::memory::memory_resource` object.
    *
    * The members of this structure are hidden and should not
    * be used directly, but only through specific functions.
    *
-   * @see os::rtos::memory::memory_resource
+   * @see micro_os_plus::rtos::memory::memory_resource
    */
 
   typedef struct os_memory_s

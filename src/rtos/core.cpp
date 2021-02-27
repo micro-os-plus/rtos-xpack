@@ -29,21 +29,25 @@
 
 // ----------------------------------------------------------------------------
 
+using namespace micro_os_plus;
+
+// ----------------------------------------------------------------------------
+
 namespace
 {
 #if defined(MICRO_OS_PLUS_HAS_INTERRUPTS_STACK)
   // Object used to manage the interrupts stack.
-  class os::rtos::thread::stack interrupts_stack;
+  class rtos::thread::stack interrupts_stack;
 #endif // defined(MICRO_OS_PLUS_HAS_INTERRUPTS_STACK)
   ;
   // Avoid formatter bug
 } // namespace
 
-namespace os
+namespace micro_os_plus
 {
   /**
    * @details
-   * The `os::rtos` namespace groups all RTOS specific declarations,
+   * The `micro_os_plus::rtos` namespace groups all RTOS specific declarations,
    * either directly or via nested namespaces.
    */
   namespace rtos
@@ -51,7 +55,7 @@ namespace os
 
     /**
      * @details
-     * The `os::rtos::scheduler` namespace groups scheduler types
+     * The `micro_os_plus::rtos::scheduler` namespace groups scheduler types
      * and functions.
      */
     namespace scheduler
@@ -487,7 +491,7 @@ namespace os
 
     /**
      * @details
-     * The os::rtos::interrupts namespace groups interrupts related
+     * The micro_os_plus::rtos::interrupts namespace groups interrupts related
      *  types and enumerations.
      */
     namespace interrupts
@@ -628,7 +632,7 @@ namespace os
 
     // ==========================================================================
   } // namespace rtos
-} // namespace os
+} // namespace micro_os_plus
 
 int*
 __errno (void);
@@ -650,7 +654,7 @@ __errno (void);
 int*
 __errno (void)
 {
-  return os::rtos::this_thread::__errno ();
+  return micro_os_plus::rtos::this_thread::__errno ();
 }
 
 /**

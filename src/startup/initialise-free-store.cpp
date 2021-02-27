@@ -39,7 +39,7 @@
 
 // ----------------------------------------------------------------------------
 
-using namespace os;
+using namespace micro_os_plus;
 
 // ----------------------------------------------------------------------------
 
@@ -47,14 +47,14 @@ using namespace os;
 using application_memory_resource
     = MICRO_OS_PLUS_TYPE_APPLICATION_MEMORY_RESOURCE;
 #else
-// using free_store_memory_resource = os::memory::lifo;
-using application_memory_resource = os::memory::first_fit_top;
+// using free_store_memory_resource = memory::lifo;
+using application_memory_resource = memory::first_fit_top;
 #endif
 
 #if defined(MICRO_OS_PLUS_TYPE_RTOS_MEMORY_RESOURCE)
 using rtos_memory_resource = MICRO_OS_PLUS_TYPE_RTOS_MEMORY_RESOURCE;
 #else
-using rtos_memory_resource = os::memory::lifo;
+using rtos_memory_resource = memory::lifo;
 #endif
 
 extern "C" void*
@@ -149,7 +149,7 @@ os_startup_initialize_free_store (void* heap_address,
     static_assert (MICRO_OS_PLUS_INTEGER_RTOS_ALLOC_THREAD_POOL_SIZE > 1,
                    "Mutex pool size must be >1.");
     rtos::memory::memory_resource* mr
-        = new os::memory::block_pool_typed_inclusive<
+        = new memory::block_pool_typed_inclusive<
             rtos::thread, MICRO_OS_PLUS_INTEGER_RTOS_ALLOC_THREAD_POOL_SIZE> (
             "pool-th");
 
@@ -168,7 +168,7 @@ os_startup_initialize_free_store (void* heap_address,
         MICRO_OS_PLUS_INTEGER_RTOS_ALLOC_CONDITION_VARIABLE_POOL_SIZE > 1,
         "Mutex pool size must be >1.");
     rtos::memory::memory_resource* mr
-        = new os::memory::block_pool_typed_inclusive<
+        = new memory::block_pool_typed_inclusive<
             rtos::condition_variable,
             MICRO_OS_PLUS_INTEGER_RTOS_ALLOC_CONDITION_VARIABLE_POOL_SIZE> (
             "pool-cv");
@@ -187,7 +187,7 @@ os_startup_initialize_free_store (void* heap_address,
     static_assert (MICRO_OS_PLUS_INTEGER_RTOS_ALLOC_EVENT_FLAGS_POOL_SIZE > 1,
                    "Mutex pool size must be >1.");
     rtos::memory::memory_resource* mr
-        = new os::memory::block_pool_typed_inclusive<
+        = new memory::block_pool_typed_inclusive<
             rtos::event_flags,
             MICRO_OS_PLUS_INTEGER_RTOS_ALLOC_EVENT_FLAGS_POOL_SIZE> (
             "pool-ef");
@@ -206,7 +206,7 @@ os_startup_initialize_free_store (void* heap_address,
     static_assert (MICRO_OS_PLUS_INTEGER_RTOS_ALLOC_MEMORY_POOL_POOL_SIZE > 1,
                    "Mutex pool size must be >1.");
     rtos::memory::memory_resource* mr
-        = new os::memory::block_pool_typed_inclusive<
+        = new memory::block_pool_typed_inclusive<
             rtos::memory_pool,
             MICRO_OS_PLUS_INTEGER_RTOS_ALLOC_MEMORY_POOL_POOL_SIZE> (
             "pool-mp");
@@ -226,7 +226,7 @@ os_startup_initialize_free_store (void* heap_address,
                        > 1,
                    "Mutex pool size must be >1.");
     rtos::memory::memory_resource* mr
-        = new os::memory::block_pool_typed_inclusive<
+        = new memory::block_pool_typed_inclusive<
             rtos::message_queue,
             MICRO_OS_PLUS_INTEGER_RTOS_ALLOC_MESSAGE_QUEUE_POOL_SIZE> (
             "pool-mq");
@@ -245,7 +245,7 @@ os_startup_initialize_free_store (void* heap_address,
     static_assert (MICRO_OS_PLUS_INTEGER_RTOS_ALLOC_MUTEX_POOL_SIZE > 1,
                    "Mutex pool size must be >1.");
     rtos::memory::memory_resource* mr
-        = new os::memory::block_pool_typed_inclusive<
+        = new memory::block_pool_typed_inclusive<
             rtos::mutex, MICRO_OS_PLUS_INTEGER_RTOS_ALLOC_MUTEX_POOL_SIZE> (
             "pool-mx");
 
@@ -263,7 +263,7 @@ os_startup_initialize_free_store (void* heap_address,
     static_assert (MICRO_OS_PLUS_INTEGER_RTOS_ALLOC_SEMAPHORE_POOL_SIZE > 1,
                    "Semaphore pool size must be >1.");
     rtos::memory::memory_resource* mr
-        = new os::memory::block_pool_typed_inclusive<
+        = new memory::block_pool_typed_inclusive<
             rtos::semaphore,
             MICRO_OS_PLUS_INTEGER_RTOS_ALLOC_MUTEX_POOL_SIZE> ("pool-sp");
 
@@ -281,7 +281,7 @@ os_startup_initialize_free_store (void* heap_address,
     static_assert (MICRO_OS_PLUS_INTEGER_RTOS_ALLOC_TIMER_POOL_SIZE > 1,
                    "Mutex pool size must be >1.");
     rtos::memory::memory_resource* mr
-        = new os::memory::block_pool_typed_inclusive<
+        = new memory::block_pool_typed_inclusive<
             rtos::timer, MICRO_OS_PLUS_INTEGER_RTOS_ALLOC_TIMER_POOL_SIZE> (
             "pool-tm");
 

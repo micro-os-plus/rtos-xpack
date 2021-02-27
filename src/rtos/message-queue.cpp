@@ -29,7 +29,7 @@
 
 // ----------------------------------------------------------------------------
 
-namespace os
+namespace micro_os_plus
 {
   namespace rtos
   {
@@ -94,7 +94,7 @@ namespace os
      *
      * The storage for the message queue is allocated dynamically,
      * using a standard C++11 allocator. By default, this is the
-     * RTOS specific allocator (`os::memory::allocator`).
+     * RTOS specific allocator (`micro_os_plus::memory::allocator`).
      *
      * For special cases, the storage can be allocated outside the
      * class and specified via the `mq_queue_address` and
@@ -169,7 +169,7 @@ namespace os
      *
      * The storage for the message queue is allocated dynamically,
      * using the
-     * RTOS specific allocator (`os::memory::allocator`).
+     * RTOS specific allocator (`micro_os_plus::memory::allocator`).
      *
      * For special cases, the storage can be allocated outside the
      * class and specified via the `mq_queue_address` and
@@ -1572,6 +1572,6 @@ namespace os
     // ------------------------------------------------------------------------
 
   } // namespace rtos
-} // namespace os
+} // namespace micro_os_plus
 
 // ----------------------------------------------------------------------------

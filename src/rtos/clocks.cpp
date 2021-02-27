@@ -29,8 +29,8 @@
 
 // ----------------------------------------------------------------------------
 
-using namespace os;
-using namespace os::rtos;
+using namespace micro_os_plus;
+using namespace micro_os_plus::rtos;
 
 // ----------------------------------------------------------------------------
 
@@ -41,8 +41,6 @@ using namespace os::rtos;
 void
 os_systick_handler (void)
 {
-  using namespace os::rtos;
-
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_SCHEDULER)
   // Prevent scheduler actions before starting it.
   if (scheduler::started ())
@@ -124,7 +122,7 @@ os_rtc_handler (void)
 
 // ----------------------------------------------------------------------------
 
-namespace os
+namespace micro_os_plus
 {
   namespace rtos
   {
@@ -765,6 +763,6 @@ namespace os
     // ------------------------------------------------------------------------
 
   } // namespace rtos
-} // namespace os
+} // namespace micro_os_plus
 
 // ----------------------------------------------------------------------------

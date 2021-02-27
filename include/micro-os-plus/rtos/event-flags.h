@@ -37,7 +37,7 @@
 
 // ----------------------------------------------------------------------------
 
-namespace os
+namespace micro_os_plus
 {
   namespace rtos
   {
@@ -327,11 +327,11 @@ namespace os
 #pragma GCC diagnostic pop
 
   } // namespace rtos
-} // namespace os
+} // namespace micro_os_plus
 
 // ===== Inline & template implementations ====================================
 
-namespace os
+namespace micro_os_plus
 {
   namespace rtos
   {
@@ -341,7 +341,7 @@ namespace os
     }
 
   } // namespace rtos
-} // namespace os
+} // namespace micro_os_plus
 
 // ----------------------------------------------------------------------------
 

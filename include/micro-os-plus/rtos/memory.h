@@ -43,9 +43,9 @@
 
 // These definitions refer only to the RTOS allocators.
 // The application should use the similar ones from the
-// os::estd:: namespace.
+// micro_os_plus::estd:: namespace.
 
-namespace os
+namespace micro_os_plus
 {
   namespace estd
   {
@@ -521,7 +521,7 @@ namespace os
        * @details
        * This class template is used as the default allocator for
        * system classes. It gets memory from the system default memory
-       * manager `os::rtos::memory::get_default_resource()`.
+       * manager `micro_os_plus::rtos::memory::get_default_resource()`.
        *
        * @note As default allocator, this class must be stateless,
        *  i.e. have no member variables.
@@ -1084,11 +1084,11 @@ namespace os
       // ----------------------------------------------------------------------
     } // namespace memory
   } // namespace rtos
-} // namespace os
+} // namespace micro_os_plus
 
 // ===== Inline & template implementations ====================================
 
-namespace os
+namespace micro_os_plus
 {
   namespace rtos
   {
@@ -1753,7 +1753,7 @@ namespace os
       // ----------------------------------------------------------------------
     } // namespace memory
   } // namespace rtos
-} // namespace os
+} // namespace micro_os_plus
 
 // ----------------------------------------------------------------------------
 
