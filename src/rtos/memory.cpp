@@ -114,7 +114,7 @@ namespace os
        */
 
       // The default RTOS system memory resource.
-#if !defined(OS_IS_CROSS_BUILD)
+#if !defined(MICRO_OS_PLUS_IS_CROSS_BUILD)
 
       memory_resource* default_resource __attribute__ ((weak))
       = reinterpret_cast<memory_resource*> (&malloc_res);
@@ -531,7 +531,7 @@ namespace os
         return reinterpret_cast<memory_resource*> (&rtos::memory::null_res);
       }
 
-#if !defined(OS_IS_CROSS_BUILD)
+#if !defined(MICRO_OS_PLUS_IS_CROSS_BUILD)
       memory_resource* default_resource __attribute__ ((weak))
       = reinterpret_cast<memory_resource*> (&rtos::memory::malloc_res);
 #else

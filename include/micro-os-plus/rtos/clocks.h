@@ -460,7 +460,7 @@ namespace os
       /**
        * @brief SysTick frequency in Hz.
        */
-      static constexpr uint32_t frequency_hz = OS_INTEGER_SYSTICK_FREQUENCY_HZ;
+      static constexpr uint32_t frequency_hz = MICRO_OS_PLUS_INTEGER_SYSTICK_FREQUENCY_HZ;
 
       /**
        * @}
@@ -539,7 +539,7 @@ namespace os
        * @cond ignore
        */
 
-#if defined(OS_USE_RTOS_PORT_CLOCK_SYSTICK_WAIT_FOR)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_CLOCK_SYSTICK_WAIT_FOR)
 
       /**
        * @brief Internal wait.
@@ -554,7 +554,7 @@ namespace os
       internal_wait_until_ (timestamp_t timestamp,
                             internal::clock_timestamps_list& list);
 
-#endif // defined(OS_USE_RTOS_PORT_CLOCK_SYSTICK_WAIT_FOR)
+#endif // defined(MICRO_OS_PLUS_USE_RTOS_PORT_CLOCK_SYSTICK_WAIT_FOR)
 
       /**
        * @endcond
@@ -658,7 +658,7 @@ namespace os
        * @cond ignore
        */
 
-#if defined(OS_USE_RTOS_PORT_CLOCK_REALTIME_WAIT_FOR)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_CLOCK_REALTIME_WAIT_FOR)
 
       /**
        * @brief Internal wait.

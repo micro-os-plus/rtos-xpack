@@ -41,10 +41,10 @@
  * Macro to inform the application build that µOS++
  * is in use.
  */
-#define OS_USE_MICRO_OS_PLUS
+#define MICRO_OS_PLUS_USE_MICRO_OS_PLUS
 
 /**
- * @def OS_IS_CROSS_BUILD
+ * @def MICRO_OS_PLUS_IS_CROSS_BUILD
  * @brief Tell the world that this is a cross build.
  * @details
  * Currently only macOS and GNU/Linux are identified as native builds,
@@ -52,7 +52,7 @@
  */
 
 /**
- * @def OS_HAS_STD_THREADS
+ * @def MICRO_OS_PLUS_HAS_STD_THREADS
  * @brief Tell the world that `std::tread` is available.
  * @details
  * For cross builds, standard thread definitions (available in the
@@ -61,9 +61,9 @@
  */
 
 #if (!(defined(__APPLE__) || defined(__linux__) || defined(__unix__)))
-#define OS_IS_CROSS_BUILD
+#define MICRO_OS_PLUS_IS_CROSS_BUILD
 #if !defined(_GLIBCXX_HAS_GTHREADS)
-#define OS_HAS_STD_THREADS
+#define MICRO_OS_PLUS_HAS_STD_THREADS
 #endif
 #endif
 

@@ -940,7 +940,7 @@ namespace os
       public:
         thread () = delete;
 
-#if defined(OS_USE_RTOS_PORT_SCHEDULER)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_SCHEDULER)
 
         static void
         create (rtos::thread* obj);
@@ -1112,24 +1112,24 @@ extern "C"
 // Default definitions for various configuration macros.
 // Redefine them in `<os-app-config.h>` to the actual values.
 
-#if !defined(OS_INTEGER_SYSTICK_FREQUENCY_HZ)
-#define OS_INTEGER_SYSTICK_FREQUENCY_HZ (1000)
+#if !defined(MICRO_OS_PLUS_INTEGER_SYSTICK_FREQUENCY_HZ)
+#define MICRO_OS_PLUS_INTEGER_SYSTICK_FREQUENCY_HZ (1000)
 #endif
 
 // ----------------------------------------------------------------------------
 
-#if !defined(OS_INTEGER_RTOS_MAIN_STACK_SIZE_BYTES)
-#define OS_INTEGER_RTOS_MAIN_STACK_SIZE_BYTES \
+#if !defined(MICRO_OS_PLUS_INTEGER_RTOS_MAIN_STACK_SIZE_BYTES)
+#define MICRO_OS_PLUS_INTEGER_RTOS_MAIN_STACK_SIZE_BYTES \
   (os::rtos::port::stack::default_size_bytes)
 #endif
 
-#if !defined(OS_INTEGER_RTOS_IDLE_STACK_SIZE_BYTES)
-#define OS_INTEGER_RTOS_IDLE_STACK_SIZE_BYTES \
+#if !defined(MICRO_OS_PLUS_INTEGER_RTOS_IDLE_STACK_SIZE_BYTES)
+#define MICRO_OS_PLUS_INTEGER_RTOS_IDLE_STACK_SIZE_BYTES \
   (os::rtos::port::stack::default_size_bytes)
 #endif
 
-#if !defined(OS_BOOL_RTOS_SCHEDULER_PREEMPTIVE)
-#define OS_BOOL_RTOS_SCHEDULER_PREEMPTIVE (true)
+#if !defined(MICRO_OS_PLUS_BOOL_RTOS_SCHEDULER_PREEMPTIVE)
+#define MICRO_OS_PLUS_BOOL_RTOS_SCHEDULER_PREEMPTIVE (true)
 #endif
 
 // ----------------------------------------------------------------------------

@@ -167,7 +167,7 @@ namespace os
     semaphore::semaphore (const char* name, const count_t max_value,
                           const count_t initial_value,
                           const attributes& attr
-#if defined(OS_USE_RTOS_PORT_SEMAPHORE)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_SEMAPHORE)
                           __attribute__ ((unused))
 #endif
                           )
@@ -175,7 +175,7 @@ namespace os
           max_value_ (max_value), //
           initial_value_ (initial_value)
     {
-#if defined(OS_TRACE_RTOS_SEMAPHORE)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_SEMAPHORE)
       trace::printf ("%s() @%p %s %u %u\n", __func__, this, this->name (),
                      initial_value, max_value_);
 #endif
@@ -191,11 +191,11 @@ namespace os
 
       count_ = initial_value;
 
-#if !defined(OS_USE_RTOS_PORT_SEMAPHORE)
+#if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_SEMAPHORE)
       clock_ = attr.clock != nullptr ? attr.clock : &sysclock;
 #endif
 
-#if defined(OS_USE_RTOS_PORT_SEMAPHORE)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_SEMAPHORE)
 
       port::semaphore::create (this);
 
@@ -233,11 +233,11 @@ namespace os
      */
     semaphore::~semaphore ()
     {
-#if defined(OS_TRACE_RTOS_SEMAPHORE)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_SEMAPHORE)
       trace::printf ("%s() @%p %s\n", __func__, this, name ());
 #endif
 
-#if defined(OS_USE_RTOS_PORT_SEMAPHORE)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_SEMAPHORE)
 
       port::semaphore::destroy (this);
 
@@ -259,14 +259,14 @@ namespace os
 
       count_ = initial_value_;
 
-#if !defined(OS_USE_RTOS_PORT_SEMAPHORE)
+#if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_SEMAPHORE)
 
       // Wake-up all threads, if any.
       // Need not be inside the critical section,
       // the list is protected by inner `resume_one()`.
       list_.resume_all ();
 
-#endif // !defined(OS_USE_RTOS_PORT_SEMAPHORE)
+#endif // !defined(MICRO_OS_PLUS_USE_RTOS_PORT_SEMAPHORE)
     }
 
     /*
@@ -279,14 +279,14 @@ namespace os
       if (count_ > 0)
         {
           --count_;
-#if defined(OS_TRACE_RTOS_SEMAPHORE)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_SEMAPHORE)
           trace::printf ("%s() @%p %s >%u\n", __func__, this, name (), count_);
 #endif
           return true;
         }
 
         // Count may be 0.
-#if defined(OS_TRACE_RTOS_SEMAPHORE)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_SEMAPHORE)
       trace::printf ("%s() @%p %s false\n", __func__, this, name ());
 #endif
       return false;
@@ -341,9 +341,9 @@ namespace os
     semaphore::post (void)
     {
 
-#if defined(OS_USE_RTOS_PORT_SEMAPHORE)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_SEMAPHORE)
 
-#if defined(OS_TRACE_RTOS_SEMAPHORE)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_SEMAPHORE)
       trace::printf ("%s() @%p %s\n", __func__, this, name ());
 #endif
 
@@ -360,14 +360,14 @@ namespace os
 
         if (count_ >= this->max_value_)
           {
-#if defined(OS_TRACE_RTOS_SEMAPHORE)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_SEMAPHORE)
             trace::printf ("%s() @%p %s EAGAIN\n", __func__, this, name ());
 #endif
             return EAGAIN;
           }
 
         ++count_;
-#if defined(OS_TRACE_RTOS_SEMAPHORE)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_SEMAPHORE)
         trace::printf ("%s() @%p %s count %u\n", __func__, this, name (),
                        count_);
 #endif
@@ -417,7 +417,7 @@ namespace os
     result_t
     semaphore::wait ()
     {
-#if defined(OS_TRACE_RTOS_SEMAPHORE)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_SEMAPHORE)
       trace::printf ("%s() @%p %s <%u\n", __func__, this, name (), count_);
 #endif
 
@@ -426,7 +426,7 @@ namespace os
       // Don't call this from critical regions.
       os_assert_err (!scheduler::locked (), EPERM);
 
-#if defined(OS_USE_RTOS_PORT_SEMAPHORE)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_SEMAPHORE)
 
       return port::semaphore::wait (this);
 
@@ -477,7 +477,7 @@ namespace os
 
           if (crt_thread.interrupted ())
             {
-#if defined(OS_TRACE_RTOS_SEMAPHORE)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_SEMAPHORE)
               trace::printf ("%s() EINTR @%p %s\n", __func__, this, name ());
 #endif
               return EINTR;
@@ -517,14 +517,14 @@ namespace os
     result_t
     semaphore::try_wait ()
     {
-#if defined(OS_TRACE_RTOS_SEMAPHORE)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_SEMAPHORE)
       trace::printf ("%s() @%p %s <%u\n", __func__, this, name (), count_);
 #endif
 
       // Don't call this from high priority interrupts.
       assert (port::interrupts::is_priority_valid ());
 
-#if defined(OS_USE_RTOS_PORT_SEMAPHORE)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_SEMAPHORE)
 
       return port::semaphore::try_wait (this);
 
@@ -591,7 +591,7 @@ namespace os
     result_t
     semaphore::timed_wait (clock::duration_t timeout)
     {
-#if defined(OS_TRACE_RTOS_SEMAPHORE)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_SEMAPHORE)
       trace::printf ("%s(%u) @%p %s <%u\n", __func__,
                      static_cast<unsigned int> (timeout), this, name (),
                      count_);
@@ -602,7 +602,7 @@ namespace os
       // Don't call this from critical regions.
       os_assert_err (!scheduler::locked (), EPERM);
 
-#if defined(OS_USE_RTOS_PORT_SEMAPHORE)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_SEMAPHORE)
 
       return port::semaphore::timed_wait (this, timeout);
 
@@ -663,7 +663,7 @@ namespace os
 
           if (crt_thread.interrupted ())
             {
-#if defined(OS_TRACE_RTOS_SEMAPHORE)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_SEMAPHORE)
               trace::printf ("%s(%u) EINTR @%p %s\n", __func__,
                              static_cast<unsigned int> (timeout), this,
                              name ());
@@ -673,7 +673,7 @@ namespace os
 
           if (clock_->steady_now () >= timeout_timestamp)
             {
-#if defined(OS_TRACE_RTOS_SEMAPHORE)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_SEMAPHORE)
               trace::printf ("%s(%u) ETIMEDOUT @%p %s\n", __func__,
                              static_cast<unsigned int> (timeout), this,
                              name ());
@@ -715,7 +715,7 @@ namespace os
     semaphore::count_t
     semaphore::value (void) const
     {
-#if !defined(OS_USE_RTOS_PORT_SEMAPHORE)
+#if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_SEMAPHORE)
       return (count_ > 0) ? count_ : 0;
 #else
       return count_;
@@ -734,14 +734,14 @@ namespace os
     result_t
     semaphore::reset (void)
     {
-#if defined(OS_TRACE_RTOS_SEMAPHORE)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_SEMAPHORE)
       trace::printf ("%s() @%p %s <%u\n", __func__, this, name (), count_);
 #endif
 
       // Don't call this from interrupt handlers.
       os_assert_err (!interrupts::in_handler_mode (), EPERM);
 
-#if defined(OS_USE_RTOS_PORT_SEMAPHORE)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_SEMAPHORE)
 
       return port::semaphore::reset (this);
 

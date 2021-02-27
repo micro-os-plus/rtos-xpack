@@ -270,7 +270,7 @@ namespace os
                                             __attribute__ ((unused)))
         : object_named_system{ name }
     {
-#if defined(OS_TRACE_RTOS_CONDVAR)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_CONDVAR)
       trace::printf ("%s() @%p %s\n", __func__, this, this->name ());
 #endif
 
@@ -301,7 +301,7 @@ namespace os
      */
     condition_variable::~condition_variable ()
     {
-#if defined(OS_TRACE_RTOS_CONDVAR)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_CONDVAR)
       trace::printf ("%s() @%p %s\n", __func__, this, name ());
 #endif
 
@@ -349,7 +349,7 @@ namespace os
     result_t
     condition_variable::signal ()
     {
-#if defined(OS_TRACE_RTOS_CONDVAR)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_CONDVAR)
       trace::printf ("%s() @%p %s\n", __func__, this, name ());
 #endif
 
@@ -422,7 +422,7 @@ namespace os
     result_t
     condition_variable::broadcast ()
     {
-#if defined(OS_TRACE_RTOS_CONDVAR)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_CONDVAR)
       trace::printf ("%s() @%p %s\n", __func__, this, name ());
 #endif
 
@@ -525,7 +525,7 @@ namespace os
     result_t
     condition_variable::wait (mutex& mutex)
     {
-#if defined(OS_TRACE_RTOS_CONDVAR)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_CONDVAR)
       trace::printf ("%s() @%p %s\n", __func__, this, name ());
 #endif
 
@@ -672,7 +672,7 @@ namespace os
     result_t
     condition_variable::timed_wait (mutex& mutex, clock::duration_t timeout)
     {
-#if defined(OS_TRACE_RTOS_CONDVAR)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_CONDVAR)
       trace::printf ("%s(%u) @%p %s\n", __func__,
                      static_cast<unsigned int> (timeout), this, name ());
 #endif

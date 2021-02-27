@@ -43,7 +43,7 @@ os_systick_handler (void)
 {
   using namespace os::rtos;
 
-#if defined(OS_USE_RTOS_PORT_SCHEDULER)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_SCHEDULER)
   // Prevent scheduler actions before starting it.
   if (scheduler::started ())
     {
@@ -51,7 +51,7 @@ os_systick_handler (void)
     }
 #endif
 
-#if defined(OS_TRACE_RTOS_SYSCLOCK_TICK)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_SYSCLOCK_TICK)
   trace::putchar ('.');
 #endif
 
@@ -66,7 +66,7 @@ os_systick_handler (void)
   sysclock.internal_check_timestamps ();
   hrclock.internal_check_timestamps ();
 
-#if !defined(OS_INCLUDE_RTOS_REALTIME_CLOCK_DRIVER)
+#if !defined(MICRO_OS_PLUS_INCLUDE_RTOS_REALTIME_CLOCK_DRIVER)
 
   // Simulate an RTC driver.
   static uint32_t ticks = clock_systick::frequency_hz;
@@ -78,15 +78,15 @@ os_systick_handler (void)
       os_rtc_handler ();
     }
 
-#endif // !defined(OS_INCLUDE_RTOS_REALTIME_CLOCK_DRIVER)
+#endif // !defined(MICRO_OS_PLUS_INCLUDE_RTOS_REALTIME_CLOCK_DRIVER)
 
-#if !defined(OS_USE_RTOS_PORT_SCHEDULER)
+#if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_SCHEDULER)
 
   port::scheduler::reschedule ();
 
-#endif // !defined(OS_USE_RTOS_PORT_SCHEDULER)
+#endif // !defined(MICRO_OS_PLUS_USE_RTOS_PORT_SCHEDULER)
 
-#if defined(OS_TRACE_RTOS_SYSCLOCK_TICK)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_SYSCLOCK_TICK)
   trace::putchar (',');
 #endif
 }
@@ -99,7 +99,7 @@ void
 os_rtc_handler (void)
 {
 
-#if defined(OS_USE_RTOS_PORT_SCHEDULER)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_SCHEDULER)
   // Prevent scheduler actions before starting it.
   if (scheduler::started ())
     {
@@ -107,7 +107,7 @@ os_rtc_handler (void)
     }
 #endif
 
-#if defined(OS_TRACE_RTOS_RTC_TICK)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_RTC_TICK)
   trace_putchar ('!');
 #endif
 
@@ -200,7 +200,7 @@ namespace os
     result_t
     clock::sleep_for (duration_t duration)
     {
-#if defined(OS_TRACE_RTOS_CLOCKS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_CLOCKS)
       trace::printf ("%s(%u) %p %s\n", __func__,
                      static_cast<unsigned int> (duration),
                      &this_thread::thread (), this_thread::thread ().name ());
@@ -244,7 +244,7 @@ namespace os
     result_t
     clock::sleep_until (timestamp_t timestamp)
     {
-#if defined(OS_TRACE_RTOS_CLOCKS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_CLOCKS)
       trace::printf ("%s()\n", __func__);
 #endif
 
@@ -285,7 +285,7 @@ namespace os
     result_t
     clock::wait_for (duration_t timeout)
     {
-#if defined(OS_TRACE_RTOS_CLOCKS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_CLOCKS)
       trace::printf ("%s(%u)\n", __func__,
                      static_cast<unsigned int> (timeout));
 #endif
@@ -437,7 +437,7 @@ namespace os
     result_t
     adjustable_clock::sleep_until (timestamp_t timestamp)
     {
-#if defined(OS_TRACE_RTOS_CLOCKS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_CLOCKS)
       trace::printf ("%s()\n", __func__);
 #endif
 
@@ -582,7 +582,7 @@ namespace os
     void
     clock_systick::start (void)
     {
-#if defined(OS_TRACE_RTOS_CLOCKS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_CLOCKS)
       trace::printf ("clock_systick::%s()\n", __func__);
 #endif
       port::clock_systick::start ();
@@ -590,7 +590,7 @@ namespace os
 
     // ------------------------------------------------------------------------
 
-#if defined(OS_USE_RTOS_PORT_CLOCK_SYSTICK_WAIT_FOR)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_CLOCK_SYSTICK_WAIT_FOR)
 
     result_t
     clock_systick::internal_wait_until_ (timestamp_t timestamp,
@@ -609,7 +609,7 @@ namespace os
       return res;
     }
 
-#endif // defined(OS_USE_RTOS_PORT_CLOCK_SYSTICK_WAIT_FOR)
+#endif // defined(MICRO_OS_PLUS_USE_RTOS_PORT_CLOCK_SYSTICK_WAIT_FOR)
 
     // ========================================================================
 
@@ -693,7 +693,7 @@ namespace os
     void
     clock_rtc::start (void)
     {
-#if defined(OS_TRACE_RTOS_CLOCKS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_CLOCKS)
       trace::printf ("clock_rtc::%s()\n", __func__);
 #endif
       // Don't call this from interrupt handlers.
@@ -745,7 +745,7 @@ namespace os
     void
     clock_highres::start (void)
     {
-#if defined(OS_TRACE_RTOS_CLOCKS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_CLOCKS)
       trace::printf ("clock_highres::%s()\n", __func__);
 #endif
 

@@ -53,11 +53,11 @@ namespace os
        */
       extern bool is_started_;
 
-#if !defined(OS_USE_RTOS_PORT_SCHEDULER)
+#if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_SCHEDULER)
       extern bool is_preemptive_;
       extern thread* volatile current_thread_;
       extern internal::ready_threads_list ready_threads_list_;
-#endif // !defined(OS_USE_RTOS_PORT_SCHEDULER)
+#endif // !defined(MICRO_OS_PLUS_USE_RTOS_PORT_SCHEDULER)
 
       extern internal::terminated_threads_list terminated_threads_list_;
 
@@ -427,7 +427,7 @@ namespace os
        */
       namespace statistics
       {
-#if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
+#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
         /**
          * @brief Get the total number of context switches.
@@ -447,9 +447,9 @@ namespace os
          * @endcond
          */
 
-#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
+#endif // defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
-#if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
+#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
         /**
          * @brief Get the total duration of all threads.
@@ -470,7 +470,7 @@ namespace os
          * @endcond
          */
 
-#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
+#endif // defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
       } // namespace statistics
     } // namespace scheduler
@@ -841,7 +841,7 @@ namespace os
       inline bool
       preemptive (void)
       {
-#if !defined(OS_USE_RTOS_PORT_SCHEDULER)
+#if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_SCHEDULER)
         return is_preemptive_;
 #else
         return port::scheduler::preemptive ();
@@ -912,7 +912,7 @@ namespace os
        */
       inline critical_section::critical_section () : state_ (lock ())
       {
-#if defined(OS_TRACE_RTOS_SCHEDULER)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_SCHEDULER)
         trace::printf (" {c ");
 #endif
       }
@@ -926,7 +926,7 @@ namespace os
        */
       inline critical_section::~critical_section ()
       {
-#if defined(OS_TRACE_RTOS_SCHEDULER)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_SCHEDULER)
         trace::printf (" c} ");
 #endif
         locked (state_);
@@ -940,7 +940,7 @@ namespace os
        */
       inline uncritical_section::uncritical_section () : state_ (unlock ())
       {
-#if defined(OS_TRACE_RTOS_SCHEDULER)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_SCHEDULER)
         trace::printf (" {u ");
 #endif
       }
@@ -954,7 +954,7 @@ namespace os
        */
       inline uncritical_section::~uncritical_section ()
       {
-#if defined(OS_TRACE_RTOS_SCHEDULER)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_SCHEDULER)
         trace::printf (" u} ");
 #endif
         locked (state_);
@@ -1018,7 +1018,7 @@ namespace os
 
       namespace statistics
       {
-#if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
+#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
         /**
          * @details
@@ -1029,7 +1029,7 @@ namespace os
          * thread function, to compute percentages.
          *
          * @note This function is available only when
-         * @ref OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES
+         * @ref MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES
          * is defined.
          *
          * @warning Cannot be invoked from Interrupt Service Routines.
@@ -1040,9 +1040,9 @@ namespace os
           return context_switches_;
         }
 
-#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
+#endif // defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
-#if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
+#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
         /**
          * @details
@@ -1054,7 +1054,7 @@ namespace os
          * thread function, to compute percentages.
          *
          * @note This function is available only when
-         * @ref OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES
+         * @ref MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES
          * is defined.
          *
          * @warning Cannot be invoked from Interrupt Service Routines.
@@ -1065,7 +1065,7 @@ namespace os
           return cpu_cycles_;
         }
 
-#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
+#endif // defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
       } // namespace statistics
 

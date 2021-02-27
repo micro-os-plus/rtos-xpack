@@ -283,7 +283,7 @@ namespace os
        * @cond ignore
        */
 
-#if !defined(OS_USE_RTOS_PORT_CONDITION_VARIABLE)
+#if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_CONDITION_VARIABLE)
       internal::waiting_threads_list list_;
       // clock& clock_;
 #endif

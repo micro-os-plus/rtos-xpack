@@ -81,7 +81,7 @@ void __attribute__ ((weak)) os_rtos_idle_actions (void)
       this_thread::yield ();
     }
 
-#if defined(OS_HAS_INTERRUPTS_STACK)
+#if defined(MICRO_OS_PLUS_HAS_INTERRUPTS_STACK)
   // Simple test to verify that the interrupts
   // did not underflow the stack.
   assert (rtos::interrupts::stack ()->check_bottom_magic ());
@@ -93,7 +93,7 @@ void __attribute__ ((weak)) os_rtos_idle_actions (void)
     }
 }
 
-#if !defined(OS_USE_RTOS_PORT_SCHEDULER) || defined(__DOXYGEN__)
+#if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_SCHEDULER) || defined(__DOXYGEN__)
 
 /**
  * @cond ignore
@@ -109,9 +109,9 @@ thread* os_idle_thread;
 #pragma clang diagnostic ignored "-Wmissing-variable-declarations"
 #endif
 
-#if defined(OS_EXCLUDE_DYNAMIC_MEMORY_ALLOCATIONS)
+#if defined(MICRO_OS_PLUS_EXCLUDE_DYNAMIC_MEMORY_ALLOCATIONS)
 
-static thread_inclusive<OS_INTEGER_RTOS_IDLE_STACK_SIZE_BYTES> os_idle_thread_{
+static thread_inclusive<MICRO_OS_PLUS_INTEGER_RTOS_IDLE_STACK_SIZE_BYTES> os_idle_thread_{
   "idle", os_idle, nullptr
 };
 
@@ -119,13 +119,13 @@ static thread_inclusive<OS_INTEGER_RTOS_IDLE_STACK_SIZE_BYTES> os_idle_thread_{
 
 static std::unique_ptr<thread> os_idle_thread_;
 
-#endif // defined(OS_EXCLUDE_DYNAMIC_MEMORY_ALLOCATIONS)
+#endif // defined(MICRO_OS_PLUS_EXCLUDE_DYNAMIC_MEMORY_ALLOCATIONS)
 
 #pragma GCC diagnostic pop
 
 void __attribute__ ((weak)) os_startup_create_thread_idle (void)
 {
-#if defined(OS_EXCLUDE_DYNAMIC_MEMORY_ALLOCATIONS)
+#if defined(MICRO_OS_PLUS_EXCLUDE_DYNAMIC_MEMORY_ALLOCATIONS)
 
   // The thread object instance was created by the static constructors.
   os_idle_thread = &os_idle_thread_;
@@ -133,7 +133,7 @@ void __attribute__ ((weak)) os_startup_create_thread_idle (void)
 #else
 
   thread::attributes attr = thread::initializer;
-  attr.th_stack_size_bytes = OS_INTEGER_RTOS_IDLE_STACK_SIZE_BYTES;
+  attr.th_stack_size_bytes = MICRO_OS_PLUS_INTEGER_RTOS_IDLE_STACK_SIZE_BYTES;
 
   // No need for an explicit delete, it is deallocated by the unique_ptr.
   os_idle_thread_
@@ -141,7 +141,7 @@ void __attribute__ ((weak)) os_startup_create_thread_idle (void)
 
   os_idle_thread = os_idle_thread_.get ();
 
-#endif // defined(OS_EXCLUDE_DYNAMIC_MEMORY_ALLOCATIONS)
+#endif // defined(MICRO_OS_PLUS_EXCLUDE_DYNAMIC_MEMORY_ALLOCATIONS)
 }
 
 void*
@@ -151,7 +151,7 @@ os_idle (thread::func_args_t args __attribute__ ((unused)))
   // The thread was created with the default priority, and the
   // idle thread must run with th lowest possible priority.
 
-#if defined(OS_BOOL_RTOS_THREAD_IDLE_PRIORITY_BELOW_IDLE)
+#if defined(MICRO_OS_PLUS_BOOL_RTMICRO_OS_PLUS_THREAD_IDLE_PRIORITY_BELOW_IDLE)
   // The CMSIS RTOS validator creates threads with `priority::idle`,
   // so, to be sure that the system idle thread has the lowest priority,
   // go one step below the idle priority.
@@ -172,6 +172,6 @@ os_idle (thread::func_args_t args __attribute__ ((unused)))
 /**
  * @endcond
  */
-#endif // !defined(OS_USE_RTOS_PORT_SCHEDULER)
+#endif // !defined(MICRO_OS_PLUS_USE_RTOS_PORT_SCHEDULER)
 
 // ----------------------------------------------------------------------------

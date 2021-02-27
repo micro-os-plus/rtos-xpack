@@ -342,7 +342,7 @@ namespace os
     // Protected internal constructor.
     message_queue::message_queue ()
     {
-#if defined(OS_TRACE_RTOS_MQUEUE)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MQUEUE)
       trace::printf ("%s() @%p %s\n", __func__, this, this->name ());
 #endif
     }
@@ -350,7 +350,7 @@ namespace os
     message_queue::message_queue (const char* name)
         : object_named_system{ name }
     {
-#if defined(OS_TRACE_RTOS_MQUEUE)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MQUEUE)
       trace::printf ("%s() @%p %s\n", __func__, this, this->name ());
 #endif
     }
@@ -425,7 +425,7 @@ namespace os
                                   const allocator_type& allocator)
         : object_named_system{ name }
     {
-#if defined(OS_TRACE_RTOS_MQUEUE)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MQUEUE)
       trace::printf ("%s() @%p %s %u %u\n", __func__, this, this->name (),
                      msgs, msg_size_bytes);
 #endif
@@ -475,11 +475,11 @@ namespace os
      */
     message_queue::~message_queue ()
     {
-#if defined(OS_TRACE_RTOS_MQUEUE)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MQUEUE)
       trace::printf ("%s() @%p %s\n", __func__, this, name ());
 #endif
 
-#if !defined(OS_USE_RTOS_PORT_MESSAGE_QUEUE)
+#if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
 
       // There must be no threads waiting for this queue.
       assert (send_list_.empty ());
@@ -497,7 +497,7 @@ namespace os
                             allocated_queue_size_elements_);
         }
 
-#if defined(OS_USE_RTOS_PORT_MESSAGE_QUEUE)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
 
       port::message_queue::destroy (this);
 
@@ -518,7 +518,7 @@ namespace os
       // Don't call this from interrupt handlers.
       os_assert_throw (!interrupts::in_handler_mode (), EPERM);
 
-#if !defined(OS_USE_RTOS_PORT_MESSAGE_QUEUE)
+#if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
       clock_ = attr.clock != nullptr ? attr.clock : &sysclock;
 #endif
       msg_size_bytes_
@@ -550,12 +550,12 @@ namespace os
           queue_size_bytes_ = attr.mq_queue_size_bytes;
         }
 
-#if defined(OS_TRACE_RTOS_MQUEUE)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MQUEUE)
       trace::printf ("%s() @%p %s %u %u %p %u\n", __func__, this, name (),
                      msgs_, msg_size_bytes_, queue_addr_, queue_size_bytes_);
 #endif
 
-#if !defined(OS_USE_RTOS_PORT_MESSAGE_QUEUE)
+#if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
       std::size_t storage_size
           = compute_allocated_size_bytes<void*> (msgs, msg_size_bytes);
 #endif
@@ -563,7 +563,7 @@ namespace os
         {
           // The queue must be real, and have a non zero size.
           os_assert_throw (queue_size_bytes_ > 0, EINVAL);
-#if defined(OS_USE_RTOS_PORT_MESSAGE_QUEUE)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
           os_assert_throw (queue_size_bytes_
                                >= (std::size_t) (msgs * msg_size_bytes),
                            EINVAL);
@@ -573,7 +573,7 @@ namespace os
 #endif
         }
 
-#if defined(OS_USE_RTOS_PORT_MESSAGE_QUEUE)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
 
       count_ = 0;
       port::message_queue::create (this);
@@ -618,7 +618,7 @@ namespace os
     {
       count_ = 0;
 
-#if !defined(OS_USE_RTOS_PORT_MESSAGE_QUEUE)
+#if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
 
       // Construct a linked list of blocks. Store the pointer at
       // the beginning of each block. Each block
@@ -650,10 +650,10 @@ namespace os
       send_list_.resume_all ();
       receive_list_.resume_all ();
 
-#endif // !defined(OS_USE_RTOS_PORT_MESSAGE_QUEUE)
+#endif // !defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
     }
 
-#if !defined(OS_USE_RTOS_PORT_MESSAGE_QUEUE)
+#if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
 
     /*
      * Internal function.
@@ -749,9 +749,9 @@ namespace os
       return true;
     }
 
-#endif // !defined(OS_USE_RTOS_PORT_MESSAGE_QUEUE)
+#endif // !defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
 
-#if !defined(OS_USE_RTOS_PORT_MESSAGE_QUEUE)
+#if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
 
     /*
      * Internal function.
@@ -771,7 +771,7 @@ namespace os
       char* src = static_cast<char*> (queue_addr_) + head_ * msg_size_bytes_;
       priority_t prio = prio_array_[head_];
 
-#if defined(OS_TRACE_RTOS_MQUEUE_)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MQUEUE_)
       trace::printf ("%s(%p,%u) @%p %s src %p %p\n", __func__, msg, nbytes,
                      this, name (), src, first_free_);
 #endif
@@ -827,7 +827,7 @@ namespace os
       return true;
     }
 
-#endif // !defined(OS_USE_RTOS_PORT_MESSAGE_QUEUE)
+#endif // !defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
 
     /**
      * @endcond
@@ -877,7 +877,7 @@ namespace os
     result_t
     message_queue::send (const void* msg, std::size_t nbytes, priority_t mprio)
     {
-#if defined(OS_TRACE_RTOS_MQUEUE)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MQUEUE)
       trace::printf ("%s(%p,%d,%d) @%p %s\n", __func__, msg, nbytes, mprio,
                      this, name ());
 #endif
@@ -890,7 +890,7 @@ namespace os
       os_assert_err (msg != nullptr, EINVAL);
       os_assert_err (nbytes <= msg_size_bytes_, EMSGSIZE);
 
-#if defined(OS_USE_RTOS_PORT_MESSAGE_QUEUE)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
 
       return port::message_queue::send (this, msg, nbytes, mprio);
 
@@ -939,7 +939,7 @@ namespace os
 
           if (crt_thread.interrupted ())
             {
-#if defined(OS_TRACE_RTOS_MQUEUE)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MQUEUE)
               trace::printf ("%s(%p,%d,%d) EINTR @%p %s\n", __func__, msg,
                              nbytes, mprio, this, name ());
 #endif
@@ -991,7 +991,7 @@ namespace os
     message_queue::try_send (const void* msg, std::size_t nbytes,
                              priority_t mprio)
     {
-#if defined(OS_TRACE_RTOS_MQUEUE)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MQUEUE)
       trace::printf ("%s(%p,%u,%u) @%p %s\n", __func__, msg, nbytes, mprio,
                      this, name ());
 #endif
@@ -999,7 +999,7 @@ namespace os
       os_assert_err (msg != nullptr, EINVAL);
       os_assert_err (nbytes <= msg_size_bytes_, EMSGSIZE);
 
-#if defined(OS_USE_RTOS_PORT_MESSAGE_QUEUE)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
 
       return port::message_queue::try_send (this, msg, nbytes, mprio);
 
@@ -1078,7 +1078,7 @@ namespace os
     message_queue::timed_send (const void* msg, std::size_t nbytes,
                                clock::duration_t timeout, priority_t mprio)
     {
-#if defined(OS_TRACE_RTOS_MQUEUE)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MQUEUE)
       trace::printf ("%s(%p,%u,%u,%u) @%p %s\n", __func__, msg, nbytes, mprio,
                      timeout, this, name ());
 #endif
@@ -1091,7 +1091,7 @@ namespace os
       os_assert_err (msg != nullptr, EINVAL);
       os_assert_err (nbytes <= msg_size_bytes_, EMSGSIZE);
 
-#if defined(OS_USE_RTOS_PORT_MESSAGE_QUEUE)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
 
       return port::message_queue::timed_send (this, msg, nbytes, timeout,
                                               mprio);
@@ -1154,7 +1154,7 @@ namespace os
 
           if (crt_thread.interrupted ())
             {
-#if defined(OS_TRACE_RTOS_MQUEUE)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MQUEUE)
               trace::printf ("%s(%p,%u,%u,%u) EINTR @%p %s\n", __func__, msg,
                              nbytes, mprio, timeout, this, name ());
 #endif
@@ -1163,7 +1163,7 @@ namespace os
 
           if (clock_->steady_now () >= timeout_timestamp)
             {
-#if defined(OS_TRACE_RTOS_MQUEUE)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MQUEUE)
               trace::printf ("%s(%p,%u,%u,%u) ETIMEDOUT @%p %s\n", __func__,
                              msg, nbytes, mprio, timeout, this, name ());
 #endif
@@ -1217,7 +1217,7 @@ namespace os
     result_t
     message_queue::receive (void* msg, std::size_t nbytes, priority_t* mprio)
     {
-#if defined(OS_TRACE_RTOS_MQUEUE)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MQUEUE)
       trace::printf ("%s(%p,%u) @%p %s\n", __func__, msg, nbytes, this,
                      name ());
 #endif
@@ -1230,7 +1230,7 @@ namespace os
       os_assert_err (msg != nullptr, EINVAL);
       os_assert_err (nbytes <= msg_size_bytes_, EMSGSIZE);
 
-#if defined(OS_USE_RTOS_PORT_MESSAGE_QUEUE)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
 
       return port::message_queue::receive (this, msg, nbytes, mprio);
 
@@ -1281,7 +1281,7 @@ namespace os
 
           if (crt_thread.interrupted ())
             {
-#if defined(OS_TRACE_RTOS_MQUEUE)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MQUEUE)
               trace::printf ("%s(%p,%u) EINTR @%p %s\n", __func__, msg, nbytes,
                              this, name ());
 #endif
@@ -1332,7 +1332,7 @@ namespace os
     message_queue::try_receive (void* msg, std::size_t nbytes,
                                 priority_t* mprio)
     {
-#if defined(OS_TRACE_RTOS_MQUEUE)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MQUEUE)
       trace::printf ("%s(%p,%u) @%p %s\n", __func__, msg, nbytes, this,
                      name ());
 #endif
@@ -1340,7 +1340,7 @@ namespace os
       os_assert_err (msg != nullptr, EINVAL);
       os_assert_err (nbytes <= msg_size_bytes_, EMSGSIZE);
 
-#if defined(OS_USE_RTOS_PORT_MESSAGE_QUEUE)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
 
       return port::message_queue::try_receive (this, msg, nbytes, mprio);
 
@@ -1433,7 +1433,7 @@ namespace os
     message_queue::timed_receive (void* msg, std::size_t nbytes,
                                   clock::duration_t timeout, priority_t* mprio)
     {
-#if defined(OS_TRACE_RTOS_MQUEUE)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MQUEUE)
       trace::printf ("%s(%p,%u,%u) @%p %s\n", __func__, msg, nbytes, timeout,
                      this, name ());
 #endif
@@ -1446,7 +1446,7 @@ namespace os
       os_assert_err (msg != nullptr, EINVAL);
       os_assert_err (nbytes <= msg_size_bytes_, EMSGSIZE);
 
-#if defined(OS_USE_RTOS_PORT_MESSAGE_QUEUE)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
 
       return port::message_queue::timed_receive (this, msg, nbytes, timeout,
                                                  mprio);
@@ -1508,7 +1508,7 @@ namespace os
 
           if (crt_thread.interrupted ())
             {
-#if defined(OS_TRACE_RTOS_MQUEUE)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MQUEUE)
               trace::printf ("%s(%p,%u,%u) EINTR @%p %s\n", __func__, msg,
                              nbytes, timeout, this, name ());
 #endif
@@ -1517,7 +1517,7 @@ namespace os
 
           if (clock_->steady_now () >= timeout_timestamp)
             {
-#if defined(OS_TRACE_RTOS_MQUEUE)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MQUEUE)
               trace::printf ("%s(%p,%u,%u) ETIMEDOUT @%p %s\n", __func__, msg,
                              nbytes, timeout, this, name ());
 #endif
@@ -1544,14 +1544,14 @@ namespace os
     result_t
     message_queue::reset (void)
     {
-#if defined(OS_TRACE_RTOS_MQUEUE)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MQUEUE)
       trace::printf ("%s() @%p %s\n", __func__, this, name ());
 #endif
 
       // Don't call this from interrupt handlers.
       os_assert_err (!interrupts::in_handler_mode (), EPERM);
 
-#if defined(OS_USE_RTOS_PORT_MESSAGE_QUEUE)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
 
       return port::message_queue::reset (this);
 

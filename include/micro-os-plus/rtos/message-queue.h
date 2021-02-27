@@ -68,7 +68,7 @@ namespace os
        * queues are needed.
        * @ingroup micro-os-plus-rtos-mqueue
        */
-#if defined(OS_BOOL_RTOS_MESSAGE_QUEUE_SIZE_16BITS)
+#if defined(MICRO_OS_PLUS_BOOL_RTOS_MESSAGE_QUEUE_SIZE_16BITS)
       using size_t = uint16_t;
 #else
       using size_t = uint8_t;
@@ -572,7 +572,7 @@ namespace os
       void
       internal_init_ (void);
 
-#if !defined(OS_USE_RTOS_PORT_MESSAGE_QUEUE)
+#if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
 
       /**
        * @brief Internal function used to enqueue a message, if possible.
@@ -600,7 +600,7 @@ namespace os
       bool
       internal_try_receive_ (void* msg, std::size_t nbytes, priority_t* mprio);
 
-#endif // !defined(OS_USE_RTOS_PORT_MESSAGE_QUEUE)
+#endif // !defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
 
       /**
        * @endcond
@@ -621,7 +621,7 @@ namespace os
        */
 
       // Keep these in sync with the structure declarations in os-c-decl.h.
-#if !defined(OS_USE_RTOS_PORT_MESSAGE_QUEUE)
+#if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
       /**
        * @brief List of threads waiting to send.
        */
@@ -660,7 +660,7 @@ namespace os
        * the beginning is required.
        */
       void* volatile first_free_ = nullptr;
-#endif // !defined(OS_USE_RTOS_PORT_MESSAGE_QUEUE)
+#endif // !defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
 
       /**
        * @brief The static address where the queue is stored
@@ -677,7 +677,7 @@ namespace os
        */
       const void* allocator_ = nullptr;
 
-#if defined(OS_USE_RTOS_PORT_MESSAGE_QUEUE)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
       friend class port::message_queue;
       os_mqueue_port_data_t port_;
 #endif
@@ -705,12 +705,12 @@ namespace os
        */
       message_queue::size_t count_ = 0;
 
-#if !defined(OS_USE_RTOS_PORT_MESSAGE_QUEUE)
+#if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
       /**
        * @brief Index of the first message in the queue.
        */
       index_t head_ = 0;
-#endif // !defined(OS_USE_RTOS_PORT_MESSAGE_QUEUE)
+#endif // !defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
 
       /**
        * @endcond
@@ -1396,7 +1396,7 @@ namespace os
         const attributes& attr, const allocator_type& allocator)
         : message_queue{ name }
     {
-#if defined(OS_TRACE_RTOS_MQUEUE)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MQUEUE)
       trace::printf ("%s() @%p %s %d %d\n", __func__, this, this->name (),
                      msgs, msg_size_bytes);
 #endif
@@ -1447,7 +1447,7 @@ namespace os
     template <typename Allocator>
     message_queue_allocated<Allocator>::~message_queue_allocated ()
     {
-#if defined(OS_TRACE_RTOS_MQUEUE)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MQUEUE)
       trace::printf ("%s() @%p %s\n", __func__, this, name ());
 #endif
       typedef typename std::allocator_traits<allocator_type>::pointer pointer;

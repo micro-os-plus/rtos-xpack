@@ -51,7 +51,7 @@ namespace os
     namespace memory
     {
 
-#if !defined(OS_INCLUDE_RTOS_CUSTOM_ALLOCATOR) || defined(__DOXYGEN__)
+#if !defined(MICRO_OS_PLUS_INCLUDE_RTOS_CUSTOM_ALLOCATOR) || defined(__DOXYGEN__)
 
       /**
        * @brief Type of allocator used by the system objects.
@@ -70,7 +70,7 @@ namespace os
 
 // ----------------------------------------------------------------------------
 
-#if defined(OS_INCLUDE_RTOS_CUSTOM_TYPES)
+#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_CUSTOM_TYPES)
 #include <micro-os-plus/rtos/custom-types.h>
 #endif
 

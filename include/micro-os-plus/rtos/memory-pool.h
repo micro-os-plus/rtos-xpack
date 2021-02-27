@@ -451,7 +451,7 @@ namespace os
        * @cond ignore
        */
 
-#if !defined(OS_USE_RTOS_PORT_MEMORY_POOL)
+#if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_MEMORY_POOL)
       /**
        * @brief List of threads waiting to alloc.
        */
@@ -477,7 +477,7 @@ namespace os
        */
       const void* allocator_ = nullptr;
 
-#if defined(OS_USE_RTOS_PORT_MEMORY_POOL)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MEMORY_POOL)
       friend class port::memory_pool;
       os_mempool_port_data_t port_;
 #endif
@@ -1022,7 +1022,7 @@ namespace os
         const attributes& attr, const allocator_type& allocator)
         : memory_pool{ name }
     {
-#if defined(OS_TRACE_RTOS_MEMPOOL)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MEMPOOL)
       trace::printf ("%s() @%p %s %d %d\n", __func__, this, this->name (),
                      blocks, block_size_bytes);
 #endif
@@ -1074,7 +1074,7 @@ namespace os
     template <typename Allocator>
     memory_pool_allocated<Allocator>::~memory_pool_allocated ()
     {
-#if defined(OS_TRACE_RTOS_MEMPOOL)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MEMPOOL)
       trace::printf ("%s() @%p %s\n", __func__, this, name ());
 #endif
       typedef typename std::allocator_traits<allocator_type>::pointer pointer;

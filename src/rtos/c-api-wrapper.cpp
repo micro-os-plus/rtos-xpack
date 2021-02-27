@@ -369,8 +369,8 @@ static_assert (sizeof (class thread::stack) == sizeof (os_thread_stack_t),
 static_assert (sizeof (class thread::context) == sizeof (os_thread_context_t),
                "adjust size of os_thread_context_t");
 
-#if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES) \
-    || defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
+#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES) \
+    || defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 static_assert (sizeof (class thread::statistics)
                    == sizeof (os_thread_statistics_t),
                "adjust size of os_thread_statistics_t");
@@ -513,7 +513,7 @@ os_sched_set_preemptive (bool state)
   return scheduler::preemptive (state);
 }
 
-#if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
+#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
 /**
  * @details
@@ -530,9 +530,9 @@ os_sched_stat_get_context_switches (void)
       scheduler::statistics::context_switches ());
 }
 
-#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
+#endif // defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
-#if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
+#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
 /**
  * @details
@@ -549,7 +549,7 @@ os_sched_stat_get_cpu_cycles (void)
       scheduler::statistics::cpu_cycles ());
 }
 
-#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
+#endif // defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
 // ----------------------------------------------------------------------------
 
@@ -627,7 +627,7 @@ os_irq_uncritical_exit (os_irq_state_t state)
   interrupts::uncritical_section::exit (state);
 }
 
-#if defined(OS_HAS_INTERRUPTS_STACK) || defined(__DOXYGEN__)
+#if defined(MICRO_OS_PLUS_HAS_INTERRUPTS_STACK) || defined(__DOXYGEN__)
 
 /**
  * @details
@@ -983,13 +983,13 @@ os_thread_get_state (os_thread_t* thread)
       (reinterpret_cast<rtos::thread&> (*thread)).state ());
 }
 
-#if defined(OS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE) || defined(__DOXYGEN__)
+#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE) || defined(__DOXYGEN__)
 
 /**
  * @details
  *
  * @note
- *  Available only when `OS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE`
+ *  Available only when `MICRO_OS_PLUS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE`
  *  is defined.
  *
  * @note Can be invoked from Interrupt Service Routines.
@@ -1004,7 +1004,7 @@ os_thread_get_user_storage (os_thread_t* thread)
   return (reinterpret_cast<rtos::thread&> (*thread)).user_storage ();
 }
 
-#endif // defined(OS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE)
+#endif // defined(MICRO_OS_PLUS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE)
 
 /**
  * @details
@@ -1174,7 +1174,7 @@ os_thread_stack_check_top_magic (os_thread_stack_t* stack)
 
 // ----------------------------------------------------------------------------
 
-#if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
+#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
 /**
  * @details
@@ -1194,9 +1194,9 @@ os_thread_stat_get_context_switches (os_thread_t* thread)
           .context_switches ());
 }
 
-#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
+#endif // defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
-#if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
+#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
 /**
  * @details
@@ -1214,7 +1214,7 @@ os_thread_stat_get_cpu_cycles (os_thread_t* thread)
       (reinterpret_cast<rtos::thread&> (*thread)).statistics ().cpu_cycles ());
 }
 
-#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
+#endif // defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
 // ----------------------------------------------------------------------------
 

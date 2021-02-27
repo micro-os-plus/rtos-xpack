@@ -93,17 +93,17 @@ extern rtos::thread* os_main_thread;
 // Intentionally a raw pointer, to prevent destruction.
 rtos::thread* os_main_thread;
 
-#if defined(OS_EXCLUDE_DYNAMIC_MEMORY_ALLOCATIONS)
+#if defined(MICRO_OS_PLUS_EXCLUDE_DYNAMIC_MEMORY_ALLOCATIONS)
 
 // Necessarily static, on Cortex-M the reset stack will be used
 // as MSP for the interrupts, so the current stack must be freed
 // and os_main() shall run on its own stack.
 using main_thread
-    = rtos::thread_inclusive<OS_INTEGER_RTOS_MAIN_STACK_SIZE_BYTES>;
+    = rtos::thread_inclusive<MICRO_OS_PLUS_INTEGER_RTOS_MAIN_STACK_SIZE_BYTES>;
 static std::aligned_storage<sizeof (main_thread), alignof (main_thread)>::type
     os_main_thread_;
 
-#endif // defined(OS_EXCLUDE_DYNAMIC_MEMORY_ALLOCATIONS)
+#endif // defined(MICRO_OS_PLUS_EXCLUDE_DYNAMIC_MEMORY_ALLOCATIONS)
 
 /**
  * @brief Default implementation of `main()`.
@@ -122,10 +122,10 @@ int
                  rtos::clock_systick::frequency_hz);
   trace::printf ("Default stack size: %u bytes.\n",
                  thread::stack::default_size ());
-#if defined(OS_HAS_INTERRUPTS_STACK)
+#if defined(MICRO_OS_PLUS_HAS_INTERRUPTS_STACK)
   trace::printf ("Interrupts stack size: %u bytes.\n",
                  interrupts::stack ()->size ());
-#endif // defined(OS_HAS_INTERRUPTS_STACK)
+#endif // defined(MICRO_OS_PLUS_HAS_INTERRUPTS_STACK)
 
 #if defined(__clang__)
   trace::printf ("Built with clang " __VERSION__);
@@ -146,7 +146,7 @@ int
   main_args.argc = argc;
   main_args.argv = argv;
 
-#if defined(OS_EXCLUDE_DYNAMIC_MEMORY_ALLOCATIONS)
+#if defined(MICRO_OS_PLUS_EXCLUDE_DYNAMIC_MEMORY_ALLOCATIONS)
 
   // Running the constructor manually has the additional advantage of
   // not registering any destructor, and for main this is important,
@@ -161,16 +161,16 @@ int
 #else
 
   thread::attributes attr = thread::initializer;
-  attr.th_stack_size_bytes = OS_INTEGER_RTOS_MAIN_STACK_SIZE_BYTES;
+  attr.th_stack_size_bytes = MICRO_OS_PLUS_INTEGER_RTOS_MAIN_STACK_SIZE_BYTES;
   os_main_thread = new thread (
       "main", reinterpret_cast<thread::func_t> (_main_trampoline), nullptr,
       attr);
 
-#endif // defined(OS_EXCLUDE_DYNAMIC_MEMORY_ALLOCATIONS)
+#endif // defined(MICRO_OS_PLUS_EXCLUDE_DYNAMIC_MEMORY_ALLOCATIONS)
 
-#if !defined(OS_USE_RTOS_PORT_SCHEDULER)
+#if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_SCHEDULER)
   os_startup_create_thread_idle ();
-#endif // !defined(OS_USE_RTOS_PORT_SCHEDULER)
+#endif // !defined(MICRO_OS_PLUS_USE_RTOS_PORT_SCHEDULER)
 
   // Execution will proceed to first registered thread, possibly
   // "idle", which will immediately lower its priority,

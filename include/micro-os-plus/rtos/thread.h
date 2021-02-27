@@ -25,8 +25,8 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-#ifndef MICRO_OS_PLUS_RTOS_THREAD_H_
-#define MICRO_OS_PLUS_RTOS_THREAD_H_
+#ifndef MICRO_OS_PLUS_RTMICRO_OS_PLUS_THREAD_H_
+#define MICRO_OS_PLUS_RTMICRO_OS_PLUS_THREAD_H_
 
 // ----------------------------------------------------------------------------
 
@@ -703,7 +703,7 @@ namespace os
         friend void
         port::scheduler::reschedule ();
 
-#if !defined(OS_USE_RTOS_PORT_SCHEDULER)
+#if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_SCHEDULER)
 
         friend class port::context;
 
@@ -734,7 +734,7 @@ namespace os
          */
         thread::stack stack_;
 
-#if !defined(OS_USE_RTOS_PORT_SCHEDULER)
+#if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_SCHEDULER)
 
         /**
          * @brief Non-portable context data.
@@ -843,8 +843,8 @@ namespace os
 
       }; /* class attributes */
 
-#if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES) \
-    || defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
+#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES) \
+    || defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
       /**
        * @brief Thread statistics.
@@ -899,7 +899,7 @@ namespace os
          * @{
          */
 
-#if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
+#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
         /**
          * @brief Get the number of thread context switches.
@@ -911,9 +911,9 @@ namespace os
         rtos::statistics::counter_t
         context_switches (void);
 
-#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
+#endif // defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
-#if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
+#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
         /**
          * @brief Get the thread execution time.
@@ -924,7 +924,7 @@ namespace os
         rtos::statistics::duration_t
         cpu_cycles (void);
 
-#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
+#endif // defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
         /**
          * @}
@@ -938,21 +938,21 @@ namespace os
         friend void
         rtos::scheduler::internal_switch_threads (void);
 
-#if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
+#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
         rtos::statistics::counter_t context_switches_ = 0;
-#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
+#endif // defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
-#if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
+#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
         rtos::statistics::duration_t cpu_cycles_ = 0;
-#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
+#endif // defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
         /**
          * @endcond
          */
       };
 
-#endif /* defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES) || \
-          defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES) */
+#endif /* defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES) || \
+          defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES) */
 
 #pragma GCC diagnostic pop
 
@@ -1195,7 +1195,7 @@ namespace os
       void*
       function_args (void) const;
 
-#if defined(OS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE) || defined(__DOXYGEN__)
+#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE) || defined(__DOXYGEN__)
 
       /**
        * @brief Get the user storage.
@@ -1206,7 +1206,7 @@ namespace os
       os_thread_user_storage_t*
       user_storage (void);
 
-#endif // defined(OS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE)
+#endif // defined(MICRO_OS_PLUS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE)
 
       /**
        * @brief Raise thread event flags.
@@ -1220,7 +1220,7 @@ namespace os
       result_t
       flags_raise (flags::mask_t mask, flags::mask_t* oflags = nullptr);
 
-#if defined(OS_INCLUDE_RTOS_THREAD_PUBLIC_FLAGS_CLEAR)
+#if defined(MICRO_OS_PLUS_INCLUDE_RTMICRO_OS_PLUS_THREAD_PUBLIC_FLAGS_CLEAR)
 
       // This is a kludge required to support CMSIS RTOS V1
       // public osSignalClear().
@@ -1247,8 +1247,8 @@ namespace os
       class thread::stack&
       stack (void);
 
-#if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES) \
-    || defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
+#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES) \
+    || defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
       class thread::statistics&
       statistics (void);
@@ -1625,20 +1625,20 @@ namespace os
 
       internal::event_flags event_flags_;
 
-#if defined(OS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE) || defined(__DOXYGEN__)
+#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE) || defined(__DOXYGEN__)
       os_thread_user_storage_t user_storage_;
-#endif // defined(OS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE)
+#endif // defined(MICRO_OS_PLUS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE)
 
-#if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
+#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
       class statistics statistics_;
 
-#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
+#endif // defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
       // Add other internal data
 
       // Implementation
-#if defined(OS_USE_RTOS_PORT_SCHEDULER)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_SCHEDULER)
       friend class port::thread;
       os_thread_port_data_t port_;
 #endif
@@ -2222,7 +2222,7 @@ namespace os
 
     // ========================================================================
 
-#if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
+#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
     /**
      * @details
@@ -2233,7 +2233,7 @@ namespace os
      * scheduler function, to compute percentages.
      *
      * @note This function is available only when
-     * @ref OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES
+     * @ref MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES
      * is defined.
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
@@ -2244,9 +2244,9 @@ namespace os
       return context_switches_;
     }
 
-#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
+#endif // defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
-#if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
+#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
     /**
      * @details
@@ -2255,7 +2255,7 @@ namespace os
      * scheduler function, to compute percentages.
      *
      * @note This function is available only when
-     * @ref OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES
+     * @ref MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES
      * is defined.
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
@@ -2266,7 +2266,7 @@ namespace os
       return cpu_cycles_;
     }
 
-#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
+#endif // defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
     // ========================================================================
 
@@ -2316,7 +2316,7 @@ namespace os
       return interrupted_;
     }
 
-#if defined(OS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE) || defined(__DOXYGEN__)
+#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE) || defined(__DOXYGEN__)
 
     /**
      * @details
@@ -2329,7 +2329,7 @@ namespace os
      * when implementing CMSIS+ over FreeRTOS.
      *
      * @note
-     *  Available only when `OS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE`
+     *  Available only when `MICRO_OS_PLUS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE`
      *  is defined.
      *
      *
@@ -2341,9 +2341,9 @@ namespace os
       return &user_storage_;
     }
 
-#endif // defined(OS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE)
+#endif // defined(MICRO_OS_PLUS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE)
 
-#if !defined(OS_USE_RTOS_PORT_SCHEDULER)
+#if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_SCHEDULER)
 
     /**
      * @cond ignore
@@ -2386,7 +2386,7 @@ namespace os
       return context_.stack_;
     }
 
-#if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
+#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
     /**
      * @details
@@ -2399,9 +2399,9 @@ namespace os
       return statistics_;
     }
 
-#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
+#endif // defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
-#if defined(OS_INCLUDE_RTOS_THREAD_PUBLIC_FLAGS_CLEAR)
+#if defined(MICRO_OS_PLUS_INCLUDE_RTMICRO_OS_PLUS_THREAD_PUBLIC_FLAGS_CLEAR)
 
     inline result_t
     thread::flags_clear (flags::mask_t mask, flags::mask_t* oflags)
@@ -2516,7 +2516,7 @@ namespace os
         const attributes& attr, const allocator_type& allocator)
         : thread{ name }
     {
-#if defined(OS_TRACE_RTOS_THREAD)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD)
       trace::printf ("%s @%p %s\n", __func__, this, this->name ());
 #endif
       if (attr.th_stack_address != nullptr
@@ -2566,7 +2566,7 @@ namespace os
     void
     thread_allocated<Allocator>::internal_destroy_ (void)
     {
-#if defined(OS_TRACE_RTOS_THREAD)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD)
       trace::printf ("thread_allocated::%s() @%p %s\n", __func__, this,
                      name ());
 #endif
@@ -2609,7 +2609,7 @@ namespace os
     template <typename Allocator>
     thread_allocated<Allocator>::~thread_allocated ()
     {
-#if defined(OS_TRACE_RTOS_THREAD)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD)
       trace::printf ("%s @%p %s\n", __func__, this, name ());
 #endif
     }
@@ -2729,7 +2729,7 @@ namespace os
                                            const attributes& attr)
         : thread{ name }
     {
-#if defined(OS_TRACE_RTOS_THREAD)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD)
       trace::printf ("%s @%p %s\n", __func__, this, this->name ());
 #endif
       internal_construct_ (function, args, attr, &stack_, stack_size_bytes);
@@ -2749,7 +2749,7 @@ namespace os
     template <std::size_t N>
     thread_inclusive<N>::~thread_inclusive ()
     {
-#if defined(OS_TRACE_RTOS_THREAD)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD)
       trace::printf ("%s @%p %s\n", __func__, this, name ());
 #endif
     }
@@ -2761,6 +2761,6 @@ namespace os
 
 #endif // __cplusplus
 
-#endif // MICRO_OS_PLUS_RTOS_THREAD_H_
+#endif // MICRO_OS_PLUS_RTMICRO_OS_PLUS_THREAD_H_
 
 // ----------------------------------------------------------------------------

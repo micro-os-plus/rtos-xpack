@@ -145,7 +145,7 @@ namespace os
 
     namespace interrupts
     {
-#if defined(OS_HAS_INTERRUPTS_STACK) || defined(__DOXYGEN__)
+#if defined(MICRO_OS_PLUS_HAS_INTERRUPTS_STACK) || defined(__DOXYGEN__)
 
       /**
        * @brief Get the interrupts stack
@@ -158,7 +158,7 @@ namespace os
       stack (void);
 
 #else
-#endif // defined(OS_HAS_INTERRUPTS_STACK)
+#endif // defined(MICRO_OS_PLUS_HAS_INTERRUPTS_STACK)
 
       ;
       // Avoid formatter bug.

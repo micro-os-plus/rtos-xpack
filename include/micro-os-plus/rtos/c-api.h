@@ -207,7 +207,7 @@ extern "C"
    * @{
    */
 
-#if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
+#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
   /**
    * @brief Get the total number of context switches.
@@ -217,9 +217,9 @@ extern "C"
   os_statistics_counter_t
   os_sched_stat_get_context_switches (void);
 
-#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
+#endif // defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
-#if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
+#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
   /**
    * @brief Get the total duration of all threads.
@@ -229,7 +229,7 @@ extern "C"
   os_statistics_duration_t
   os_sched_stat_get_cpu_cycles (void);
 
-#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
+#endif // defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
   /**
    * @}
@@ -289,7 +289,7 @@ extern "C"
   void
   os_irq_uncritical_exit (os_irq_state_t state);
 
-#if defined(OS_HAS_INTERRUPTS_STACK) || defined(__DOXYGEN__)
+#if defined(MICRO_OS_PLUS_HAS_INTERRUPTS_STACK) || defined(__DOXYGEN__)
 
   /**
    * @brief Get the interrupts stack.
@@ -583,7 +583,7 @@ extern "C"
   os_thread_state_t
   os_thread_get_state (os_thread_t* thread);
 
-#if defined(OS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE) || defined(__DOXYGEN__)
+#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE) || defined(__DOXYGEN__)
 
   /**
    * @brief Get the thread user storage.
@@ -593,7 +593,7 @@ extern "C"
   os_thread_user_storage_t*
   os_thread_get_user_storage (os_thread_t* thread);
 
-#endif // defined(OS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE)
+#endif // defined(MICRO_OS_PLUS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE)
 
   /**
    * @brief Get the thread context stack.
@@ -720,7 +720,7 @@ extern "C"
    * @{
    */
 
-#if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
+#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
   /**
    * @brief Get the number of thread context switches.
@@ -730,9 +730,9 @@ extern "C"
   os_statistics_counter_t
   os_thread_stat_get_context_switches (os_thread_t* thread);
 
-#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
+#endif // defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
-#if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
+#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
   /**
    * @brief Get the thread execution time.
@@ -742,7 +742,7 @@ extern "C"
   os_statistics_duration_t
   os_thread_stat_get_cpu_cycles (os_thread_t* thread);
 
-#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
+#endif // defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
   /**
    * @}
@@ -962,7 +962,7 @@ extern "C"
   os_sysclock_ticks_cast (uint32_t microsec)
   {
     return (os_clock_duration_t) (
-        (((microsec) * ((uint32_t)OS_INTEGER_SYSTICK_FREQUENCY_HZ))
+        (((microsec) * ((uint32_t)MICRO_OS_PLUS_INTEGER_SYSTICK_FREQUENCY_HZ))
          + (uint32_t)1000000ul - 1)
         / (uint32_t)1000000ul);
   }
@@ -976,7 +976,7 @@ extern "C"
   os_sysclock_ticks_cast_long (uint64_t microsec)
   {
     return (os_clock_duration_t) (
-        (((microsec) * ((uint64_t)OS_INTEGER_SYSTICK_FREQUENCY_HZ))
+        (((microsec) * ((uint64_t)MICRO_OS_PLUS_INTEGER_SYSTICK_FREQUENCY_HZ))
          + (uint64_t)1000000ul - 1)
         / (uint64_t)1000000ul);
   }

@@ -266,7 +266,7 @@ extern "C"
   } os_internal_evflags_t;
 
   // ==========================================================================
-#define OS_THREAD_PRIO_SHIFT (4)
+#define MICRO_OS_PLUS_THREAD_PRIO_SHIFT (4)
 
   /**
    * @addtogroup micro-os-plus-rtos-c-thread
@@ -282,17 +282,17 @@ extern "C"
   {
     // Ordered, with **none** as the first and **error** as the last.
     os_thread_priority_none = 0, // not defined
-    os_thread_priority_idle = (1 << OS_THREAD_PRIO_SHIFT),
-    os_thread_priority_lowest = (2 << OS_THREAD_PRIO_SHIFT), // lowest
-    os_thread_priority_low = (2 << OS_THREAD_PRIO_SHIFT),
-    os_thread_priority_below_normal = (4 << OS_THREAD_PRIO_SHIFT),
-    os_thread_priority_normal = (6 << OS_THREAD_PRIO_SHIFT), // default
-    os_thread_priority_above_normal = (8 << OS_THREAD_PRIO_SHIFT),
-    os_thread_priority_high = (10 << OS_THREAD_PRIO_SHIFT),
-    os_thread_priority_realtime = (12 << OS_THREAD_PRIO_SHIFT),
-    os_thread_priority_highest = (((13 + 1) << OS_THREAD_PRIO_SHIFT) - 1),
-    os_thread_priority_isr = (((14 + 1) << OS_THREAD_PRIO_SHIFT) - 1),
-    os_thread_priority_error = (((15 + 1) << OS_THREAD_PRIO_SHIFT) - 1)
+    os_thread_priority_idle = (1 << MICRO_OS_PLUS_THREAD_PRIO_SHIFT),
+    os_thread_priority_lowest = (2 << MICRO_OS_PLUS_THREAD_PRIO_SHIFT), // lowest
+    os_thread_priority_low = (2 << MICRO_OS_PLUS_THREAD_PRIO_SHIFT),
+    os_thread_priority_below_normal = (4 << MICRO_OS_PLUS_THREAD_PRIO_SHIFT),
+    os_thread_priority_normal = (6 << MICRO_OS_PLUS_THREAD_PRIO_SHIFT), // default
+    os_thread_priority_above_normal = (8 << MICRO_OS_PLUS_THREAD_PRIO_SHIFT),
+    os_thread_priority_high = (10 << MICRO_OS_PLUS_THREAD_PRIO_SHIFT),
+    os_thread_priority_realtime = (12 << MICRO_OS_PLUS_THREAD_PRIO_SHIFT),
+    os_thread_priority_highest = (((13 + 1) << MICRO_OS_PLUS_THREAD_PRIO_SHIFT) - 1),
+    os_thread_priority_isr = (((14 + 1) << MICRO_OS_PLUS_THREAD_PRIO_SHIFT) - 1),
+    os_thread_priority_error = (((15 + 1) << MICRO_OS_PLUS_THREAD_PRIO_SHIFT) - 1)
   };
 
   /**
@@ -439,7 +439,7 @@ extern "C"
      */
 
     os_thread_stack_t stack;
-#if !defined(OS_USE_RTOS_PORT_SCHEDULER)
+#if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_SCHEDULER)
     os_port_thread_context_t port;
 #endif
 
@@ -449,8 +449,8 @@ extern "C"
 
   } os_thread_context_t;
 
-#if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES) \
-    || defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
+#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES) \
+    || defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
   /**
    * @brief Thread statistics.
@@ -468,13 +468,13 @@ extern "C"
      * @cond ignore
      */
 
-#if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
+#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
     os_statistics_counter_t context_switches;
-#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
+#endif // defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
-#if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
+#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
     os_statistics_duration_t cpu_cycles;
-#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
+#endif // defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
     /**
      * @endcond
@@ -589,16 +589,16 @@ extern "C"
     os_thread_prio_t prio_inherited;
     bool interrupted;
     os_internal_evflags_t event_flags;
-#if defined(OS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE)
+#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE)
     os_thread_user_storage_t user_storage; //
-#endif // defined(OS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE)
+#endif // defined(MICRO_OS_PLUS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE)
 
-#if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES) \
-    || defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
+#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES) \
+    || defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
     os_thread_statistics_t statistics;
-#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
+#endif // defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
-#if defined(OS_USE_RTOS_PORT_SCHEDULER)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_SCHEDULER)
     os_thread_port_data_t port;
 #endif
     os_thread_context_t context;
@@ -777,12 +777,12 @@ extern "C"
     const char* name;
     os_timer_func_t func;
     os_timer_func_args_t func_args;
-#if !defined(OS_USE_RTOS_PORT_TIMER)
+#if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_TIMER)
     void* clock;
     os_internal_clock_timer_node_t clock_node;
     os_clock_duration_t period;
 #endif
-#if defined(OS_USE_RTOS_PORT_TIMER)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_TIMER)
     os_timer_port_data_t port_;
 #endif
     os_timer_type_t type;
@@ -961,12 +961,12 @@ extern "C"
 
     const char* name;
     void* owner;
-#if !defined(OS_USE_RTOS_PORT_MUTEX)
+#if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_MUTEX)
     os_internal_threads_waiting_list_t list;
     void* clock;
 #endif
     os_internal_double_list_links_t owner_links;
-#if defined(OS_USE_RTOS_PORT_MUTEX)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MUTEX)
     os_mutex_port_data_t port;
 #endif
     os_mutex_count_t count;
@@ -1042,7 +1042,7 @@ extern "C"
      */
 
     const char* name;
-#if !defined(OS_USE_RTOS_PORT_CONDITION_VARIABLE)
+#if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_CONDITION_VARIABLE)
     os_internal_threads_waiting_list_t list;
     // void* clock;
 #endif
@@ -1125,11 +1125,11 @@ extern "C"
      */
 
     const char* name;
-#if !defined(OS_USE_RTOS_PORT_SEMAPHORE)
+#if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_SEMAPHORE)
     os_internal_threads_waiting_list_t list;
     void* clock;
 #endif
-#if defined(OS_USE_RTOS_PORT_SEMAPHORE)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_SEMAPHORE)
     os_semaphore_port_data_t port;
 #endif
     os_semaphore_count_t initial_count;
@@ -1212,14 +1212,14 @@ extern "C"
 
     void* vtbl;
     const char* name;
-#if !defined(OS_USE_RTOS_PORT_MEMORY_POOL)
+#if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_MEMORY_POOL)
     os_internal_threads_waiting_list_t list;
     void* clock;
 #endif
     void* pool_addr;
     void* allocated_pool_addr;
     void* allocator;
-#if defined(OS_USE_RTOS_PORT_MEMORY_POOL)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MEMORY_POOL)
     os_mempool_port_data_t port;
 #endif
     size_t pool_size_bytes;
@@ -1242,7 +1242,7 @@ extern "C"
    */
 
   // ==========================================================================
-#if defined(OS_BOOL_RTOS_MESSAGE_QUEUE_SIZE_16BITS)
+#if defined(MICRO_OS_PLUS_BOOL_RTOS_MESSAGE_QUEUE_SIZE_16BITS)
   typedef uint16_t os_mqueue_size_t;
 #else
 typedef uint8_t os_mqueue_size_t;
@@ -1319,7 +1319,7 @@ typedef uint8_t os_mqueue_size_t;
 
     void* vtbl;
     const char* name;
-#if !defined(OS_USE_RTOS_PORT_MESSAGE_QUEUE)
+#if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
     os_internal_threads_waiting_list_t send_list;
     os_internal_threads_waiting_list_t receive_list;
     void* clock;
@@ -1333,7 +1333,7 @@ typedef uint8_t os_mqueue_size_t;
     void* allocated_queue_addr;
     void* allocator;
 
-#if defined(OS_USE_RTOS_PORT_MESSAGE_QUEUE)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
     os_mqueue_port_data_t port;
 #endif
 
@@ -1344,7 +1344,7 @@ typedef uint8_t os_mqueue_size_t;
     os_mqueue_size_t msgs;
 
     os_mqueue_size_t count;
-#if !defined(OS_USE_RTOS_PORT_MESSAGE_QUEUE)
+#if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
     os_mqueue_index_t head;
 #endif
 
@@ -1411,12 +1411,12 @@ typedef uint8_t os_mqueue_size_t;
      */
 
     const char* name;
-#if !defined(OS_USE_RTOS_PORT_EVENT_FLAGS)
+#if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_EVENT_FLAGS)
     os_internal_threads_waiting_list_t list;
     void* clock;
 #endif
 
-#if defined(OS_USE_RTOS_PORT_EVENT_FLAGS)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_EVENT_FLAGS)
     os_evflags_port_data_t port_;
 #endif
 

@@ -651,7 +651,7 @@ namespace os
       // Can be updated in different thread contexts.
       thread* volatile owner_ = nullptr;
 
-#if !defined(OS_USE_RTOS_PORT_MUTEX)
+#if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_MUTEX)
       internal::waiting_threads_list list_;
       clock* clock_ = nullptr;
 #endif
@@ -662,7 +662,7 @@ namespace os
       utils::double_list_links owner_links_;
 
     protected:
-#if defined(OS_USE_RTOS_PORT_MUTEX)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MUTEX)
       friend class port::mutex;
       os_mutex_port_data_t port_;
 #endif

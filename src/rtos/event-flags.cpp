@@ -156,18 +156,18 @@ namespace os
     event_flags::event_flags (const char* name, const attributes& attr)
         : object_named_system{ name }
     {
-#if defined(OS_TRACE_RTOS_EVFLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_EVFLAGS)
       trace::printf ("%s() @%p %s\n", __func__, this, this->name ());
 #endif
 
       // Don't call this from interrupt handlers.
       os_assert_throw (!interrupts::in_handler_mode (), EPERM);
 
-#if !defined(OS_USE_RTOS_PORT_EVENT_FLAGS)
+#if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_EVENT_FLAGS)
       clock_ = attr.clock != nullptr ? attr.clock : &sysclock;
 #endif
 
-#if defined(OS_USE_RTOS_PORT_EVENT_FLAGS)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_EVENT_FLAGS)
 
       port::event_flags::create (this);
 
@@ -193,11 +193,11 @@ namespace os
      */
     event_flags::~event_flags ()
     {
-#if defined(OS_TRACE_RTOS_EVFLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_EVFLAGS)
       trace::printf ("%s() @%p %s\n", __func__, this, name ());
 #endif
 
-#if defined(OS_USE_RTOS_PORT_EVENT_FLAGS)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_EVENT_FLAGS)
 
       port::event_flags::destroy (this);
 
@@ -234,7 +234,7 @@ namespace os
     event_flags::wait (flags::mask_t mask, flags::mask_t* oflags,
                        flags::mode_t mode)
     {
-#if defined(OS_TRACE_RTOS_EVFLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_EVFLAGS)
       trace::printf ("%s(0x%X,%u) @%p %s <0x%X\n", __func__, mask, mode, this,
                      name (), event_flags_.mask ());
 #endif
@@ -244,7 +244,7 @@ namespace os
       // Don't call this from critical regions.
       os_assert_throw (!scheduler::locked (), EPERM);
 
-#if defined(OS_USE_RTOS_PORT_EVENT_FLAGS)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_EVENT_FLAGS)
 
       return port::event_flags::wait (this, mask, oflags, mode);
 
@@ -256,7 +256,7 @@ namespace os
 
         if (event_flags_.check_raised (mask, oflags, mode))
           {
-#if defined(OS_TRACE_RTOS_EVFLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_EVFLAGS)
             trace::printf ("%s(0x%X,%u) @%p %s >0x%X\n", __func__, mask, mode,
                            this, name (), event_flags_.mask ());
 #endif
@@ -280,7 +280,7 @@ namespace os
 
             if (event_flags_.check_raised (mask, oflags, mode))
               {
-#if defined(OS_TRACE_RTOS_EVFLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_EVFLAGS)
                 trace::printf ("%s(0x%X,%u) @%p %s >0x%X\n", __func__, mask,
                                mode, this, name (), event_flags_.mask ());
 #endif
@@ -307,7 +307,7 @@ namespace os
 
           if (crt_thread.interrupted ())
             {
-#if defined(OS_TRACE_RTOS_EVFLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_EVFLAGS)
               trace::printf ("%s(0x%X,%u) EINTR @%p %s\n", __func__, mask,
                              mode, this, name ());
 #endif
@@ -336,12 +336,12 @@ namespace os
     event_flags::try_wait (flags::mask_t mask, flags::mask_t* oflags,
                            flags::mode_t mode)
     {
-#if defined(OS_TRACE_RTOS_EVFLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_EVFLAGS)
       trace::printf ("%s(0x%X,%u) @%p %s <0x%X\n", __func__, mask, mode, this,
                      name (), event_flags_.mask ());
 #endif
 
-#if defined(OS_USE_RTOS_PORT_EVENT_FLAGS)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_EVENT_FLAGS)
 
       return port::event_flags::try_wait (this, mask, oflags, mode);
 
@@ -356,7 +356,7 @@ namespace os
 
         if (event_flags_.check_raised (mask, oflags, mode))
           {
-#if defined(OS_TRACE_RTOS_EVFLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_EVFLAGS)
             trace::printf ("%s(0x%X,%u) @%p %s >0x%X\n", __func__, mask, mode,
                            this, name (), event_flags_.mask ());
 #endif
@@ -364,7 +364,7 @@ namespace os
           }
         else
           {
-#if defined(OS_TRACE_RTOS_EVFLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_EVFLAGS)
             trace::printf ("%s(0x%X,%u) EWOULDBLOCK @%p %s \n", __func__, mask,
                            mode, this, name ());
 #endif
@@ -418,7 +418,7 @@ namespace os
     event_flags::timed_wait (flags::mask_t mask, clock::duration_t timeout,
                              flags::mask_t* oflags, flags::mode_t mode)
     {
-#if defined(OS_TRACE_RTOS_EVFLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_EVFLAGS)
       trace::printf ("%s(0x%X,%u,%u) @%p %s <0x%X\n", __func__, mask, timeout,
                      mode, this, name (), event_flags_.mask ());
 #endif
@@ -428,7 +428,7 @@ namespace os
       // Don't call this from critical regions.
       os_assert_throw (!scheduler::locked (), EPERM);
 
-#if defined(OS_USE_RTOS_PORT_EVENT_FLAGS)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_EVENT_FLAGS)
 
       return port::event_flags::timed_wait (this, mask, timeout, oflags, mode);
 
@@ -442,7 +442,7 @@ namespace os
 
         if (event_flags_.check_raised (mask, oflags, mode))
           {
-#if defined(OS_TRACE_RTOS_EVFLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_EVFLAGS)
             trace::printf ("%s(0x%X,%u,%u) @%p %s >0x%X\n", __func__, mask,
                            timeout, mode, this, name (), event_flags_.mask ());
 #endif
@@ -473,7 +473,7 @@ namespace os
 
             if (event_flags_.check_raised (mask, oflags, mode))
               {
-#if defined(OS_TRACE_RTOS_EVFLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_EVFLAGS)
                 trace::printf ("%s(0x%X,%u,%u) @%p %s >0x%X\n", __func__, mask,
                                timeout, mode, this, name (),
                                event_flags_.mask ());
@@ -498,7 +498,7 @@ namespace os
 
           if (crt_thread.interrupted ())
             {
-#if defined(OS_TRACE_RTOS_EVFLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_EVFLAGS)
               trace::printf ("%s(0x%X,%u,%u) EINTR @%p %s 0x%X \n", __func__,
                              mask, timeout, mode, this, name ());
 #endif
@@ -507,7 +507,7 @@ namespace os
 
           if (clock_->steady_now () >= timeout_timestamp)
             {
-#if defined(OS_TRACE_RTOS_EVFLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_EVFLAGS)
               trace::printf ("%s(0x%X,%u,%u) ETIMEDOUT @%p %s 0x%X \n",
                              __func__, mask, timeout, mode, this, name ());
 #endif
@@ -532,12 +532,12 @@ namespace os
     result_t
     event_flags::raise (flags::mask_t mask, flags::mask_t* oflags)
     {
-#if defined(OS_TRACE_RTOS_EVFLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_EVFLAGS)
       trace::printf ("%s(0x%X) @%p %s <0x%X \n", __func__, mask, this, name (),
                      event_flags_.mask ());
 #endif
 
-#if defined(OS_USE_RTOS_PORT_EVENT_FLAGS)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_EVENT_FLAGS)
 
       os_assert_err (mask != 0, EINVAL);
 
@@ -552,7 +552,7 @@ namespace os
       // the list is protected by inner `resume_one()`.
       list_.resume_all ();
 
-#if defined(OS_TRACE_RTOS_EVFLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_EVFLAGS)
       trace::printf ("%s(0x%X) @%p %s >0x%X\n", __func__, mask, this, name (),
                      event_flags_.mask ());
 #endif
@@ -569,12 +569,12 @@ namespace os
     result_t
     event_flags::clear (flags::mask_t mask, flags::mask_t* oflags)
     {
-#if defined(OS_TRACE_RTOS_EVFLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_EVFLAGS)
       trace::printf ("%s(0x%X) @%p %s <0x%X \n", __func__, mask, this, name (),
                      event_flags_.mask ());
 #endif
 
-#if defined(OS_USE_RTOS_PORT_EVENT_FLAGS)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_EVENT_FLAGS)
 
       os_assert_err (mask != 0, EINVAL);
 
@@ -584,7 +584,7 @@ namespace os
 
       result_t res = event_flags_.clear (mask, oflags);
 
-#if defined(OS_TRACE_RTOS_EVFLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_EVFLAGS)
       trace::printf ("%s(0x%X) @%p %s >0x%X\n", __func__, mask, this, name (),
                      event_flags_.mask ());
 #endif
@@ -608,11 +608,11 @@ namespace os
     flags::mask_t
     event_flags::get (flags::mask_t mask, flags::mode_t mode)
     {
-#if defined(OS_TRACE_RTOS_EVFLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_EVFLAGS)
       trace::printf ("%s(0x%X) @%p %s  \n", __func__, mask, this, name ());
 #endif
 
-#if defined(OS_USE_RTOS_PORT_EVENT_FLAGS)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_EVENT_FLAGS)
 
       return port::event_flags::get (this, mask, mode);
 
@@ -620,7 +620,7 @@ namespace os
 
       flags::mask_t ret = event_flags_.get (mask, mode);
 
-#if defined(OS_TRACE_RTOS_EVFLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_EVFLAGS)
       trace::printf ("%s(0x%X)=0x%X @%p %s \n", __func__, mask,
                      event_flags_.mask (), this, name ());
 #endif
@@ -638,11 +638,11 @@ namespace os
     bool
     event_flags::waiting (void)
     {
-#if defined(OS_TRACE_RTOS_EVFLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_EVFLAGS)
       trace::printf ("%s() @%p %s\n", __func__, this, name ());
 #endif
 
-#if defined(OS_USE_RTOS_PORT_EVENT_FLAGS)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_EVENT_FLAGS)
 
       return port::event_flags::waiting (this);
 

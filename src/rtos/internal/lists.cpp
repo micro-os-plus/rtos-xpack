@@ -64,14 +64,14 @@ namespace os
         if (empty ())
           {
             // Insert at the end of the list.
-#if defined(OS_TRACE_RTOS_LISTS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_LISTS)
             trace::printf ("ready %s() empty +%u\n", __func__, prio);
 #endif
           }
         else if (prio <= after->thread_->priority ())
           {
             // Insert at the end of the list.
-#if defined(OS_TRACE_RTOS_LISTS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_LISTS)
             trace::printf ("ready %s() back %u +%u \n", __func__,
                            after->thread_->priority (), prio);
 #endif
@@ -81,7 +81,7 @@ namespace os
             // Insert at the beginning of the list.
             after = static_cast<waiting_thread_node*> (
                 const_cast<utils::static_double_list_links*> (&head_));
-#if defined(OS_TRACE_RTOS_LISTS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_LISTS)
             trace::printf ("ready %s() front +%u %u \n", __func__, prio,
                            head ()->thread_->priority ());
 #endif
@@ -97,7 +97,7 @@ namespace os
                     const_cast<utils::static_double_list_links*> (
                         after->prev ()));
               }
-#if defined(OS_TRACE_RTOS_LISTS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_LISTS)
             trace::printf ("ready %s() middle %u +%u \n", __func__,
                            after->thread_->priority (), prio);
 #endif
@@ -119,7 +119,7 @@ namespace os
 
         thread* th = head ()->thread_;
 
-#if defined(OS_TRACE_RTOS_LISTS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_LISTS)
         trace::printf ("ready %s() %p %s\n", __func__, th, th->name ());
 #endif
 
@@ -190,14 +190,14 @@ namespace os
         if (empty ())
           {
             // Insert at the end of the list.
-#if defined(OS_TRACE_RTOS_LISTS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_LISTS)
             trace::printf ("wait %s() empty +%u\n", __func__, prio);
 #endif
           }
         else if (prio <= after->thread_->priority ())
           {
             // Insert at the end of the list.
-#if defined(OS_TRACE_RTOS_LISTS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_LISTS)
             trace::printf ("wait %s() back %u +%u \n", __func__,
                            after->thread_->priority (), prio);
 #endif
@@ -207,7 +207,7 @@ namespace os
             // Insert at the beginning of the list.
             after = static_cast<waiting_thread_node*> (
                 const_cast<utils::static_double_list_links*> (&head_));
-#if defined(OS_TRACE_RTOS_LISTS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_LISTS)
             trace::printf ("wait %s() front +%u %u \n", __func__, prio,
                            head ()->thread_->priority ());
 #endif
@@ -223,7 +223,7 @@ namespace os
                     const_cast<utils::static_double_list_links*> (
                         after->prev ()));
               }
-#if defined(OS_TRACE_RTOS_LISTS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_LISTS)
             trace::printf ("wait %s() middle %u +%u \n", __func__,
                            after->thread_->priority (), prio);
 #endif
@@ -266,7 +266,7 @@ namespace os
           }
         else
           {
-#if defined(OS_TRACE_RTOS_LISTS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_LISTS)
             trace::printf ("%s() gone \n", __func__);
 #endif
           }
@@ -285,14 +285,14 @@ namespace os
 
       timestamp_node::timestamp_node (clock::timestamp_t ts) : timestamp (ts)
       {
-#if defined(OS_TRACE_RTOS_LISTS_CONSTRUCT)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_LISTS_CONSTRUCT)
         trace::printf ("%s() %p \n", __func__, this);
 #endif
       }
 
       timestamp_node::~timestamp_node ()
       {
-#if defined(OS_TRACE_RTOS_LISTS_CONSTRUCT)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_LISTS_CONSTRUCT)
         trace::printf ("%s() %p \n", __func__, this);
 #endif
       }
@@ -304,14 +304,14 @@ namespace os
           : timestamp_node{ ts }, //
             thread (th)
       {
-#if defined(OS_TRACE_RTOS_LISTS_CONSTRUCT)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_LISTS_CONSTRUCT)
         trace::printf ("%s() %p \n", __func__, this);
 #endif
       }
 
       timeout_thread_node::~timeout_thread_node ()
       {
-#if defined(OS_TRACE_RTOS_LISTS_CONSTRUCT)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_LISTS_CONSTRUCT)
         trace::printf ("%s() %p \n", __func__, this);
 #endif
       }
@@ -332,20 +332,20 @@ namespace os
 
       // ======================================================================
 
-#if !defined(OS_USE_RTOS_PORT_TIMER)
+#if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_TIMER)
 
       timer_node::timer_node (clock::timestamp_t ts, timer& tm)
           : timestamp_node{ ts }, //
             tmr (tm)
       {
-#if defined(OS_TRACE_RTOS_LISTS_CONSTRUCT)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_LISTS_CONSTRUCT)
         trace::printf ("%s() %p \n", __func__, this);
 #endif
       }
 
       timer_node::~timer_node ()
       {
-#if defined(OS_TRACE_RTOS_LISTS_CONSTRUCT)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_LISTS_CONSTRUCT)
         trace::printf ("%s() %p \n", __func__, this);
 #endif
       }
@@ -390,7 +390,7 @@ namespace os
         if (empty ())
           {
             // Insert at the end of the list.
-#if defined(OS_TRACE_RTOS_LISTS_CLOCKS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_LISTS_CLOCKS)
             trace::printf ("clock %s() empty +%u\n", __func__,
                            static_cast<uint32_t> (timestamp));
 #endif
@@ -398,7 +398,7 @@ namespace os
         else if (timestamp >= after->timestamp)
           {
             // Insert at the end of the list.
-#if defined(OS_TRACE_RTOS_LISTS_CLOCKS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_LISTS_CLOCKS)
             trace::printf ("clock %s() back %u +%u\n", __func__,
                            static_cast<uint32_t> (after->timestamp),
                            static_cast<uint32_t> (timestamp));
@@ -410,7 +410,7 @@ namespace os
             // and update the new head.
             after = static_cast<timeout_thread_node*> (
                 const_cast<utils::static_double_list_links*> (&head_));
-#if defined(OS_TRACE_RTOS_LISTS_CLOCKS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_LISTS_CLOCKS)
             trace::printf ("clock %s() front +%u %u\n", __func__,
                            static_cast<uint32_t> (timestamp),
                            static_cast<uint32_t> (head ()->timestamp));
@@ -426,7 +426,7 @@ namespace os
                     const_cast<utils::static_double_list_links*> (
                         after->prev ()));
               }
-#if defined(OS_TRACE_RTOS_LISTS_CLOCKS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_LISTS_CLOCKS)
             trace::printf ("clock %s() middle %u +%u\n", __func__,
                            static_cast<uint32_t> (after->timestamp),
                            static_cast<uint32_t> (timestamp));
@@ -466,7 +466,7 @@ namespace os
             clock::timestamp_t head_ts = head ()->timestamp;
             if (now >= head_ts)
               {
-#if defined(OS_TRACE_RTOS_LISTS_CLOCKS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_LISTS_CLOCKS)
                 trace::printf ("%s() %u \n", __func__,
                                static_cast<uint32_t> (sysclock.now ()));
 #endif
@@ -494,7 +494,7 @@ namespace os
         waiting_thread_node* after = static_cast<waiting_thread_node*> (
             const_cast<utils::static_double_list_links*> (tail ()));
 
-#if defined(OS_TRACE_RTOS_THREAD)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD)
         trace::printf ("terminated %s() %p %s\n", __func__, &node.thread_,
                        node.thread_->name ());
 #endif

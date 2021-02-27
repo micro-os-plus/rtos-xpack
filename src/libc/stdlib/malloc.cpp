@@ -110,7 +110,7 @@ malloc (size_t bytes)
         errno = ENOMEM;
       }
 
-#if defined(OS_TRACE_LIBC_MALLOC)
+#if defined(MICRO_OS_PLUS_TRACE_LIBC_MALLOC)
     trace::printf ("::%s(%d)=%p\n", __func__, bytes, mem);
 #endif
     // ----- End of critical section ----------------------------------------
@@ -180,7 +180,7 @@ calloc (size_t nelem, size_t elbytes)
 
     mem = estd::pmr::get_default_resource ()->allocate (nelem * elbytes);
 
-#if defined(OS_TRACE_LIBC_MALLOC)
+#if defined(MICRO_OS_PLUS_TRACE_LIBC_MALLOC)
     trace::printf ("::%s(%u,%u)=%p\n", __func__, nelem, elbytes, mem);
 #endif
     // ----- End of critical section ----------------------------------------
@@ -278,7 +278,7 @@ realloc (void* ptr, size_t bytes)
     if (ptr == nullptr)
       {
         mem = estd::pmr::get_default_resource ()->allocate (bytes);
-#if defined(OS_TRACE_LIBC_MALLOC)
+#if defined(MICRO_OS_PLUS_TRACE_LIBC_MALLOC)
         trace::printf ("::%s(%p,%u)=%p\n", __func__, ptr, bytes, mem);
 #endif
         if (mem == nullptr)
@@ -291,7 +291,7 @@ realloc (void* ptr, size_t bytes)
     if (bytes == 0)
       {
         estd::pmr::get_default_resource ()->deallocate (ptr, 0);
-#if defined(OS_TRACE_LIBC_MALLOC)
+#if defined(MICRO_OS_PLUS_TRACE_LIBC_MALLOC)
         trace::printf ("::%s(%p,%u)=0\n", __func__, ptr, bytes);
 #endif
         return nullptr;
@@ -315,7 +315,7 @@ realloc (void* ptr, size_t bytes)
         errno = ENOMEM;
       }
 
-#if defined(OS_TRACE_LIBC_MALLOC)
+#if defined(MICRO_OS_PLUS_TRACE_LIBC_MALLOC)
     trace::printf ("::%s(%p,%u)=%p", __func__, ptr, bytes, mem);
 #endif
     // ----- End of critical section ----------------------------------------
@@ -369,7 +369,7 @@ free (void* ptr)
   // ----- Begin of critical section ------------------------------------------
   rtos::scheduler::critical_section scs;
 
-#if defined(OS_TRACE_LIBC_MALLOC)
+#if defined(MICRO_OS_PLUS_TRACE_LIBC_MALLOC)
   trace::printf ("::%s(%p)\n", __func__, ptr);
 #endif
 

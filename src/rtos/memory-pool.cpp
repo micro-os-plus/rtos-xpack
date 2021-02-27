@@ -183,14 +183,14 @@ namespace os
     // Protected internal constructor.
     memory_pool::memory_pool ()
     {
-#if defined(OS_TRACE_RTOS_MEMPOOL)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MEMPOOL)
       trace::printf ("%s() @%p %s\n", __func__, this, this->name ());
 #endif
     }
 
     memory_pool::memory_pool (const char* name) : object_named_system{ name }
     {
-#if defined(OS_TRACE_RTOS_MEMPOOL)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MEMPOOL)
       trace::printf ("%s() @%p %s\n", __func__, this, this->name ());
 #endif
     }
@@ -263,7 +263,7 @@ namespace os
                               const allocator_type& allocator)
         : object_named_system{ name }
     {
-#if defined(OS_TRACE_RTOS_MEMPOOL)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MEMPOOL)
       trace::printf ("%s() @%p %s %u %u\n", __func__, this, this->name (),
                      blocks, block_size_bytes);
 #endif
@@ -311,7 +311,7 @@ namespace os
       // Don't call this from interrupt handlers.
       os_assert_throw (!interrupts::in_handler_mode (), EPERM);
 
-#if !defined(OS_USE_RTOS_PORT_MEMORY_POOL)
+#if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_MEMORY_POOL)
       clock_ = attr.clock != nullptr ? attr.clock : &sysclock;
 #endif
 
@@ -348,7 +348,7 @@ namespace os
       pool_addr_ = static_cast<char*> (
           std::align (__SIZEOF_POINTER__, blocks_ * block_size_bytes_, p, sz));
 
-#if defined(OS_TRACE_RTOS_MEMPOOL)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MEMPOOL)
       trace::printf ("%s() @%p %s %u %u %p %u\n", __func__, this, name (),
                      blocks_, block_size_bytes_, pool_addr_, pool_size_bytes_);
 #endif
@@ -392,7 +392,7 @@ namespace os
      */
     memory_pool::~memory_pool ()
     {
-#if defined(OS_TRACE_RTOS_MEMPOOL)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MEMPOOL)
       trace::printf ("%s() @%p %s\n", __func__, this, name ());
 #endif
 
@@ -488,7 +488,7 @@ namespace os
     void*
     memory_pool::alloc (void)
     {
-#if defined(OS_TRACE_RTOS_MEMPOOL)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MEMPOOL)
       trace::printf ("%s() @%p %s\n", __func__, this, name ());
 #endif
 
@@ -508,7 +508,7 @@ namespace os
         p = internal_try_first_ ();
         if (p != nullptr)
           {
-#if defined(OS_TRACE_RTOS_MEMPOOL)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MEMPOOL)
             trace::printf ("%s()=%p @%p %s\n", __func__, p, this, name ());
 #endif
             return p;
@@ -532,7 +532,7 @@ namespace os
             p = internal_try_first_ ();
             if (p != nullptr)
               {
-#if defined(OS_TRACE_RTOS_MEMPOOL)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MEMPOOL)
                 trace::printf ("%s()=%p @%p %s\n", __func__, p, this, name ());
 #endif
                 return p;
@@ -552,7 +552,7 @@ namespace os
 
           if (this_thread::thread ().interrupted ())
             {
-#if defined(OS_TRACE_RTOS_MEMPOOL)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MEMPOOL)
               trace::printf ("%s() INTR @%p %s\n", __func__, this, name ());
 #endif
               return nullptr;
@@ -582,7 +582,7 @@ namespace os
     void*
     memory_pool::try_alloc (void)
     {
-#if defined(OS_TRACE_RTOS_MEMPOOL)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MEMPOOL)
       trace::printf ("%s() @%p %s\n", __func__, this, name ());
 #endif
 
@@ -598,7 +598,7 @@ namespace os
         // ----- Exit critical section --------------------------------------
       }
 
-#if defined(OS_TRACE_RTOS_MEMPOOL)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MEMPOOL)
       trace::printf ("%s()=%p @%p %s\n", __func__, p, this, name ());
 #endif
       return p;
@@ -648,7 +648,7 @@ namespace os
     void*
     memory_pool::timed_alloc (clock::duration_t timeout)
     {
-#if defined(OS_TRACE_RTOS_MEMPOOL)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MEMPOOL)
       trace::printf ("%s(%u) @%p %s\n", __func__,
                      static_cast<unsigned int> (timeout), this, name ());
 #endif
@@ -669,7 +669,7 @@ namespace os
         p = internal_try_first_ ();
         if (p != nullptr)
           {
-#if defined(OS_TRACE_RTOS_MEMPOOL)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MEMPOOL)
             trace::printf ("%s()=%p @%p %s\n", __func__, p, this, name ());
 #endif
             return p;
@@ -700,7 +700,7 @@ namespace os
             p = internal_try_first_ ();
             if (p != nullptr)
               {
-#if defined(OS_TRACE_RTOS_MEMPOOL)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MEMPOOL)
                 trace::printf ("%s()=%p @%p %s\n", __func__, p, this, name ());
 #endif
                 return p;
@@ -723,7 +723,7 @@ namespace os
 
           if (this_thread::thread ().interrupted ())
             {
-#if defined(OS_TRACE_RTOS_MEMPOOL)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MEMPOOL)
               trace::printf ("%s() INTR @%p %s\n", __func__, this, name ());
 #endif
               return nullptr;
@@ -731,7 +731,7 @@ namespace os
 
           if (clock_->steady_now () >= timeout_timestamp)
             {
-#if defined(OS_TRACE_RTOS_MEMPOOL)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MEMPOOL)
               trace::printf ("%s() TMO @%p %s\n", __func__, this, name ());
 #endif
               return nullptr;
@@ -754,7 +754,7 @@ namespace os
     result_t
     memory_pool::free (void* block)
     {
-#if defined(OS_TRACE_RTOS_MEMPOOL)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MEMPOOL)
       trace::printf ("%s(%p) @%p %s\n", __func__, block, this, name ());
 #endif
 
@@ -766,7 +766,7 @@ namespace os
           || (block >= (static_cast<char*> (pool_addr_)
                         + blocks_ * block_size_bytes_)))
         {
-#if defined(OS_TRACE_RTOS_MEMPOOL)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MEMPOOL)
           trace::printf ("%s(%p) EINVAL @%p %s\n", __func__, block, this,
                          name ());
 #endif
@@ -806,7 +806,7 @@ namespace os
     result_t
     memory_pool::reset (void)
     {
-#if defined(OS_TRACE_RTOS_MEMPOOL)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MEMPOOL)
       trace::printf ("%s() @%p %s\n", __func__, this, name ());
 #endif
 

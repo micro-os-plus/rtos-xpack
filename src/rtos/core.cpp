@@ -31,10 +31,10 @@
 
 namespace
 {
-#if defined(OS_HAS_INTERRUPTS_STACK)
+#if defined(MICRO_OS_PLUS_HAS_INTERRUPTS_STACK)
   // Object used to manage the interrupts stack.
   class os::rtos::thread::stack interrupts_stack;
-#endif // defined(OS_HAS_INTERRUPTS_STACK)
+#endif // defined(MICRO_OS_PLUS_HAS_INTERRUPTS_STACK)
   ;
   // Avoid formatter bug
 } // namespace
@@ -92,7 +92,7 @@ namespace os
 
 #pragma GCC diagnostic pop
 
-#if !defined(OS_USE_RTOS_PORT_SCHEDULER)
+#if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_SCHEDULER)
 
       bool is_preemptive_ = false;
 
@@ -160,14 +160,14 @@ namespace os
       result_t
       initialize (void)
       {
-#if defined(OS_TRACE_RTOS_SCHEDULER)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_SCHEDULER)
         trace::printf ("scheduler::%s() \n", __func__);
 #endif
 
         // Don't call this from interrupt handlers.
         os_assert_err (!interrupts::in_handler_mode (), EPERM);
 
-#if defined(OS_USE_RTOS_PORT_SCHEDULER)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_SCHEDULER)
 
         return port::scheduler::initialize ();
 
@@ -199,22 +199,22 @@ namespace os
 
         rtclock.start ();
 
-#if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
+#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
         scheduler::statistics::context_switches_ = 0;
 
-#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
+#endif // defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
-#if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
+#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
         scheduler::statistics::cpu_cycles_ = 0;
         scheduler::statistics::switch_timestamp_ = hrclock.now ();
 
-#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
+#endif // defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
-#if !defined(OS_USE_RTOS_PORT_SCHEDULER)
-        is_preemptive_ = OS_BOOL_RTOS_SCHEDULER_PREEMPTIVE;
-#endif // defined(OS_USE_RTOS_PORT_SCHEDULER)
+#if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_SCHEDULER)
+        is_preemptive_ = MICRO_OS_PLUS_BOOL_RTOS_SCHEDULER_PREEMPTIVE;
+#endif // defined(MICRO_OS_PLUS_USE_RTOS_PORT_SCHEDULER)
 
         is_started_ = true;
 
@@ -229,13 +229,13 @@ namespace os
       bool
       preemptive (bool state)
       {
-#if defined(OS_TRACE_RTOS_SCHEDULER)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_SCHEDULER)
         trace::printf ("scheduler::%s(%d) \n", __func__, state);
 #endif
         // Don't call this from interrupt handlers.
         os_assert_throw (!interrupts::in_handler_mode (), EPERM);
 
-#if defined(OS_USE_RTOS_PORT_SCHEDULER)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_SCHEDULER)
 
         return port::scheduler::preemptive (state);
 
@@ -403,12 +403,12 @@ namespace os
 
       // ----------------------------------------------------------------------
 
-#if !defined(OS_USE_RTOS_PORT_SCHEDULER)
+#if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_SCHEDULER)
 
       void
       internal_switch_threads (void)
       {
-#if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
+#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
         // Get the high resolution timestamp.
         clock::timestamp_t now = hrclock.now ();
@@ -428,7 +428,7 @@ namespace os
         // Remember the timestamp for the next context switch.
         scheduler::statistics::switch_timestamp_ = now;
 
-#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
+#endif // defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
         // The very core of the scheduler, if not locked, re-link the
         // current thread and return the top priority thread.
@@ -449,7 +449,7 @@ namespace os
           // the relink_running() will simply reschedule it,
           // otherwise the thread will be lost.
 
-#if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
+#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
         // Increment global context switches.
         scheduler::statistics::context_switches_++;
@@ -457,25 +457,25 @@ namespace os
         // Increment new thread context switches.
         scheduler::current_thread_->statistics_.context_switches_++;
 
-#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
+#endif // defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
       }
 
-#endif // !defined(OS_USE_RTOS_PORT_SCHEDULER)
+#endif // !defined(MICRO_OS_PLUS_USE_RTOS_PORT_SCHEDULER)
 
       namespace statistics
       {
-#if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
+#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
         rtos::statistics::counter_t context_switches_;
 
-#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
+#endif // defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
-#if defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
+#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
         clock::timestamp_t switch_timestamp_;
         rtos::statistics::duration_t cpu_cycles_;
 
-#endif // defined(OS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
+#endif // defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
       } // namespace statistics
 
@@ -551,7 +551,7 @@ namespace os
        * the priorities register is saved.
        */
 
-#if defined(OS_HAS_INTERRUPTS_STACK) || defined(__DOXYGEN__)
+#if defined(MICRO_OS_PLUS_HAS_INTERRUPTS_STACK) || defined(__DOXYGEN__)
 
       /**
        * @details
@@ -569,7 +569,7 @@ namespace os
         return &interrupts_stack;
       }
 
-#endif // defined(OS_HAS_INTERRUPTS_STACK)
+#endif // defined(MICRO_OS_PLUS_HAS_INTERRUPTS_STACK)
 
       ;
       // Avoid formatter bug.

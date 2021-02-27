@@ -501,7 +501,7 @@ namespace os
           max_count_ ((attr.mx_type == type::recursive) ? attr.mx_max_count
                                                         : 1)
     {
-#if defined(OS_TRACE_RTOS_MUTEX)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MUTEX)
       trace::printf ("%s() @%p %s\n", __func__, this, this->name ());
 #endif
 
@@ -512,7 +512,7 @@ namespace os
       os_assert_throw (protocol_ <= protocol::max_, EINVAL);
       os_assert_throw (robustness_ <= robustness::max_, EINVAL);
 
-#if !defined(OS_USE_RTOS_PORT_MUTEX)
+#if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_MUTEX)
       clock_ = attr.clock != nullptr ? attr.clock : &sysclock;
 #endif
 
@@ -524,7 +524,7 @@ namespace os
       initial_prio_ceiling_ = attr.mx_priority_ceiling;
       prio_ceiling_ = attr.mx_priority_ceiling;
 
-#if defined(OS_USE_RTOS_PORT_MUTEX)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MUTEX)
 
       count_ = 0;
       port::mutex::create (this);
@@ -558,11 +558,11 @@ namespace os
      */
     mutex::~mutex ()
     {
-#if defined(OS_TRACE_RTOS_MUTEX)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MUTEX)
       trace::printf ("%s() @%p %s\n", __func__, this, name ());
 #endif
 
-#if defined(OS_USE_RTOS_PORT_MUTEX)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MUTEX)
 
       port::mutex::destroy (this);
 
@@ -592,7 +592,7 @@ namespace os
       consistent_ = true;
       recoverable_ = true;
 
-#if !defined(OS_USE_RTOS_PORT_MUTEX)
+#if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_MUTEX)
 
       // Wake-up all threads, if any.
       // Need not be inside the critical section,
@@ -661,7 +661,7 @@ namespace os
                 }
             }
 
-#if defined(OS_TRACE_RTOS_MUTEX)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MUTEX)
           trace::printf ("%s() @%p %s by %p %s LCK\n", __func__, this, name (),
                          th, th->name ());
 #endif
@@ -686,7 +686,7 @@ namespace os
               if (count_ >= max_count_)
                 {
                   // The recursive mutex reached its limit.
-#if defined(OS_TRACE_RTOS_MUTEX)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MUTEX)
                   trace::printf ("%s() @%p %s EAGAIN\n", __func__, this,
                                  name ());
 #endif
@@ -696,7 +696,7 @@ namespace os
               // Increment the recursion depth counter.
               ++count_;
 
-#if defined(OS_TRACE_RTOS_MUTEX)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MUTEX)
               trace::printf ("%s() @%p %s by %p %s >%u\n", __func__, this,
                              name (), th, th->name (), count_);
 #endif
@@ -705,14 +705,14 @@ namespace os
           else if (type_ == type::errorcheck)
             {
               // Errorcheck mutexes do not block, but return an error.
-#if defined(OS_TRACE_RTOS_MUTEX)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MUTEX)
               trace::printf ("%s() @%p %s EDEADLK\n", __func__, this, name ());
 #endif
               return EDEADLK;
             }
           else if (type_ == type::normal)
             {
-#if defined(OS_TRACE_RTOS_MUTEX)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MUTEX)
               trace::printf ("%s() @%p %s deadlock\n", __func__, this,
                              name ());
 #endif
@@ -760,7 +760,7 @@ namespace os
                   // ----- Exit uncritical section ----------------------------
                 }
 
-#if defined(OS_TRACE_RTOS_MUTEX)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MUTEX)
               trace::printf ("%s() @%p %s boost %u by %p %s \n", __func__,
                              this, name (), boosted_prio_, th, th->name ());
 #endif
@@ -791,7 +791,7 @@ namespace os
             if ((type_ == type::recursive) && (count_ > 1))
               {
                 --count_;
-#if defined(OS_TRACE_RTOS_MUTEX)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MUTEX)
                 trace::printf ("%s() @%p %s >%u\n", __func__, this, name (),
                                count_);
 #endif
@@ -841,7 +841,7 @@ namespace os
             owner_ = nullptr;
             count_ = 0;
 
-#if defined(OS_TRACE_RTOS_MUTEX)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MUTEX)
             trace::printf ("%s() @%p %s ULCK\n", __func__, this, name ());
 #endif
 
@@ -868,7 +868,7 @@ namespace os
         if (type_ == type::errorcheck || type_ == type::recursive
             || robustness_ == robustness::robust)
           {
-#if defined(OS_TRACE_RTOS_MUTEX)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MUTEX)
             trace::printf ("%s() EPERM @%p %s \n", __func__, this, name ());
 #endif
             return EPERM;
@@ -877,7 +877,7 @@ namespace os
           // Normal no-robust mutexes owned by other threads have
           // undefined behaviour.
 
-#if defined(OS_TRACE_RTOS_MUTEX)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MUTEX)
         trace::printf ("%s() ENOTRECOVERABLE @%p %s \n", __func__, this,
                        name ());
 #endif
@@ -955,7 +955,7 @@ namespace os
     result_t
     mutex::lock (void)
     {
-#if defined(OS_TRACE_RTOS_MUTEX)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MUTEX)
       trace::printf ("%s() @%p %s by %p %s\n", __func__, this, name (),
                      &this_thread::thread (), this_thread::thread ().name ());
 #endif
@@ -970,7 +970,7 @@ namespace os
           return ENOTRECOVERABLE;
         }
 
-#if defined(OS_USE_RTOS_PORT_MUTEX)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MUTEX)
 
       return port::mutex::lock (this);
 
@@ -1028,7 +1028,7 @@ namespace os
 
           if (crt_thread.interrupted ())
             {
-#if defined(OS_TRACE_RTOS_MUTEX)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MUTEX)
               trace::printf ("%s() EINTR @%p %s\n", __func__, this, name ());
 #endif
               return EINTR;
@@ -1078,7 +1078,7 @@ namespace os
     result_t
     mutex::try_lock (void)
     {
-#if defined(OS_TRACE_RTOS_MUTEX)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MUTEX)
       trace::printf ("%s() @%p %s by %p %s\n", __func__, this, name (),
                      &this_thread::thread (), this_thread::thread ().name ());
 #endif
@@ -1091,7 +1091,7 @@ namespace os
           return ENOTRECOVERABLE;
         }
 
-#if defined(OS_USE_RTOS_PORT_MUTEX)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MUTEX)
 
       return port::mutex::try_lock (this);
 
@@ -1157,7 +1157,7 @@ namespace os
     result_t
     mutex::timed_lock (clock::duration_t timeout)
     {
-#if defined(OS_TRACE_RTOS_MUTEX)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MUTEX)
       trace::printf ("%s(%u) @%p %s by %p %s\n", __func__,
                      static_cast<unsigned int> (timeout), this, name (),
                      &this_thread::thread (), this_thread::thread ().name ());
@@ -1173,7 +1173,7 @@ namespace os
           return ENOTRECOVERABLE;
         }
 
-#if defined(OS_USE_RTOS_PORT_MUTEX)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MUTEX)
 
       return port::mutex::timed_lock (this, timeout);
 
@@ -1246,14 +1246,14 @@ namespace os
 
           if (crt_thread.interrupted ())
             {
-#if defined(OS_TRACE_RTOS_MUTEX)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MUTEX)
               trace::printf ("%s() EINTR @%p %s \n", __func__, this, name ());
 #endif
               res = EINTR;
             }
           else if (clock_->steady_now () >= timeout_timestamp)
             {
-#if defined(OS_TRACE_RTOS_MUTEX)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MUTEX)
               trace::printf ("%s() ETIMEDOUT @%p %s \n", __func__, this,
                              name ());
 #endif
@@ -1319,7 +1319,7 @@ namespace os
     result_t
     mutex::unlock (void)
     {
-#if defined(OS_TRACE_RTOS_MUTEX)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MUTEX)
       trace::printf ("%s() @%p %s by %p %s\n", __func__, this, name (),
                      &this_thread::thread (), this_thread::thread ().name ());
 #endif
@@ -1327,7 +1327,7 @@ namespace os
       // Don't call this from interrupt handlers.
       os_assert_err (!interrupts::in_handler_mode (), EPERM);
 
-#if defined(OS_USE_RTOS_PORT_MUTEX)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MUTEX)
 
       return port::mutex::unlock (this);
 
@@ -1357,14 +1357,14 @@ namespace os
     thread::priority_t
     mutex::prio_ceiling (void) const
     {
-#if defined(OS_TRACE_RTOS_MUTEX)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MUTEX)
       trace::printf ("%s() @%p %s\n", __func__, this, name ());
 #endif
 
       // Don't call this from interrupt handlers.
       assert (!interrupts::in_handler_mode ());
 
-#if defined(OS_USE_RTOS_PORT_MUTEX)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MUTEX)
 
       return port::mutex::prio_ceiling (this);
 
@@ -1402,14 +1402,14 @@ namespace os
     mutex::prio_ceiling (thread::priority_t prio_ceiling,
                          thread::priority_t* old_prio_ceiling)
     {
-#if defined(OS_TRACE_RTOS_MUTEX)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MUTEX)
       trace::printf ("%s() @%p %s\n", __func__, this, name ());
 #endif
 
       // Don't call this from interrupt handlers.
       os_assert_err (!interrupts::in_handler_mode (), EPERM);
 
-#if defined(OS_USE_RTOS_PORT_MUTEX)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MUTEX)
 
       return port::mutex::prio_ceiling (this, prio_ceiling, old_prio_ceiling);
 
@@ -1470,7 +1470,7 @@ namespace os
     result_t
     mutex::consistent (void)
     {
-#if defined(OS_TRACE_RTOS_MUTEX)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MUTEX)
       trace::printf ("%s() @%p %s\n", __func__, this, name ());
 #endif
 
@@ -1481,7 +1481,7 @@ namespace os
       // Don't call it if already consistent.
       os_assert_err (!consistent_, EINVAL);
 
-#if defined(OS_USE_RTOS_PORT_MUTEX)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MUTEX)
 
       return port::mutex::consistent (this);
 
@@ -1507,7 +1507,7 @@ namespace os
     result_t
     mutex::reset (void)
     {
-#if defined(OS_TRACE_RTOS_MUTEX)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_MUTEX)
       trace::printf ("%s() @%p %s\n", __func__, this, name ());
 #endif
 

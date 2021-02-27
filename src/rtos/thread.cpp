@@ -221,7 +221,7 @@ namespace os
     void
     thread::internal_invoke_with_exit_ (thread* thread)
     {
-#if defined(OS_TRACE_RTOS_THREAD)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD)
       trace::printf ("%s() @%p %s\n", __func__, thread, thread->name ());
 #endif
 
@@ -251,14 +251,14 @@ namespace os
 
     thread::thread ()
     {
-#if defined(OS_TRACE_RTOS_THREAD)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD)
       trace::printf ("%s() @%p %s\n", __func__, this, this->name ());
 #endif
     }
 
     thread::thread (const char* name) : object_named_system{ name }
     {
-#if defined(OS_TRACE_RTOS_THREAD)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD)
       trace::printf ("%s() @%p %s\n", __func__, this, this->name ());
 #endif
     }
@@ -366,7 +366,7 @@ namespace os
                     const attributes& attr, const allocator_type& allocator)
         : object_named_system{ name }
     {
-#if defined(OS_TRACE_RTOS_THREAD)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD)
       trace::printf ("%s() @%p %s\n", __func__, this, this->name ());
 #endif
 
@@ -447,7 +447,7 @@ namespace os
                         attr.th_stack_size_bytes);
         }
 
-#if defined(OS_TRACE_RTOS_THREAD)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD)
       trace::printf ("%s() @%p %s p%u stack{%p,%u}\n", __func__, this, name (),
                      attr.th_priority, stack ().bottom_address_,
                      stack ().size_bytes_);
@@ -476,7 +476,7 @@ namespace os
 
         stack ().initialize ();
 
-#if defined(OS_USE_RTOS_PORT_SCHEDULER)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_SCHEDULER)
 
         port::thread::create (this);
         state_ = state::ready;
@@ -523,7 +523,7 @@ namespace os
      */
     thread::~thread ()
     {
-#if defined(OS_TRACE_RTOS_THREAD)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD)
       trace::printf ("%s() @%p %s \n", __func__, this, name ());
 #endif
 
@@ -535,7 +535,7 @@ namespace os
         }
       else
         {
-#if defined(OS_TRACE_RTOS_THREAD)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD)
           trace::printf ("%s() @%p %s nop, cannot commit suicide\n", __func__,
                          this, name ());
 #endif
@@ -554,12 +554,12 @@ namespace os
     void
     thread::resume (void)
     {
-#if defined(OS_TRACE_RTOS_THREAD_CONTEXT)
+#if defined(MICRO_OS_PLUS_TRACE_RTMICRO_OS_PLUS_THREAD_CONTEXT)
       trace::printf ("%s() @%p %s %u\n", __func__, this, name (),
                      prio_assigned_);
 #endif
 
-#if defined(OS_USE_RTOS_PORT_SCHEDULER)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_SCHEDULER)
 
       {
         // ----- Enter critical section -------------------------------------
@@ -662,7 +662,7 @@ namespace os
     result_t
     thread::priority (priority_t prio)
     {
-#if defined(OS_TRACE_RTOS_THREAD)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD)
       trace::printf ("%s(%u) @%p %s\n", __func__, prio, this, name ());
 #endif
 
@@ -682,7 +682,7 @@ namespace os
 
       result_t res = result::ok;
 
-#if defined(OS_USE_RTOS_PORT_SCHEDULER)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_SCHEDULER)
 
       // The port must perform a context switch.
       res = port::thread::priority (this, prio);
@@ -730,7 +730,7 @@ namespace os
     result_t
     thread::priority_inherited (priority_t prio)
     {
-#if defined(OS_TRACE_RTOS_THREAD)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD)
       trace::printf ("%s(%u) @%p %s\n", __func__, prio, this, name ());
 #endif
 
@@ -759,7 +759,7 @@ namespace os
 
       result_t res = result::ok;
 
-#if defined(OS_USE_RTOS_PORT_SCHEDULER)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_SCHEDULER)
 
       // The port must perform a context switch.
       res = port::thread::priority (this, prio);
@@ -811,14 +811,14 @@ namespace os
     result_t
     thread::detach (void)
     {
-#if defined(OS_TRACE_RTOS_THREAD)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD)
       trace::printf ("%s() @%p %s\n", __func__, this, name ());
 #endif
 
       // Don't call this from interrupt handlers.
       os_assert_err (!interrupts::in_handler_mode (), EPERM);
 
-#if defined(OS_USE_RTOS_PORT_SCHEDULER)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_SCHEDULER)
 
       result_t res = port::thread::detach (this);
       if (res != result::ok)
@@ -869,7 +869,7 @@ namespace os
     result_t
     thread::join (void** exit_ptr)
     {
-#if defined(OS_TRACE_RTOS_THREAD)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD)
       trace::printf ("%s() @%p %s\n", __func__, this, name ());
 #endif
 
@@ -887,7 +887,7 @@ namespace os
           this_thread::_thread ()->internal_suspend_ ();
         }
 
-#if defined(OS_TRACE_RTOS_THREAD)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD)
       trace::printf ("%s() @%p %s joined\n", __func__, this, name ());
 #endif
 
@@ -924,7 +924,7 @@ namespace os
     result_t
     thread::cancel (void)
     {
-#if defined(OS_TRACE_RTOS_THREAD)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD)
       trace::printf ("%s() @%p %s\n", __func__, this, name ());
 #endif
 
@@ -949,7 +949,7 @@ namespace os
     bool
     thread::interrupt (bool interrupt)
     {
-#if defined(OS_TRACE_RTOS_THREAD)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD)
       trace::printf ("%s() @%p %s\n", __func__, this, name ());
 #endif
 
@@ -973,7 +973,7 @@ namespace os
     void
     thread::internal_suspend_ (void)
     {
-#if defined(OS_TRACE_RTOS_THREAD)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD)
       trace::printf ("%s() @%p %s\n", __func__, this, name ());
 #endif
 
@@ -994,7 +994,7 @@ namespace os
     void
     thread::internal_exit_ (void* exit_ptr)
     {
-#if defined(OS_TRACE_RTOS_THREAD)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD)
       trace::printf ("%s() @%p %s\n", __func__, this, name ());
 #endif
 
@@ -1037,7 +1037,7 @@ namespace os
         // ----- Exit critical section --------------------------------------
       }
 
-#if defined(OS_USE_RTOS_PORT_SCHEDULER)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_SCHEDULER)
 
       port::thread::destroy_this (this);
       // Does not return if the current thread.
@@ -1065,7 +1065,7 @@ namespace os
           assert (stack ().check_bottom_magic ());
           assert (stack ().check_top_magic ());
 
-#if defined(OS_TRACE_RTOS_THREAD)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD)
           trace::printf (
               "%s() @%p %s stack: %u/%u bytes used\n", __func__, this, name (),
               stack ().size () - stack ().available (), stack ().size ());
@@ -1080,7 +1080,7 @@ namespace os
     void
     thread::internal_destroy_ (void)
     {
-#if defined(OS_TRACE_RTOS_THREAD)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD)
       trace::printf ("%s() @%p %s\n", __func__, this, name ());
 #endif
 
@@ -1144,7 +1144,7 @@ namespace os
     result_t
     thread::kill (void)
     {
-#if defined(OS_TRACE_RTOS_THREAD)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD)
       trace::printf ("%s() @%p %s\n", __func__, this, name ());
 #endif
 
@@ -1157,7 +1157,7 @@ namespace os
 
         if (state_ == state::destroyed)
           {
-#if defined(OS_TRACE_RTOS_THREAD)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD)
             trace::printf ("%s() @%p %s already gone\n", __func__, this,
                            name ());
 #endif
@@ -1191,7 +1191,7 @@ namespace os
         assert (children_.empty ());
         parent_ = nullptr;
 
-#if defined(OS_USE_RTOS_PORT_SCHEDULER)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_SCHEDULER)
 
         port::thread::destroy_other (this);
 
@@ -1223,7 +1223,7 @@ namespace os
     result_t
     thread::flags_raise (flags::mask_t mask, flags::mask_t* oflags)
     {
-#if defined(OS_TRACE_RTOS_THREAD_FLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTMICRO_OS_PLUS_THREAD_FLAGS)
       trace::printf ("%s(0x%X) @%p %s <0x%X\n", __func__, mask, this, name (),
                      event_flags_.mask ());
 #endif
@@ -1232,7 +1232,7 @@ namespace os
 
       this->resume ();
 
-#if defined(OS_TRACE_RTOS_THREAD_FLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTMICRO_OS_PLUS_THREAD_FLAGS)
       trace::printf ("%s(0x%X) @%p %s >0x%X\n", __func__, mask, this, name (),
                      event_flags_.mask ());
 #endif
@@ -1248,7 +1248,7 @@ namespace os
     thread::internal_flags_wait_ (flags::mask_t mask, flags::mask_t* oflags,
                                   flags::mode_t mode)
     {
-#if defined(OS_TRACE_RTOS_THREAD_FLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTMICRO_OS_PLUS_THREAD_FLAGS)
       trace::printf ("%s(0x%X,%u) @%p %s <0x%X\n", __func__, mask, mode, this,
                      name (), event_flags_.mask ());
 #endif
@@ -1264,7 +1264,7 @@ namespace os
 
         if (event_flags_.check_raised (mask, oflags, mode))
           {
-#if defined(OS_TRACE_RTOS_THREAD_FLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTMICRO_OS_PLUS_THREAD_FLAGS)
             trace::printf ("%s(0x%X,%u) @%p %s >0x%X\n", __func__, mask, mode,
                            this, name (), event_flags_.mask ());
 #endif
@@ -1273,7 +1273,7 @@ namespace os
         // ----- Exit critical section ----------------------------------
       }
 
-#if defined(OS_TRACE_RTOS_THREAD_FLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTMICRO_OS_PLUS_THREAD_FLAGS)
       clock::timestamp_t begin_timestamp = clock_->now ();
 #endif
       for (;;)
@@ -1284,7 +1284,7 @@ namespace os
 
             if (event_flags_.check_raised (mask, oflags, mode))
               {
-#if defined(OS_TRACE_RTOS_THREAD_FLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTMICRO_OS_PLUS_THREAD_FLAGS)
                 clock::duration_t slept_ticks
                     = static_cast<clock::duration_t> (clock_->now ()
                                                       - begin_timestamp);
@@ -1301,7 +1301,7 @@ namespace os
 
           if (interrupted ())
             {
-#if defined(OS_TRACE_RTOS_THREAD_FLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTMICRO_OS_PLUS_THREAD_FLAGS)
               trace::printf ("%s(0x%X,%u) EINTR @%p %s\n", __func__, mask,
                              mode, this, name ());
 #endif
@@ -1318,7 +1318,7 @@ namespace os
                                       flags::mask_t* oflags,
                                       flags::mode_t mode)
     {
-#if defined(OS_TRACE_RTOS_THREAD_FLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTMICRO_OS_PLUS_THREAD_FLAGS)
       trace::printf ("%s(0x%X,%u) @%p %s <0x%X\n", __func__, mask, mode, this,
                      name (), event_flags_.mask ());
 #endif
@@ -1332,7 +1332,7 @@ namespace os
 
         if (event_flags_.check_raised (mask, oflags, mode))
           {
-#if defined(OS_TRACE_RTOS_THREAD_FLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTMICRO_OS_PLUS_THREAD_FLAGS)
             trace::printf ("%s(0x%X,%u) @%p %s >0x%X\n", __func__, mask, mode,
                            this, name (), event_flags_.mask ());
 #endif
@@ -1340,7 +1340,7 @@ namespace os
           }
         else
           {
-#if defined(OS_TRACE_RTOS_THREAD_FLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTMICRO_OS_PLUS_THREAD_FLAGS)
             trace::printf ("%s(0x%X,%u) EWOULDBLOCK @%p %s \n", __func__, mask,
                            mode, this, name ());
 #endif
@@ -1356,7 +1356,7 @@ namespace os
                                         flags::mask_t* oflags,
                                         flags::mode_t mode)
     {
-#if defined(OS_TRACE_RTOS_THREAD_FLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTMICRO_OS_PLUS_THREAD_FLAGS)
       trace::printf ("%s(0x%X,%u,%u) @%p %s <0x%X\n", __func__, mask, timeout,
                      mode, this, name (), event_flags_.mask ());
 #endif
@@ -1372,7 +1372,7 @@ namespace os
 
         if (event_flags_.check_raised (mask, oflags, mode))
           {
-#if defined(OS_TRACE_RTOS_THREAD_FLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTMICRO_OS_PLUS_THREAD_FLAGS)
             trace::printf ("%s(0x%X,%u,%u) @%p %s >0x%X\n", __func__, mask,
                            timeout, mode, this, name (), event_flags_.mask ());
 #endif
@@ -1384,7 +1384,7 @@ namespace os
       internal::clock_timestamps_list& clock_list = clock_->steady_list ();
       clock::timestamp_t timeout_timestamp = clock_->steady_now () + timeout;
 
-#if defined(OS_TRACE_RTOS_THREAD_FLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTMICRO_OS_PLUS_THREAD_FLAGS)
       clock::timestamp_t begin_timestamp = clock_->steady_now ();
 #endif
 
@@ -1399,7 +1399,7 @@ namespace os
 
             if (event_flags_.check_raised (mask, oflags, mode))
               {
-#if defined(OS_TRACE_RTOS_THREAD_FLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTMICRO_OS_PLUS_THREAD_FLAGS)
                 clock::duration_t slept_ticks
                     = static_cast<clock::duration_t> (clock_->steady_now ()
                                                       - begin_timestamp);
@@ -1437,7 +1437,7 @@ namespace os
 
           if (interrupted ())
             {
-#if defined(OS_TRACE_RTOS_THREAD_FLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTMICRO_OS_PLUS_THREAD_FLAGS)
               trace::printf ("%s(0x%X,%u,%u) EINTR @%p %s\n", __func__, mask,
                              timeout, mode, this, name ());
 #endif
@@ -1446,7 +1446,7 @@ namespace os
 
           if (clock_->steady_now () >= timeout_timestamp)
             {
-#if defined(OS_TRACE_RTOS_THREAD_FLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTMICRO_OS_PLUS_THREAD_FLAGS)
               trace::printf ("%s(0x%X,%u,%u) ETIMEDOUT @%p %s\n", __func__,
                              mask, timeout, mode, this, name ());
 #endif
@@ -1471,7 +1471,7 @@ namespace os
     flags::mask_t
     thread::internal_flags_get_ (flags::mask_t mask, flags::mode_t mode)
     {
-#if defined(OS_TRACE_RTOS_THREAD_FLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTMICRO_OS_PLUS_THREAD_FLAGS)
       trace::printf ("%s(0x%X) @%p %s\n", __func__, mask, this, name ());
 #endif
 
@@ -1480,7 +1480,7 @@ namespace os
 
       flags::mask_t ret = event_flags_.get (mask, mode);
 
-#if defined(OS_TRACE_RTOS_THREAD_FLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTMICRO_OS_PLUS_THREAD_FLAGS)
       trace::printf ("%s(0x%X)=0x%X @%p %s\n", __func__, mask,
                      event_flags_.mask (), this, name ());
 #endif
@@ -1496,7 +1496,7 @@ namespace os
     result_t
     thread::internal_flags_clear_ (flags::mask_t mask, flags::mask_t* oflags)
     {
-#if defined(OS_TRACE_RTOS_THREAD_FLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTMICRO_OS_PLUS_THREAD_FLAGS)
       trace::printf ("%s(0x%X) @%p %s <0x%X\n", __func__, mask, this, name (),
                      event_flags_.mask ());
 #endif
@@ -1506,7 +1506,7 @@ namespace os
 
       result_t res = event_flags_.clear (mask, oflags);
 
-#if defined(OS_TRACE_RTOS_THREAD_FLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTMICRO_OS_PLUS_THREAD_FLAGS)
       trace::printf ("%s(0x%X) @%p %s >0x%X\n", __func__, mask, this, name (),
                      event_flags_.mask ());
 #endif
@@ -1535,7 +1535,7 @@ namespace os
       {
         rtos::thread* th;
 
-#if defined(OS_USE_RTOS_PORT_SCHEDULER)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_SCHEDULER)
 
         th = port::this_thread::thread ();
 
@@ -1585,17 +1585,17 @@ namespace os
 
         if (!scheduler::started ())
           {
-#if defined(OS_TRACE_RTOS_THREAD_CONTEXT)
+#if defined(MICRO_OS_PLUS_TRACE_RTMICRO_OS_PLUS_THREAD_CONTEXT)
             trace::printf ("%s() nop %s \n", __func__, _thread ()->name ());
 #endif
             return;
           }
 
-#if defined(OS_TRACE_RTOS_THREAD_CONTEXT)
+#if defined(MICRO_OS_PLUS_TRACE_RTMICRO_OS_PLUS_THREAD_CONTEXT)
         trace::printf ("%s() from %s\n", __func__, _thread ()->name ());
 #endif
 
-#if defined(OS_USE_RTOS_PORT_SCHEDULER)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_SCHEDULER)
 
         port::this_thread::yield ();
 
@@ -1605,7 +1605,7 @@ namespace os
 
 #endif
 
-#if defined(OS_TRACE_RTOS_THREAD_CONTEXT)
+#if defined(MICRO_OS_PLUS_TRACE_RTMICRO_OS_PLUS_THREAD_CONTEXT)
         trace::printf ("%s() to %s\n", __func__, _thread ()->name ());
 #endif
       }

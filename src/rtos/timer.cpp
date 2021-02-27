@@ -169,7 +169,7 @@ namespace os
                   const attributes& attr)
         : object_named_system{ name }
     {
-#if defined(OS_TRACE_RTOS_TIMER)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_TIMER)
       trace::printf ("%s() @%p %s\n", __func__, this, this->name ());
 #endif
 
@@ -182,11 +182,11 @@ namespace os
       func_ = function;
       func_args_ = args;
 
-#if !defined(OS_USE_RTOS_PORT_TIMER)
+#if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_TIMER)
       clock_ = attr.clock != nullptr ? attr.clock : &sysclock;
 #endif
 
-#if defined(OS_USE_RTOS_PORT_TIMER)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_TIMER)
 
       port::timer::create (this, function, args);
 
@@ -210,11 +210,11 @@ namespace os
      */
     timer::~timer ()
     {
-#if defined(OS_TRACE_RTOS_TIMER)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_TIMER)
       trace::printf ("%s() @%p %s\n", __func__, this, name ());
 #endif
 
-#if defined(OS_USE_RTOS_PORT_TIMER)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_TIMER)
 
       port::timer::destroy (this);
 
@@ -244,7 +244,7 @@ namespace os
     result_t
     timer::start (clock::duration_t period)
     {
-#if defined(OS_TRACE_RTOS_TIMER)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_TIMER)
       trace::printf ("%s(%u) @%p %s\n", __func__,
                      static_cast<unsigned int> (period), this, name ());
 #endif
@@ -259,7 +259,7 @@ namespace os
 
       result_t res;
 
-#if defined(OS_USE_RTOS_PORT_TIMER)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_TIMER)
 
       res = port::timer::start (this, period);
 
@@ -302,7 +302,7 @@ namespace os
     result_t
     timer::stop (void)
     {
-#if defined(OS_TRACE_RTOS_TIMER)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_TIMER)
       trace::printf ("%s() @%p %s\n", __func__, this, name ());
 #endif
 
@@ -316,7 +316,7 @@ namespace os
 
       result_t res;
 
-#if defined(OS_USE_RTOS_PORT_TIMER)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_TIMER)
 
       res = port::timer::stop (this);
 
@@ -337,7 +337,7 @@ namespace os
       return res;
     }
 
-#if !defined(OS_USE_RTOS_PORT_TIMER)
+#if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_TIMER)
 
     /**
      * @cond ignore
@@ -360,7 +360,7 @@ namespace os
           state_ = state::completed;
         }
 
-#if defined(OS_USE_RTOS_PORT_TIMER)
+#if defined(MICRO_OS_PLUS_USE_RTOS_PORT_TIMER)
       trace::puts (name ());
 #endif
 
