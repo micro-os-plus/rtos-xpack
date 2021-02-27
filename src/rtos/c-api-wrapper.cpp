@@ -983,7 +983,8 @@ os_thread_get_state (os_thread_t* thread)
       (reinterpret_cast<rtos::thread&> (*thread)).state ());
 }
 
-#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE) || defined(__DOXYGEN__)
+#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE) \
+    || defined(__DOXYGEN__)
 
 /**
  * @details

@@ -460,7 +460,8 @@ namespace os
       /**
        * @brief SysTick frequency in Hz.
        */
-      static constexpr uint32_t frequency_hz = MICRO_OS_PLUS_INTEGER_SYSTICK_FREQUENCY_HZ;
+      static constexpr uint32_t frequency_hz
+          = MICRO_OS_PLUS_INTEGER_SYSTICK_FREQUENCY_HZ;
 
       /**
        * @}

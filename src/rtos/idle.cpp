@@ -111,9 +111,8 @@ thread* os_idle_thread;
 
 #if defined(MICRO_OS_PLUS_EXCLUDE_DYNAMIC_MEMORY_ALLOCATIONS)
 
-static thread_inclusive<MICRO_OS_PLUS_INTEGER_RTOS_IDLE_STACK_SIZE_BYTES> os_idle_thread_{
-  "idle", os_idle, nullptr
-};
+static thread_inclusive<MICRO_OS_PLUS_INTEGER_RTOS_IDLE_STACK_SIZE_BYTES>
+    os_idle_thread_{ "idle", os_idle, nullptr };
 
 #else
 

@@ -951,7 +951,8 @@ namespace os
          */
       };
 
-#endif /* defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES) || \
+#endif /* defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES) \
+          || \
           defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES) */
 
 #pragma GCC diagnostic pop
@@ -1195,7 +1196,8 @@ namespace os
       void*
       function_args (void) const;
 
-#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE) || defined(__DOXYGEN__)
+#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE) \
+    || defined(__DOXYGEN__)
 
       /**
        * @brief Get the user storage.
@@ -1625,7 +1627,8 @@ namespace os
 
       internal::event_flags event_flags_;
 
-#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE) || defined(__DOXYGEN__)
+#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE) \
+    || defined(__DOXYGEN__)
       os_thread_user_storage_t user_storage_;
 #endif // defined(MICRO_OS_PLUS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE)
 
@@ -2316,7 +2319,8 @@ namespace os
       return interrupted_;
     }
 
-#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE) || defined(__DOXYGEN__)
+#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE) \
+    || defined(__DOXYGEN__)
 
     /**
      * @details
@@ -2329,8 +2333,8 @@ namespace os
      * when implementing CMSIS+ over FreeRTOS.
      *
      * @note
-     *  Available only when `MICRO_OS_PLUS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE`
-     *  is defined.
+     *  Available only when
+     * `MICRO_OS_PLUS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE` is defined.
      *
      *
      * @note Can be invoked from Interrupt Service Routines.

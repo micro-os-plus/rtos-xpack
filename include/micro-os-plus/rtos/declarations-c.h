@@ -283,16 +283,21 @@ extern "C"
     // Ordered, with **none** as the first and **error** as the last.
     os_thread_priority_none = 0, // not defined
     os_thread_priority_idle = (1 << MICRO_OS_PLUS_THREAD_PRIO_SHIFT),
-    os_thread_priority_lowest = (2 << MICRO_OS_PLUS_THREAD_PRIO_SHIFT), // lowest
+    os_thread_priority_lowest
+    = (2 << MICRO_OS_PLUS_THREAD_PRIO_SHIFT), // lowest
     os_thread_priority_low = (2 << MICRO_OS_PLUS_THREAD_PRIO_SHIFT),
     os_thread_priority_below_normal = (4 << MICRO_OS_PLUS_THREAD_PRIO_SHIFT),
-    os_thread_priority_normal = (6 << MICRO_OS_PLUS_THREAD_PRIO_SHIFT), // default
+    os_thread_priority_normal
+    = (6 << MICRO_OS_PLUS_THREAD_PRIO_SHIFT), // default
     os_thread_priority_above_normal = (8 << MICRO_OS_PLUS_THREAD_PRIO_SHIFT),
     os_thread_priority_high = (10 << MICRO_OS_PLUS_THREAD_PRIO_SHIFT),
     os_thread_priority_realtime = (12 << MICRO_OS_PLUS_THREAD_PRIO_SHIFT),
-    os_thread_priority_highest = (((13 + 1) << MICRO_OS_PLUS_THREAD_PRIO_SHIFT) - 1),
-    os_thread_priority_isr = (((14 + 1) << MICRO_OS_PLUS_THREAD_PRIO_SHIFT) - 1),
-    os_thread_priority_error = (((15 + 1) << MICRO_OS_PLUS_THREAD_PRIO_SHIFT) - 1)
+    os_thread_priority_highest
+    = (((13 + 1) << MICRO_OS_PLUS_THREAD_PRIO_SHIFT) - 1),
+    os_thread_priority_isr
+    = (((14 + 1) << MICRO_OS_PLUS_THREAD_PRIO_SHIFT) - 1),
+    os_thread_priority_error
+    = (((15 + 1) << MICRO_OS_PLUS_THREAD_PRIO_SHIFT) - 1)
   };
 
   /**

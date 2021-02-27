@@ -583,7 +583,8 @@ extern "C"
   os_thread_state_t
   os_thread_get_state (os_thread_t* thread);
 
-#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE) || defined(__DOXYGEN__)
+#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE) \
+    || defined(__DOXYGEN__)
 
   /**
    * @brief Get the thread user storage.
