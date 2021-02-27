@@ -2330,7 +2330,7 @@ namespace os
      *
      * Inspired by (actually a generalisation of) µC-OS III task user
      * registers and FreeRTOS thread local storage, which proved useful
-     * when implementing CMSIS+ over FreeRTOS.
+     * when implementing µOS++ over FreeRTOS.
      *
      * @note
      *  Available only when

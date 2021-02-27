@@ -26,8 +26,8 @@
  */
 
 /*
- * The code was originally inspired by ARM CMSIS cmsis_os.h file, v1.02,
- * and tries to remain functionally close to the CMSIS specifications.
+ * The code was originally inspired by ARM CMSIS `cmsis_os.h` file, v1.02,
+ * and tries to remain functionally close to the CMSIS RTOS specifications.
  */
 
 #ifndef MICRO_OS_PLUS_RTOS_C_API_H_

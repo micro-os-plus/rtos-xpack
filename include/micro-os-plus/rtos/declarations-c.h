@@ -26,8 +26,8 @@
  */
 
 /*
- * The structures declared in this file are used both in the C API
- * and in the legacy CMSIS API.
+ * The structures declared in this file are used both in the µOS++ C API
+ * and in the CMSIS RTOS API.
  *
  * Since there is no method to automatically sync them with the C++
  * definitions, they must be manually adjusted to match them, otherwise

@@ -183,7 +183,7 @@ namespace os
       // Don't call this from interrupt handlers.
       os_assert_throw (!interrupts::in_handler_mode (), EPERM);
 
-      // The CMSIS validator requires the max_value to be equal to
+      // The CMSIS RTOS validator requires the max_value to be equal to
       // the initial count, which can be 0, but we patch it on the way.
       assert (max_value_ > 0);
       assert (initial_value >= 0);

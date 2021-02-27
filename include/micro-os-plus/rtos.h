@@ -35,7 +35,7 @@
  * @brief Single file µOS++ RTOS definitions.
  * @details
  * The code was originally inspired by ARM CMSIS `<cmsis_os.h>` file, v1.02,
- * and tries to remain functionally close to the CMSIS specifications.
+ * and tries to remain functionally close to the CMSIS RTOS specifications.
  *
  * References are to C++ Standard ISO/IEC 14882:2011(E)
  * Third edition (2011-09-01).
