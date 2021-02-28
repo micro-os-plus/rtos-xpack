@@ -593,13 +593,14 @@ namespace micro_os_plus
       // The queue storage must have a real address.
       micro_os_plus_assert_throw (arena_address_ != nullptr, ENOMEM);
 
-      // The array of prev indexes follows immediately after the content array.
+      // The array of previous indexes follows immediately after the content
+      // array.
       prev_array_ = reinterpret_cast<index_t*> (
           static_cast<char*> (arena_address_)
           + messages
                 * ((message_size_bytes + (sizeof (void*) - 1))
                    & ~(sizeof (void*) - 1)));
-      // The array of next indexes follows immediately the prev array.
+      // The array of next indexes follows immediately the previous array.
       next_array_ = reinterpret_cast<index_t*> (
           reinterpret_cast<char*> (const_cast<index_t*> (prev_array_))
           + messages * sizeof (index_t));

@@ -500,7 +500,8 @@ extern "C"
    * @return Pointer to new thread object instance.
    */
   micro_os_plus_thread_t*
-  micro_os_plus_thread_new (const char* name, micro_os_plus_thread_func_t function,
+  micro_os_plus_thread_new (const char* name,
+                            micro_os_plus_thread_func_t function,
                             const micro_os_plus_thread_func_args_t args,
                             const micro_os_plus_thread_attributes_t* attr);
 

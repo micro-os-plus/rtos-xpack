@@ -67,7 +67,7 @@ extern "C"
 
   typedef struct micro_os_plus_internal_double_list_links_s
   {
-    void* prev;
+    void* previous;
     void* next;
   } micro_os_plus_internal_double_list_links_t;
 
@@ -684,7 +684,7 @@ extern "C"
   typedef struct micro_os_plus_clock_node_s
   {
     void* next;
-    void* prev;
+    void* previous;
     void* list;
     micro_os_plus_clock_timestamp_t timestamp;
     void* timer;

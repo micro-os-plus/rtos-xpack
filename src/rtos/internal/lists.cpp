@@ -50,7 +50,7 @@ namespace micro_os_plus
       void
       ready_threads_list::link (waiting_thread_node& node)
       {
-        if (head_.prev () == nullptr)
+        if (head_.previous () == nullptr)
           {
             // If this is the first time, initialise the list to empty.
             clear ();
@@ -95,7 +95,7 @@ namespace micro_os_plus
               {
                 after = static_cast<waiting_thread_node*> (
                     const_cast<utils::static_double_list_links*> (
-                        after->prev ()));
+                        after->previous ()));
               }
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_LISTS)
             trace::printf ("ready %s() middle %u +%u \n", __func__,
@@ -221,7 +221,7 @@ namespace micro_os_plus
               {
                 after = static_cast<waiting_thread_node*> (
                     const_cast<utils::static_double_list_links*> (
-                        after->prev ()));
+                        after->previous ()));
               }
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_LISTS)
             trace::printf ("wait %s() middle %u +%u \n", __func__,
@@ -424,7 +424,7 @@ namespace micro_os_plus
               {
                 after = static_cast<timeout_thread_node*> (
                     const_cast<utils::static_double_list_links*> (
-                        after->prev ()));
+                        after->previous ()));
               }
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_LISTS_CLOCKS)
             trace::printf ("clock %s() middle %u +%u\n", __func__,
@@ -485,7 +485,7 @@ namespace micro_os_plus
       void
       terminated_threads_list::link (waiting_thread_node& node)
       {
-        if (head_.prev () == nullptr)
+        if (head_.previous () == nullptr)
           {
             // If this is the first time, initialise the list to empty.
             clear ();
