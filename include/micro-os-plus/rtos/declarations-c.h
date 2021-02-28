@@ -1114,12 +1114,12 @@ extern "C"
     /**
      * @brief Semaphore max count value.
      */
-    micro_os_plus_semaphore_count_t sm_max_value;
+    micro_os_plus_semaphore_count_t semaphore_max_value;
 
     /**
      * @brief Semaphore initial count value.
      */
-    micro_os_plus_semaphore_count_t sm_initial_value;
+    micro_os_plus_semaphore_count_t semaphore_initial_value;
 
   } micro_os_plus_semaphore_attributes_t;
 

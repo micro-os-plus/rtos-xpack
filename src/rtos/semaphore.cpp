@@ -59,14 +59,14 @@ namespace micro_os_plus
      */
 
     /**
-     * @var semaphore::count_t semaphore::attributes::sm_initial_value
+     * @var semaphore::count_t semaphore::attributes::semaphore_initial_value
      * @details
      * This values represents the number of resources initially
      * available to the semaphore.
      */
 
     /**
-     * @var semaphore::count_t semaphore::attributes::sm_max_value
+     * @var semaphore::count_t semaphore::attributes::semaphore_max_value
      * @details
      * This values represents the maximum number of resources
      * available to the semaphore.
@@ -155,7 +155,8 @@ namespace micro_os_plus
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
     semaphore::semaphore (const char* name, const attributes& attr)
-        : semaphore{ name, attr.sm_max_value, attr.sm_initial_value, attr }
+        : semaphore{ name, attr.semaphore_max_value,
+                     attr.semaphore_initial_value, attr }
     {
       ;
     }

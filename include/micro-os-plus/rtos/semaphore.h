@@ -134,12 +134,12 @@ namespace micro_os_plus
         /**
          * @brief Semaphore max count value.
          */
-        count_t sm_max_value = 1;
+        count_t semaphore_max_value = 1;
 
         /**
          * @brief Semaphore initial count value.
          */
-        count_t sm_initial_value = 0;
+        count_t semaphore_initial_value = 0;
 
         // Add more attributes here.
 
@@ -667,8 +667,8 @@ namespace micro_os_plus
 
     constexpr semaphore::attributes::attributes (count_t max_value,
                                                  count_t initial_value)
-        : sm_max_value (max_value), //
-          sm_initial_value (initial_value)
+        : semaphore_max_value (max_value), //
+          semaphore_initial_value (initial_value)
     {
       ;
     }
