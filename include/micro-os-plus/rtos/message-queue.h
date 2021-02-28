@@ -84,13 +84,13 @@ namespace micro_os_plus
        * @brief Type of message size storage.
        * @ingroup micro-os-plus-rtos-mqueue
        */
-      using msg_size_t = uint16_t;
+      using message_size_t = uint16_t;
 
       /**
        * @brief Maximum message size.
        * @ingroup micro-os-plus-rtos-mqueue
        */
-      static constexpr msg_size_t max_message_size = 0xFFFF;
+      static constexpr message_size_t max_message_size = 0xFFFF;
 
       /**
        * @brief Type of list index storage.
@@ -219,35 +219,39 @@ namespace micro_os_plus
        * extended to a multiple of pointers. The lists are kept in two arrays
        * of indices and the priorities are kept in a separate array.
        */
-      template <typename T, std::size_t msgs, std::size_t msg_size_bytes>
+      template <typename T, std::size_t messages,
+                std::size_t message_size_bytes>
       class arena
       {
       public:
-        T queue[(msgs * msg_size_bytes + sizeof (T) - 1) / sizeof (T)];
-        T links[((2 * msgs) * sizeof (index_t) + sizeof (T) - 1) / sizeof (T)];
-        T prios[(msgs * sizeof (priority_t) + sizeof (T) - 1) / sizeof (T)];
+        T queue[(messages * message_size_bytes + sizeof (T) - 1) / sizeof (T)];
+        T links[((2 * messages) * sizeof (index_t) + sizeof (T) - 1)
+                / sizeof (T)];
+        T prios[(messages * sizeof (priority_t) + sizeof (T) - 1)
+                / sizeof (T)];
       };
 
       /**
        * @brief Calculator for queue storage requirements.
-       * @param msgs Number of messages.
-       * @param msg_size_bytes Size of message.
+       * @param messages Number of messages.
+       * @param message_size_bytes Size of message.
        * @return Total required storage in bytes, including
        * internal alignment.
        */
       template <typename T>
       constexpr std::size_t
-      compute_allocated_size_bytes (std::size_t msgs,
-                                    std::size_t msg_size_bytes)
+      compute_allocated_size_bytes (std::size_t messages,
+                                    std::size_t message_size_bytes)
       {
         // Align each message
-        return (msgs
-                * ((msg_size_bytes + (sizeof (T) - 1)) & ~(sizeof (T) - 1)))
+        return (messages
+                * ((message_size_bytes + (sizeof (T) - 1))
+                   & ~(sizeof (T) - 1)))
                // Align the indices array
-               + ((2 * msgs * sizeof (index_t) + (sizeof (T) - 1))
+               + ((2 * messages * sizeof (index_t) + (sizeof (T) - 1))
                   & ~(sizeof (T) - 1))
                // Align the priority array
-               + ((msgs * sizeof (priority_t) + (sizeof (T) - 1))
+               + ((messages * sizeof (priority_t) + (sizeof (T) - 1))
                   & ~(sizeof (T) - 1));
       }
 
@@ -260,27 +264,27 @@ namespace micro_os_plus
 
       /**
        * @brief Construct a message queue object instance.
-       * @param [in] msgs The number of messages.
-       * @param [in] msg_size_bytes The message size, in bytes.
+       * @param [in] messages The number of messages.
+       * @param [in] message_size_bytes The message size, in bytes.
        * @param [in] attr Reference to attributes.
        * @param [in] allocator Reference to allocator. Default a
        * local temporary instance.
        */
-      message_queue (std::size_t msgs, std::size_t msg_size_bytes,
+      message_queue (std::size_t messages, std::size_t message_size_bytes,
                      const attributes& attr = initializer,
                      const allocator_type& allocator = allocator_type ());
 
       /**
        * @brief Construct a named message queue object instance.
        * @param [in] name Pointer to name.
-       * @param [in] msgs The number of messages.
-       * @param [in] msg_size_bytes The message size, in bytes.
+       * @param [in] messages The number of messages.
+       * @param [in] message_size_bytes The message size, in bytes.
        * @param [in] attr Reference to attributes.
        * @param [in] allocator Reference to allocator. Default a
        * local temporary instance.
        */
-      message_queue (const char* name, std::size_t msgs,
-                     std::size_t msg_size_bytes,
+      message_queue (const char* name, std::size_t messages,
+                     std::size_t message_size_bytes,
                      const attributes& attr = initializer,
                      const allocator_type& allocator = allocator_type ());
 
@@ -549,8 +553,8 @@ namespace micro_os_plus
 
       /**
        * @brief Internal function used during message queue construction.
-       * @param [in] msgs The number of messages.
-       * @param [in] msg_size_bytes The message size, in bytes.
+       * @param [in] messages The number of messages.
+       * @param [in] message_size_bytes The message size, in bytes.
        * @param [in] attr Reference to attributes.
        * @param [in] arena_addressess Pointer to queue storage.
        * @param [in] arena_size_bytes Size of queue storage.
@@ -558,7 +562,8 @@ namespace micro_os_plus
        *  Nothing.
        */
       void
-      internal_construct_ (std::size_t msgs, std::size_t msg_size_bytes,
+      internal_construct_ (std::size_t messages,
+                           std::size_t message_size_bytes,
                            const attributes& attr, void* arena_addressess,
                            std::size_t arena_size_bytes);
 
@@ -695,11 +700,11 @@ namespace micro_os_plus
       /**
        * @brief Message size (aligned to size of pointer)
        */
-      message_queue::msg_size_t msg_size_bytes_ = 0;
+      message_queue::message_size_t message_size_bytes_ = 0;
       /**
        * @brief Max number of messages.
        */
-      message_queue::size_t msgs_ = 0;
+      message_queue::size_t messages_ = 0;
       /**
        * @brief Current number of messages in the queue.
        */
@@ -744,13 +749,14 @@ namespace micro_os_plus
 
       /**
        * @brief Construct a message queue object instance.
-       * @param [in] msgs The number of messages.
-       * @param [in] msg_size_bytes The message size, in bytes.
+       * @param [in] messages The number of messages.
+       * @param [in] message_size_bytes The message size, in bytes.
        * @param [in] attr Reference to attributes.
        * @param [in] allocator Reference to allocator. Default a
        * local temporary instance.
        */
-      message_queue_allocated (std::size_t msgs, std::size_t msg_size_bytes,
+      message_queue_allocated (std::size_t messages,
+                               std::size_t message_size_bytes,
                                const attributes& attr = initializer,
                                const allocator_type& allocator
                                = allocator_type ());
@@ -758,14 +764,14 @@ namespace micro_os_plus
       /**
        * @brief Construct a named message queue object instance.
        * @param [in] name Pointer to name.
-       * @param [in] msgs The number of messages.
-       * @param [in] msg_size_bytes The message size, in bytes.
+       * @param [in] messages The number of messages.
+       * @param [in] message_size_bytes The message size, in bytes.
        * @param [in] attr Reference to attributes.
        * @param [in] allocator Reference to allocator. Default a
        * local temporary instance.
        */
-      message_queue_allocated (const char* name, std::size_t msgs,
-                               std::size_t msg_size_bytes,
+      message_queue_allocated (const char* name, std::size_t messages,
+                               std::size_t message_size_bytes,
                                const attributes& attr = initializer,
                                const allocator_type& allocator
                                = allocator_type ());
@@ -828,12 +834,12 @@ namespace micro_os_plus
 
       /**
        * @brief Construct a typed message queue object instance.
-       * @param [in] msgs The number of messages.
+       * @param [in] messages The number of messages.
        * @param [in] attr Reference to attributes.
        * @param [in] allocator Reference to allocator. Default a
        * local temporary instance.
        */
-      message_queue_typed (std::size_t msgs,
+      message_queue_typed (std::size_t messages,
                            const message_queue::attributes& attr
                            = message_queue::initializer,
                            const allocator_type& allocator
@@ -842,12 +848,12 @@ namespace micro_os_plus
       /**
        * @brief Construct a named typed message queue object instance.
        * @param [in] name Pointer to name.
-       * @param [in] msgs The number of messages.
+       * @param [in] messages The number of messages.
        * @param [in] attr Reference to attributes.
        * @param [in] allocator Reference to allocator. Default a
        * local temporary instance.
        */
-      message_queue_typed (const char* name, std::size_t msgs,
+      message_queue_typed (const char* name, std::size_t messages,
                            const message_queue::attributes& attr
                            = message_queue::initializer,
                            const allocator_type& allocator
@@ -1028,7 +1034,7 @@ namespace micro_os_plus
       /**
        * @brief Local constant based on template definition.
        */
-      static const std::size_t msgs = N;
+      static const std::size_t messages = N;
 
       /**
        * @name Constructors & Destructor
@@ -1212,13 +1218,13 @@ namespace micro_os_plus
       /**
        * @brief Local storage for the queue.
        * @details
-       * The local storage is large enough to include `msgs`
+       * The local storage is large enough to include `messages`
        * messages of type `T`, plus the separate linked lists and
        * priorities.
        * For performance reasons, the individual components are
        * aligned as pointers.
        */
-      arena<void*, msgs, sizeof (value_type)> arena_;
+      arena<void*, messages, sizeof (value_type)> arena_;
 
       /**
        * @endcond
@@ -1284,7 +1290,7 @@ namespace micro_os_plus
     inline std::size_t
     message_queue::capacity (void) const
     {
-      return msgs_;
+      return messages_;
     }
 
     /**
@@ -1297,7 +1303,7 @@ namespace micro_os_plus
     inline std::size_t
     message_queue::msg_size (void) const
     {
-      return msg_size_bytes_;
+      return message_size_bytes_;
     }
 
     /**
@@ -1357,9 +1363,9 @@ namespace micro_os_plus
      */
     template <typename Allocator>
     inline message_queue_allocated<Allocator>::message_queue_allocated (
-        std::size_t msgs, std::size_t msg_size_bytes, const attributes& attr,
-        const allocator_type& allocator)
-        : message_queue_allocated{ nullptr, msgs, msg_size_bytes, attr,
+        std::size_t messages, std::size_t message_size_bytes,
+        const attributes& attr, const allocator_type& allocator)
+        : message_queue_allocated{ nullptr, messages, message_size_bytes, attr,
                                    allocator }
     {
       ;
@@ -1394,19 +1400,19 @@ namespace micro_os_plus
      */
     template <typename Allocator>
     message_queue_allocated<Allocator>::message_queue_allocated (
-        const char* name, std::size_t msgs, std::size_t msg_size_bytes,
+        const char* name, std::size_t messages, std::size_t message_size_bytes,
         const attributes& attr, const allocator_type& allocator)
         : message_queue{ name }
     {
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_MQUEUE)
       trace::printf ("%s() @%p %s %d %d\n", __func__, this, this->name (),
-                     msgs, msg_size_bytes);
+                     messages, message_size_bytes);
 #endif
 
       if (attr.arena_address != nullptr)
         {
           // Do not use any allocator at all.
-          internal_construct_ (msgs, msg_size_bytes, attr, nullptr, 0);
+          internal_construct_ (messages, message_size_bytes, attr, nullptr, 0);
         }
       else
         {
@@ -1416,8 +1422,8 @@ namespace micro_os_plus
           // allocate it dynamically via the allocator.
           allocated_arena_size_elements_
               = (compute_allocated_size_bytes<
-                     typename allocator_type::value_type> (msgs,
-                                                           msg_size_bytes)
+                     typename allocator_type::value_type> (messages,
+                                                           message_size_bytes)
                  + sizeof (typename allocator_type::value_type) - 1)
                 / sizeof (typename allocator_type::value_type);
 
@@ -1426,7 +1432,7 @@ namespace micro_os_plus
                   allocated_arena_size_elements_);
 
           internal_construct_ (
-              msgs, msg_size_bytes, attr, allocated_arena_address_,
+              messages, message_size_bytes, attr, allocated_arena_address_,
               allocated_arena_size_elements_
                   * sizeof (typename allocator_type::value_type));
         }
@@ -1498,10 +1504,11 @@ namespace micro_os_plus
      */
     template <typename T, typename Allocator>
     inline message_queue_typed<T, Allocator>::message_queue_typed (
-        std::size_t msgs, const message_queue::attributes& attr,
+        std::size_t messages, const message_queue::attributes& attr,
         const allocator_type& allocator)
-        : message_queue_allocated<allocator_type>{ msgs, sizeof (value_type),
-                                                   attr, allocator }
+        : message_queue_allocated<allocator_type>{ messages,
+                                                   sizeof (value_type), attr,
+                                                   allocator }
     {
       ;
     }
@@ -1538,9 +1545,9 @@ namespace micro_os_plus
      */
     template <typename T, typename Allocator>
     inline message_queue_typed<T, Allocator>::message_queue_typed (
-        const char* name, std::size_t msgs,
+        const char* name, std::size_t messages,
         const message_queue::attributes& attr, const allocator_type& allocator)
-        : message_queue_allocated<allocator_type>{ name, msgs,
+        : message_queue_allocated<allocator_type>{ name, messages,
                                                    sizeof (value_type), attr,
                                                    allocator }
     {
@@ -1755,7 +1762,7 @@ namespace micro_os_plus
                      "Messages of message_queue need to have at least the "
                      "size of a pointer");
 
-      internal_construct_ (msgs, sizeof (value_type), attr, &arena_,
+      internal_construct_ (messages, sizeof (value_type), attr, &arena_,
                            sizeof (arena_));
     }
 

@@ -201,10 +201,10 @@ static_assert (alignof (micro_os_plus_message_queue_size_t)
                "adjust align of micro_os_plus_message_queue_size_t");
 
 static_assert (sizeof (micro_os_plus_message_queue_message_size_t)
-                   == sizeof (message_queue::msg_size_t),
+                   == sizeof (message_queue::message_size_t),
                "adjust size of micro_os_plus_message_queue_message_size_t");
 static_assert (alignof (micro_os_plus_message_queue_message_size_t)
-                   == alignof (message_queue::msg_size_t),
+                   == alignof (message_queue::message_size_t),
                "adjust align of micro_os_plus_message_queue_message_size_t");
 
 static_assert (sizeof (micro_os_plus_message_queue_index_t)
@@ -3117,8 +3117,8 @@ micro_os_plus_message_queue_attributes_init (
  */
 void
 micro_os_plus_message_queue_construct (
-    micro_os_plus_message_queue_t* mqueue, const char* name, size_t msgs,
-    size_t msg_size_bytes,
+    micro_os_plus_message_queue_t* mqueue, const char* name, size_t messages,
+    size_t message_size_bytes,
     const micro_os_plus_message_queue_attributes_t* attr)
 {
   assert (mqueue != nullptr);
@@ -3127,7 +3127,7 @@ micro_os_plus_message_queue_construct (
       attr = (const micro_os_plus_message_queue_attributes_t*)&message_queue::
           initializer;
     }
-  new (mqueue) message_queue (name, msgs, msg_size_bytes,
+  new (mqueue) message_queue (name, messages, message_size_bytes,
                               (const message_queue::attributes&)*attr);
 }
 
@@ -3164,7 +3164,7 @@ micro_os_plus_message_queue_destruct (micro_os_plus_message_queue_t* mqueue)
  */
 micro_os_plus_message_queue_t*
 micro_os_plus_message_queue_new (
-    const char* name, size_t msgs, size_t msg_size_bytes,
+    const char* name, size_t messages, size_t message_size_bytes,
     const micro_os_plus_message_queue_attributes_t* attr)
 {
   if (attr == nullptr)
@@ -3172,8 +3172,9 @@ micro_os_plus_message_queue_new (
       attr = (const micro_os_plus_message_queue_attributes_t*)&message_queue::
           initializer;
     }
-  return reinterpret_cast<micro_os_plus_message_queue_t*> (new message_queue (
-      name, msgs, msg_size_bytes, (const message_queue::attributes&)*attr));
+  return reinterpret_cast<micro_os_plus_message_queue_t*> (
+      new message_queue (name, messages, message_size_bytes,
+                         (const message_queue::attributes&)*attr));
 }
 
 /**

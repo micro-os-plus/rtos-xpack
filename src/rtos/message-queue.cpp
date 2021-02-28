@@ -387,10 +387,12 @@ namespace micro_os_plus
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
-    message_queue::message_queue (std::size_t msgs, std::size_t msg_size_bytes,
+    message_queue::message_queue (std::size_t messages,
+                                  std::size_t message_size_bytes,
                                   const attributes& attr,
                                   const allocator_type& allocator)
-        : message_queue{ nullptr, msgs, msg_size_bytes, attr, allocator }
+        : message_queue{ nullptr, messages, message_size_bytes, attr,
+                         allocator }
     {
       ;
     }
@@ -422,21 +424,21 @@ namespace micro_os_plus
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
-    message_queue::message_queue (const char* name, std::size_t msgs,
-                                  std::size_t msg_size_bytes,
+    message_queue::message_queue (const char* name, std::size_t messages,
+                                  std::size_t message_size_bytes,
                                   const attributes& attr,
                                   const allocator_type& allocator)
         : object_named_system{ name }
     {
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_MQUEUE)
       trace::printf ("%s() @%p %s %u %u\n", __func__, this, this->name (),
-                     msgs, msg_size_bytes);
+                     messages, message_size_bytes);
 #endif
 
       if (attr.arena_address != nullptr)
         {
           // Do not use any allocator at all.
-          internal_construct_ (msgs, msg_size_bytes, attr, nullptr, 0);
+          internal_construct_ (messages, message_size_bytes, attr, nullptr, 0);
         }
       else
         {
@@ -446,8 +448,8 @@ namespace micro_os_plus
           // allocate it dynamically via the allocator.
           allocated_arena_size_elements_
               = (compute_allocated_size_bytes<
-                     typename allocator_type::value_type> (msgs,
-                                                           msg_size_bytes)
+                     typename allocator_type::value_type> (messages,
+                                                           message_size_bytes)
                  + sizeof (typename allocator_type::value_type) - 1)
                 / sizeof (typename allocator_type::value_type);
 
@@ -456,7 +458,7 @@ namespace micro_os_plus
                   allocated_arena_size_elements_);
 
           internal_construct_ (
-              msgs, msg_size_bytes, attr, allocated_arena_address_,
+              messages, message_size_bytes, attr, allocated_arena_address_,
               allocated_arena_size_elements_
                   * sizeof (typename allocator_type::value_type));
         }
@@ -513,8 +515,8 @@ namespace micro_os_plus
      */
 
     void
-    message_queue::internal_construct_ (std::size_t msgs,
-                                        std::size_t msg_size_bytes,
+    message_queue::internal_construct_ (std::size_t messages,
+                                        std::size_t message_size_bytes,
                                         const attributes& attr,
                                         void* arena_addressess,
                                         std::size_t arena_size_bytes)
@@ -525,19 +527,19 @@ namespace micro_os_plus
 #if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
       clock_ = attr.clock != nullptr ? attr.clock : &sysclock;
 #endif
-      msg_size_bytes_
-          = static_cast<message_queue::msg_size_t> (msg_size_bytes);
-      assert (msg_size_bytes_ == msg_size_bytes);
-      assert (msg_size_bytes_ > 0);
+      message_size_bytes_
+          = static_cast<message_queue::message_size_t> (message_size_bytes);
+      assert (message_size_bytes_ == message_size_bytes);
+      assert (message_size_bytes_ > 0);
 
       // in order for the list of free messages to not consume additional
       // memory, the pointers are stored at the beginning of the messages, thus
       // messages should be large enough to fit a pointer
-      assert (msg_size_bytes_ >= sizeof (void*));
+      assert (message_size_bytes_ >= sizeof (void*));
 
-      msgs_ = static_cast<message_queue::size_t> (msgs);
-      assert (msgs_ == msgs);
-      assert (msgs > 0);
+      messages_ = static_cast<message_queue::size_t> (messages);
+      assert (messages_ == messages);
+      assert (messages > 0);
 
       // If the storage is given explicitly, override attributes.
       if (arena_addressess != nullptr)
@@ -556,22 +558,22 @@ namespace micro_os_plus
 
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_MQUEUE)
       trace::printf ("%s() @%p %s %u %u %p %u\n", __func__, this, name (),
-                     msgs_, msg_size_bytes_, arena_address_,
+                     messages_, message_size_bytes_, arena_address_,
                      arena_size_bytes_);
 #endif
 
 #if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
       std::size_t storage_size
-          = compute_allocated_size_bytes<void*> (msgs, msg_size_bytes);
+          = compute_allocated_size_bytes<void*> (messages, message_size_bytes);
 #endif
       if (arena_address_ != nullptr)
         {
           // The queue must be real, and have a non zero size.
           micro_os_plus_assert_throw (arena_size_bytes_ > 0, EINVAL);
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
-          micro_os_plus_assert_throw (
-              arena_size_bytes_ >= (std::size_t) (msgs * msg_size_bytes),
-              EINVAL);
+          micro_os_plus_assert_throw (arena_size_bytes_ >= (std::size_t) (
+                                          messages * message_size_bytes),
+                                      EINVAL);
 #else
           // The queue must fit the storage.
           micro_os_plus_assert_throw (arena_size_bytes_ >= storage_size,
@@ -594,22 +596,22 @@ namespace micro_os_plus
       // The array of prev indexes follows immediately after the content array.
       prev_array_ = reinterpret_cast<index_t*> (
           static_cast<char*> (arena_address_)
-          + msgs
-                * ((msg_size_bytes + (sizeof (void*) - 1))
+          + messages
+                * ((message_size_bytes + (sizeof (void*) - 1))
                    & ~(sizeof (void*) - 1)));
       // The array of next indexes follows immediately the prev array.
       next_array_ = reinterpret_cast<index_t*> (
           reinterpret_cast<char*> (const_cast<index_t*> (prev_array_))
-          + msgs * sizeof (index_t));
+          + messages * sizeof (index_t));
       // The array of priorities follows immediately the next array.
       priority_array_ = reinterpret_cast<priority_t*> (
           reinterpret_cast<char*> (const_cast<index_t*> (next_array_))
-          + msgs * sizeof (index_t));
+          + messages * sizeof (index_t));
 
 #if !defined(NDEBUG)
       char* p = reinterpret_cast<char*> (
           reinterpret_cast<char*> (const_cast<priority_t*> (priority_array_))
-          + msgs * sizeof (priority_t));
+          + messages * sizeof (priority_t));
 
       assert (p - static_cast<char*> (arena_address_)
               <= static_cast<ptrdiff_t> (arena_size_bytes_));
@@ -631,10 +633,10 @@ namespace micro_os_plus
       // will hold the address of the next free block,
       // or `nullptr` at the end.
       char* p = static_cast<char*> (arena_address_);
-      for (std::size_t i = 1; i < msgs_; ++i)
+      for (std::size_t i = 1; i < messages_; ++i)
         {
           // Compute the address of the next block;
-          char* pn = p + msg_size_bytes_;
+          char* pn = p + message_size_bytes_;
 
           // Make this block point to the next one.
           *(static_cast<void**> (static_cast<void*> (p))) = pn;
@@ -692,10 +694,10 @@ namespace micro_os_plus
 
         // Copy message from user buffer to queue storage.
         std::memcpy (dest, msg, nbytes);
-        if (nbytes < msg_size_bytes_)
+        if (nbytes < message_size_bytes_)
           {
             // Fill in the remaining space with 0x00.
-            std::memset (dest + nbytes, 0x00, msg_size_bytes_ - nbytes);
+            std::memset (dest + nbytes, 0x00, message_size_bytes_ - nbytes);
           }
         // ----- Exit uncritical section ------------------------------------
       }
@@ -705,7 +707,7 @@ namespace micro_os_plus
       // Using the address, compute the index in the array.
       std::size_t msg_ix = (static_cast<std::size_t> (
                                 dest - static_cast<char*> (arena_address_))
-                            / msg_size_bytes_);
+                            / message_size_bytes_);
       priority_array_[msg_ix] = mprio;
 
       if (head_ == no_index)
@@ -775,7 +777,7 @@ namespace micro_os_plus
 
       // Compute the message source address.
       char* src
-          = static_cast<char*> (arena_address_) + head_ * msg_size_bytes_;
+          = static_cast<char*> (arena_address_) + head_ * message_size_bytes_;
       priority_t prio = priority_array_[head_];
 
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_MQUEUE_)
@@ -895,7 +897,7 @@ namespace micro_os_plus
       micro_os_plus_assert_err (!scheduler::locked (), EPERM);
 
       micro_os_plus_assert_err (msg != nullptr, EINVAL);
-      micro_os_plus_assert_err (nbytes <= msg_size_bytes_, EMSGSIZE);
+      micro_os_plus_assert_err (nbytes <= message_size_bytes_, EMSGSIZE);
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
 
@@ -1004,7 +1006,7 @@ namespace micro_os_plus
 #endif
 
       micro_os_plus_assert_err (msg != nullptr, EINVAL);
-      micro_os_plus_assert_err (nbytes <= msg_size_bytes_, EMSGSIZE);
+      micro_os_plus_assert_err (nbytes <= message_size_bytes_, EMSGSIZE);
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
 
@@ -1096,7 +1098,7 @@ namespace micro_os_plus
       micro_os_plus_assert_err (!scheduler::locked (), EPERM);
 
       micro_os_plus_assert_err (msg != nullptr, EINVAL);
-      micro_os_plus_assert_err (nbytes <= msg_size_bytes_, EMSGSIZE);
+      micro_os_plus_assert_err (nbytes <= message_size_bytes_, EMSGSIZE);
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
 
@@ -1235,7 +1237,7 @@ namespace micro_os_plus
       micro_os_plus_assert_err (!scheduler::locked (), EPERM);
 
       micro_os_plus_assert_err (msg != nullptr, EINVAL);
-      micro_os_plus_assert_err (nbytes <= msg_size_bytes_, EMSGSIZE);
+      micro_os_plus_assert_err (nbytes <= message_size_bytes_, EMSGSIZE);
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
 
@@ -1345,7 +1347,7 @@ namespace micro_os_plus
 #endif
 
       micro_os_plus_assert_err (msg != nullptr, EINVAL);
-      micro_os_plus_assert_err (nbytes <= msg_size_bytes_, EMSGSIZE);
+      micro_os_plus_assert_err (nbytes <= message_size_bytes_, EMSGSIZE);
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
 
@@ -1451,7 +1453,7 @@ namespace micro_os_plus
       micro_os_plus_assert_err (!scheduler::locked (), EPERM);
 
       micro_os_plus_assert_err (msg != nullptr, EINVAL);
-      micro_os_plus_assert_err (nbytes <= msg_size_bytes_, EMSGSIZE);
+      micro_os_plus_assert_err (nbytes <= message_size_bytes_, EMSGSIZE);
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
 

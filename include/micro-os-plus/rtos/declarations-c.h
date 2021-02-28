@@ -1368,8 +1368,8 @@ typedef uint8_t micro_os_plus_message_queue_size_t;
     size_t arena_size_bytes;
     size_t allocated_arena_size_elements;
 
-    micro_os_plus_message_queue_message_size_t msg_size_bytes;
-    micro_os_plus_message_queue_size_t msgs;
+    micro_os_plus_message_queue_message_size_t message_size_bytes;
+    micro_os_plus_message_queue_size_t messages;
 
     micro_os_plus_message_queue_size_t count;
 #if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)

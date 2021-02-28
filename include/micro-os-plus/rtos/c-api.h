@@ -2135,16 +2135,16 @@ extern "C"
    * @brief Construct a statically allocated message queue object instance.
    * @param [in] mqueue Pointer to message queue object instance storage.
    * @param [in] name Pointer to name (may be NULL).
-   * @param [in] msgs The number of messages.
-   * @param [in] msg_size_bytes The message size, in bytes.
+   * @param [in] messages The number of messages.
+   * @param [in] message_size_bytes The message size, in bytes.
    * @param [in] attr Pointer to attributes (may be NULL).
    * @par Returns
    *  Nothing.
    */
   void
   micro_os_plus_message_queue_construct (
-      micro_os_plus_message_queue_t* mqueue, const char* name, size_t msgs,
-      size_t msg_size_bytes,
+      micro_os_plus_message_queue_t* mqueue, const char* name, size_t messages,
+      size_t message_size_bytes,
       const micro_os_plus_message_queue_attributes_t* attr);
 
   /**
@@ -2159,14 +2159,14 @@ extern "C"
   /**
    * @brief Allocate a message queue object instance and construct it.
    * @param [in] name Pointer to name (may be NULL).
-   * @param [in] msgs The number of messages.
-   * @param [in] msg_size_bytes The message size, in bytes.
+   * @param [in] messages The number of messages.
+   * @param [in] message_size_bytes The message size, in bytes.
    * @param [in] attr Pointer to attributes (may be NULL).
    * @return Pointer to new message queue object instance.
    */
   micro_os_plus_message_queue_t*
   micro_os_plus_message_queue_new (
-      const char* name, size_t msgs, size_t msg_size_bytes,
+      const char* name, size_t messages, size_t message_size_bytes,
       const micro_os_plus_message_queue_attributes_t* attr);
 
   /**
