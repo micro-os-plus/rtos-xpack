@@ -155,8 +155,7 @@ namespace micro_os_plus
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
     semaphore::semaphore (const char* name, const attributes& attr)
-        : semaphore{ name, attr.max_value,
-                     attr.initial_value, attr }
+        : semaphore{ name, attr.max_value, attr.initial_value, attr }
     {
       ;
     }
