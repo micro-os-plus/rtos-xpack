@@ -1455,8 +1455,8 @@ extern "C"
    *  Nothing.
    */
   void
-  micro_os_plus_condvar_attributes_init (
-      micro_os_plus_condvar_attributes_t* attr);
+  micro_os_plus_condition_variable_attributes_init (
+      micro_os_plus_condition_variable_attributes_t* attr);
 
   /**
    * @}
@@ -1485,9 +1485,9 @@ extern "C"
    *  Nothing.
    */
   void
-  micro_os_plus_condvar_construct (
-      micro_os_plus_condvar_t* condvar, const char* name,
-      const micro_os_plus_condvar_attributes_t* attr);
+  micro_os_plus_condition_variable_construct (
+      micro_os_plus_condition_variable_t* condvar, const char* name,
+      const micro_os_plus_condition_variable_attributes_t* attr);
 
   /**
    * @brief Destruct the statically allocated condition variable
@@ -1497,7 +1497,8 @@ extern "C"
    *  Nothing.
    */
   void
-  micro_os_plus_condvar_destruct (micro_os_plus_condvar_t* condvar);
+  micro_os_plus_condition_variable_destruct (
+      micro_os_plus_condition_variable_t* condvar);
 
   /**
    * @brief Allocate a condition variable object instance and construct it.
@@ -1513,9 +1514,10 @@ extern "C"
    *  The constructor shall not fail with an error code of `EINTR`.
    * @return Pointer to new condition variable object instance.
    */
-  micro_os_plus_condvar_t*
-  micro_os_plus_condvar_new (const char* name,
-                             const micro_os_plus_condvar_attributes_t* attr);
+  micro_os_plus_condition_variable_t*
+  micro_os_plus_condition_variable_new (
+      const char* name,
+      const micro_os_plus_condition_variable_attributes_t* attr);
 
   /**
    * @brief Destruct the condition variable object instance and deallocate it.
@@ -1525,7 +1527,8 @@ extern "C"
    *  Nothing.
    */
   void
-  micro_os_plus_condvar_delete (micro_os_plus_condvar_t* condvar);
+  micro_os_plus_condition_variable_delete (
+      micro_os_plus_condition_variable_t* condvar);
 
   /**
    * @}
@@ -1542,7 +1545,8 @@ extern "C"
    * @return Null terminated string.
    */
   const char*
-  micro_os_plus_condvar_get_name (micro_os_plus_condvar_t* condvar);
+  micro_os_plus_condition_variable_get_name (
+      micro_os_plus_condition_variable_t* condvar);
 
   /**
    * @brief Notify one thread waiting for a condition variable.
@@ -1553,7 +1557,8 @@ extern "C"
    *  The function shall not fail with an error code of `EINTR`.
    */
   micro_os_plus_result_t
-  micro_os_plus_condvar_signal (micro_os_plus_condvar_t* condvar);
+  micro_os_plus_condition_variable_signal (
+      micro_os_plus_condition_variable_t* condvar);
 
   /**
    * @brief Notify all threads waiting for a condition variable.
@@ -1564,7 +1569,8 @@ extern "C"
    *  The function shall not fail with an error code of `EINTR`.
    */
   micro_os_plus_result_t
-  micro_os_plus_condvar_broadcast (micro_os_plus_condvar_t* condvar);
+  micro_os_plus_condition_variable_broadcast (
+      micro_os_plus_condition_variable_t* condvar);
 
   /**
    * @brief Wait for a condition variable to be notified.
@@ -1585,8 +1591,9 @@ extern "C"
    *  The function shall not fail with an error code of `EINTR`.
    */
   micro_os_plus_result_t
-  micro_os_plus_condvar_wait (micro_os_plus_condvar_t* condvar,
-                              micro_os_plus_mutex_t* mutex);
+  micro_os_plus_condition_variable_wait (
+      micro_os_plus_condition_variable_t* condvar,
+      micro_os_plus_mutex_t* mutex);
 
   /**
    * @brief Timed wait for a condition variable to be notified.
@@ -1609,9 +1616,9 @@ extern "C"
    *  The function shall not fail with an error code of `EINTR`.
    */
   micro_os_plus_result_t
-  micro_os_plus_condvar_timed_wait (micro_os_plus_condvar_t* condvar,
-                                    micro_os_plus_mutex_t* mutex,
-                                    micro_os_plus_clock_duration_t timeout);
+  micro_os_plus_condition_variable_timed_wait (
+      micro_os_plus_condition_variable_t* condvar,
+      micro_os_plus_mutex_t* mutex, micro_os_plus_clock_duration_t timeout);
 
   /**
    * @}

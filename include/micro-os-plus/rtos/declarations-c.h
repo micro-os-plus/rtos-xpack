@@ -1023,19 +1023,20 @@ extern "C"
    * @headerfile c-api.h <micro-os-plus/rtos/c-api.h>
    *
    * @details
-   * Initialise this structure with `micro_os_plus_condvar_attributes_init()`
-   * and then set any of the individual members directly.
+   * Initialise this structure with
+   * `micro_os_plus_condition_variable_attributes_init()` and then set any of
+   * the individual members directly.
    *
    * @see micro_os_plus::rtos::condition_variable::attributes
    */
-  typedef struct micro_os_plus_condvar_attributes_s
+  typedef struct micro_os_plus_condition_variable_attributes_s
   {
     /**
      * @brief Pointer to clock object instance.
      */
     void* clock;
 
-  } micro_os_plus_condvar_attributes_t;
+  } micro_os_plus_condition_variable_attributes_t;
 
   /**
    * @brief Condition variable object storage.
@@ -1044,7 +1045,8 @@ extern "C"
    * @details
    * This C structure has the same size as the C++
    * @ref micro_os_plus::rtos::condition_variable
-   * object and must be initialised with micro_os_plus_condvar_create().
+   * object and must be initialised with
+   * micro_os_plus_condition_variable_create().
    *
    * Later on a pointer to it can be used both in C and C++
    * to refer to the timer object instance.
@@ -1054,7 +1056,7 @@ extern "C"
    *
    * @see micro_os_plus::rtos::condition_variable
    */
-  typedef struct micro_os_plus_condvar_s
+  typedef struct micro_os_plus_condition_variable_s
   {
     /**
      * @cond ignore
@@ -1070,7 +1072,7 @@ extern "C"
      * @endcond
      */
 
-  } micro_os_plus_condvar_t;
+  } micro_os_plus_condition_variable_t;
 
   /**
    * @}

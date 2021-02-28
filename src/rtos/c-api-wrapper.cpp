@@ -368,11 +368,11 @@ static_assert (offsetof (rtos::mutex::attributes, mx_max_count)
                "adjust micro_os_plus_mutex_attributes_t members");
 
 static_assert (sizeof (rtos::condition_variable)
-                   == sizeof (micro_os_plus_condvar_t),
-               "adjust size of micro_os_plus_condvar_t");
+                   == sizeof (micro_os_plus_condition_variable_t),
+               "adjust size of micro_os_plus_condition_variable_t");
 static_assert (sizeof (rtos::condition_variable::attributes)
-                   == sizeof (micro_os_plus_condvar_attributes_t),
-               "adjust size of micro_os_plus_condvar_attributes_t");
+                   == sizeof (micro_os_plus_condition_variable_attributes_t),
+               "adjust size of micro_os_plus_condition_variable_attributes_t");
 
 static_assert (sizeof (rtos::semaphore) == sizeof (micro_os_plus_semaphore_t),
                "adjust size of micro_os_plus_semaphore_t");
@@ -2203,8 +2203,8 @@ micro_os_plus_mutex_reset (micro_os_plus_mutex_t* mutex)
  *  @ref micro_os_plus::rtos::condition_variable::attributes
  */
 void
-micro_os_plus_condvar_attributes_init (
-    micro_os_plus_condvar_attributes_t* attr)
+micro_os_plus_condition_variable_attributes_init (
+    micro_os_plus_condition_variable_attributes_t* attr)
 {
   assert (attr != nullptr);
   new (attr) condition_variable::attributes ();
@@ -2213,7 +2213,7 @@ micro_os_plus_condvar_attributes_init (
 /**
  * @details
  *
- * @note Must be paired with `micro_os_plus_condvar_destruct()`.
+ * @note Must be paired with `micro_os_plus_condition_variable_destruct()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
@@ -2221,15 +2221,16 @@ micro_os_plus_condvar_attributes_init (
  *  @ref micro_os_plus::rtos::condition_variable
  */
 void
-micro_os_plus_condvar_construct (
-    micro_os_plus_condvar_t* condvar, const char* name,
-    const micro_os_plus_condvar_attributes_t* attr)
+micro_os_plus_condition_variable_construct (
+    micro_os_plus_condition_variable_t* condvar, const char* name,
+    const micro_os_plus_condition_variable_attributes_t* attr)
 {
   assert (condvar != nullptr);
   if (attr == nullptr)
     {
-      attr = (const micro_os_plus_condvar_attributes_t*)&condition_variable::
-          initializer;
+      attr
+          = (const micro_os_plus_condition_variable_attributes_t*)&condition_variable::
+              initializer;
     }
   new (condvar)
       condition_variable (name, (const condition_variable::attributes&)*attr);
@@ -2238,7 +2239,7 @@ micro_os_plus_condvar_construct (
 /**
  * @details
  *
- * @note Must be paired with `micro_os_plus_condvar_construct()`.
+ * @note Must be paired with `micro_os_plus_condition_variable_construct()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
@@ -2246,7 +2247,8 @@ micro_os_plus_condvar_construct (
  *  @ref micro_os_plus::rtos::condition_variable
  */
 void
-micro_os_plus_condvar_destruct (micro_os_plus_condvar_t* condvar)
+micro_os_plus_condition_variable_destruct (
+    micro_os_plus_condition_variable_t* condvar)
 {
   assert (condvar != nullptr);
   (reinterpret_cast<condition_variable&> (*condvar)).~condition_variable ();
@@ -2259,24 +2261,27 @@ micro_os_plus_condvar_destruct (micro_os_plus_condvar_t* condvar)
  * system allocator and construct it.
  *
  * @note Equivalent of C++ `new condition_variable(...)`.
- * @note Must be paired with `micro_os_plus_condvar_delete()`.
+ * @note Must be paired with `micro_os_plus_condition_variable_delete()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::condition_variable
  */
-micro_os_plus_condvar_t*
-micro_os_plus_condvar_new (const char* name,
-                           const micro_os_plus_condvar_attributes_t* attr)
+micro_os_plus_condition_variable_t*
+micro_os_plus_condition_variable_new (
+    const char* name,
+    const micro_os_plus_condition_variable_attributes_t* attr)
 {
   if (attr == nullptr)
     {
-      attr = (const micro_os_plus_condvar_attributes_t*)&condition_variable::
-          initializer;
+      attr
+          = (const micro_os_plus_condition_variable_attributes_t*)&condition_variable::
+              initializer;
     }
-  return reinterpret_cast<micro_os_plus_condvar_t*> (new condition_variable (
-      name, (const condition_variable::attributes&)*attr));
+  return reinterpret_cast<micro_os_plus_condition_variable_t*> (
+      new condition_variable (name,
+                              (const condition_variable::attributes&)*attr));
 }
 
 /**
@@ -2286,7 +2291,7 @@ micro_os_plus_condvar_new (const char* name,
  * space using the RTOS system allocator.
  *
  * @note Equivalent of C++ `delete ptr_condvar`.
- * @note Must be paired with `micro_os_plus_condvar_new()`.
+ * @note Must be paired with `micro_os_plus_condition_variable_new()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
@@ -2294,7 +2299,8 @@ micro_os_plus_condvar_new (const char* name,
  *  @ref micro_os_plus::rtos::condition_variable
  */
 void
-micro_os_plus_condvar_delete (micro_os_plus_condvar_t* condvar)
+micro_os_plus_condition_variable_delete (
+    micro_os_plus_condition_variable_t* condvar)
 {
   assert (condvar != nullptr);
   delete reinterpret_cast<condition_variable*> (condvar);
@@ -2309,7 +2315,8 @@ micro_os_plus_condvar_delete (micro_os_plus_condvar_t* condvar)
  *  @ref micro_os_plus::rtos::condition_variable::name()
  */
 const char*
-micro_os_plus_condvar_get_name (micro_os_plus_condvar_t* condvar)
+micro_os_plus_condition_variable_get_name (
+    micro_os_plus_condition_variable_t* condvar)
 {
   assert (condvar != nullptr);
   return (reinterpret_cast<condition_variable&> (*condvar)).name ();
@@ -2324,7 +2331,8 @@ micro_os_plus_condvar_get_name (micro_os_plus_condvar_t* condvar)
  *  @ref micro_os_plus::rtos::condition_variable::signal()
  */
 micro_os_plus_result_t
-micro_os_plus_condvar_signal (micro_os_plus_condvar_t* condvar)
+micro_os_plus_condition_variable_signal (
+    micro_os_plus_condition_variable_t* condvar)
 {
   assert (condvar != nullptr);
   return (micro_os_plus_result_t) (
@@ -2341,7 +2349,8 @@ micro_os_plus_condvar_signal (micro_os_plus_condvar_t* condvar)
  *  @ref micro_os_plus::rtos::condition_variable::broadcast()
  */
 micro_os_plus_result_t
-micro_os_plus_condvar_broadcast (micro_os_plus_condvar_t* condvar)
+micro_os_plus_condition_variable_broadcast (
+    micro_os_plus_condition_variable_t* condvar)
 {
   assert (condvar != nullptr);
   return (micro_os_plus_result_t) (
@@ -2358,8 +2367,8 @@ micro_os_plus_condvar_broadcast (micro_os_plus_condvar_t* condvar)
  *  @ref micro_os_plus::rtos::condition_variable::wait()
  */
 micro_os_plus_result_t
-micro_os_plus_condvar_wait (micro_os_plus_condvar_t* condvar,
-                            micro_os_plus_mutex_t* mutex)
+micro_os_plus_condition_variable_wait (
+    micro_os_plus_condition_variable_t* condvar, micro_os_plus_mutex_t* mutex)
 {
   assert (condvar != nullptr);
   return (micro_os_plus_result_t) (
@@ -2376,9 +2385,9 @@ micro_os_plus_condvar_wait (micro_os_plus_condvar_t* condvar,
  *  @ref micro_os_plus::rtos::condition_variable::timed_wait()
  */
 micro_os_plus_result_t
-micro_os_plus_condvar_timed_wait (micro_os_plus_condvar_t* condvar,
-                                  micro_os_plus_mutex_t* mutex,
-                                  micro_os_plus_clock_duration_t timeout)
+micro_os_plus_condition_variable_timed_wait (
+    micro_os_plus_condition_variable_t* condvar, micro_os_plus_mutex_t* mutex,
+    micro_os_plus_clock_duration_t timeout)
 {
   assert (condvar != nullptr);
   return (micro_os_plus_result_t) (
