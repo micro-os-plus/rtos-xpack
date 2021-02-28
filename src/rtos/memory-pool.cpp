@@ -73,8 +73,8 @@ namespace micro_os_plus
      *
      *    // Define pool attributes.
      *    memory_pool::attributes attr { "properties" };
-     *    attr.memory_pool_arena_address = pool;
-     *    attr.memory_pool_arena_size_bytes = sizeof(pool);
+     *    attr.arena_address = pool;
+     *    attr.arena_size_bytes = sizeof(pool);
      *
      *    // Construct the pool object instance.
      *    memory_pool mp { attr, pool_size, sizeof(properties_t) };
@@ -91,7 +91,7 @@ namespace micro_os_plus
      */
 
     /**
-     * @var void* memory_pool::attributes::memory_pool_arena_address
+     * @var void* memory_pool::attributes::arena_address
      * @details
      * Set this variable to a user defined memory area large enough
      * to store the memory pool. Usually this is a statically
@@ -103,14 +103,14 @@ namespace micro_os_plus
 
     /**
      * @var memory_pool::size_t
-     * memory_pool::attributes::memory_pool_arena_size_bytes
+     * memory_pool::attributes::arena_size_bytes
      * @details
      * The memory pool size must match exactly the allocated size. It is
      * used for validation; when the memory pool is initialised,
      * this size must be large enough to accommodate the desired
      * memory pool.
      *
-     * If the @ref memory_pool_arena_address is `nullptr`, this variable is not
+     * If the @ref arena_address is `nullptr`, this variable is not
      * checked, but it is recommended to leave it zero.
      */
 
@@ -218,8 +218,8 @@ namespace micro_os_plus
      * The effect shall be equivalent to creating a memory pool object with
      * the simple constructor.
      *
-     * If the attributes define a storage area (via `memory_pool_arena_address`
-     * and `memory_pool_arena_size_bytes`), that storage is used, otherwise the
+     * If the attributes define a storage area (via `arena_address`
+     * and `arena_size_bytes`), that storage is used, otherwise the
      * storage is dynamically allocated using the RTOS specific allocator
      * (`rtos::memory::allocator`).
      *
@@ -251,8 +251,8 @@ namespace micro_os_plus
      * The effect shall be equivalent to creating a memory pool object with
      * the simple constructor.
      *
-     * If the attributes define a storage area (via `memory_pool_arena_address`
-     * and `memory_pool_arena_size_bytes`), that storage is used, otherwise the
+     * If the attributes define a storage area (via `arena_address`
+     * and `arena_size_bytes`), that storage is used, otherwise the
      * storage is dynamically allocated using the RTOS specific allocator
      * (`rtos::memory::allocator`).
      *
@@ -269,7 +269,7 @@ namespace micro_os_plus
                      blocks, block_size_bytes);
 #endif
 
-      if (attr.memory_pool_arena_address != nullptr)
+      if (attr.arena_address != nullptr)
         {
           // Do not use any allocator at all.
           internal_construct_ (blocks, block_size_bytes, attr, nullptr, 0);
@@ -332,15 +332,15 @@ namespace micro_os_plus
       if (pool_arena_address != nullptr)
         {
           // The attributes should not define any storage in this case.
-          assert (attr.memory_pool_arena_address == nullptr);
+          assert (attr.arena_address == nullptr);
 
           pool_arena_address_ = pool_arena_address;
           pool_arena_size_bytes_ = pool_arena_size_bytes;
         }
       else
         {
-          pool_arena_address_ = attr.memory_pool_arena_address;
-          pool_arena_size_bytes_ = attr.memory_pool_arena_size_bytes;
+          pool_arena_address_ = attr.arena_address;
+          pool_arena_size_bytes_ = attr.arena_size_bytes;
         }
 
       // Blocks must be pointer aligned.

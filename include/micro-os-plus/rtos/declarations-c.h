@@ -1203,12 +1203,12 @@ extern "C"
     /**
      * @brief Pointer to user provided memory pool area.
      */
-    void* memory_pool_arena_address;
+    void* arena_address;
 
     /**
      * @brief Size of user provided memory pool area, in bytes.
      */
-    size_t memory_pool_arena_size_bytes;
+    size_t arena_size_bytes;
 
   } micro_os_plus_memory_pool_attributes_t;
 
