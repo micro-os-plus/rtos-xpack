@@ -53,7 +53,7 @@ namespace micro_os_plus
      */
 
     /**
-     * @var void* message_queue::attributes::mq_queue_address
+     * @var void* message_queue::attributes::arena_address
      * @details
      * Set this variable to a user defined memory area large enough
      * to store the message queue. Usually this is a statically
@@ -64,15 +64,16 @@ namespace micro_os_plus
      */
 
     /**
-     * @var std::size_t message_queue::attributes::mq_queue_size_bytes
+     * @var std::size_t
+     * message_queue::attributes::arena_size_bytes
      * @details
      * The message queue size must match exactly the allocated size. It is
      * used for validation; when the message queue is initialised,
      * this size must be large enough to accommodate the desired
      * message queue.
      *
-     * If the @ref mq_queue_address is `nullptr`, this variable is not
-     * checked, but it is recommended to leave it zero.
+     * If the @ref arena_address is `nullptr`, this variable is
+     * not checked, but it is recommended to leave it zero.
      */
 
     /**
@@ -97,8 +98,8 @@ namespace micro_os_plus
      * RTOS specific allocator (`micro_os_plus::memory::allocator`).
      *
      * For special cases, the storage can be allocated outside the
-     * class and specified via the `mq_queue_address` and
-     * `mq_queue_size_bytes` attributes.
+     * class and specified via the `arena_address` and
+     * `arena_size_bytes` attributes.
      *
      * A representative instance of this template is `message_queue`,
      * which is also used by the C API.
@@ -172,8 +173,8 @@ namespace micro_os_plus
      * RTOS specific allocator (`micro_os_plus::memory::allocator`).
      *
      * For special cases, the storage can be allocated outside the
-     * class and specified via the `mq_queue_address` and
-     * `mq_queue_size_bytes` attributes.
+     * class and specified via the `arena_address` and
+     * `arena_size_bytes` attributes.
      *
      * message_queue is a representative instance of the
      * message_queue_allocated template;
@@ -378,9 +379,10 @@ namespace micro_os_plus
      * The effect shall be equivalent to creating a message queue
      * object with the simple constructor.
      *
-     * If the attributes define a storage area (via `mq_queue_address` and
-     * `mq_queue_size_bytes`), that storage is used, otherwise
-     * the storage is dynamically allocated using the RTOS specific allocator
+     * If the attributes define a storage area (via
+     * `arena_address` and `arena_size_bytes`), that
+     * storage is used, otherwise the storage is dynamically allocated using
+     * the RTOS specific allocator
      * (`rtos::memory::allocator`).
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
@@ -412,9 +414,10 @@ namespace micro_os_plus
      * The effect shall be equivalent to creating a message queue
      * object with the simple constructor.
      *
-     * If the attributes define a storage area (via `mq_queue_address` and
-     * `mq_queue_size_bytes`), that storage is used, otherwise
-     * the storage is dynamically allocated using the RTOS specific allocator
+     * If the attributes define a storage area (via
+     * `arena_address` and `arena_size_bytes`), that
+     * storage is used, otherwise the storage is dynamically allocated using
+     * the RTOS specific allocator
      * (`rtos::memory::allocator`).
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
@@ -430,7 +433,7 @@ namespace micro_os_plus
                      msgs, msg_size_bytes);
 #endif
 
-      if (attr.mq_queue_address != nullptr)
+      if (attr.arena_address != nullptr)
         {
           // Do not use any allocator at all.
           internal_construct_ (msgs, msg_size_bytes, attr, nullptr, 0);
@@ -441,20 +444,20 @@ namespace micro_os_plus
 
           // If no user storage was provided via attributes,
           // allocate it dynamically via the allocator.
-          allocated_queue_size_elements_
+          allocated_arena_size_elements_
               = (compute_allocated_size_bytes<
                      typename allocator_type::value_type> (msgs,
                                                            msg_size_bytes)
                  + sizeof (typename allocator_type::value_type) - 1)
                 / sizeof (typename allocator_type::value_type);
 
-          allocated_queue_addr_
+          allocated_arena_address_
               = const_cast<allocator_type&> (allocator).allocate (
-                  allocated_queue_size_elements_);
+                  allocated_arena_size_elements_);
 
           internal_construct_ (
-              msgs, msg_size_bytes, attr, allocated_queue_addr_,
-              allocated_queue_size_elements_
+              msgs, msg_size_bytes, attr, allocated_arena_address_,
+              allocated_arena_size_elements_
                   * sizeof (typename allocator_type::value_type));
         }
     }
@@ -487,14 +490,15 @@ namespace micro_os_plus
 
 #endif
 
-      if (allocated_queue_addr_ != nullptr)
+      if (allocated_arena_address_ != nullptr)
         {
           typedef
               typename std::allocator_traits<allocator_type>::pointer pointer;
 
           static_cast<allocator_type*> (const_cast<void*> (allocator_))
-              ->deallocate (reinterpret_cast<pointer> (allocated_queue_addr_),
-                            allocated_queue_size_elements_);
+              ->deallocate (
+                  reinterpret_cast<pointer> (allocated_arena_address_),
+                  allocated_arena_size_elements_);
         }
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
@@ -512,8 +516,8 @@ namespace micro_os_plus
     message_queue::internal_construct_ (std::size_t msgs,
                                         std::size_t msg_size_bytes,
                                         const attributes& attr,
-                                        void* queue_address,
-                                        std::size_t queue_size_bytes)
+                                        void* arena_addressess,
+                                        std::size_t arena_size_bytes)
     {
       // Don't call this from interrupt handlers.
       micro_os_plus_assert_throw (!interrupts::in_handler_mode (), EPERM);
@@ -536,40 +540,41 @@ namespace micro_os_plus
       assert (msgs > 0);
 
       // If the storage is given explicitly, override attributes.
-      if (queue_address != nullptr)
+      if (arena_addressess != nullptr)
         {
           // The attributes should not define any storage in this case.
-          assert (attr.mq_queue_address == nullptr);
+          assert (attr.arena_address == nullptr);
 
-          queue_addr_ = queue_address;
-          queue_size_bytes_ = queue_size_bytes;
+          arena_address_ = arena_addressess;
+          arena_size_bytes_ = arena_size_bytes;
         }
       else
         {
-          queue_addr_ = attr.mq_queue_address;
-          queue_size_bytes_ = attr.mq_queue_size_bytes;
+          arena_address_ = attr.arena_address;
+          arena_size_bytes_ = attr.arena_size_bytes;
         }
 
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_MQUEUE)
       trace::printf ("%s() @%p %s %u %u %p %u\n", __func__, this, name (),
-                     msgs_, msg_size_bytes_, queue_addr_, queue_size_bytes_);
+                     msgs_, msg_size_bytes_, arena_address_,
+                     arena_size_bytes_);
 #endif
 
 #if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
       std::size_t storage_size
           = compute_allocated_size_bytes<void*> (msgs, msg_size_bytes);
 #endif
-      if (queue_addr_ != nullptr)
+      if (arena_address_ != nullptr)
         {
           // The queue must be real, and have a non zero size.
-          micro_os_plus_assert_throw (queue_size_bytes_ > 0, EINVAL);
+          micro_os_plus_assert_throw (arena_size_bytes_ > 0, EINVAL);
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
           micro_os_plus_assert_throw (
-              queue_size_bytes_ >= (std::size_t) (msgs * msg_size_bytes),
+              arena_size_bytes_ >= (std::size_t) (msgs * msg_size_bytes),
               EINVAL);
 #else
           // The queue must fit the storage.
-          micro_os_plus_assert_throw (queue_size_bytes_ >= storage_size,
+          micro_os_plus_assert_throw (arena_size_bytes_ >= storage_size,
                                       EINVAL);
 #endif
         }
@@ -584,11 +589,11 @@ namespace micro_os_plus
       head_ = no_index;
 
       // The queue storage must have a real address.
-      micro_os_plus_assert_throw (queue_addr_ != nullptr, ENOMEM);
+      micro_os_plus_assert_throw (arena_address_ != nullptr, ENOMEM);
 
       // The array of prev indexes follows immediately after the content array.
       prev_array_ = reinterpret_cast<index_t*> (
-          static_cast<char*> (queue_addr_)
+          static_cast<char*> (arena_address_)
           + msgs
                 * ((msg_size_bytes + (sizeof (void*) - 1))
                    & ~(sizeof (void*) - 1)));
@@ -606,8 +611,8 @@ namespace micro_os_plus
           reinterpret_cast<char*> (const_cast<priority_t*> (priority_array_))
           + msgs * sizeof (priority_t));
 
-      assert (p - static_cast<char*> (queue_addr_)
-              <= static_cast<ptrdiff_t> (queue_size_bytes_));
+      assert (p - static_cast<char*> (arena_address_)
+              <= static_cast<ptrdiff_t> (arena_size_bytes_));
 #endif
 
       internal_init_ ();
@@ -625,7 +630,7 @@ namespace micro_os_plus
       // the beginning of each block. Each block
       // will hold the address of the next free block,
       // or `nullptr` at the end.
-      char* p = static_cast<char*> (queue_addr_);
+      char* p = static_cast<char*> (arena_address_);
       for (std::size_t i = 1; i < msgs_; ++i)
         {
           // Compute the address of the next block;
@@ -640,7 +645,7 @@ namespace micro_os_plus
       // Mark end of list.
       *(static_cast<void**> (static_cast<void*> (p))) = nullptr;
 
-      first_free_ = queue_addr_; // Pointer to first block.
+      first_free_ = arena_address_; // Pointer to first block.
 
       head_ = no_index;
 
@@ -698,9 +703,9 @@ namespace micro_os_plus
       // The third step is to link the buffer to the list.
 
       // Using the address, compute the index in the array.
-      std::size_t msg_ix
-          = (static_cast<std::size_t> (dest - static_cast<char*> (queue_addr_))
-             / msg_size_bytes_);
+      std::size_t msg_ix = (static_cast<std::size_t> (
+                                dest - static_cast<char*> (arena_address_))
+                            / msg_size_bytes_);
       priority_array_[msg_ix] = mprio;
 
       if (head_ == no_index)
@@ -769,7 +774,8 @@ namespace micro_os_plus
         }
 
       // Compute the message source address.
-      char* src = static_cast<char*> (queue_addr_) + head_ * msg_size_bytes_;
+      char* src
+          = static_cast<char*> (arena_address_) + head_ * msg_size_bytes_;
       priority_t prio = priority_array_[head_];
 
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_MQUEUE_)

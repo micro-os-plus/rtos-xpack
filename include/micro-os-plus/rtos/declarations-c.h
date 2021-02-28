@@ -1313,12 +1313,12 @@ typedef uint8_t micro_os_plus_message_queue_size_t;
     /**
      * @brief Pointer to user provided message queue area.
      */
-    void* mq_queue_addr;
+    void* arena_address;
 
     /**
      * @brief Size of user provided message queue area, in bytes.
      */
-    size_t mq_queue_size_bytes;
+    size_t arena_size_bytes;
 
   } micro_os_plus_message_queue_attributes_t;
 
@@ -1357,16 +1357,16 @@ typedef uint8_t micro_os_plus_message_queue_size_t;
     void* first_free;
 #endif
 
-    void* queue_addr;
-    void* allocated_queue_addr;
+    void* arena_address;
+    void* allocated_arena_address;
     void* allocator;
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
     micro_os_plus_message_queue_port_data_t port;
 #endif
 
-    size_t queue_size_bytes;
-    size_t allocated_queue_size_elements;
+    size_t arena_size_bytes;
+    size_t allocated_arena_size_elements;
 
     micro_os_plus_message_queue_message_size_t msg_size_bytes;
     micro_os_plus_message_queue_size_t msgs;

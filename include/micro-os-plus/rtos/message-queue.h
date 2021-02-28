@@ -183,12 +183,12 @@ namespace micro_os_plus
         /**
          * @brief Address of the user defined storage for the message queue.
          */
-        void* mq_queue_address = nullptr;
+        void* arena_address = nullptr;
 
         /**
          * @brief Size of the user defined storage for the message queue.
          */
-        std::size_t mq_queue_size_bytes = 0;
+        std::size_t arena_size_bytes = 0;
 
         // Add more attributes here.
 
@@ -552,15 +552,15 @@ namespace micro_os_plus
        * @param [in] msgs The number of messages.
        * @param [in] msg_size_bytes The message size, in bytes.
        * @param [in] attr Reference to attributes.
-       * @param [in] queue_address Pointer to queue storage.
-       * @param [in] queue_size_bytes Size of queue storage.
+       * @param [in] arena_addressess Pointer to queue storage.
+       * @param [in] arena_size_bytes Size of queue storage.
        * @par Returns
        *  Nothing.
        */
       void
       internal_construct_ (std::size_t msgs, std::size_t msg_size_bytes,
-                           const attributes& attr, void* queue_address,
-                           std::size_t queue_size_bytes);
+                           const attributes& attr, void* arena_addressess,
+                           std::size_t arena_size_bytes);
 
       /**
        * @brief Internal function used to initialise the queue to empty state.
@@ -664,14 +664,14 @@ namespace micro_os_plus
 
       /**
        * @brief The static address where the queue is stored
-       * (from `attr.mq_queue_address`).
+       * (from `attr.arena_address`).
        */
-      void* queue_addr_ = nullptr;
+      void* arena_address_ = nullptr;
       /**
        * @brief The dynamic address if the queue was allocated
        * (and must be deallocated)
        */
-      void* allocated_queue_addr_ = nullptr;
+      void* allocated_arena_address_ = nullptr;
       /**
        * @brief Pointer to allocator.
        */
@@ -684,13 +684,13 @@ namespace micro_os_plus
 
       /**
        * @brief Total size of the statically allocated queue storage
-       * (from `attr.mq_queue_size_bytes`).
+       * (from `attr.arena_size_bytes`).
        */
-      std::size_t queue_size_bytes_ = 0;
+      std::size_t arena_size_bytes_ = 0;
       /**
        * @brief Total size of the dynamically allocated queue storage.
        */
-      std::size_t allocated_queue_size_elements_ = 0;
+      std::size_t allocated_arena_size_elements_ = 0;
 
       /**
        * @brief Message size (aligned to size of pointer)
@@ -1347,9 +1347,10 @@ namespace micro_os_plus
      * The effect shall be equivalent to creating a message queue
      * object with the simple constructor.
      *
-     * If the attributes define a storage area (via `mq_queue_address` and
-     * `mq_queue_size_bytes`), that storage is used, otherwise
-     * the storage is dynamically allocated using the RTOS specific allocator
+     * If the attributes define a storage area (via
+     * `arena_address` and `arena_size_bytes`), that
+     * storage is used, otherwise the storage is dynamically allocated using
+     * the RTOS specific allocator
      * (`rtos::memory::allocator`).
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
@@ -1383,9 +1384,10 @@ namespace micro_os_plus
      * The effect shall be equivalent to creating a message queue
      * object with the simple constructor.
      *
-     * If the attributes define a storage area (via `mq_queue_address` and
-     * `mq_queue_size_bytes`), that storage is used, otherwise
-     * the storage is dynamically allocated using the RTOS specific allocator
+     * If the attributes define a storage area (via
+     * `arena_address` and `arena_size_bytes`), that
+     * storage is used, otherwise the storage is dynamically allocated using
+     * the RTOS specific allocator
      * (`rtos::memory::allocator`).
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
@@ -1401,7 +1403,7 @@ namespace micro_os_plus
                      msgs, msg_size_bytes);
 #endif
 
-      if (attr.mq_queue_address != nullptr)
+      if (attr.arena_address != nullptr)
         {
           // Do not use any allocator at all.
           internal_construct_ (msgs, msg_size_bytes, attr, nullptr, 0);
@@ -1412,20 +1414,20 @@ namespace micro_os_plus
 
           // If no user storage was provided via attributes,
           // allocate it dynamically via the allocator.
-          allocated_queue_size_elements_
+          allocated_arena_size_elements_
               = (compute_allocated_size_bytes<
                      typename allocator_type::value_type> (msgs,
                                                            msg_size_bytes)
                  + sizeof (typename allocator_type::value_type) - 1)
                 / sizeof (typename allocator_type::value_type);
 
-          allocated_queue_addr_
+          allocated_arena_address_
               = const_cast<allocator_type&> (allocator).allocate (
-                  allocated_queue_size_elements_);
+                  allocated_arena_size_elements_);
 
           internal_construct_ (
-              msgs, msg_size_bytes, attr, allocated_queue_addr_,
-              allocated_queue_size_elements_
+              msgs, msg_size_bytes, attr, allocated_arena_address_,
+              allocated_arena_size_elements_
                   * sizeof (typename allocator_type::value_type));
         }
     }
@@ -1452,13 +1454,13 @@ namespace micro_os_plus
 #endif
       typedef typename std::allocator_traits<allocator_type>::pointer pointer;
 
-      if (allocated_queue_addr_ != nullptr)
+      if (allocated_arena_address_ != nullptr)
         {
           static_cast<allocator_type*> (const_cast<void*> (allocator_))
-              ->deallocate (static_cast<pointer> (allocated_queue_addr_),
-                            allocated_queue_size_elements_);
+              ->deallocate (static_cast<pointer> (allocated_arena_address_),
+                            allocated_arena_size_elements_);
 
-          allocated_queue_addr_ = nullptr;
+          allocated_arena_address_ = nullptr;
         }
     }
 
@@ -1483,9 +1485,10 @@ namespace micro_os_plus
      * The effect shall be equivalent to creating a message queue
      * object with the simple constructor.
      *
-     * If the attributes define a storage area (via `mq_queue_address` and
-     * `mq_queue_size_bytes`), that storage is used, otherwise
-     * the storage is dynamically allocated using the RTOS specific allocator
+     * If the attributes define a storage area (via
+     * `arena_address` and `arena_size_bytes`), that
+     * storage is used, otherwise the storage is dynamically allocated using
+     * the RTOS specific allocator
      * (`rtos::memory::allocator`).
      *
      * Implemented as a wrapper over the parent constructor, automatically
@@ -1522,9 +1525,10 @@ namespace micro_os_plus
      * The effect shall be equivalent to creating a message queue
      * object with the simple constructor.
      *
-     * If the attributes define a storage area (via `mq_queue_address` and
-     * `mq_queue_size_bytes`), that storage is used, otherwise
-     * the storage is dynamically allocated using the RTOS specific allocator
+     * If the attributes define a storage area (via
+     * `arena_address` and `arena_size_bytes`), that
+     * storage is used, otherwise the storage is dynamically allocated using
+     * the RTOS specific allocator
      * (`rtos::memory::allocator`).
      *
      * Implemented as a wrapper over the parent constructor, automatically

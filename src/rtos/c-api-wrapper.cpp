@@ -412,13 +412,13 @@ static_assert (sizeof (rtos::message_queue)
 static_assert (sizeof (rtos::message_queue::attributes)
                    == sizeof (micro_os_plus_message_queue_attributes_t),
                "adjust size of micro_os_plus_message_queue_attributes_t");
-static_assert (offsetof (rtos::message_queue::attributes, mq_queue_address)
+static_assert (offsetof (rtos::message_queue::attributes, arena_address)
                    == offsetof (micro_os_plus_message_queue_attributes_t,
-                                mq_queue_addr),
+                                arena_address),
                "adjust micro_os_plus_message_queue_attributes_t members");
-static_assert (offsetof (rtos::message_queue::attributes, mq_queue_size_bytes)
+static_assert (offsetof (rtos::message_queue::attributes, arena_size_bytes)
                    == offsetof (micro_os_plus_message_queue_attributes_t,
-                                mq_queue_size_bytes),
+                                arena_size_bytes),
                "adjust micro_os_plus_message_queue_attributes_t members");
 
 static_assert (sizeof (rtos::event_flags)
