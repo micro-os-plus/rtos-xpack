@@ -380,7 +380,7 @@ extern "C"
    *
    * @see micro_os_plus::rtos::thread::priority_t
    */
-  typedef uint8_t micro_os_plus_thread_prio_t;
+  typedef uint8_t micro_os_plus_thread_priority_t;
 
   // --------------------------------------------------------------------------
 
@@ -553,7 +553,7 @@ extern "C"
      * is to call `micro_os_plus_thread_set_priority()` at the beginning of the
      * thread function.
      */
-    micro_os_plus_thread_prio_t th_priority;
+    micro_os_plus_thread_priority_t th_priority;
 
   } micro_os_plus_thread_attributes_t;
 
@@ -600,8 +600,8 @@ extern "C"
     size_t acquired_mutexes;
     size_t allocated_stack_size_elements;
     micro_os_plus_thread_state_t state;
-    micro_os_plus_thread_prio_t prio_assigned;
-    micro_os_plus_thread_prio_t prio_inherited;
+    micro_os_plus_thread_priority_t priority_assigned;
+    micro_os_plus_thread_priority_t priority_inherited;
     bool interrupted;
     micro_os_plus_internal_event_flags_t event_flags;
 #if defined(MICRO_OS_PLUS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE)
@@ -932,7 +932,7 @@ extern "C"
     /**
      * @brief Mutex priority ceiling.
      */
-    micro_os_plus_thread_prio_t mx_priority_ceiling;
+    micro_os_plus_thread_priority_t mx_priority_ceiling;
 
     /**
      * @brief Mutex protocol.
@@ -989,9 +989,9 @@ extern "C"
     micro_os_plus_mutex_port_data_t port;
 #endif
     micro_os_plus_mutex_count_t count;
-    micro_os_plus_thread_prio_t initial_prio_ceiling;
-    micro_os_plus_thread_prio_t prio_ceiling;
-    micro_os_plus_thread_prio_t bosted_prio;
+    micro_os_plus_thread_priority_t initial_priority_ceiling;
+    micro_os_plus_thread_priority_t priority_ceiling;
+    micro_os_plus_thread_priority_t bosted_priority;
     bool owner_dead;
     bool consistent;
     bool recoverable;
@@ -1282,7 +1282,7 @@ typedef uint8_t micro_os_plus_mqueue_size_t;
    *
    * @see micro_os_plus::rtos::message_queue::priority_t
    */
-  typedef uint8_t micro_os_plus_mqueue_prio_t;
+  typedef uint8_t micro_os_plus_mqueue_priority_t;
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wpadded"
@@ -1347,7 +1347,7 @@ typedef uint8_t micro_os_plus_mqueue_size_t;
     void* clock;
     micro_os_plus_mqueue_index_t* prev_array;
     micro_os_plus_mqueue_index_t* next_array;
-    micro_os_plus_mqueue_prio_t* prio_array;
+    micro_os_plus_mqueue_priority_t* priority_array;
     void* first_free;
 #endif
 

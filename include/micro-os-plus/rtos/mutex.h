@@ -507,12 +507,12 @@ namespace micro_os_plus
        * @return The priority ceiling.
        */
       thread::priority_t
-      prio_ceiling (void) const;
+      priority_ceiling (void) const;
 
       /**
        * @brief Change the priority ceiling of a mutex.
-       * @param [in] prio_ceiling new priority.
-       * @param [out] old_prio_ceiling pointer to location where to
+       * @param [in] priority_ceiling new priority.
+       * @param [out] old_priority_ceiling pointer to location where to
        *  store the previous priority; may be `nullptr`.
        * @retval result::ok The priority was changed.
        * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
@@ -532,8 +532,8 @@ namespace micro_os_plus
        *  the current thread already owns the mutex.
        */
       result_t
-      prio_ceiling (thread::priority_t prio_ceiling,
-                    thread::priority_t* old_prio_ceiling = nullptr);
+      priority_ceiling (thread::priority_t priority_ceiling,
+                        thread::priority_t* old_priority_ceiling = nullptr);
 
       /**
        * @brief Mark mutex as consistent.
@@ -671,10 +671,11 @@ namespace micro_os_plus
       volatile count_t count_ = 0;
 
       // Can be updated in different thread contexts.
-      volatile thread::priority_t initial_prio_ceiling_
+      volatile thread::priority_t initial_priority_ceiling_
           = thread::priority::highest;
-      volatile thread::priority_t prio_ceiling_ = thread::priority::highest;
-      volatile thread::priority_t boosted_prio_ = thread::priority::none;
+      volatile thread::priority_t priority_ceiling_
+          = thread::priority::highest;
+      volatile thread::priority_t boosted_priority_ = thread::priority::none;
 
       bool owner_dead_ = false;
       bool consistent_ = true;

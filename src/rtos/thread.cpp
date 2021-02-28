@@ -459,7 +459,7 @@ namespace micro_os_plus
         scheduler::critical_section scs;
 
         // Get attributes from user structure.
-        prio_assigned_ = attr.th_priority;
+        priority_assigned_ = attr.th_priority;
 
         func_ = function;
         func_args_ = args;
@@ -556,7 +556,7 @@ namespace micro_os_plus
     {
 #if defined(MICRO_OS_PLUS_TRACE_RTMICRO_OS_PLUS_THREAD_CONTEXT)
       trace::printf ("%s() @%p %s %u\n", __func__, this, name (),
-                     prio_assigned_);
+                     priority_assigned_);
 #endif
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_SCHEDULER)
@@ -606,17 +606,18 @@ namespace micro_os_plus
     {
       // trace::printf ("%s() @%p %s\n", __func__, this, name ());
 
-      if (prio_inherited_ == priority::none)
+      if (priority_inherited_ == priority::none)
         {
           // The common case is to have no inherited priority;
           // return the assigned one.
-          return prio_assigned_;
+          return priority_assigned_;
         }
       else
         {
           // Return the maximum between inherited and assigned.
-          return (prio_inherited_ >= prio_assigned_) ? prio_inherited_
-                                                     : prio_assigned_;
+          return (priority_inherited_ >= priority_assigned_)
+                     ? priority_inherited_
+                     : priority_assigned_;
         }
     }
 
@@ -635,7 +636,7 @@ namespace micro_os_plus
       micro_os_plus_assert_err (!interrupts::in_handler_mode (),
                                 priority::error);
 
-      return prio_inherited_;
+      return priority_inherited_;
     }
 
     /**
@@ -673,13 +674,13 @@ namespace micro_os_plus
       micro_os_plus_assert_err (prio < priority::error, EINVAL);
       micro_os_plus_assert_err (prio != priority::none, EINVAL);
 
-      if (prio_assigned_ == prio)
+      if (priority_assigned_ == prio)
         {
           // Optimise, if priority did not change.
           return result::ok;
         }
 
-      prio_assigned_ = prio;
+      priority_assigned_ = prio;
 
       result_t res = result::ok;
 
@@ -744,15 +745,15 @@ namespace micro_os_plus
       // `mutex::unlock()` sets it when the list of mutexes owned
       // by a thread is empty.
 
-      if (prio == prio_inherited_)
+      if (prio == priority_inherited_)
         {
           // Optimise, if priority did not change.
           return result::ok;
         }
 
-      prio_inherited_ = prio;
+      priority_inherited_ = prio;
 
-      if (prio_inherited_ < prio_assigned_)
+      if (priority_inherited_ < priority_assigned_)
         {
           // Optimise, no need to reschedule.
           return result::ok;

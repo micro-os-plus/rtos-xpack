@@ -534,7 +534,7 @@ extern "C"
    * @param [in] thread Pointer to thread object instance.
    * @return The thread priority.
    */
-  micro_os_plus_thread_prio_t
+  micro_os_plus_thread_priority_t
   micro_os_plus_thread_get_priority (micro_os_plus_thread_t* thread);
 
   /**
@@ -548,7 +548,7 @@ extern "C"
    */
   micro_os_plus_result_t
   micro_os_plus_thread_set_priority (micro_os_plus_thread_t* thread,
-                                     micro_os_plus_thread_prio_t prio);
+                                     micro_os_plus_thread_priority_t prio);
 
   /**
    * @brief Wait for thread termination.
@@ -1359,22 +1359,23 @@ extern "C"
    * @param [in] mutex Pointer to mutex object instance.
    * @return The priority ceiling.
    */
-  micro_os_plus_thread_prio_t
-  micro_os_plus_mutex_get_prio_ceiling (micro_os_plus_mutex_t* mutex);
+  micro_os_plus_thread_priority_t
+  micro_os_plus_mutex_get_priority_ceiling (micro_os_plus_mutex_t* mutex);
 
   /**
    * @brief Change the priority ceiling of a mutex.
    * @param [in] mutex Pointer to mutex object instance.
-   * @param [in] prio_ceiling new priority.
-   * @param [out] old_prio_ceiling pointer to location where to
+   * @param [in] priority_ceiling new priority.
+   * @param [out] old_priority_ceiling pointer to location where to
    *  store the previous priority; may be `NULL`.
    * @retval micro_os_plus_ok The priority was changed.
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
    */
   micro_os_plus_result_t
-  micro_os_plus_mutex_set_prio_ceiling (
-      micro_os_plus_mutex_t* mutex, micro_os_plus_thread_prio_t prio_ceiling,
-      micro_os_plus_thread_prio_t* old_prio_ceiling);
+  micro_os_plus_mutex_set_priority_ceiling (
+      micro_os_plus_mutex_t* mutex,
+      micro_os_plus_thread_priority_t priority_ceiling,
+      micro_os_plus_thread_priority_t* old_priority_ceiling);
 
   /**
    * @brief Mark mutex as consistent.
@@ -2199,7 +2200,8 @@ extern "C"
    */
   micro_os_plus_result_t
   micro_os_plus_mqueue_send (micro_os_plus_mqueue_t* mqueue, const void* msg,
-                             size_t nbytes, micro_os_plus_mqueue_prio_t mprio);
+                             size_t nbytes,
+                             micro_os_plus_mqueue_priority_t mprio);
 
   /**
    * @brief Try to send a message to the queue.
@@ -2220,7 +2222,7 @@ extern "C"
   micro_os_plus_result_t
   micro_os_plus_mqueue_try_send (micro_os_plus_mqueue_t* mqueue,
                                  const void* msg, size_t nbytes,
-                                 micro_os_plus_mqueue_prio_t mprio);
+                                 micro_os_plus_mqueue_priority_t mprio);
 
   /**
    * @brief Send a message to the queue with timeout.
@@ -2246,7 +2248,7 @@ extern "C"
   micro_os_plus_mqueue_timed_send (micro_os_plus_mqueue_t* mqueue,
                                    const void* msg, size_t nbytes,
                                    micro_os_plus_clock_duration_t timeout,
-                                   micro_os_plus_mqueue_prio_t mprio);
+                                   micro_os_plus_mqueue_priority_t mprio);
 
   /**
    * @brief Receive a message from the queue.
@@ -2270,7 +2272,7 @@ extern "C"
   micro_os_plus_result_t
   micro_os_plus_mqueue_receive (micro_os_plus_mqueue_t* mqueue, void* msg,
                                 size_t nbytes,
-                                micro_os_plus_mqueue_prio_t* mprio);
+                                micro_os_plus_mqueue_priority_t* mprio);
 
   /**
    * @brief Try to receive a message from the queue.
@@ -2293,7 +2295,7 @@ extern "C"
   micro_os_plus_result_t
   micro_os_plus_mqueue_try_receive (micro_os_plus_mqueue_t* mqueue, void* msg,
                                     size_t nbytes,
-                                    micro_os_plus_mqueue_prio_t* mprio);
+                                    micro_os_plus_mqueue_priority_t* mprio);
 
   /**
    * @brief Receive a message from the queue with timeout.
@@ -2321,7 +2323,7 @@ extern "C"
   micro_os_plus_mqueue_timed_receive (micro_os_plus_mqueue_t* mqueue,
                                       void* msg, size_t nbytes,
                                       micro_os_plus_clock_duration_t timeout,
-                                      micro_os_plus_mqueue_prio_t* mprio);
+                                      micro_os_plus_mqueue_priority_t* mprio);
 
   /**
    * @brief Get queue capacity.

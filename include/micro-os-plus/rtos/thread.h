@@ -1608,11 +1608,11 @@ namespace micro_os_plus
       state_t volatile state_ = state::undefined;
 
       // There are two values used as thread priority. The main one is
-      // assigned via `priority(int)`, and is stored in `prio_assigned_`.
+      // assigned via `priority(int)`, and is stored in `priority_assigned_`.
       // This value is normally used by the scheduler.
       // However, to prevent priority inversion, mutexes might temporarily
       // boost priorities via `priority_inherited(int)`; this second
-      // value is stored in `prio_inherited_`.
+      // value is stored in `priority_inherited_`.
 
       // POSIX: While a thread is holding a mutex which has been
       // initialised with the mutex::protocol::inherit or
@@ -1620,8 +1620,8 @@ namespace micro_os_plus
       // not be subject to being moved to the tail of the scheduling
       // queue at its priority in the event that its original
       // priority is changed, such as by a POSIX call to sched_setparam().
-      priority_t volatile prio_assigned_ = priority::none;
-      priority_t volatile prio_inherited_ = priority::none;
+      priority_t volatile priority_assigned_ = priority::none;
+      priority_t volatile priority_inherited_ = priority::none;
 
       bool volatile interrupted_ = false;
 

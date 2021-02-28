@@ -124,12 +124,12 @@ static_assert (alignof (micro_os_plus_thread_state_t)
                    == alignof (thread::state_t),
                "adjust align of micro_os_plus_thread_state_t");
 
-static_assert (sizeof (micro_os_plus_thread_prio_t)
+static_assert (sizeof (micro_os_plus_thread_priority_t)
                    == sizeof (thread::priority_t),
-               "adjust size of micro_os_plus_thread_prio_t");
-static_assert (alignof (micro_os_plus_thread_prio_t)
+               "adjust size of micro_os_plus_thread_priority_t");
+static_assert (alignof (micro_os_plus_thread_priority_t)
                    == alignof (thread::priority_t),
-               "adjust align of micro_os_plus_thread_prio_t");
+               "adjust align of micro_os_plus_thread_priority_t");
 
 static_assert (sizeof (micro_os_plus_timer_func_args_t)
                    == sizeof (timer::func_args_t),
@@ -214,12 +214,12 @@ static_assert (alignof (micro_os_plus_mqueue_index_t)
                    == alignof (message_queue::index_t),
                "adjust align of micro_os_plus_mqueue_index_t");
 
-static_assert (sizeof (micro_os_plus_mqueue_prio_t)
+static_assert (sizeof (micro_os_plus_mqueue_priority_t)
                    == sizeof (message_queue::priority_t),
-               "adjust size of micro_os_plus_mqueue_prio_t");
-static_assert (alignof (micro_os_plus_mqueue_prio_t)
+               "adjust size of micro_os_plus_mqueue_priority_t");
+static_assert (alignof (micro_os_plus_mqueue_priority_t)
                    == alignof (message_queue::priority_t),
-               "adjust align of micro_os_plus_mqueue_prio_t");
+               "adjust align of micro_os_plus_mqueue_priority_t");
 
 // ----------------------------------------------------------------------------
 
@@ -964,11 +964,11 @@ micro_os_plus_thread_get_name (micro_os_plus_thread_t* thread)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::thread::priority()
  */
-micro_os_plus_thread_prio_t
+micro_os_plus_thread_priority_t
 micro_os_plus_thread_get_priority (micro_os_plus_thread_t* thread)
 {
   assert (thread != nullptr);
-  return (micro_os_plus_thread_prio_t) (
+  return (micro_os_plus_thread_priority_t) (
              reinterpret_cast<rtos::thread&> (*thread))
       .priority ();
 }
@@ -983,7 +983,7 @@ micro_os_plus_thread_get_priority (micro_os_plus_thread_t* thread)
  */
 micro_os_plus_result_t
 micro_os_plus_thread_set_priority (micro_os_plus_thread_t* thread,
-                                   micro_os_plus_thread_prio_t prio)
+                                   micro_os_plus_thread_priority_t prio)
 {
   assert (thread != nullptr);
   return (micro_os_plus_result_t) (reinterpret_cast<rtos::thread&> (*thread))
@@ -2068,15 +2068,15 @@ micro_os_plus_mutex_unlock (micro_os_plus_mutex_t* mutex)
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
- *  @ref micro_os_plus::rtos::mutex::prio_ceiling()
+ *  @ref micro_os_plus::rtos::mutex::priority_ceiling()
  */
-micro_os_plus_thread_prio_t
-micro_os_plus_mutex_get_prio_ceiling (micro_os_plus_mutex_t* mutex)
+micro_os_plus_thread_priority_t
+micro_os_plus_mutex_get_priority_ceiling (micro_os_plus_mutex_t* mutex)
 {
   assert (mutex != nullptr);
-  return (micro_os_plus_thread_prio_t) (
+  return (micro_os_plus_thread_priority_t) (
              reinterpret_cast<rtos::mutex&> (*mutex))
-      .prio_ceiling ();
+      .priority_ceiling ();
 }
 
 /**
@@ -2085,17 +2085,18 @@ micro_os_plus_mutex_get_prio_ceiling (micro_os_plus_mutex_t* mutex)
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
- *  @ref micro_os_plus::rtos::mutex::prio_ceiling(thread::priority_t,
+ *  @ref micro_os_plus::rtos::mutex::priority_ceiling(thread::priority_t,
  * thread::priority_t*)
  */
 micro_os_plus_result_t
-micro_os_plus_mutex_set_prio_ceiling (
-    micro_os_plus_mutex_t* mutex, micro_os_plus_thread_prio_t prio_ceiling,
-    micro_os_plus_thread_prio_t* old_prio_ceiling)
+micro_os_plus_mutex_set_priority_ceiling (
+    micro_os_plus_mutex_t* mutex,
+    micro_os_plus_thread_priority_t priority_ceiling,
+    micro_os_plus_thread_priority_t* old_priority_ceiling)
 {
   assert (mutex != nullptr);
   return (micro_os_plus_result_t) (reinterpret_cast<rtos::mutex&> (*mutex))
-      .prio_ceiling (prio_ceiling, old_prio_ceiling);
+      .priority_ceiling (priority_ceiling, old_priority_ceiling);
 }
 
 /**
@@ -3208,7 +3209,8 @@ micro_os_plus_mqueue_get_name (micro_os_plus_mqueue_t* mqueue)
  */
 micro_os_plus_result_t
 micro_os_plus_mqueue_send (micro_os_plus_mqueue_t* mqueue, const void* msg,
-                           size_t nbytes, micro_os_plus_mqueue_prio_t mprio)
+                           size_t nbytes,
+                           micro_os_plus_mqueue_priority_t mprio)
 {
   assert (mqueue != nullptr);
   return (micro_os_plus_result_t) (reinterpret_cast<message_queue&> (*mqueue))
@@ -3226,7 +3228,7 @@ micro_os_plus_mqueue_send (micro_os_plus_mqueue_t* mqueue, const void* msg,
 micro_os_plus_result_t
 micro_os_plus_mqueue_try_send (micro_os_plus_mqueue_t* mqueue, const void* msg,
                                size_t nbytes,
-                               micro_os_plus_mqueue_prio_t mprio)
+                               micro_os_plus_mqueue_priority_t mprio)
 {
   assert (mqueue != nullptr);
   return (micro_os_plus_result_t) (reinterpret_cast<message_queue&> (*mqueue))
@@ -3245,7 +3247,7 @@ micro_os_plus_result_t
 micro_os_plus_mqueue_timed_send (micro_os_plus_mqueue_t* mqueue,
                                  const void* msg, size_t nbytes,
                                  micro_os_plus_clock_duration_t timeout,
-                                 micro_os_plus_mqueue_prio_t mprio)
+                                 micro_os_plus_mqueue_priority_t mprio)
 {
   assert (mqueue != nullptr);
   return (micro_os_plus_result_t) (reinterpret_cast<message_queue&> (*mqueue))
@@ -3263,7 +3265,7 @@ micro_os_plus_mqueue_timed_send (micro_os_plus_mqueue_t* mqueue,
 micro_os_plus_result_t
 micro_os_plus_mqueue_receive (micro_os_plus_mqueue_t* mqueue, void* msg,
                               size_t nbytes,
-                              micro_os_plus_mqueue_prio_t* mprio)
+                              micro_os_plus_mqueue_priority_t* mprio)
 {
   assert (mqueue != nullptr);
   return (micro_os_plus_result_t) (reinterpret_cast<message_queue&> (*mqueue))
@@ -3281,7 +3283,7 @@ micro_os_plus_mqueue_receive (micro_os_plus_mqueue_t* mqueue, void* msg,
 micro_os_plus_result_t
 micro_os_plus_mqueue_try_receive (micro_os_plus_mqueue_t* mqueue, void* msg,
                                   size_t nbytes,
-                                  micro_os_plus_mqueue_prio_t* mprio)
+                                  micro_os_plus_mqueue_priority_t* mprio)
 {
   assert (mqueue != nullptr);
   return (micro_os_plus_result_t) (reinterpret_cast<message_queue&> (*mqueue))
@@ -3300,7 +3302,7 @@ micro_os_plus_result_t
 micro_os_plus_mqueue_timed_receive (micro_os_plus_mqueue_t* mqueue, void* msg,
                                     size_t nbytes,
                                     micro_os_plus_clock_duration_t timeout,
-                                    micro_os_plus_mqueue_prio_t* mprio)
+                                    micro_os_plus_mqueue_priority_t* mprio)
 {
   assert (mqueue != nullptr);
   return (micro_os_plus_result_t) (reinterpret_cast<message_queue&> (*mqueue))

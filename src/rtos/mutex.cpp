@@ -521,8 +521,8 @@ namespace micro_os_plus
       micro_os_plus_assert_throw (
           attr.mx_priority_ceiling <= thread::priority::highest, EINVAL);
 
-      initial_prio_ceiling_ = attr.mx_priority_ceiling;
-      prio_ceiling_ = attr.mx_priority_ceiling;
+      initial_priority_ceiling_ = attr.mx_priority_ceiling;
+      priority_ceiling_ = attr.mx_priority_ceiling;
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MUTEX)
 
@@ -586,8 +586,8 @@ namespace micro_os_plus
       owner_ = nullptr;
       owner_links_.unlink ();
       count_ = 0;
-      prio_ceiling_ = initial_prio_ceiling_;
-      boosted_prio_ = thread::priority::none;
+      priority_ceiling_ = initial_priority_ceiling_;
+      boosted_priority_ = thread::priority::none;
       owner_dead_ = false;
       consistent_ = true;
       recoverable_ = true;
@@ -631,7 +631,7 @@ namespace micro_os_plus
 
           if (protocol_ == protocol::protect)
             {
-              if (th->priority () > prio_ceiling_)
+              if (th->priority () > priority_ceiling_)
                 {
                   // No need to keep the lock.
                   owner_ = nullptr;
@@ -650,13 +650,13 @@ namespace micro_os_plus
               // blocked on any of these robust mutexes or not.
 
               // Boost priority.
-              boosted_prio_ = prio_ceiling_;
-              if (boosted_prio_ > owner_->priority_inherited ())
+              boosted_priority_ = priority_ceiling_;
+              if (boosted_priority_ > owner_->priority_inherited ())
                 {
                   // ----- Enter uncritical section ---------------------------
                   scheduler::uncritical_section sucs;
 
-                  owner_->priority_inherited (boosted_prio_);
+                  owner_->priority_inherited (boosted_priority_);
                   // ----- Exit uncritical section ----------------------------
                 }
             }
@@ -741,7 +741,7 @@ namespace micro_os_plus
           if (protocol_ == protocol::inherit)
             {
               thread::priority_t prio = th->priority ();
-              boosted_prio_ = prio;
+              boosted_priority_ = prio;
 
               if (owner_links_.unlinked ())
                 {
@@ -751,18 +751,19 @@ namespace micro_os_plus
                 }
 
               // Boost owner priority.
-              if ((boosted_prio_ > owner_->priority_inherited ()))
+              if ((boosted_priority_ > owner_->priority_inherited ()))
                 {
                   // ----- Enter uncritical section ---------------------------
                   scheduler::uncritical_section sucs;
 
-                  owner_->priority_inherited (boosted_prio_);
+                  owner_->priority_inherited (boosted_priority_);
                   // ----- Exit uncritical section ----------------------------
                 }
 
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_MUTEX)
               trace::printf ("%s() @%p %s boost %u by %p %s \n", __func__,
-                             this, name (), boosted_prio_, th, th->name ());
+                             this, name (), boosted_priority_, th,
+                             th->name ());
 #endif
 
               return EWOULDBLOCK;
@@ -804,7 +805,7 @@ namespace micro_os_plus
             // not linked.
             owner_links_.unlink ();
 
-            if (boosted_prio_ != thread::priority::none)
+            if (boosted_priority_ != thread::priority::none)
               {
                 mutexes_list* thread_mutexes
                     = reinterpret_cast<mutexes_list*> (&owner_->mutexes_);
@@ -814,24 +815,24 @@ namespace micro_os_plus
                     // If the owner thread has no more mutexes,
                     // clear the inherited priority,
                     // and the assigned priority will take precedence.
-                    boosted_prio_ = thread::priority::none;
+                    boosted_priority_ = thread::priority::none;
                   }
                 else
                   {
                     // If the owner thread acquired other mutexes too,
                     // compute the maximum boosted priority.
-                    thread::priority_t max_prio = 0;
+                    thread::priority_t max_priority = 0;
                     for (auto&& mx : *thread_mutexes)
                       {
-                        if (mx.boosted_prio_ > max_prio)
+                        if (mx.boosted_priority_ > max_priority)
                           {
-                            max_prio = mx.boosted_prio_;
+                            max_priority = mx.boosted_priority_;
                           }
                       }
-                    boosted_prio_ = max_prio;
+                    boosted_priority_ = max_priority;
                   }
                 // Delayed until end of critical section.
-                owner_->priority_inherited (boosted_prio_);
+                owner_->priority_inherited (boosted_priority_);
               }
 
             // Delayed until end of critical section.
@@ -1261,26 +1262,26 @@ namespace micro_os_plus
             }
           if (res != result::ok)
             {
-              if (boosted_prio_ != thread::priority::none)
+              if (boosted_priority_ != thread::priority::none)
                 {
                   // If the priority was boosted, it must be restored
                   // to the highest priority of the waiting threads, if any.
 
-                  thread::priority_t max_prio = thread::priority::none;
+                  thread::priority_t max_priority = thread::priority::none;
 
                   for (auto&& th : list_)
                     {
                       thread::priority_t prio = th.priority ();
-                      if (prio > max_prio)
+                      if (prio > max_priority)
                         {
-                          max_prio = prio;
+                          max_priority = prio;
                         }
                     }
 
-                  if (max_prio != thread::priority::none)
+                  if (max_priority != thread::priority::none)
                     {
-                      boosted_prio_ = max_prio;
-                      owner_->priority (boosted_prio_);
+                      boosted_priority_ = max_priority;
+                      owner_->priority (boosted_priority_);
                     }
                 }
               return res;
@@ -1355,7 +1356,7 @@ namespace micro_os_plus
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
     thread::priority_t
-    mutex::prio_ceiling (void) const
+    mutex::priority_ceiling (void) const
     {
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_MUTEX)
       trace::printf ("%s() @%p %s\n", __func__, this, name ());
@@ -1366,11 +1367,11 @@ namespace micro_os_plus
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MUTEX)
 
-      return port::mutex::prio_ceiling (this);
+      return port::mutex::priority_ceiling (this);
 
 #else
 
-      return prio_ceiling_;
+      return priority_ceiling_;
 
 #endif
     }
@@ -1383,9 +1384,9 @@ namespace micro_os_plus
      * it shall change the mutex's priority ceiling and then
      * release the mutex as if by a call to `unlock()`.
      * When the change is successful, the previous value of
-     * the priority ceiling shall be returned in `old_prio_ceiling`.
+     * the priority ceiling shall be returned in `old_priority_ceiling`.
      *
-     * If `prio_ceiling()` function fails, the mutex
+     * If `priority_ceiling()` function fails, the mutex
      * priority ceiling shall not be changed.
      *
      * @par POSIX compatibility
@@ -1399,8 +1400,8 @@ namespace micro_os_plus
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
     result_t
-    mutex::prio_ceiling (thread::priority_t prio_ceiling,
-                         thread::priority_t* old_prio_ceiling)
+    mutex::priority_ceiling (thread::priority_t priority_ceiling,
+                             thread::priority_t* old_priority_ceiling)
     {
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_MUTEX)
       trace::printf ("%s() @%p %s\n", __func__, this, name ());
@@ -1411,7 +1412,8 @@ namespace micro_os_plus
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MUTEX)
 
-      return port::mutex::prio_ceiling (this, prio_ceiling, old_prio_ceiling);
+      return port::mutex::priority_ceiling (this, priority_ceiling,
+                                            old_priority_ceiling);
 
 #else
 
@@ -1422,12 +1424,12 @@ namespace micro_os_plus
           return res;
         }
 
-      if (old_prio_ceiling != nullptr)
+      if (old_priority_ceiling != nullptr)
         {
-          *old_prio_ceiling = prio_ceiling_;
+          *old_priority_ceiling = priority_ceiling_;
         }
 
-      prio_ceiling_ = prio_ceiling;
+      priority_ceiling_ = priority_ceiling;
 
       unlock ();
 

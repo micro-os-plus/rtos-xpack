@@ -597,13 +597,13 @@ namespace micro_os_plus
           reinterpret_cast<char*> (const_cast<index_t*> (prev_array_))
           + msgs * sizeof (index_t));
       // The array of priorities follows immediately the next array.
-      prio_array_ = reinterpret_cast<priority_t*> (
+      priority_array_ = reinterpret_cast<priority_t*> (
           reinterpret_cast<char*> (const_cast<index_t*> (next_array_))
           + msgs * sizeof (index_t));
 
 #if !defined(NDEBUG)
       char* p = reinterpret_cast<char*> (
-          reinterpret_cast<char*> (const_cast<priority_t*> (prio_array_))
+          reinterpret_cast<char*> (const_cast<priority_t*> (priority_array_))
           + msgs * sizeof (priority_t));
 
       assert (p - static_cast<char*> (queue_addr_)
@@ -701,7 +701,7 @@ namespace micro_os_plus
       std::size_t msg_ix
           = (static_cast<std::size_t> (dest - static_cast<char*> (queue_addr_))
              / msg_size_bytes_);
-      prio_array_[msg_ix] = mprio;
+      priority_array_[msg_ix] = mprio;
 
       if (head_ == no_index)
         {
@@ -717,7 +717,7 @@ namespace micro_os_plus
           // Arrange to insert between head and tail.
           ix = prev_array_[head_];
           // Check if the priority is higher than the head priority.
-          if (mprio > prio_array_[head_])
+          if (mprio > priority_array_[head_])
             {
               // Having the highest priority, the new message
               // becomes the new head.
@@ -727,7 +727,7 @@ namespace micro_os_plus
             {
               // If not higher than the head, try to insert at the tail,
               // but advance up until the same priority is found.
-              while ((mprio > prio_array_[ix]))
+              while ((mprio > priority_array_[ix]))
                 {
                   ix = prev_array_[ix];
                 }
@@ -770,7 +770,7 @@ namespace micro_os_plus
 
       // Compute the message source address.
       char* src = static_cast<char*> (queue_addr_) + head_ * msg_size_bytes_;
-      priority_t prio = prio_array_[head_];
+      priority_t prio = priority_array_[head_];
 
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_MQUEUE_)
       trace::printf ("%s(%p,%u) @%p %s src %p %p\n", __func__, msg, nbytes,

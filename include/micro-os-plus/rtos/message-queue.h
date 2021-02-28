@@ -648,7 +648,7 @@ namespace micro_os_plus
       /**
        * @brief Pointer to array of priorities.
        */
-      volatile priority_t* prio_array_ = nullptr;
+      volatile priority_t* priority_array_ = nullptr;
 
       /**
        * @brief Pointer to the first free message, or `nullptr`.
