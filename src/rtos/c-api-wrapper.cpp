@@ -377,13 +377,13 @@ static_assert (sizeof (rtos::semaphore) == sizeof (micro_os_plus_semaphore_t),
 static_assert (sizeof (rtos::semaphore::attributes)
                    == sizeof (micro_os_plus_semaphore_attributes_t),
                "adjust size of micro_os_plus_semaphore_attributes_t");
-static_assert (offsetof (rtos::semaphore::attributes, semaphore_initial_value)
+static_assert (offsetof (rtos::semaphore::attributes, initial_value)
                    == offsetof (micro_os_plus_semaphore_attributes_t,
-                                semaphore_initial_value),
+                                initial_value),
                "adjust micro_os_plus_semaphore_attributes_t members");
-static_assert (offsetof (rtos::semaphore::attributes, semaphore_max_value)
+static_assert (offsetof (rtos::semaphore::attributes, max_value)
                    == offsetof (micro_os_plus_semaphore_attributes_t,
-                                semaphore_max_value),
+                                max_value),
                "adjust micro_os_plus_semaphore_attributes_t members");
 
 static_assert (sizeof (rtos::memory_pool)
