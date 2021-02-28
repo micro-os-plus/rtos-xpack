@@ -122,7 +122,7 @@ extern "C"
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
    */
   micro_os_plus_result_t
-  micro_os_plus_sched_initialize (void);
+  micro_os_plus_scheduler_initialize (void);
 
   /**
    * @brief Start the RTOS scheduler.
@@ -131,7 +131,7 @@ extern "C"
    * @par Returns
    *  Nothing.
    */
-  void __attribute__ ((noreturn)) micro_os_plus_sched_start (void);
+  void __attribute__ ((noreturn)) micro_os_plus_scheduler_start (void);
 
   /**
    * @brief Check if the scheduler was started.
@@ -141,7 +141,7 @@ extern "C"
    * @retval false The scheduler was not started.
    */
   bool
-  micro_os_plus_sched_is_started (void);
+  micro_os_plus_scheduler_is_started (void);
 
   /**
    * @brief Lock the scheduler.
@@ -149,8 +149,8 @@ extern "C"
    *  None.
    * @return The previous state of the scheduler lock.
    */
-  micro_os_plus_sched_state_t
-  micro_os_plus_sched_lock (void);
+  micro_os_plus_scheduler_state_t
+  micro_os_plus_scheduler_lock (void);
 
   /**
    * @brief Unlock the scheduler.
@@ -158,16 +158,16 @@ extern "C"
    *  None.
    * @return The previous state of the scheduler lock.
    */
-  micro_os_plus_sched_state_t
-  micro_os_plus_sched_unlock (void);
+  micro_os_plus_scheduler_state_t
+  micro_os_plus_scheduler_unlock (void);
 
   /**
    * @brief Lock/unlock the scheduler.
    * @param [in] state The new state of the scheduler lock.
    * @return The previous state of the scheduler lock.
    */
-  micro_os_plus_sched_state_t
-  micro_os_plus_sched_set_locked (micro_os_plus_sched_state_t state);
+  micro_os_plus_scheduler_state_t
+  micro_os_plus_scheduler_set_locked (micro_os_plus_scheduler_state_t state);
 
   /**
    * @brief Check if the scheduler is locked.
@@ -177,7 +177,7 @@ extern "C"
    * @retval false The scheduler is switching threads (not locked).
    */
   bool
-  micro_os_plus_sched_is_locked (void);
+  micro_os_plus_scheduler_is_locked (void);
 
   /**
    * @brief Check if the scheduler is in preemptive mode.
@@ -187,7 +187,7 @@ extern "C"
    * @retval false The scheduler is not in preemptive mode.
    */
   bool
-  micro_os_plus_sched_is_preemptive (void);
+  micro_os_plus_scheduler_is_preemptive (void);
 
   /**
    * @brief Set the scheduler preemptive mode.
@@ -195,7 +195,7 @@ extern "C"
    * @return The previous state of the preemptive mode.
    */
   bool
-  micro_os_plus_sched_set_preemptive (bool state);
+  micro_os_plus_scheduler_set_preemptive (bool state);
 
   /**
    * @}
@@ -215,7 +215,7 @@ extern "C"
    *  scheduler start.
    */
   micro_os_plus_statistics_counter_t
-  micro_os_plus_sched_stat_get_context_switches (void);
+  micro_os_plus_scheduler_stat_get_context_switches (void);
 
 #endif // defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
@@ -227,7 +227,7 @@ extern "C"
    * divided by some prescaller.
    */
   micro_os_plus_statistics_duration_t
-  micro_os_plus_sched_stat_get_cpu_cycles (void);
+  micro_os_plus_scheduler_stat_get_cpu_cycles (void);
 
 #endif // defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
@@ -1134,7 +1134,7 @@ extern "C"
    * @}
    */
 
-   /**
+  /**
    * @}
    */
 

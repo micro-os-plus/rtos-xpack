@@ -55,12 +55,12 @@ static_assert (sizeof (micro_os_plus_flags_mask_t) == sizeof (flags::mask_t),
 static_assert (alignof (micro_os_plus_flags_mask_t) == alignof (flags::mask_t),
                "adjust align of micro_os_plus_flags_mask_t");
 
-static_assert (sizeof (micro_os_plus_sched_state_t)
+static_assert (sizeof (micro_os_plus_scheduler_state_t)
                    == sizeof (scheduler::state_t),
-               "adjust size of micro_os_plus_sched_state_t");
-static_assert (alignof (micro_os_plus_sched_state_t)
+               "adjust size of micro_os_plus_scheduler_state_t");
+static_assert (alignof (micro_os_plus_scheduler_state_t)
                    == alignof (scheduler::state_t),
-               "adjust align of micro_os_plus_sched_state_t");
+               "adjust align of micro_os_plus_scheduler_state_t");
 
 static_assert (sizeof (micro_os_plus_irq_state_t)
                    == sizeof (interrupts::state_t),
@@ -448,7 +448,7 @@ static_assert (sizeof (internal::timer_node)
  *  @ref micro_os_plus::rtos::scheduler::initialize()
  */
 micro_os_plus_result_t
-micro_os_plus_sched_initialize (void)
+micro_os_plus_scheduler_initialize (void)
 {
   return (micro_os_plus_result_t)scheduler::initialize ();
 }
@@ -462,7 +462,7 @@ micro_os_plus_sched_initialize (void)
  *  @ref micro_os_plus::rtos::scheduler::start()
  */
 void
-micro_os_plus_sched_start (void)
+micro_os_plus_scheduler_start (void)
 {
   scheduler::start ();
 }
@@ -476,7 +476,7 @@ micro_os_plus_sched_start (void)
  *  @ref micro_os_plus::rtos::scheduler::started()
  */
 bool
-micro_os_plus_sched_is_started (void)
+micro_os_plus_scheduler_is_started (void)
 {
   return scheduler::started ();
 }
@@ -489,8 +489,8 @@ micro_os_plus_sched_is_started (void)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::scheduler::lock()
  */
-micro_os_plus_sched_state_t
-micro_os_plus_sched_lock (void)
+micro_os_plus_scheduler_state_t
+micro_os_plus_scheduler_lock (void)
 {
   return scheduler::lock ();
 }
@@ -503,8 +503,8 @@ micro_os_plus_sched_lock (void)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::scheduler::unlock()
  */
-micro_os_plus_sched_state_t
-micro_os_plus_sched_unlock (void)
+micro_os_plus_scheduler_state_t
+micro_os_plus_scheduler_unlock (void)
 {
   return scheduler::unlock ();
 }
@@ -517,8 +517,8 @@ micro_os_plus_sched_unlock (void)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::scheduler::lock()
  */
-micro_os_plus_sched_state_t
-micro_os_plus_sched_set_locked (micro_os_plus_sched_state_t state)
+micro_os_plus_scheduler_state_t
+micro_os_plus_scheduler_set_locked (micro_os_plus_scheduler_state_t state)
 {
   return scheduler::locked (state);
 }
@@ -532,7 +532,7 @@ micro_os_plus_sched_set_locked (micro_os_plus_sched_state_t state)
  *  @ref micro_os_plus::rtos::scheduler::locked()
  */
 bool
-micro_os_plus_sched_is_locked (void)
+micro_os_plus_scheduler_is_locked (void)
 {
   return scheduler::locked ();
 }
@@ -546,7 +546,7 @@ micro_os_plus_sched_is_locked (void)
  *  @ref micro_os_plus::rtos::scheduler::preemptive()
  */
 bool
-micro_os_plus_sched_is_preemptive (void)
+micro_os_plus_scheduler_is_preemptive (void)
 {
   return scheduler::preemptive ();
 }
@@ -560,7 +560,7 @@ micro_os_plus_sched_is_preemptive (void)
  *  @ref micro_os_plus::rtos::scheduler::preemptive(bool)
  */
 bool
-micro_os_plus_sched_set_preemptive (bool state)
+micro_os_plus_scheduler_set_preemptive (bool state)
 {
   return scheduler::preemptive (state);
 }
@@ -576,7 +576,7 @@ micro_os_plus_sched_set_preemptive (bool state)
  *  @ref micro_os_plus::rtos::scheduler::statistics::context_switches()
  */
 micro_os_plus_statistics_counter_t
-micro_os_plus_sched_stat_get_context_switches (void)
+micro_os_plus_scheduler_stat_get_context_switches (void)
 {
   return static_cast<micro_os_plus_statistics_counter_t> (
       scheduler::statistics::context_switches ());
@@ -595,7 +595,7 @@ micro_os_plus_sched_stat_get_context_switches (void)
  *  @ref micro_os_plus::rtos::scheduler::statistics::cpu_cycles()
  */
 micro_os_plus_statistics_duration_t
-micro_os_plus_sched_stat_get_cpu_cycles (void)
+micro_os_plus_scheduler_stat_get_cpu_cycles (void)
 {
   return static_cast<micro_os_plus_statistics_duration_t> (
       scheduler::statistics::cpu_cycles ());

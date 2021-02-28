@@ -1143,9 +1143,9 @@ namespace micro_os_plus
       set_cancel_type (int, int*);
 
       result_t
-      get_sched_param (int*, struct sched_param*);
+      get_scheduler_param (int*, struct sched_param*);
       result_t
-      set_sched_param (int, const struct sched_param*);
+      set_scheduler_param (int, const struct sched_param*);
 
       //void test_cancel(void);
 #endif

@@ -168,7 +168,7 @@ extern "C"
    *
    * @see micro_os_plus::rtos::scheduler::state_t
    */
-  typedef micro_os_plus_port_sched_state_t micro_os_plus_sched_state_t;
+  typedef micro_os_plus_port_scheduler_state_t micro_os_plus_scheduler_state_t;
 
   /**
    * @brief Type of variables holding interrupts priority values.
