@@ -2208,8 +2208,8 @@ extern "C"
    * @param [in] message The address of the message to enqueue.
    * @param [in] nbytes The length of the message. Must be not
    *  higher than the value used when creating the queue.
-   * @param [in] mprio The message priority. Enter 0 if priorities are not
-   * used.
+   * @param [in] message_priority The message priority. Enter 0 if priorities
+   * are not used.
    * @retval micro_os_plus_ok The message was enqueued.
    * @retval EINVAL A parameter is invalid or outside of a permitted range.
    * @retval EMSGSIZE The specified message length, nbytes,
@@ -2222,7 +2222,7 @@ extern "C"
   micro_os_plus_result_t
   micro_os_plus_message_queue_send (
       micro_os_plus_message_queue_t* mqueue, const void* message,
-      size_t nbytes, micro_os_plus_message_queue_priority_t mprio);
+      size_t nbytes, micro_os_plus_message_queue_priority_t message_priority);
 
   /**
    * @brief Try to send a message to the queue.
@@ -2230,8 +2230,8 @@ extern "C"
    * @param [in] message The address of the message to enqueue.
    * @param [in] nbytes The length of the message. Must be not
    *  higher than the value used when creating the queue.
-   * @param [in] mprio The message priority. Enter 0 if priorities are not
-   * used.
+   * @param [in] message_priority The message priority. Enter 0 if priorities
+   * are not used.
    * @retval micro_os_plus_ok The message was enqueued.
    * @retval EWOULDBLOCK The specified message queue is full.
    * @retval EINVAL A parameter is invalid or outside of a permitted range.
@@ -2243,7 +2243,7 @@ extern "C"
   micro_os_plus_result_t
   micro_os_plus_message_queue_try_send (
       micro_os_plus_message_queue_t* mqueue, const void* message,
-      size_t nbytes, micro_os_plus_message_queue_priority_t mprio);
+      size_t nbytes, micro_os_plus_message_queue_priority_t message_priority);
 
   /**
    * @brief Send a message to the queue with timeout.
@@ -2252,8 +2252,8 @@ extern "C"
    * @param [in] nbytes The length of the message. Must be not
    *  higher than the value used when creating the queue.
    * @param [in] timeout The timeout duration.
-   * @param [in] mprio The message priority. Enter 0 if priorities are not
-   * used.
+   * @param [in] message_priority The message priority. Enter 0 if priorities
+   * are not used.
    * @retval micro_os_plus_ok The message was enqueued.
    * @retval EINVAL A parameter is invalid or outside of a permitted range.
    * @retval EMSGSIZE The specified message length, nbytes,
@@ -2269,7 +2269,7 @@ extern "C"
   micro_os_plus_message_queue_timed_send (
       micro_os_plus_message_queue_t* mqueue, const void* message,
       size_t nbytes, micro_os_plus_clock_duration_t timeout,
-      micro_os_plus_message_queue_priority_t mprio);
+      micro_os_plus_message_queue_priority_t message_priority);
 
   /**
    * @brief Receive a message from the queue.
@@ -2277,7 +2277,7 @@ extern "C"
    * @param [out] message The address where to store the dequeued message.
    * @param [in] nbytes The size of the destination buffer. Must
    *  be lower than the value used when creating the queue.
-   * @param [out] mprio The address where to store the message
+   * @param [out] message_priority The address where to store the message
    *  priority. Enter `NULL` if priorities are not used.
    * @retval micro_os_plus_ok The message was received.
    * @retval EINVAL A parameter is invalid or outside of a permitted range.
@@ -2293,7 +2293,7 @@ extern "C"
   micro_os_plus_result_t
   micro_os_plus_message_queue_receive (
       micro_os_plus_message_queue_t* mqueue, void* message, size_t nbytes,
-      micro_os_plus_message_queue_priority_t* mprio);
+      micro_os_plus_message_queue_priority_t* message_priority);
 
   /**
    * @brief Try to receive a message from the queue.
@@ -2301,7 +2301,7 @@ extern "C"
    * @param [out] message The address where to store the dequeued message.
    * @param [in] nbytes The size of the destination buffer. Must
    *  be lower than the value used when creating the queue.
-   * @param [out] mprio The address where to store the message
+   * @param [out] message_priority The address where to store the message
    *  priority. Enter `NULL` if priorities are not used.
    * @retval micro_os_plus_ok The message was received.
    * @retval EINVAL A parameter is invalid or outside of a permitted range.
@@ -2316,7 +2316,7 @@ extern "C"
   micro_os_plus_result_t
   micro_os_plus_message_queue_try_receive (
       micro_os_plus_message_queue_t* mqueue, void* message, size_t nbytes,
-      micro_os_plus_message_queue_priority_t* mprio);
+      micro_os_plus_message_queue_priority_t* message_priority);
 
   /**
    * @brief Receive a message from the queue with timeout.
@@ -2325,7 +2325,7 @@ extern "C"
    * @param [in] nbytes The size of the destination buffer. Must
    *  be lower than the value used when creating the queue.
    * @param [in] timeout The timeout duration.
-   * @param [out] mprio The address where to store the message
+   * @param [out] message_priority The address where to store the message
    *  priority. Enter `NULL` if priorities are not used.
    * @retval micro_os_plus_ok The message was received.
    * @retval EINVAL A parameter is invalid or outside of a permitted range.
@@ -2344,7 +2344,7 @@ extern "C"
   micro_os_plus_message_queue_timed_receive (
       micro_os_plus_message_queue_t* mqueue, void* message, size_t nbytes,
       micro_os_plus_clock_duration_t timeout,
-      micro_os_plus_message_queue_priority_t* mprio);
+      micro_os_plus_message_queue_priority_t* message_priority);
 
   /**
    * @brief Get queue capacity.

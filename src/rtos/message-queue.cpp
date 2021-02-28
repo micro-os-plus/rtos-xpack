@@ -672,7 +672,7 @@ namespace micro_os_plus
      */
     bool
     message_queue::internal_try_send_ (const void* message, std::size_t nbytes,
-                                       priority_t mprio)
+                                       priority_t message_priority)
     {
       if (first_free_ == nullptr)
         {
@@ -711,7 +711,7 @@ namespace micro_os_plus
       std::size_t msg_ix = (static_cast<std::size_t> (
                                 dest - static_cast<char*> (arena_address_))
                             / message_size_bytes_);
-      priority_array_[msg_ix] = mprio;
+      priority_array_[msg_ix] = message_priority;
 
       if (head_ == no_index)
         {
@@ -727,7 +727,7 @@ namespace micro_os_plus
           // Arrange to insert between head and tail.
           ix = prev_array_[head_];
           // Check if the priority is higher than the head priority.
-          if (mprio > priority_array_[head_])
+          if (message_priority > priority_array_[head_])
             {
               // Having the highest priority, the new message
               // becomes the new head.
@@ -737,7 +737,7 @@ namespace micro_os_plus
             {
               // If not higher than the head, try to insert at the tail,
               // but advance up until the same priority is found.
-              while ((mprio > priority_array_[ix]))
+              while ((message_priority > priority_array_[ix]))
                 {
                   ix = prev_array_[ix];
                 }
@@ -770,7 +770,7 @@ namespace micro_os_plus
      */
     bool
     message_queue::internal_try_receive_ (void* message, std::size_t nbytes,
-                                          priority_t* mprio)
+                                          priority_t* message_priority)
     {
 
       if (head_ == no_index)
@@ -814,9 +814,9 @@ namespace micro_os_plus
 
         // Copy message from queue to user buffer.
         memcpy (message, src, nbytes);
-        if (mprio != nullptr)
+        if (message_priority != nullptr)
           {
-            *mprio = prio;
+            *message_priority = prio;
           }
         // ----- Exit uncritical section ------------------------------------
       }
@@ -888,11 +888,11 @@ namespace micro_os_plus
      */
     result_t
     message_queue::send (const void* message, std::size_t nbytes,
-                         priority_t mprio)
+                         priority_t message_priority)
     {
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_MQUEUE)
-      trace::printf ("%s(%p,%d,%d) @%p %s\n", __func__, message, nbytes, mprio,
-                     this, name ());
+      trace::printf ("%s(%p,%d,%d) @%p %s\n", __func__, message, nbytes,
+                     message_priority, this, name ());
 #endif
 
       // Don't call this from interrupt handlers.
@@ -905,7 +905,8 @@ namespace micro_os_plus
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
 
-      return port::message_queue::send (this, message, nbytes, mprio);
+      return port::message_queue::send (this, message, nbytes,
+                                        message_priority);
 
 #else
 
@@ -913,7 +914,7 @@ namespace micro_os_plus
         // ----- Enter critical section -------------------------------------
         interrupts::critical_section ics;
 
-        if (internal_try_send_ (message, nbytes, mprio))
+        if (internal_try_send_ (message, nbytes, message_priority))
           {
             return result::ok;
           }
@@ -933,7 +934,7 @@ namespace micro_os_plus
             // ----- Enter critical section ---------------------------------
             interrupts::critical_section ics;
 
-            if (internal_try_send_ (message, nbytes, mprio))
+            if (internal_try_send_ (message, nbytes, message_priority))
               {
                 return result::ok;
               }
@@ -954,7 +955,7 @@ namespace micro_os_plus
             {
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_MQUEUE)
               trace::printf ("%s(%p,%d,%d) EINTR @%p %s\n", __func__, message,
-                             nbytes, mprio, this, name ());
+                             nbytes, message_priority, this, name ());
 #endif
               return EINTR;
             }
@@ -1002,11 +1003,11 @@ namespace micro_os_plus
      */
     result_t
     message_queue::try_send (const void* message, std::size_t nbytes,
-                             priority_t mprio)
+                             priority_t message_priority)
     {
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_MQUEUE)
-      trace::printf ("%s(%p,%u,%u) @%p %s\n", __func__, message, nbytes, mprio,
-                     this, name ());
+      trace::printf ("%s(%p,%u,%u) @%p %s\n", __func__, message, nbytes,
+                     message_priority, this, name ());
 #endif
 
       micro_os_plus_assert_err (message != nullptr, EINVAL);
@@ -1014,7 +1015,8 @@ namespace micro_os_plus
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
 
-      return port::message_queue::try_send (this, message, nbytes, mprio);
+      return port::message_queue::try_send (this, message, nbytes,
+                                            message_priority);
 
 #else
       // Don't call this from high priority interrupts.
@@ -1024,7 +1026,7 @@ namespace micro_os_plus
         // ----- Enter critical section -------------------------------------
         interrupts::critical_section ics;
 
-        if (internal_try_send_ (message, nbytes, mprio))
+        if (internal_try_send_ (message, nbytes, message_priority))
           {
             return result::ok;
           }
@@ -1089,11 +1091,12 @@ namespace micro_os_plus
      */
     result_t
     message_queue::timed_send (const void* message, std::size_t nbytes,
-                               clock::duration_t timeout, priority_t mprio)
+                               clock::duration_t timeout,
+                               priority_t message_priority)
     {
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_MQUEUE)
       trace::printf ("%s(%p,%u,%u,%u) @%p %s\n", __func__, message, nbytes,
-                     mprio, timeout, this, name ());
+                     message_priority, timeout, this, name ());
 #endif
 
       // Don't call this from interrupt handlers.
@@ -1107,7 +1110,7 @@ namespace micro_os_plus
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
 
       return port::message_queue::timed_send (this, message, nbytes, timeout,
-                                              mprio);
+                                              message_priority);
 
 #else
 
@@ -1117,7 +1120,7 @@ namespace micro_os_plus
         // ----- Enter critical section -------------------------------------
         interrupts::critical_section ics;
 
-        if (internal_try_send_ (message, nbytes, mprio))
+        if (internal_try_send_ (message, nbytes, message_priority))
           {
             return result::ok;
           }
@@ -1145,7 +1148,7 @@ namespace micro_os_plus
             // ----- Enter critical section ---------------------------------
             interrupts::critical_section ics;
 
-            if (internal_try_send_ (message, nbytes, mprio))
+            if (internal_try_send_ (message, nbytes, message_priority))
               {
                 return result::ok;
               }
@@ -1169,7 +1172,8 @@ namespace micro_os_plus
             {
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_MQUEUE)
               trace::printf ("%s(%p,%u,%u,%u) EINTR @%p %s\n", __func__,
-                             message, nbytes, mprio, timeout, this, name ());
+                             message, nbytes, message_priority, timeout, this,
+                             name ());
 #endif
               return EINTR;
             }
@@ -1178,7 +1182,8 @@ namespace micro_os_plus
             {
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_MQUEUE)
               trace::printf ("%s(%p,%u,%u,%u) ETIMEDOUT @%p %s\n", __func__,
-                             message, nbytes, mprio, timeout, this, name ());
+                             message, nbytes, message_priority, timeout, this,
+                             name ());
 #endif
               return ETIMEDOUT;
             }
@@ -1229,7 +1234,7 @@ namespace micro_os_plus
      */
     result_t
     message_queue::receive (void* message, std::size_t nbytes,
-                            priority_t* mprio)
+                            priority_t* message_priority)
     {
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_MQUEUE)
       trace::printf ("%s(%p,%u) @%p %s\n", __func__, message, nbytes, this,
@@ -1246,7 +1251,8 @@ namespace micro_os_plus
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
 
-      return port::message_queue::receive (this, message, nbytes, mprio);
+      return port::message_queue::receive (this, message, nbytes,
+                                           message_priority);
 
 #else
 
@@ -1256,7 +1262,7 @@ namespace micro_os_plus
         // ----- Enter critical section -------------------------------------
         interrupts::critical_section ics;
 
-        if (internal_try_receive_ (message, nbytes, mprio))
+        if (internal_try_receive_ (message, nbytes, message_priority))
           {
             return result::ok;
           }
@@ -1276,7 +1282,7 @@ namespace micro_os_plus
             // ----- Enter critical section ---------------------------------
             interrupts::critical_section ics;
 
-            if (internal_try_receive_ (message, nbytes, mprio))
+            if (internal_try_receive_ (message, nbytes, message_priority))
               {
                 return result::ok;
               }
@@ -1344,7 +1350,7 @@ namespace micro_os_plus
      */
     result_t
     message_queue::try_receive (void* message, std::size_t nbytes,
-                                priority_t* mprio)
+                                priority_t* message_priority)
     {
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_MQUEUE)
       trace::printf ("%s(%p,%u) @%p %s\n", __func__, message, nbytes, this,
@@ -1356,7 +1362,8 @@ namespace micro_os_plus
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
 
-      return port::message_queue::try_receive (this, message, nbytes, mprio);
+      return port::message_queue::try_receive (this, message, nbytes,
+                                               message_priority);
 
 #else
 
@@ -1367,7 +1374,7 @@ namespace micro_os_plus
         // ----- Enter critical section -------------------------------------
         interrupts::critical_section ics;
 
-        if (internal_try_receive_ (message, nbytes, mprio))
+        if (internal_try_receive_ (message, nbytes, message_priority))
           {
             return result::ok;
           }
@@ -1445,7 +1452,8 @@ namespace micro_os_plus
      */
     result_t
     message_queue::timed_receive (void* message, std::size_t nbytes,
-                                  clock::duration_t timeout, priority_t* mprio)
+                                  clock::duration_t timeout,
+                                  priority_t* message_priority)
     {
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_MQUEUE)
       trace::printf ("%s(%p,%u,%u) @%p %s\n", __func__, message, nbytes,
@@ -1463,7 +1471,7 @@ namespace micro_os_plus
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
 
       return port::message_queue::timed_receive (this, message, nbytes,
-                                                 timeout, mprio);
+                                                 timeout, message_priority);
 
 #else
 
@@ -1473,7 +1481,7 @@ namespace micro_os_plus
         // ----- Enter critical section -------------------------------------
         interrupts::critical_section ics;
 
-        if (internal_try_receive_ (message, nbytes, mprio))
+        if (internal_try_receive_ (message, nbytes, message_priority))
           {
             return result::ok;
           }
@@ -1500,7 +1508,7 @@ namespace micro_os_plus
             // ----- Enter critical section ---------------------------------
             interrupts::critical_section ics;
 
-            if (internal_try_receive_ (message, nbytes, mprio))
+            if (internal_try_receive_ (message, nbytes, message_priority))
               {
                 return result::ok;
               }
