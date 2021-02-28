@@ -528,7 +528,7 @@ extern "C"
      * @details
      * If `NULL`, the default is to dynamically allocate the stack.
      */
-    void* thread_stack_address;
+    void* stack_address;
 
     /**
      * @brief Size of the user defined storage for the thread
@@ -542,7 +542,7 @@ extern "C"
      * creating the thread. However mind setting this from different
      * threads at the same time.
      */
-    size_t thread_stack_size_bytes;
+    size_t stack_size_bytes;
 
     /**
      * @brief Thread initial priority.
@@ -554,7 +554,7 @@ extern "C"
      * is to call `micro_os_plus_thread_set_priority()` at the beginning of the
      * thread function.
      */
-    micro_os_plus_thread_priority_t thread_priority;
+    micro_os_plus_thread_priority_t priority;
 
   } micro_os_plus_thread_attributes_t;
 

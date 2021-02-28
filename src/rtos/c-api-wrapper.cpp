@@ -321,17 +321,16 @@ static_assert (sizeof (rtos::thread) == sizeof (micro_os_plus_thread_t),
 static_assert (sizeof (rtos::thread::attributes)
                    == sizeof (micro_os_plus_thread_attributes_t),
                "adjust micro_os_plus_thread_attributes_t size");
-static_assert (offsetof (rtos::thread::attributes, thread_stack_address)
+static_assert (offsetof (rtos::thread::attributes, stack_address)
                    == offsetof (micro_os_plus_thread_attributes_t,
-                                thread_stack_address),
+                                stack_address),
                "adjust micro_os_plus_thread_attributes_t members");
-static_assert (offsetof (rtos::thread::attributes, thread_stack_size_bytes)
+static_assert (offsetof (rtos::thread::attributes, stack_size_bytes)
                    == offsetof (micro_os_plus_thread_attributes_t,
-                                thread_stack_size_bytes),
+                                stack_size_bytes),
                "adjust micro_os_plus_thread_attributes_t members");
-static_assert (offsetof (rtos::thread::attributes, thread_priority)
-                   == offsetof (micro_os_plus_thread_attributes_t,
-                                thread_priority),
+static_assert (offsetof (rtos::thread::attributes, priority)
+                   == offsetof (micro_os_plus_thread_attributes_t, priority),
                "adjust micro_os_plus_thread_attributes_t members");
 
 static_assert (sizeof (rtos::timer) == sizeof (micro_os_plus_timer_t),

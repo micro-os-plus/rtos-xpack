@@ -809,7 +809,7 @@ namespace micro_os_plus
          * @details
          * If `nullptr`, the default is to dynamically allocate the stack.
          */
-        void* thread_stack_address = nullptr;
+        void* stack_address = nullptr;
 
         /**
          * @brief Size of the user defined storage for the thread
@@ -822,7 +822,7 @@ namespace micro_os_plus
          * creating the thread. However mind setting this from different
          * threads at the same time.
          */
-        std::size_t thread_stack_size_bytes = 0;
+        std::size_t stack_size_bytes = 0;
 
         /**
          * @brief Thread initial priority.
@@ -833,7 +833,7 @@ namespace micro_os_plus
          * is to call `thread::priority (priority_t)` at the
          * beginning of the thread function.
          */
-        priority_t thread_priority = priority::normal;
+        priority_t priority = priority::normal;
 
         // Add more attributes here.
 
@@ -2446,8 +2446,8 @@ namespace micro_os_plus
      * be as if there was an implicit call to `exit()` using the
      * return value of `main()` as the exit code.
      *
-     * If the attributes define a stack area (via `thread_stack_address` and
-     * `thread_stack_size_bytes`), that stack is used, otherwise
+     * If the attributes define a stack area (via `stack_address` and
+     * `stack_size_bytes`), that stack is used, otherwise
      * the stack is dynamically allocated using the RTOS specific allocator
      * (`rtos::memory::allocator`).
      *
@@ -2499,8 +2499,8 @@ namespace micro_os_plus
      * be as if there was an implicit call to `exit()` using the
      * return value of `main()` as the exit code.
      *
-     * If the attributes define a stack area (via `thread_stack_address` and
-     * `thread_stack_size_bytes`), that stack is used, otherwise
+     * If the attributes define a stack area (via `stack_address` and
+     * `stack_size_bytes`), that stack is used, otherwise
      * the stack is dynamically allocated using the RTOS specific allocator
      * (`rtos::memory::allocator`).
      *
@@ -2523,8 +2523,8 @@ namespace micro_os_plus
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD)
       trace::printf ("%s @%p %s\n", __func__, this, this->name ());
 #endif
-      if (attr.thread_stack_address != nullptr
-          && attr.thread_stack_size_bytes > stack::min_size ())
+      if (attr.stack_address != nullptr
+          && attr.stack_size_bytes > stack::min_size ())
         {
           internal_construct_ (function, args, attr, nullptr, 0);
         }
@@ -2532,10 +2532,10 @@ namespace micro_os_plus
         {
           allocator_ = &allocator;
 
-          if (attr.thread_stack_size_bytes > stack::min_size ())
+          if (attr.stack_size_bytes > stack::min_size ())
             {
               allocated_stack_size_elements_
-                  = (attr.thread_stack_size_bytes
+                  = (attr.stack_size_bytes
                      + sizeof (typename allocator_type::value_type) - 1)
                     / sizeof (typename allocator_type::value_type);
             }
