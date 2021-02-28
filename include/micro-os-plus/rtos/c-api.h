@@ -2205,7 +2205,7 @@ extern "C"
   /**
    * @brief Send a message to the queue.
    * @param [in] mqueue Pointer to message queue object instance.
-   * @param [in] msg The address of the message to enqueue.
+   * @param [in] message The address of the message to enqueue.
    * @param [in] nbytes The length of the message. Must be not
    *  higher than the value used when creating the queue.
    * @param [in] mprio The message priority. Enter 0 if priorities are not
@@ -2221,13 +2221,13 @@ extern "C"
    */
   micro_os_plus_result_t
   micro_os_plus_message_queue_send (
-      micro_os_plus_message_queue_t* mqueue, const void* msg, size_t nbytes,
-      micro_os_plus_message_queue_priority_t mprio);
+      micro_os_plus_message_queue_t* mqueue, const void* message,
+      size_t nbytes, micro_os_plus_message_queue_priority_t mprio);
 
   /**
    * @brief Try to send a message to the queue.
    * @param [in] mqueue Pointer to message queue object instance.
-   * @param [in] msg The address of the message to enqueue.
+   * @param [in] message The address of the message to enqueue.
    * @param [in] nbytes The length of the message. Must be not
    *  higher than the value used when creating the queue.
    * @param [in] mprio The message priority. Enter 0 if priorities are not
@@ -2242,13 +2242,13 @@ extern "C"
    */
   micro_os_plus_result_t
   micro_os_plus_message_queue_try_send (
-      micro_os_plus_message_queue_t* mqueue, const void* msg, size_t nbytes,
-      micro_os_plus_message_queue_priority_t mprio);
+      micro_os_plus_message_queue_t* mqueue, const void* message,
+      size_t nbytes, micro_os_plus_message_queue_priority_t mprio);
 
   /**
    * @brief Send a message to the queue with timeout.
    * @param [in] mqueue Pointer to message queue object instance.
-   * @param [in] msg The address of the message to enqueue.
+   * @param [in] message The address of the message to enqueue.
    * @param [in] nbytes The length of the message. Must be not
    *  higher than the value used when creating the queue.
    * @param [in] timeout The timeout duration.
@@ -2267,14 +2267,14 @@ extern "C"
    */
   micro_os_plus_result_t
   micro_os_plus_message_queue_timed_send (
-      micro_os_plus_message_queue_t* mqueue, const void* msg, size_t nbytes,
-      micro_os_plus_clock_duration_t timeout,
+      micro_os_plus_message_queue_t* mqueue, const void* message,
+      size_t nbytes, micro_os_plus_clock_duration_t timeout,
       micro_os_plus_message_queue_priority_t mprio);
 
   /**
    * @brief Receive a message from the queue.
    * @param [in] mqueue Pointer to message queue object instance.
-   * @param [out] msg The address where to store the dequeued message.
+   * @param [out] message The address where to store the dequeued message.
    * @param [in] nbytes The size of the destination buffer. Must
    *  be lower than the value used when creating the queue.
    * @param [out] mprio The address where to store the message
@@ -2292,13 +2292,13 @@ extern "C"
    */
   micro_os_plus_result_t
   micro_os_plus_message_queue_receive (
-      micro_os_plus_message_queue_t* mqueue, void* msg, size_t nbytes,
+      micro_os_plus_message_queue_t* mqueue, void* message, size_t nbytes,
       micro_os_plus_message_queue_priority_t* mprio);
 
   /**
    * @brief Try to receive a message from the queue.
    * @param [in] mqueue Pointer to message queue object instance.
-   * @param [out] msg The address where to store the dequeued message.
+   * @param [out] message The address where to store the dequeued message.
    * @param [in] nbytes The size of the destination buffer. Must
    *  be lower than the value used when creating the queue.
    * @param [out] mprio The address where to store the message
@@ -2315,13 +2315,13 @@ extern "C"
    */
   micro_os_plus_result_t
   micro_os_plus_message_queue_try_receive (
-      micro_os_plus_message_queue_t* mqueue, void* msg, size_t nbytes,
+      micro_os_plus_message_queue_t* mqueue, void* message, size_t nbytes,
       micro_os_plus_message_queue_priority_t* mprio);
 
   /**
    * @brief Receive a message from the queue with timeout.
    * @param [in] mqueue Pointer to message queue object instance.
-   * @param [out] msg The address where to store the dequeued message.
+   * @param [out] message The address where to store the dequeued message.
    * @param [in] nbytes The size of the destination buffer. Must
    *  be lower than the value used when creating the queue.
    * @param [in] timeout The timeout duration.
@@ -2342,7 +2342,7 @@ extern "C"
    */
   micro_os_plus_result_t
   micro_os_plus_message_queue_timed_receive (
-      micro_os_plus_message_queue_t* mqueue, void* msg, size_t nbytes,
+      micro_os_plus_message_queue_t* mqueue, void* message, size_t nbytes,
       micro_os_plus_clock_duration_t timeout,
       micro_os_plus_message_queue_priority_t* mprio);
 

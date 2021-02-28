@@ -354,7 +354,7 @@ namespace micro_os_plus
 
       /**
        * @brief Send a message to the queue.
-       * @param [in] msg The address of the message to enqueue.
+       * @param [in] message The address of the message to enqueue.
        * @param [in] nbytes The length of the message. Must be not
        *  higher than the value used when creating the queue.
        * @param [in] mprio The message priority. The default is 0.
@@ -368,12 +368,12 @@ namespace micro_os_plus
        * @retval EINTR The operation was interrupted.
        */
       result_t
-      send (const void* msg, std::size_t nbytes,
+      send (const void* message, std::size_t nbytes,
             priority_t mprio = default_priority);
 
       /**
        * @brief Try to send a message to the queue.
-       * @param [in] msg The address of the message to enqueue.
+       * @param [in] message The address of the message to enqueue.
        * @param [in] nbytes The length of the message. Must be not
        *  higher than the value used when creating the queue.
        * @param [in] mprio The message priority. The default is 0.
@@ -386,12 +386,12 @@ namespace micro_os_plus
        *  (extension to POSIX).
        */
       result_t
-      try_send (const void* msg, std::size_t nbytes,
+      try_send (const void* message, std::size_t nbytes,
                 priority_t mprio = default_priority);
 
       /**
        * @brief Send a message to the queue with timeout.
-       * @param [in] msg The address of the message to enqueue.
+       * @param [in] message The address of the message to enqueue.
        * @param [in] nbytes The length of the message. Must be not
        *  higher than the value used when creating the queue.
        * @param [in] timeout The timeout duration.
@@ -408,13 +408,13 @@ namespace micro_os_plus
        * @retval EINTR The operation was interrupted.
        */
       result_t
-      timed_send (const void* msg, std::size_t nbytes,
+      timed_send (const void* message, std::size_t nbytes,
                   clock::duration_t timeout,
                   priority_t mprio = default_priority);
 
       /**
        * @brief Receive a message from the queue.
-       * @param [out] msg The address where to store the dequeued message.
+       * @param [out] message The address where to store the dequeued message.
        * @param [in] nbytes The size of the destination buffer. Must
        *  be lower than the value used when creating the queue.
        * @param [out] mprio The address where to store the message
@@ -431,11 +431,11 @@ namespace micro_os_plus
        * @retval EINTR The operation was interrupted.
        */
       result_t
-      receive (void* msg, std::size_t nbytes, priority_t* mprio = nullptr);
+      receive (void* message, std::size_t nbytes, priority_t* mprio = nullptr);
 
       /**
        * @brief Try to receive a message from the queue.
-       * @param [out] msg The address where to store the dequeued message.
+       * @param [out] message The address where to store the dequeued message.
        * @param [in] nbytes The size of the destination buffer. Must
        *  be lower than the value used when creating the queue.
        * @param [out] mprio The address where to store the message
@@ -451,11 +451,12 @@ namespace micro_os_plus
        * @retval EWOULDBLOCK The specified message queue is empty.
        */
       result_t
-      try_receive (void* msg, std::size_t nbytes, priority_t* mprio = nullptr);
+      try_receive (void* message, std::size_t nbytes,
+                   priority_t* mprio = nullptr);
 
       /**
        * @brief Receive a message from the queue with timeout.
-       * @param [out] msg The address where to store the dequeued message.
+       * @param [out] message The address where to store the dequeued message.
        * @param [in] nbytes The size of the destination buffer. Must
        *  be lower than the value used when creating the queue.
        * @param [in] timeout The timeout duration.
@@ -475,8 +476,8 @@ namespace micro_os_plus
        *  specified timeout expired.
        */
       result_t
-      timed_receive (void* msg, std::size_t nbytes, clock::duration_t timeout,
-                     priority_t* mprio = nullptr);
+      timed_receive (void* message, std::size_t nbytes,
+                     clock::duration_t timeout, priority_t* mprio = nullptr);
 
       // TODO: check if some kind of peek() is useful.
 
@@ -581,7 +582,7 @@ namespace micro_os_plus
 
       /**
        * @brief Internal function used to enqueue a message, if possible.
-       * @param [in] msg The address of the message to enqueue.
+       * @param [in] message The address of the message to enqueue.
        * @param [in] nbytes The length of the message. Must be not
        *  higher than the value used when creating the queue.
        * @param [in] mprio The message priority.
@@ -589,12 +590,12 @@ namespace micro_os_plus
        * @retval false The message queue is full.
        */
       bool
-      internal_try_send_ (const void* msg, std::size_t nbytes,
+      internal_try_send_ (const void* message, std::size_t nbytes,
                           priority_t mprio);
 
       /**
        * @brief Internal function used to dequeue a message, if available.
-       * @param [out] msg The address where to store the dequeued message.
+       * @param [out] message The address where to store the dequeued message.
        * @param [in] nbytes The size of the destination buffer. Must
        *  be lower than the value used when creating the queue.
        * @param [out] mprio The address where to store the message
@@ -603,7 +604,8 @@ namespace micro_os_plus
        * @retval false There are not messages in the queue.
        */
       bool
-      internal_try_receive_ (void* msg, std::size_t nbytes, priority_t* mprio);
+      internal_try_receive_ (void* message, std::size_t nbytes,
+                             priority_t* mprio);
 
 #endif // !defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
 
@@ -894,7 +896,7 @@ namespace micro_os_plus
 
       /**
        * @brief Send a typed message to the queue.
-       * @param [in] msg The address of the message to enqueue.
+       * @param [in] message The address of the message to enqueue.
        * @param [in] mprio The message priority. The default is 0.
        * @retval result::ok The message was enqueued.
        * @retval EINVAL A parameter is invalid or outside of a permitted range.
@@ -906,12 +908,12 @@ namespace micro_os_plus
        * @retval EINTR The operation was interrupted.
        */
       result_t
-      send (const value_type* msg,
+      send (const value_type* message,
             message_queue::priority_t mprio = message_queue::default_priority);
 
       /**
        * @brief Try to send a typed message to the queue.
-       * @param [in] msg The address of the message to enqueue.
+       * @param [in] message The address of the message to enqueue.
        *  higher than the value used when creating the queue.
        * @param [in] mprio The message priority. The default is 0.
        * @retval result::ok The message was enqueued.
@@ -923,12 +925,12 @@ namespace micro_os_plus
        *  (extension to POSIX).
        */
       result_t
-      try_send (const value_type* msg, message_queue::priority_t mprio
-                                       = message_queue::default_priority);
+      try_send (const value_type* message, message_queue::priority_t mprio
+                                           = message_queue::default_priority);
 
       /**
        * @brief Send a typed message to the queue with timeout.
-       * @param [in] msg The address of the message to enqueue.
+       * @param [in] message The address of the message to enqueue.
        * @param [in] timeout The timeout duration.
        * @param [in] mprio The message priority. The default is 0.
        * @retval result::ok The message was enqueued.
@@ -943,13 +945,13 @@ namespace micro_os_plus
        * @retval EINTR The operation was interrupted.
        */
       result_t
-      timed_send (const value_type* msg, clock::duration_t timeout,
+      timed_send (const value_type* message, clock::duration_t timeout,
                   message_queue::priority_t mprio
                   = message_queue::default_priority);
 
       /**
        * @brief Receive a typed message from the queue.
-       * @param [out] msg The address where to store the dequeued message.
+       * @param [out] message The address where to store the dequeued message.
        * @param [out] mprio The address where to store the message
        *  priority. The default is `nullptr`.
        * @retval result::ok The message was received.
@@ -964,11 +966,12 @@ namespace micro_os_plus
        * @retval EINTR The operation was interrupted.
        */
       result_t
-      receive (value_type* msg, message_queue::priority_t* mprio = nullptr);
+      receive (value_type* message,
+               message_queue::priority_t* mprio = nullptr);
 
       /**
        * @brief Try to receive a typed message from the queue.
-       * @param [out] msg The address where to store the dequeued message.
+       * @param [out] message The address where to store the dequeued message.
        *  be lower than the value used when creating the queue.
        * @param [out] mprio The address where to store the message
        *  priority. The default is `nullptr`.
@@ -983,12 +986,12 @@ namespace micro_os_plus
        * @retval EWOULDBLOCK The specified message queue is empty.
        */
       result_t
-      try_receive (value_type* msg,
+      try_receive (value_type* message,
                    message_queue::priority_t* mprio = nullptr);
 
       /**
        * @brief Receive a typed message from the queue with timeout.
-       * @param [out] msg The address where to store the dequeued message.
+       * @param [out] message The address where to store the dequeued message.
        * @param [in] timeout The timeout duration.
        * @param [out] mprio The address where to store the message
        *  priority. The default is `nullptr`.
@@ -1006,7 +1009,7 @@ namespace micro_os_plus
        *  specified timeout expired.
        */
       result_t
-      timed_receive (value_type* msg, clock::duration_t timeout,
+      timed_receive (value_type* message, clock::duration_t timeout,
                      message_queue::priority_t* mprio = nullptr);
 
       /**
@@ -1090,7 +1093,7 @@ namespace micro_os_plus
 
       /**
        * @brief Send a typed message to the queue.
-       * @param [in] msg The address of the message to enqueue.
+       * @param [in] message The address of the message to enqueue.
        * @param [in] mprio The message priority. The default is 0.
        * @retval result::ok The message was enqueued.
        * @retval EINVAL A parameter is invalid or outside of a permitted range.
@@ -1102,11 +1105,11 @@ namespace micro_os_plus
        * @retval EINTR The operation was interrupted.
        */
       result_t
-      send (const value_type* msg, priority_t mprio = default_priority);
+      send (const value_type* message, priority_t mprio = default_priority);
 
       /**
        * @brief Try to send a typed message to the queue.
-       * @param [in] msg The address of the message to enqueue.
+       * @param [in] message The address of the message to enqueue.
        *  higher than the value used when creating the queue.
        * @param [in] mprio The message priority. The default is 0.
        * @retval result::ok The message was enqueued.
@@ -1118,11 +1121,12 @@ namespace micro_os_plus
        *  (extension to POSIX).
        */
       result_t
-      try_send (const value_type* msg, priority_t mprio = default_priority);
+      try_send (const value_type* message,
+                priority_t mprio = default_priority);
 
       /**
        * @brief Send a typed message to the queue with timeout.
-       * @param [in] msg The address of the message to enqueue.
+       * @param [in] message The address of the message to enqueue.
        * @param [in] timeout The timeout duration.
        * @param [in] mprio The message priority. The default is 0.
        * @retval result::ok The message was enqueued.
@@ -1137,12 +1141,12 @@ namespace micro_os_plus
        * @retval EINTR The operation was interrupted.
        */
       result_t
-      timed_send (const value_type* msg, clock::duration_t timeout,
+      timed_send (const value_type* message, clock::duration_t timeout,
                   priority_t mprio = default_priority);
 
       /**
        * @brief Receive a typed message from the queue.
-       * @param [out] msg The address where to store the dequeued message.
+       * @param [out] message The address where to store the dequeued message.
        * @param [out] mprio The address where to store the message
        *  priority. The default is `nullptr`.
        * @retval result::ok The message was received.
@@ -1157,11 +1161,11 @@ namespace micro_os_plus
        * @retval EINTR The operation was interrupted.
        */
       result_t
-      receive (value_type* msg, priority_t* mprio = nullptr);
+      receive (value_type* message, priority_t* mprio = nullptr);
 
       /**
        * @brief Try to receive a typed message from the queue.
-       * @param [out] msg The address where to store the dequeued message.
+       * @param [out] message The address where to store the dequeued message.
        *  be lower than the value used when creating the queue.
        * @param [out] mprio The address where to store the message
        *  priority. The default is `nullptr`.
@@ -1176,11 +1180,11 @@ namespace micro_os_plus
        * @retval EWOULDBLOCK The specified message queue is empty.
        */
       result_t
-      try_receive (value_type* msg, priority_t* mprio = nullptr);
+      try_receive (value_type* message, priority_t* mprio = nullptr);
 
       /**
        * @brief Receive a typed message from the queue with timeout.
-       * @param [out] msg The address where to store the dequeued message.
+       * @param [out] message The address where to store the dequeued message.
        * @param [in] timeout The timeout duration.
        * @param [out] mprio The address where to store the message
        *  priority. The default is `nullptr`.
@@ -1198,7 +1202,7 @@ namespace micro_os_plus
        *  specified timeout expired.
        */
       result_t
-      timed_receive (value_type* msg, clock::duration_t timeout,
+      timed_receive (value_type* message, clock::duration_t timeout,
                      priority_t* mprio = nullptr);
 
       /**
@@ -1588,11 +1592,11 @@ namespace micro_os_plus
      */
     template <typename T, typename Allocator>
     inline result_t
-    message_queue_typed<T, Allocator>::send (const value_type* msg,
+    message_queue_typed<T, Allocator>::send (const value_type* message,
                                              message_queue::priority_t mprio)
     {
       return message_queue_allocated<allocator_type>::send (
-          reinterpret_cast<const char*> (msg), sizeof (value_type), mprio);
+          reinterpret_cast<const char*> (message), sizeof (value_type), mprio);
     }
 
     /**
@@ -1605,10 +1609,10 @@ namespace micro_os_plus
     template <typename T, typename Allocator>
     inline result_t
     message_queue_typed<T, Allocator>::try_send (
-        const value_type* msg, message_queue::priority_t mprio)
+        const value_type* message, message_queue::priority_t mprio)
     {
       return message_queue_allocated<allocator_type>::try_send (
-          reinterpret_cast<const char*> (msg), sizeof (value_type), mprio);
+          reinterpret_cast<const char*> (message), sizeof (value_type), mprio);
     }
 
     /**
@@ -1621,12 +1625,12 @@ namespace micro_os_plus
     template <typename T, typename Allocator>
     inline result_t
     message_queue_typed<T, Allocator>::timed_send (
-        const value_type* msg, clock::duration_t timeout,
+        const value_type* message, clock::duration_t timeout,
         message_queue::priority_t mprio)
     {
       return message_queue_allocated<allocator_type>::timed_send (
-          reinterpret_cast<const char*> (msg), sizeof (value_type), timeout,
-          mprio);
+          reinterpret_cast<const char*> (message), sizeof (value_type),
+          timeout, mprio);
     }
 
     /**
@@ -1639,10 +1643,10 @@ namespace micro_os_plus
     template <typename T, typename Allocator>
     inline result_t
     message_queue_typed<T, Allocator>::receive (
-        value_type* msg, message_queue::priority_t* mprio)
+        value_type* message, message_queue::priority_t* mprio)
     {
       return message_queue_allocated<allocator_type>::receive (
-          reinterpret_cast<char*> (msg), sizeof (value_type), mprio);
+          reinterpret_cast<char*> (message), sizeof (value_type), mprio);
     }
 
     /**
@@ -1655,10 +1659,10 @@ namespace micro_os_plus
     template <typename T, typename Allocator>
     inline result_t
     message_queue_typed<T, Allocator>::try_receive (
-        value_type* msg, message_queue::priority_t* mprio)
+        value_type* message, message_queue::priority_t* mprio)
     {
       return message_queue_allocated<allocator_type>::try_receive (
-          reinterpret_cast<char*> (msg), sizeof (value_type), mprio);
+          reinterpret_cast<char*> (message), sizeof (value_type), mprio);
     }
 
     /**
@@ -1671,11 +1675,12 @@ namespace micro_os_plus
     template <typename T, typename Allocator>
     inline result_t
     message_queue_typed<T, Allocator>::timed_receive (
-        value_type* msg, clock::duration_t timeout,
+        value_type* message, clock::duration_t timeout,
         message_queue::priority_t* mprio)
     {
       return message_queue_allocated<allocator_type>::timed_receive (
-          reinterpret_cast<char*> (msg), sizeof (value_type), timeout, mprio);
+          reinterpret_cast<char*> (message), sizeof (value_type), timeout,
+          mprio);
     }
 
     // ========================================================================
@@ -1797,10 +1802,10 @@ namespace micro_os_plus
      */
     template <typename T, std::size_t N>
     inline result_t
-    message_queue_inclusive<T, N>::send (const value_type* msg,
+    message_queue_inclusive<T, N>::send (const value_type* message,
                                          priority_t mprio)
     {
-      return message_queue::send (reinterpret_cast<const char*> (msg),
+      return message_queue::send (reinterpret_cast<const char*> (message),
                                   sizeof (value_type), mprio);
     }
 
@@ -1813,10 +1818,10 @@ namespace micro_os_plus
      */
     template <typename T, std::size_t N>
     inline result_t
-    message_queue_inclusive<T, N>::try_send (const value_type* msg,
+    message_queue_inclusive<T, N>::try_send (const value_type* message,
                                              priority_t mprio)
     {
-      return message_queue::try_send (reinterpret_cast<const char*> (msg),
+      return message_queue::try_send (reinterpret_cast<const char*> (message),
                                       sizeof (value_type), mprio);
     }
 
@@ -1829,12 +1834,13 @@ namespace micro_os_plus
      */
     template <typename T, std::size_t N>
     inline result_t
-    message_queue_inclusive<T, N>::timed_send (const value_type* msg,
+    message_queue_inclusive<T, N>::timed_send (const value_type* message,
                                                clock::duration_t timeout,
                                                priority_t mprio)
     {
-      return message_queue::timed_send (reinterpret_cast<const char*> (msg),
-                                        sizeof (value_type), timeout, mprio);
+      return message_queue::timed_send (
+          reinterpret_cast<const char*> (message), sizeof (value_type),
+          timeout, mprio);
     }
 
     /**
@@ -1846,9 +1852,10 @@ namespace micro_os_plus
      */
     template <typename T, std::size_t N>
     inline result_t
-    message_queue_inclusive<T, N>::receive (value_type* msg, priority_t* mprio)
+    message_queue_inclusive<T, N>::receive (value_type* message,
+                                            priority_t* mprio)
     {
-      return message_queue::receive (reinterpret_cast<char*> (msg),
+      return message_queue::receive (reinterpret_cast<char*> (message),
                                      sizeof (value_type), mprio);
     }
 
@@ -1861,10 +1868,10 @@ namespace micro_os_plus
      */
     template <typename T, std::size_t N>
     inline result_t
-    message_queue_inclusive<T, N>::try_receive (value_type* msg,
+    message_queue_inclusive<T, N>::try_receive (value_type* message,
                                                 priority_t* mprio)
     {
-      return message_queue::try_receive (reinterpret_cast<char*> (msg),
+      return message_queue::try_receive (reinterpret_cast<char*> (message),
                                          sizeof (value_type), mprio);
     }
 
@@ -1877,12 +1884,13 @@ namespace micro_os_plus
      */
     template <typename T, std::size_t N>
     inline result_t
-    message_queue_inclusive<T, N>::timed_receive (value_type* msg,
+    message_queue_inclusive<T, N>::timed_receive (value_type* message,
                                                   clock::duration_t timeout,
                                                   priority_t* mprio)
     {
-      return message_queue::timed_receive (
-          reinterpret_cast<char*> (msg), sizeof (value_type), timeout, mprio);
+      return message_queue::timed_receive (reinterpret_cast<char*> (message),
+                                           sizeof (value_type), timeout,
+                                           mprio);
     }
 
   } // namespace rtos

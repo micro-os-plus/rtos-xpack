@@ -3244,12 +3244,12 @@ micro_os_plus_message_queue_get_name (micro_os_plus_message_queue_t* mqueue)
  */
 micro_os_plus_result_t
 micro_os_plus_message_queue_send (micro_os_plus_message_queue_t* mqueue,
-                                  const void* msg, size_t nbytes,
+                                  const void* message, size_t nbytes,
                                   micro_os_plus_message_queue_priority_t mprio)
 {
   assert (mqueue != nullptr);
   return (micro_os_plus_result_t) (reinterpret_cast<message_queue&> (*mqueue))
-      .send (msg, nbytes, mprio);
+      .send (message, nbytes, mprio);
 }
 
 /**
@@ -3262,12 +3262,12 @@ micro_os_plus_message_queue_send (micro_os_plus_message_queue_t* mqueue,
  */
 micro_os_plus_result_t
 micro_os_plus_message_queue_try_send (
-    micro_os_plus_message_queue_t* mqueue, const void* msg, size_t nbytes,
+    micro_os_plus_message_queue_t* mqueue, const void* message, size_t nbytes,
     micro_os_plus_message_queue_priority_t mprio)
 {
   assert (mqueue != nullptr);
   return (micro_os_plus_result_t) (reinterpret_cast<message_queue&> (*mqueue))
-      .try_send (msg, nbytes, mprio);
+      .try_send (message, nbytes, mprio);
 }
 
 /**
@@ -3280,13 +3280,13 @@ micro_os_plus_message_queue_try_send (
  */
 micro_os_plus_result_t
 micro_os_plus_message_queue_timed_send (
-    micro_os_plus_message_queue_t* mqueue, const void* msg, size_t nbytes,
+    micro_os_plus_message_queue_t* mqueue, const void* message, size_t nbytes,
     micro_os_plus_clock_duration_t timeout,
     micro_os_plus_message_queue_priority_t mprio)
 {
   assert (mqueue != nullptr);
   return (micro_os_plus_result_t) (reinterpret_cast<message_queue&> (*mqueue))
-      .timed_send (msg, nbytes, timeout, mprio);
+      .timed_send (message, nbytes, timeout, mprio);
 }
 
 /**
@@ -3299,12 +3299,12 @@ micro_os_plus_message_queue_timed_send (
  */
 micro_os_plus_result_t
 micro_os_plus_message_queue_receive (
-    micro_os_plus_message_queue_t* mqueue, void* msg, size_t nbytes,
+    micro_os_plus_message_queue_t* mqueue, void* message, size_t nbytes,
     micro_os_plus_message_queue_priority_t* mprio)
 {
   assert (mqueue != nullptr);
   return (micro_os_plus_result_t) (reinterpret_cast<message_queue&> (*mqueue))
-      .receive (msg, nbytes, mprio);
+      .receive (message, nbytes, mprio);
 }
 
 /**
@@ -3317,12 +3317,12 @@ micro_os_plus_message_queue_receive (
  */
 micro_os_plus_result_t
 micro_os_plus_message_queue_try_receive (
-    micro_os_plus_message_queue_t* mqueue, void* msg, size_t nbytes,
+    micro_os_plus_message_queue_t* mqueue, void* message, size_t nbytes,
     micro_os_plus_message_queue_priority_t* mprio)
 {
   assert (mqueue != nullptr);
   return (micro_os_plus_result_t) (reinterpret_cast<message_queue&> (*mqueue))
-      .try_receive (msg, nbytes, mprio);
+      .try_receive (message, nbytes, mprio);
 }
 
 /**
@@ -3335,13 +3335,13 @@ micro_os_plus_message_queue_try_receive (
  */
 micro_os_plus_result_t
 micro_os_plus_message_queue_timed_receive (
-    micro_os_plus_message_queue_t* mqueue, void* msg, size_t nbytes,
+    micro_os_plus_message_queue_t* mqueue, void* message, size_t nbytes,
     micro_os_plus_clock_duration_t timeout,
     micro_os_plus_message_queue_priority_t* mprio)
 {
   assert (mqueue != nullptr);
   return (micro_os_plus_result_t) (reinterpret_cast<message_queue&> (*mqueue))
-      .timed_receive (msg, nbytes, timeout, mprio);
+      .timed_receive (message, nbytes, timeout, mprio);
 }
 
 /**
