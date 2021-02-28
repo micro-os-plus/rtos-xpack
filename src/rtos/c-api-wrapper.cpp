@@ -186,12 +186,12 @@ static_assert (alignof (micro_os_plus_semaphore_count_t)
                    == alignof (semaphore::count_t),
                "adjust align of micro_os_plus_semaphore_count_t");
 
-static_assert (sizeof (micro_os_plus_mempool_size_t)
+static_assert (sizeof (micro_os_plus_memory_pool_size_t)
                    == sizeof (memory_pool::size_t),
-               "adjust size of micro_os_plus_mempool_size_t");
-static_assert (alignof (micro_os_plus_mempool_size_t)
+               "adjust size of micro_os_plus_memory_pool_size_t");
+static_assert (alignof (micro_os_plus_memory_pool_size_t)
                    == alignof (memory_pool::size_t),
-               "adjust align of micro_os_plus_mempool_size_t");
+               "adjust align of micro_os_plus_memory_pool_size_t");
 
 static_assert (sizeof (micro_os_plus_mqueue_size_t)
                    == sizeof (message_queue::size_t),
@@ -388,19 +388,20 @@ static_assert (offsetof (rtos::semaphore::attributes, semaphore_max_value)
                                 semaphore_max_value),
                "adjust micro_os_plus_semaphore_attributes_t members");
 
-static_assert (sizeof (rtos::memory_pool) == sizeof (micro_os_plus_mempool_t),
-               "adjust size of micro_os_plus_mempool_t");
+static_assert (sizeof (rtos::memory_pool)
+                   == sizeof (micro_os_plus_memory_pool_t),
+               "adjust size of micro_os_plus_memory_pool_t");
 static_assert (sizeof (rtos::memory_pool::attributes)
-                   == sizeof (micro_os_plus_mempool_attributes_t),
-               "adjust size of micro_os_plus_mempool_attributes_t");
+                   == sizeof (micro_os_plus_memory_pool_attributes_t),
+               "adjust size of micro_os_plus_memory_pool_attributes_t");
 static_assert (offsetof (rtos::memory_pool::attributes, mp_pool_address)
-                   == offsetof (micro_os_plus_mempool_attributes_t,
+                   == offsetof (micro_os_plus_memory_pool_attributes_t,
                                 mp_pool_address),
-               "adjust micro_os_plus_mempool_attributes_t members");
+               "adjust micro_os_plus_memory_pool_attributes_t members");
 static_assert (offsetof (rtos::memory_pool::attributes, mp_pool_size_bytes)
-                   == offsetof (micro_os_plus_mempool_attributes_t,
+                   == offsetof (micro_os_plus_memory_pool_attributes_t,
                                 mp_pool_size_bytes),
-               "adjust micro_os_plus_mempool_attributes_t members");
+               "adjust micro_os_plus_memory_pool_attributes_t members");
 
 static_assert (sizeof (rtos::message_queue) == sizeof (micro_os_plus_mqueue_t),
                "adjust size of micro_os_plus_mqueue_t");
@@ -2805,8 +2806,8 @@ micro_os_plus_semaphore_get_max_value (micro_os_plus_semaphore_t* semaphore)
  *  @ref micro_os_plus::rtos::memory_pool::attributes
  */
 void
-micro_os_plus_mempool_attributes_init (
-    micro_os_plus_mempool_attributes_t* attr)
+micro_os_plus_memory_pool_attributes_init (
+    micro_os_plus_memory_pool_attributes_t* attr)
 {
   assert (attr != nullptr);
   new (attr) memory_pool::attributes ();
@@ -2815,7 +2816,7 @@ micro_os_plus_mempool_attributes_init (
 /**
  * @details
  *
- * @note Must be paired with `micro_os_plus_mempool_destruct()`.
+ * @note Must be paired with `micro_os_plus_memory_pool_destruct()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
@@ -2823,14 +2824,15 @@ micro_os_plus_mempool_attributes_init (
  *  @ref micro_os_plus::rtos::memory_pool
  */
 void
-micro_os_plus_mempool_construct (
-    micro_os_plus_mempool_t* mempool, const char* name, size_t blocks,
-    size_t block_size_bytes, const micro_os_plus_mempool_attributes_t* attr)
+micro_os_plus_memory_pool_construct (
+    micro_os_plus_memory_pool_t* mempool, const char* name, size_t blocks,
+    size_t block_size_bytes,
+    const micro_os_plus_memory_pool_attributes_t* attr)
 {
   assert (mempool != nullptr);
   if (attr == nullptr)
     {
-      attr = (const micro_os_plus_mempool_attributes_t*)&memory_pool::
+      attr = (const micro_os_plus_memory_pool_attributes_t*)&memory_pool::
           initializer;
     }
   new (mempool) memory_pool (name, blocks, block_size_bytes,
@@ -2840,7 +2842,7 @@ micro_os_plus_mempool_construct (
 /**
  * @details
  *
- * @note Must be paired with `micro_os_plus_mempool_construct()`.
+ * @note Must be paired with `micro_os_plus_memory_pool_construct()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
@@ -2848,7 +2850,7 @@ micro_os_plus_mempool_construct (
  *  @ref micro_os_plus::rtos::memory_pool
  */
 void
-micro_os_plus_mempool_destruct (micro_os_plus_mempool_t* mempool)
+micro_os_plus_memory_pool_destruct (micro_os_plus_memory_pool_t* mempool)
 {
   assert (mempool != nullptr);
   (reinterpret_cast<memory_pool&> (*mempool)).~memory_pool ();
@@ -2861,24 +2863,24 @@ micro_os_plus_mempool_destruct (micro_os_plus_mempool_t* mempool)
  * system allocator and construct it.
  *
  * @note Equivalent of C++ `new memory_pool(...)`.
- * @note Must be paired with `micro_os_plus_mempool_delete()`.
+ * @note Must be paired with `micro_os_plus_memory_pool_delete()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::memory_pool
  */
-micro_os_plus_mempool_t*
-micro_os_plus_mempool_new (const char* name, size_t blocks,
-                           size_t block_size_bytes,
-                           const micro_os_plus_mempool_attributes_t* attr)
+micro_os_plus_memory_pool_t*
+micro_os_plus_memory_pool_new (
+    const char* name, size_t blocks, size_t block_size_bytes,
+    const micro_os_plus_memory_pool_attributes_t* attr)
 {
   if (attr == nullptr)
     {
-      attr = (const micro_os_plus_mempool_attributes_t*)&memory_pool::
+      attr = (const micro_os_plus_memory_pool_attributes_t*)&memory_pool::
           initializer;
     }
-  return reinterpret_cast<micro_os_plus_mempool_t*> (new memory_pool (
+  return reinterpret_cast<micro_os_plus_memory_pool_t*> (new memory_pool (
       name, blocks, block_size_bytes, (const memory_pool::attributes&)*attr));
 }
 
@@ -2889,7 +2891,7 @@ micro_os_plus_mempool_new (const char* name, size_t blocks,
  * space using the RTOS system allocator.
  *
  * @note Equivalent of C++ `delete ptr_mempool`.
- * @note Must be paired with `micro_os_plus_mempool_new()`.
+ * @note Must be paired with `micro_os_plus_memory_pool_new()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
@@ -2897,7 +2899,7 @@ micro_os_plus_mempool_new (const char* name, size_t blocks,
  *  @ref micro_os_plus::rtos::memory_pool
  */
 void
-micro_os_plus_mempool_delete (micro_os_plus_mempool_t* mempool)
+micro_os_plus_memory_pool_delete (micro_os_plus_memory_pool_t* mempool)
 {
   assert (mempool != nullptr);
   delete reinterpret_cast<memory_pool*> (mempool);
@@ -2912,7 +2914,7 @@ micro_os_plus_mempool_delete (micro_os_plus_mempool_t* mempool)
  *  @ref micro_os_plus::rtos::memory_pool::name()
  */
 const char*
-micro_os_plus_mempool_get_name (micro_os_plus_mempool_t* mempool)
+micro_os_plus_memory_pool_get_name (micro_os_plus_memory_pool_t* mempool)
 {
   assert (mempool != nullptr);
   return (reinterpret_cast<memory_pool&> (*mempool)).name ();
@@ -2927,7 +2929,7 @@ micro_os_plus_mempool_get_name (micro_os_plus_mempool_t* mempool)
  *  @ref micro_os_plus::rtos::memory_pool::alloc()
  */
 void*
-micro_os_plus_mempool_alloc (micro_os_plus_mempool_t* mempool)
+micro_os_plus_memory_pool_alloc (micro_os_plus_memory_pool_t* mempool)
 {
   assert (mempool != nullptr);
   return (reinterpret_cast<memory_pool&> (*mempool)).alloc ();
@@ -2942,7 +2944,7 @@ micro_os_plus_mempool_alloc (micro_os_plus_mempool_t* mempool)
  *  @ref micro_os_plus::rtos::memory_pool::try_alloc()
  */
 void*
-micro_os_plus_mempool_try_alloc (micro_os_plus_mempool_t* mempool)
+micro_os_plus_memory_pool_try_alloc (micro_os_plus_memory_pool_t* mempool)
 {
   assert (mempool != nullptr);
   return (reinterpret_cast<memory_pool&> (*mempool)).try_alloc ();
@@ -2957,8 +2959,8 @@ micro_os_plus_mempool_try_alloc (micro_os_plus_mempool_t* mempool)
  *  @ref micro_os_plus::rtos::memory_pool::timed_alloc()
  */
 void*
-micro_os_plus_mempool_timed_alloc (micro_os_plus_mempool_t* mempool,
-                                   micro_os_plus_clock_duration_t timeout)
+micro_os_plus_memory_pool_timed_alloc (micro_os_plus_memory_pool_t* mempool,
+                                       micro_os_plus_clock_duration_t timeout)
 {
   assert (mempool != nullptr);
   return (reinterpret_cast<memory_pool&> (*mempool)).timed_alloc (timeout);
@@ -2973,7 +2975,8 @@ micro_os_plus_mempool_timed_alloc (micro_os_plus_mempool_t* mempool,
  *  @ref micro_os_plus::rtos::memory_pool::free()
  */
 micro_os_plus_result_t
-micro_os_plus_mempool_free (micro_os_plus_mempool_t* mempool, void* block)
+micro_os_plus_memory_pool_free (micro_os_plus_memory_pool_t* mempool,
+                                void* block)
 {
   assert (mempool != nullptr);
   return (micro_os_plus_result_t) (reinterpret_cast<memory_pool&> (*mempool))
@@ -2989,7 +2992,7 @@ micro_os_plus_mempool_free (micro_os_plus_mempool_t* mempool, void* block)
  *  @ref micro_os_plus::rtos::memory_pool::capacity()
  */
 size_t
-micro_os_plus_mempool_get_capacity (micro_os_plus_mempool_t* mempool)
+micro_os_plus_memory_pool_get_capacity (micro_os_plus_memory_pool_t* mempool)
 {
   assert (mempool != nullptr);
   return (reinterpret_cast<memory_pool&> (*mempool)).capacity ();
@@ -3004,7 +3007,7 @@ micro_os_plus_mempool_get_capacity (micro_os_plus_mempool_t* mempool)
  *  @ref micro_os_plus::rtos::memory_pool::count()
  */
 size_t
-micro_os_plus_mempool_get_count (micro_os_plus_mempool_t* mempool)
+micro_os_plus_memory_pool_get_count (micro_os_plus_memory_pool_t* mempool)
 {
   assert (mempool != nullptr);
   return (reinterpret_cast<memory_pool&> (*mempool)).count ();
@@ -3019,7 +3022,7 @@ micro_os_plus_mempool_get_count (micro_os_plus_mempool_t* mempool)
  *  @ref micro_os_plus::rtos::memory_pool::block_size()
  */
 size_t
-micro_os_plus_mempool_get_block_size (micro_os_plus_mempool_t* mempool)
+micro_os_plus_memory_pool_get_block_size (micro_os_plus_memory_pool_t* mempool)
 {
   assert (mempool != nullptr);
   return (reinterpret_cast<memory_pool&> (*mempool)).block_size ();
@@ -3034,7 +3037,7 @@ micro_os_plus_mempool_get_block_size (micro_os_plus_mempool_t* mempool)
  *  @ref micro_os_plus::rtos::memory_pool::empty()
  */
 bool
-micro_os_plus_mempool_is_empty (micro_os_plus_mempool_t* mempool)
+micro_os_plus_memory_pool_is_empty (micro_os_plus_memory_pool_t* mempool)
 {
   assert (mempool != nullptr);
   return (reinterpret_cast<memory_pool&> (*mempool)).empty ();
@@ -3049,7 +3052,7 @@ micro_os_plus_mempool_is_empty (micro_os_plus_mempool_t* mempool)
  *  @ref micro_os_plus::rtos::memory_pool::full()
  */
 bool
-micro_os_plus_mempool_is_full (micro_os_plus_mempool_t* mempool)
+micro_os_plus_memory_pool_is_full (micro_os_plus_memory_pool_t* mempool)
 {
   assert (mempool != nullptr);
   return (reinterpret_cast<memory_pool&> (*mempool)).full ();
@@ -3064,7 +3067,7 @@ micro_os_plus_mempool_is_full (micro_os_plus_mempool_t* mempool)
  *  @ref micro_os_plus::rtos::memory_pool::reset()
  */
 micro_os_plus_result_t
-micro_os_plus_mempool_reset (micro_os_plus_mempool_t* mempool)
+micro_os_plus_memory_pool_reset (micro_os_plus_memory_pool_t* mempool)
 {
   assert (mempool != nullptr);
   return (micro_os_plus_result_t) (reinterpret_cast<memory_pool&> (*mempool))
@@ -3080,7 +3083,7 @@ micro_os_plus_mempool_reset (micro_os_plus_mempool_t* mempool)
  *  @ref micro_os_plus::rtos::memory_pool::pool()
  */
 void*
-micro_os_plus_mempool_get_pool (micro_os_plus_mempool_t* mempool)
+micro_os_plus_memory_pool_get_pool (micro_os_plus_memory_pool_t* mempool)
 {
   assert (mempool != nullptr);
   return (void*)(reinterpret_cast<memory_pool&> (*mempool)).pool ();

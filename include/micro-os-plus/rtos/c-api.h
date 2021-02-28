@@ -1917,8 +1917,8 @@ extern "C"
    *  Nothing.
    */
   void
-  micro_os_plus_mempool_attributes_init (
-      micro_os_plus_mempool_attributes_t* attr);
+  micro_os_plus_memory_pool_attributes_init (
+      micro_os_plus_memory_pool_attributes_t* attr);
 
   /**
    * @}
@@ -1940,9 +1940,10 @@ extern "C"
    *  Nothing.
    */
   void
-  micro_os_plus_mempool_construct (
-      micro_os_plus_mempool_t* mempool, const char* name, size_t blocks,
-      size_t block_size_bytes, const micro_os_plus_mempool_attributes_t* attr);
+  micro_os_plus_memory_pool_construct (
+      micro_os_plus_memory_pool_t* mempool, const char* name, size_t blocks,
+      size_t block_size_bytes,
+      const micro_os_plus_memory_pool_attributes_t* attr);
 
   /**
    * @brief Destruct the statically allocated memory pool object instance.
@@ -1951,7 +1952,7 @@ extern "C"
    *  Nothing.
    */
   void
-  micro_os_plus_mempool_destruct (micro_os_plus_mempool_t* mempool);
+  micro_os_plus_memory_pool_destruct (micro_os_plus_memory_pool_t* mempool);
 
   /**
    * @brief Allocate a memory pool object instance and construct it.
@@ -1961,10 +1962,10 @@ extern "C"
    * @param [in] attr Pointer to attributes (may be NULL).
    * @return Pointer to new memory pool object instance.
    */
-  micro_os_plus_mempool_t*
-  micro_os_plus_mempool_new (const char* name, size_t blocks,
-                             size_t block_size_bytes,
-                             const micro_os_plus_mempool_attributes_t* attr);
+  micro_os_plus_memory_pool_t*
+  micro_os_plus_memory_pool_new (
+      const char* name, size_t blocks, size_t block_size_bytes,
+      const micro_os_plus_memory_pool_attributes_t* attr);
 
   /**
    * @brief Destruct the memory pool object instance and deallocate it.
@@ -1974,7 +1975,7 @@ extern "C"
    *  Nothing.
    */
   void
-  micro_os_plus_mempool_delete (micro_os_plus_mempool_t* mempool);
+  micro_os_plus_memory_pool_delete (micro_os_plus_memory_pool_t* mempool);
 
   /**
    * @}
@@ -1991,7 +1992,7 @@ extern "C"
    * @return Null terminated string.
    */
   const char*
-  micro_os_plus_mempool_get_name (micro_os_plus_mempool_t* mempool);
+  micro_os_plus_memory_pool_get_name (micro_os_plus_memory_pool_t* mempool);
 
   /**
    * @brief Allocate a memory block.
@@ -1999,7 +2000,7 @@ extern "C"
    * @return Pointer to memory block, or `NULL` if interrupted.
    */
   void*
-  micro_os_plus_mempool_alloc (micro_os_plus_mempool_t* mempool);
+  micro_os_plus_memory_pool_alloc (micro_os_plus_memory_pool_t* mempool);
 
   /**
    * @brief Try to allocate a memory block.
@@ -2007,7 +2008,7 @@ extern "C"
    * @return Pointer to memory block, or `NULL` if no memory available.
    */
   void*
-  micro_os_plus_mempool_try_alloc (micro_os_plus_mempool_t* mempool);
+  micro_os_plus_memory_pool_try_alloc (micro_os_plus_memory_pool_t* mempool);
 
   /**
    * @brief Allocate a memory block with timeout.
@@ -2016,8 +2017,9 @@ extern "C"
    * @return Pointer to memory block, or `NULL` if timeout.
    */
   void*
-  micro_os_plus_mempool_timed_alloc (micro_os_plus_mempool_t* mempool,
-                                     micro_os_plus_clock_duration_t timeout);
+  micro_os_plus_memory_pool_timed_alloc (
+      micro_os_plus_memory_pool_t* mempool,
+      micro_os_plus_clock_duration_t timeout);
 
   /**
    * @brief Free the memory block.
@@ -2027,7 +2029,8 @@ extern "C"
    * @retval EINVAL The block does not belong to the memory pool.
    */
   micro_os_plus_result_t
-  micro_os_plus_mempool_free (micro_os_plus_mempool_t* mempool, void* block);
+  micro_os_plus_memory_pool_free (micro_os_plus_memory_pool_t* mempool,
+                                  void* block);
 
   /**
    * @brief Get memory pool capacity.
@@ -2035,7 +2038,8 @@ extern "C"
    * @return The max number of blocks in the pool.
    */
   size_t
-  micro_os_plus_mempool_get_capacity (micro_os_plus_mempool_t* mempool);
+  micro_os_plus_memory_pool_get_capacity (
+      micro_os_plus_memory_pool_t* mempool);
 
   /**
    * @brief Get blocks count.
@@ -2043,7 +2047,7 @@ extern "C"
    * @return The number of blocks used from the queue.
    */
   size_t
-  micro_os_plus_mempool_get_count (micro_os_plus_mempool_t* mempool);
+  micro_os_plus_memory_pool_get_count (micro_os_plus_memory_pool_t* mempool);
 
   /**
    * @brief Get block size.
@@ -2051,7 +2055,8 @@ extern "C"
    * @return The block size, in bytes.
    */
   size_t
-  micro_os_plus_mempool_get_block_size (micro_os_plus_mempool_t* mempool);
+  micro_os_plus_memory_pool_get_block_size (
+      micro_os_plus_memory_pool_t* mempool);
 
   /**
    * @brief Check if the memory pool is empty.
@@ -2060,7 +2065,7 @@ extern "C"
    * @retval false The memory pool has allocated blocks.
    */
   bool
-  micro_os_plus_mempool_is_empty (micro_os_plus_mempool_t* mempool);
+  micro_os_plus_memory_pool_is_empty (micro_os_plus_memory_pool_t* mempool);
 
   /**
    * @brief Check if the memory pool is full.
@@ -2069,7 +2074,7 @@ extern "C"
    * @retval false There are still memory blocks that can be allocated.
    */
   bool
-  micro_os_plus_mempool_is_full (micro_os_plus_mempool_t* mempool);
+  micro_os_plus_memory_pool_is_full (micro_os_plus_memory_pool_t* mempool);
 
   /**
    * @brief Reset the memory pool.
@@ -2078,7 +2083,7 @@ extern "C"
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
    */
   micro_os_plus_result_t
-  micro_os_plus_mempool_reset (micro_os_plus_mempool_t* mempool);
+  micro_os_plus_memory_pool_reset (micro_os_plus_memory_pool_t* mempool);
 
   /**
    * @brief Get the pool storage address.
@@ -2086,7 +2091,7 @@ extern "C"
    * @return Pointer to storage.
    */
   void*
-  micro_os_plus_mempool_get_pool (micro_os_plus_mempool_t* mempool);
+  micro_os_plus_memory_pool_get_pool (micro_os_plus_memory_pool_t* mempool);
 
   /**
    * @}

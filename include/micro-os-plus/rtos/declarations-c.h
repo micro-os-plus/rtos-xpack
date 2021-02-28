@@ -1172,7 +1172,7 @@ extern "C"
    */
 
   // ==========================================================================
-  typedef uint16_t micro_os_plus_mempool_size_t;
+  typedef uint16_t micro_os_plus_memory_pool_size_t;
 
   /**
    * @addtogroup micro-os-plus-rtos-c-mempool
@@ -1187,12 +1187,13 @@ extern "C"
    * @headerfile c-api.h <micro-os-plus/rtos/c-api.h>
    *
    * @details
-   * Initialise this structure with `micro_os_plus_mempool_attributes_init()`
-   * and then set any of the individual members directly.
+   * Initialise this structure with
+   * `micro_os_plus_memory_pool_attributes_init()` and then set any of the
+   * individual members directly.
    *
    * @see micro_os_plus::rtos::memory_pool::attributes
    */
-  typedef struct micro_os_plus_mempool_attributes_s
+  typedef struct micro_os_plus_memory_pool_attributes_s
   {
     /**
      * @brief Pointer to clock object instance.
@@ -1209,7 +1210,7 @@ extern "C"
      */
     size_t mp_pool_size_bytes;
 
-  } micro_os_plus_mempool_attributes_t;
+  } micro_os_plus_memory_pool_attributes_t;
 
   /**
    * @brief Memory pool object storage.
@@ -1218,7 +1219,7 @@ extern "C"
    * @details
    * This C structure has the same size as the C++
    * `micro_os_plus::rtos::memory_pool` object and must be initialised with
-   * `micro_os_plus_mempool_create()`.
+   * `micro_os_plus_memory_pool_create()`.
    *
    * Later on a pointer to it can be used both in C and C++
    * to refer to the memory pool object instance.
@@ -1228,7 +1229,7 @@ extern "C"
    *
    * @see micro_os_plus::rtos::memory_pool
    */
-  typedef struct micro_os_plus_mempool_s
+  typedef struct micro_os_plus_memory_pool_s
   {
     /**
      * @cond ignore
@@ -1244,20 +1245,20 @@ extern "C"
     void* allocated_pool_addr;
     void* allocator;
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MEMORY_POOL)
-    micro_os_plus_mempool_port_data_t port;
+    micro_os_plus_memory_pool_port_data_t port;
 #endif
     size_t pool_size_bytes;
     size_t allocated_pool_size_elements_;
-    micro_os_plus_mempool_size_t blocks;
-    micro_os_plus_mempool_size_t block_size_bytes;
-    micro_os_plus_mempool_size_t count;
+    micro_os_plus_memory_pool_size_t blocks;
+    micro_os_plus_memory_pool_size_t block_size_bytes;
+    micro_os_plus_memory_pool_size_t count;
     void* first;
 
     /**
      * @endcond
      */
 
-  } micro_os_plus_mempool_t;
+  } micro_os_plus_memory_pool_t;
 
 #pragma GCC diagnostic pop
 
