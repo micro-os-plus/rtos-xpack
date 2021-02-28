@@ -395,13 +395,15 @@ static_assert (sizeof (rtos::memory_pool)
 static_assert (sizeof (rtos::memory_pool::attributes)
                    == sizeof (micro_os_plus_memory_pool_attributes_t),
                "adjust size of micro_os_plus_memory_pool_attributes_t");
-static_assert (offsetof (rtos::memory_pool::attributes, mp_pool_address)
+static_assert (offsetof (rtos::memory_pool::attributes,
+                         memory_pool_arena_address)
                    == offsetof (micro_os_plus_memory_pool_attributes_t,
-                                mp_pool_address),
+                                memory_pool_arena_address),
                "adjust micro_os_plus_memory_pool_attributes_t members");
-static_assert (offsetof (rtos::memory_pool::attributes, mp_pool_size_bytes)
+static_assert (offsetof (rtos::memory_pool::attributes,
+                         memory_pool_arena_size_bytes)
                    == offsetof (micro_os_plus_memory_pool_attributes_t,
-                                mp_pool_size_bytes),
+                                memory_pool_arena_size_bytes),
                "adjust micro_os_plus_memory_pool_attributes_t members");
 
 static_assert (sizeof (rtos::message_queue)

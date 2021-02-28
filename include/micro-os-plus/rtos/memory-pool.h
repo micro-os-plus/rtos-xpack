@@ -130,12 +130,12 @@ namespace micro_os_plus
         /**
          * @brief Address of the user defined storage for the memory pool.
          */
-        void* mp_pool_address = nullptr;
+        void* memory_pool_arena_address = nullptr;
 
         /**
          * @brief Size of the user defined storage for the memory pool.
          */
-        std::size_t mp_pool_size_bytes = 0;
+        std::size_t memory_pool_arena_size_bytes = 0;
 
         // Add more attributes here.
 
@@ -406,13 +406,13 @@ namespace micro_os_plus
        * @param [in] blocks The maximum number of items in the pool.
        * @param [in] block_size_bytes The size of an item, in bytes.
        * @param [in] attr Reference to attributes.
-       * @param [in] pool_address Pointer to queue storage.
-       * @param [in] pool_size_bytes Size of queue storage.
+       * @param [in] pool_arena_address Pointer to queue storage.
+       * @param [in] pool_arena_size_bytes Size of queue storage.
        */
       void
       internal_construct_ (std::size_t blocks, std::size_t block_size_bytes,
-                           const attributes& attr, void* pool_address,
-                           std::size_t pool_size_bytes);
+                           const attributes& attr, void* pool_arena_address,
+                           std::size_t pool_arena_size_bytes);
 
       /**
        * @brief Internal initialisation.
@@ -463,14 +463,14 @@ namespace micro_os_plus
 #endif
       /**
        * @brief The static address where the pool is stored
-       * (from `attr.mp_pool_address`).
+       * (from `attr.memory_pool_arena_address`).
        */
-      void* pool_addr_ = nullptr;
+      void* pool_arena_address_ = nullptr;
       /**
        * @brief The dynamic address if the pool was allocated
        * (and must be deallocated)
        */
-      void* allocated_pool_addr_ = nullptr;
+      void* allocated_pool_arena_address_ = nullptr;
 
       /**
        * @brief Pointer to allocator.
@@ -484,9 +484,9 @@ namespace micro_os_plus
 
       /**
        * @brief Total size of the statically allocated pool storage
-       * (from `attr.mp_pool_size_bytes`).
+       * (from `attr.memory_pool_arena_size_bytes`).
        */
-      std::size_t pool_size_bytes_ = 0;
+      std::size_t pool_arena_size_bytes_ = 0;
       /**
        * @brief Total size of the dynamically allocated pool storage.
        */
@@ -951,7 +951,7 @@ namespace micro_os_plus
     inline void*
     memory_pool::pool (void)
     {
-      return pool_addr_;
+      return pool_arena_address_;
     }
 
     // ========================================================================
@@ -974,9 +974,9 @@ namespace micro_os_plus
      * The effect shall be equivalent to creating a memory pool object with
      * the simple constructor.
      *
-     * If the attributes define a storage area (via `mp_pool_address` and
-     * `mp_pool_size_bytes`), that storage is used, otherwise
-     * the storage is dynamically allocated using the RTOS specific allocator
+     * If the attributes define a storage area (via `memory_pool_arena_address`
+     * and `memory_pool_arena_size_bytes`), that storage is used, otherwise the
+     * storage is dynamically allocated using the RTOS specific allocator
      * (`rtos::memory::allocator`).
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
@@ -1009,9 +1009,9 @@ namespace micro_os_plus
      * The effect shall be equivalent to creating a memory pool object with
      * the simple constructor.
      *
-     * If the attributes define a storage area (via `mp_pool_address` and
-     * `mp_pool_size_bytes`), that storage is used, otherwise
-     * the storage is dynamically allocated using the RTOS specific allocator
+     * If the attributes define a storage area (via `memory_pool_arena_address`
+     * and `memory_pool_arena_size_bytes`), that storage is used, otherwise the
+     * storage is dynamically allocated using the RTOS specific allocator
      * (`rtos::memory::allocator`).
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
@@ -1026,7 +1026,7 @@ namespace micro_os_plus
       trace::printf ("%s() @%p %s %d %d\n", __func__, this, this->name (),
                      blocks, block_size_bytes);
 #endif
-      if (attr.mp_pool_address != nullptr)
+      if (attr.memory_pool_arena_address != nullptr)
         {
           // Do not use any allocator at all.
           internal_construct_ (blocks, block_size_bytes, attr, nullptr, 0);
@@ -1044,12 +1044,12 @@ namespace micro_os_plus
                  + sizeof (typename allocator_type::value_type) - 1)
                 / sizeof (typename allocator_type::value_type);
 
-          allocated_pool_addr_
+          allocated_pool_arena_address_
               = const_cast<allocator_type&> (allocator).allocate (
                   allocated_pool_size_elements_);
 
           internal_construct_ (
-              blocks, block_size_bytes, attr, allocated_pool_addr_,
+              blocks, block_size_bytes, attr, allocated_pool_arena_address_,
               allocated_pool_size_elements_
                   * sizeof (typename allocator_type::value_type));
         }
@@ -1079,13 +1079,14 @@ namespace micro_os_plus
 #endif
       typedef typename std::allocator_traits<allocator_type>::pointer pointer;
 
-      if (allocated_pool_addr_ != nullptr)
+      if (allocated_pool_arena_address_ != nullptr)
         {
           static_cast<allocator_type*> (const_cast<void*> (allocator_))
-              ->deallocate (static_cast<pointer> (allocated_pool_addr_),
-                            allocated_pool_size_elements_);
+              ->deallocate (
+                  static_cast<pointer> (allocated_pool_arena_address_),
+                  allocated_pool_size_elements_);
 
-          allocated_pool_addr_ = nullptr;
+          allocated_pool_arena_address_ = nullptr;
         }
     }
 
@@ -1109,9 +1110,9 @@ namespace micro_os_plus
      * The effect shall be equivalent to creating a memory pool object with
      * the simple constructor.
      *
-     * If the attributes define a storage area (via `mp_pool_address` and
-     * `mp_pool_size_bytes`), that storage is used, otherwise
-     * the storage is dynamically allocated using the RTOS specific allocator
+     * If the attributes define a storage area (via `memory_pool_arena_address`
+     * and `memory_pool_arena_size_bytes`), that storage is used, otherwise the
+     * storage is dynamically allocated using the RTOS specific allocator
      * (`rtos::memory::allocator`).
      *
      * Implemented as a wrapper over the parent constructor, automatically
@@ -1147,9 +1148,9 @@ namespace micro_os_plus
      * The effect shall be equivalent to creating a memory pool object with
      * the simple constructor.
      *
-     * If the attributes define a storage area (via `mp_pool_address` and
-     * `mp_pool_size_bytes`), that storage is used, otherwise
-     * the storage is dynamically allocated using the RTOS specific allocator
+     * If the attributes define a storage area (via `memory_pool_arena_address`
+     * and `memory_pool_arena_size_bytes`), that storage is used, otherwise the
+     * storage is dynamically allocated using the RTOS specific allocator
      * (`rtos::memory::allocator`).
      *
      * Implemented as a wrapper over the parent constructor, automatically

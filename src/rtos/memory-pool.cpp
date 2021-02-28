@@ -73,8 +73,8 @@ namespace micro_os_plus
      *
      *    // Define pool attributes.
      *    memory_pool::attributes attr { "properties" };
-     *    attr.mp_pool_address = pool;
-     *    attr.mp_pool_size_bytes = sizeof(pool);
+     *    attr.memory_pool_arena_address = pool;
+     *    attr.memory_pool_arena_size_bytes = sizeof(pool);
      *
      *    // Construct the pool object instance.
      *    memory_pool mp { attr, pool_size, sizeof(properties_t) };
@@ -91,7 +91,7 @@ namespace micro_os_plus
      */
 
     /**
-     * @var void* memory_pool::attributes::mp_pool_address
+     * @var void* memory_pool::attributes::memory_pool_arena_address
      * @details
      * Set this variable to a user defined memory area large enough
      * to store the memory pool. Usually this is a statically
@@ -102,14 +102,15 @@ namespace micro_os_plus
      */
 
     /**
-     * @var memory_pool::size_t memory_pool::attributes::mp_pool_size_bytes
+     * @var memory_pool::size_t
+     * memory_pool::attributes::memory_pool_arena_size_bytes
      * @details
      * The memory pool size must match exactly the allocated size. It is
      * used for validation; when the memory pool is initialised,
      * this size must be large enough to accommodate the desired
      * memory pool.
      *
-     * If the @ref mp_pool_address is `nullptr`, this variable is not
+     * If the @ref memory_pool_arena_address is `nullptr`, this variable is not
      * checked, but it is recommended to leave it zero.
      */
 
@@ -217,9 +218,9 @@ namespace micro_os_plus
      * The effect shall be equivalent to creating a memory pool object with
      * the simple constructor.
      *
-     * If the attributes define a storage area (via `mp_pool_address` and
-     * `mp_pool_size_bytes`), that storage is used, otherwise
-     * the storage is dynamically allocated using the RTOS specific allocator
+     * If the attributes define a storage area (via `memory_pool_arena_address`
+     * and `memory_pool_arena_size_bytes`), that storage is used, otherwise the
+     * storage is dynamically allocated using the RTOS specific allocator
      * (`rtos::memory::allocator`).
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
@@ -250,9 +251,9 @@ namespace micro_os_plus
      * The effect shall be equivalent to creating a memory pool object with
      * the simple constructor.
      *
-     * If the attributes define a storage area (via `mp_pool_address` and
-     * `mp_pool_size_bytes`), that storage is used, otherwise
-     * the storage is dynamically allocated using the RTOS specific allocator
+     * If the attributes define a storage area (via `memory_pool_arena_address`
+     * and `memory_pool_arena_size_bytes`), that storage is used, otherwise the
+     * storage is dynamically allocated using the RTOS specific allocator
      * (`rtos::memory::allocator`).
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
@@ -268,7 +269,7 @@ namespace micro_os_plus
                      blocks, block_size_bytes);
 #endif
 
-      if (attr.mp_pool_address != nullptr)
+      if (attr.memory_pool_arena_address != nullptr)
         {
           // Do not use any allocator at all.
           internal_construct_ (blocks, block_size_bytes, attr, nullptr, 0);
@@ -286,12 +287,12 @@ namespace micro_os_plus
                  + sizeof (typename allocator_type::value_type) - 1)
                 / sizeof (typename allocator_type::value_type);
 
-          allocated_pool_addr_
+          allocated_pool_arena_address_
               = const_cast<allocator_type&> (allocator).allocate (
                   allocated_pool_size_elements_);
 
           internal_construct_ (
-              blocks, block_size_bytes, attr, allocated_pool_addr_,
+              blocks, block_size_bytes, attr, allocated_pool_arena_address_,
               allocated_pool_size_elements_
                   * sizeof (typename allocator_type::value_type));
         }
@@ -305,8 +306,8 @@ namespace micro_os_plus
     memory_pool::internal_construct_ (std::size_t blocks,
                                       std::size_t block_size_bytes,
                                       const attributes& attr,
-                                      void* pool_address,
-                                      std::size_t pool_size_bytes)
+                                      void* pool_arena_address,
+                                      std::size_t pool_arena_size_bytes)
     {
       // Don't call this from interrupt handlers.
       micro_os_plus_assert_throw (!interrupts::in_handler_mode (), EPERM);
@@ -328,45 +329,46 @@ namespace micro_os_plus
             & (static_cast<memory_pool::size_t> (~(__SIZEOF_POINTER__ - 1)));
 
       // If the storage is given explicitly, override attributes.
-      if (pool_address != nullptr)
+      if (pool_arena_address != nullptr)
         {
           // The attributes should not define any storage in this case.
-          assert (attr.mp_pool_address == nullptr);
+          assert (attr.memory_pool_arena_address == nullptr);
 
-          pool_addr_ = pool_address;
-          pool_size_bytes_ = pool_size_bytes;
+          pool_arena_address_ = pool_arena_address;
+          pool_arena_size_bytes_ = pool_arena_size_bytes;
         }
       else
         {
-          pool_addr_ = attr.mp_pool_address;
-          pool_size_bytes_ = attr.mp_pool_size_bytes;
+          pool_arena_address_ = attr.memory_pool_arena_address;
+          pool_arena_size_bytes_ = attr.memory_pool_arena_size_bytes;
         }
 
       // Blocks must be pointer aligned.
-      void* p = pool_addr_;
-      std::size_t sz = pool_size_bytes_;
-      pool_addr_ = static_cast<char*> (
+      void* p = pool_arena_address_;
+      std::size_t sz = pool_arena_size_bytes_;
+      pool_arena_address_ = static_cast<char*> (
           std::align (__SIZEOF_POINTER__, blocks_ * block_size_bytes_, p, sz));
 
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_MEMPOOL)
       trace::printf ("%s() @%p %s %u %u %p %u\n", __func__, this, name (),
-                     blocks_, block_size_bytes_, pool_addr_, pool_size_bytes_);
+                     blocks_, block_size_bytes_, pool_arena_address_,
+                     pool_arena_size_bytes_);
 #endif
 
       std::size_t storage_size
           = compute_allocated_size_bytes<void*> (blocks_, block_size_bytes_);
 
-      if (pool_addr_ != nullptr)
+      if (pool_arena_address_ != nullptr)
         {
           // The pool must be real, and have a non zero size.
-          micro_os_plus_assert_throw (pool_size_bytes_ > 0, EINVAL);
+          micro_os_plus_assert_throw (pool_arena_size_bytes_ > 0, EINVAL);
           // The pool must fit the storage.
-          micro_os_plus_assert_throw (pool_size_bytes_ >= storage_size,
+          micro_os_plus_assert_throw (pool_arena_size_bytes_ >= storage_size,
                                       EINVAL);
         }
 
       // The pool must have a real address.
-      micro_os_plus_assert_throw (pool_addr_ != nullptr, ENOMEM);
+      micro_os_plus_assert_throw (pool_arena_address_ != nullptr, ENOMEM);
 
       internal_init_ ();
     }
@@ -402,11 +404,12 @@ namespace micro_os_plus
 
       typedef typename std::allocator_traits<allocator_type>::pointer pointer;
 
-      if (allocated_pool_addr_ != nullptr)
+      if (allocated_pool_arena_address_ != nullptr)
         {
           static_cast<allocator_type*> (const_cast<void*> (allocator_))
-              ->deallocate (static_cast<pointer> (allocated_pool_addr_),
-                            allocated_pool_size_elements_);
+              ->deallocate (
+                  static_cast<pointer> (allocated_pool_arena_address_),
+                  allocated_pool_size_elements_);
         }
     }
 
@@ -424,7 +427,7 @@ namespace micro_os_plus
       // Construct a linked list of blocks. Store the pointer at
       // the beginning of each block. Each block
       // will hold the address of the next free block, or nullptr at the end.
-      char* p = static_cast<char*> (pool_addr_);
+      char* p = static_cast<char*> (pool_arena_address_);
       for (std::size_t i = 1; i < blocks_; ++i)
         {
           // Compute the address of the next block;
@@ -439,7 +442,7 @@ namespace micro_os_plus
       // Mark end of list.
       *(static_cast<void**> (static_cast<void*> (p))) = nullptr;
 
-      first_ = pool_addr_; // Pointer to first block.
+      first_ = pool_arena_address_; // Pointer to first block.
 
       count_ = 0; // No allocated blocks.
     }
@@ -763,8 +766,8 @@ namespace micro_os_plus
       assert (port::interrupts::is_priority_valid ());
 
       // Validate pointer.
-      if ((block < pool_addr_)
-          || (block >= (static_cast<char*> (pool_addr_)
+      if ((block < pool_arena_address_)
+          || (block >= (static_cast<char*> (pool_arena_address_)
                         + blocks_ * block_size_bytes_)))
         {
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_MEMPOOL)
