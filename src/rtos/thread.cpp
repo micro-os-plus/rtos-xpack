@@ -120,7 +120,7 @@ namespace micro_os_plus
      *
      * // Thread function.
      * void*
-     * func(void* args)
+     * function(void* args)
      * {
      *   // Do something.
      *   ...
@@ -131,7 +131,7 @@ namespace micro_os_plus
      * os_main(int argc, char* argv[])
      * {
      *   // Construct new thread, with function and no arguments.
-     *   thread th { func, nullptr };
+     *   thread th { function, nullptr };
      *
      *   // Do something.
      *

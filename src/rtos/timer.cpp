@@ -87,7 +87,7 @@ namespace micro_os_plus
      *
      * // Thread function.
      * void
-     * func(void* args)
+     * function(void* args)
      * {
      *   // Do something.
      *   ...
@@ -97,9 +97,9 @@ namespace micro_os_plus
      * os_main(int argc, char* argv[])
      * {
      *   // Construct new thread, with function and no arguments.
-     *   timer tm { func, nullptr };
+     *   timer tm { function, nullptr };
      *
-     *   // Schedule func() to be executed after 100 ticks.
+     *   // Schedule function() to be executed after 100 ticks.
      *   tm.start(100);
      *
      *   // Do something.

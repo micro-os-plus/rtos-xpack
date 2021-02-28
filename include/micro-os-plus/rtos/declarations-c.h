@@ -585,8 +585,8 @@ extern "C"
     const char* name;
     int errno_; // Prevent the macro to expand (for example with a prefix).
     micro_os_plus_internal_waiting_thread_node_t ready_node;
-    micro_os_plus_thread_func_t func;
-    micro_os_plus_thread_func_args_t func_args;
+    micro_os_plus_thread_func_t function;
+    micro_os_plus_thread_func_args_t function_arguments;
     void* func_result_;
     void* parent;
     micro_os_plus_internal_double_list_links_t child_links;
@@ -715,7 +715,7 @@ extern "C"
    *
    * @see micro_os_plus::rtos::timer::func_args_t
    */
-  typedef void* micro_os_plus_timer_func_args_t;
+  typedef void* micro_os_plus_timer_function_arguments_t;
 
   /**
    * @brief Type of timer function.
@@ -726,8 +726,8 @@ extern "C"
    *
    * @see micro_os_plus::rtos::timer::func_t
    */
-  typedef void (*micro_os_plus_timer_func_t) (
-      micro_os_plus_timer_func_args_t args);
+  typedef void (*micro_os_plus_timer_function_t) (
+      micro_os_plus_timer_function_arguments_t args);
 
   /**
    * @brief Type of variables holding timer types.
@@ -793,8 +793,8 @@ extern "C"
      */
 
     const char* name;
-    micro_os_plus_timer_func_t func;
-    micro_os_plus_timer_func_args_t func_args;
+    micro_os_plus_timer_function_t function;
+    micro_os_plus_timer_function_arguments_t function_arguments;
 #if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_TIMER)
     void* clock;
     micro_os_plus_internal_clock_timer_node_t clock_node;

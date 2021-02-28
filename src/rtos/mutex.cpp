@@ -408,7 +408,7 @@ namespace micro_os_plus
      * mutex mx;
      *
      * void
-     * func(void)
+     * function(void)
      * {
      *   // Do something
      *

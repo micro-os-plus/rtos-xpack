@@ -131,17 +131,17 @@ static_assert (alignof (micro_os_plus_thread_priority_t)
                    == alignof (thread::priority_t),
                "adjust align of micro_os_plus_thread_priority_t");
 
-static_assert (sizeof (micro_os_plus_timer_func_args_t)
+static_assert (sizeof (micro_os_plus_timer_function_arguments_t)
                    == sizeof (timer::func_args_t),
-               "adjust size of micro_os_plus_timer_func_args_t");
-static_assert (alignof (micro_os_plus_timer_func_args_t)
+               "adjust size of micro_os_plus_timer_function_arguments_t");
+static_assert (alignof (micro_os_plus_timer_function_arguments_t)
                    == alignof (timer::func_args_t),
-               "adjust align of micro_os_plus_timer_func_args_t");
+               "adjust align of micro_os_plus_timer_function_arguments_t");
 
-static_assert (sizeof (micro_os_plus_timer_func_t) == sizeof (timer::func_t),
-               "adjust size of micro_os_plus_timer_func_t");
-static_assert (alignof (micro_os_plus_timer_func_t) == alignof (timer::func_t),
-               "adjust align of micro_os_plus_timer_func_t");
+static_assert (sizeof (micro_os_plus_timer_function_t) == sizeof (timer::func_t),
+               "adjust size of micro_os_plus_timer_function_t");
+static_assert (alignof (micro_os_plus_timer_function_t) == alignof (timer::func_t),
+               "adjust align of micro_os_plus_timer_function_t");
 
 static_assert (sizeof (micro_os_plus_timer_type_t) == sizeof (timer::type_t),
                "adjust size of micro_os_plus_timer_type_t");
@@ -861,7 +861,7 @@ micro_os_plus_thread_attributes_init (micro_os_plus_thread_attributes_t* attr)
 void
 micro_os_plus_thread_construct (micro_os_plus_thread_t* thread,
                                 const char* name,
-                                micro_os_plus_thread_func_t func,
+                                micro_os_plus_thread_func_t function,
                                 const micro_os_plus_thread_func_args_t args,
                                 const micro_os_plus_thread_attributes_t* attr)
 {
@@ -871,7 +871,7 @@ micro_os_plus_thread_construct (micro_os_plus_thread_t* thread,
       attr = (const micro_os_plus_thread_attributes_t*)&thread::initializer;
     }
   new (thread)
-      rtos::thread (name, (thread::func_t)func, (thread::func_args_t)args,
+      rtos::thread (name, (thread::func_t)function, (thread::func_args_t)args,
                     (const thread::attributes&)*attr);
 }
 
@@ -907,7 +907,7 @@ micro_os_plus_thread_destruct (micro_os_plus_thread_t* thread)
  *  @ref micro_os_plus::rtos::thread
  */
 micro_os_plus_thread_t*
-micro_os_plus_thread_new (const char* name, micro_os_plus_thread_func_t func,
+micro_os_plus_thread_new (const char* name, micro_os_plus_thread_func_t function,
                           const micro_os_plus_thread_func_args_t args,
                           const micro_os_plus_thread_attributes_t* attr)
 {
@@ -916,7 +916,7 @@ micro_os_plus_thread_new (const char* name, micro_os_plus_thread_func_t func,
       attr = (const micro_os_plus_thread_attributes_t*)&thread::initializer;
     }
   return reinterpret_cast<micro_os_plus_thread_t*> (
-      new rtos::thread (name, (thread::func_t)func, (thread::func_args_t)args,
+      new rtos::thread (name, (thread::func_t)function, (thread::func_args_t)args,
                         (const thread::attributes&)*attr));
 }
 
@@ -1663,8 +1663,8 @@ micro_os_plus_timer_attributes_get_periodic (void)
  */
 void
 micro_os_plus_timer_construct (micro_os_plus_timer_t* timer, const char* name,
-                               micro_os_plus_timer_func_t function,
-                               micro_os_plus_timer_func_args_t args,
+                               micro_os_plus_timer_function_t function,
+                               micro_os_plus_timer_function_arguments_t args,
                                const micro_os_plus_timer_attributes_t* attr)
 {
   assert (timer != nullptr);
@@ -1710,8 +1710,8 @@ micro_os_plus_timer_destruct (micro_os_plus_timer_t* timer)
  *  @ref micro_os_plus::rtos::timer
  */
 micro_os_plus_timer_t*
-micro_os_plus_timer_new (const char* name, micro_os_plus_timer_func_t function,
-                         micro_os_plus_timer_func_args_t args,
+micro_os_plus_timer_new (const char* name, micro_os_plus_timer_function_t function,
+                         micro_os_plus_timer_function_arguments_t args,
                          const micro_os_plus_timer_attributes_t* attr)
 {
   if (attr == nullptr)

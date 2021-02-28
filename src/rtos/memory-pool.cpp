@@ -67,7 +67,7 @@ namespace micro_os_plus
      * properties_t pool[pool_size];
      *
      * void
-     * func(void)
+     * function(void)
      * {
      *    // Do something
      *
@@ -146,7 +146,7 @@ namespace micro_os_plus
      * memory_pool mp { pool_size, sizeof(properties_t) };
      *
      * void
-     * func(void)
+     * function(void)
      * {
      *   // Do something
      *

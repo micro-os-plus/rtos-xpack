@@ -518,7 +518,7 @@ namespace micro_os_plus
      *
      * @code{.cpp}
      * void
-     * func(void)
+     * function(void)
      * {
      *    // Do something
      *
@@ -631,7 +631,7 @@ namespace micro_os_plus
      *
      * @code{.cpp}
      * void
-     * func(void)
+     * function(void)
      * {
      *    // Do something
      *

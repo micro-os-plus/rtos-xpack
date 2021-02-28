@@ -469,7 +469,7 @@ extern "C"
    * @brief Construct a statically allocated thread object instance.
    * @param [in] thread Pointer to thread object instance storage.
    * @param [in] name Pointer to name (may be NULL).
-   * @param [in] func Pointer to thread function.
+   * @param [in] function Pointer to thread function.
    * @param [in] args Pointer to thread function arguments (may be NULL).
    * @param [in] attr Pointer to attributes (may be NULL)
    * @par Returns
@@ -478,7 +478,7 @@ extern "C"
   void
   micro_os_plus_thread_construct (
       micro_os_plus_thread_t* thread, const char* name,
-      micro_os_plus_thread_func_t func,
+      micro_os_plus_thread_func_t function,
       const micro_os_plus_thread_func_args_t args,
       const micro_os_plus_thread_attributes_t* attr);
 
@@ -494,13 +494,13 @@ extern "C"
   /**
    * @brief Allocate a thread object instance and construct it.
    * @param [in] name Pointer to name (may be NULL).
-   * @param [in] func Pointer to thread function.
+   * @param [in] function Pointer to thread function.
    * @param [in] args Pointer to thread function arguments (may be NULL).
    * @param [in] attr Pointer to attributes (may be NULL)
    * @return Pointer to new thread object instance.
    */
   micro_os_plus_thread_t*
-  micro_os_plus_thread_new (const char* name, micro_os_plus_thread_func_t func,
+  micro_os_plus_thread_new (const char* name, micro_os_plus_thread_func_t function,
                             const micro_os_plus_thread_func_args_t args,
                             const micro_os_plus_thread_attributes_t* attr);
 
@@ -1058,8 +1058,8 @@ extern "C"
   void
   micro_os_plus_timer_construct (micro_os_plus_timer_t* timer,
                                  const char* name,
-                                 micro_os_plus_timer_func_t function,
-                                 micro_os_plus_timer_func_args_t args,
+                                 micro_os_plus_timer_function_t function,
+                                 micro_os_plus_timer_function_arguments_t args,
                                  const micro_os_plus_timer_attributes_t* attr);
 
   /**
@@ -1081,8 +1081,8 @@ extern "C"
    */
   micro_os_plus_timer_t*
   micro_os_plus_timer_new (const char* name,
-                           micro_os_plus_timer_func_t function,
-                           micro_os_plus_timer_func_args_t args,
+                           micro_os_plus_timer_function_t function,
+                           micro_os_plus_timer_function_arguments_t args,
                            const micro_os_plus_timer_attributes_t* attr);
 
   /**
