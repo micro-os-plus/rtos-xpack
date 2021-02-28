@@ -307,7 +307,7 @@ namespace micro_os_plus
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_EVENT_FLAGS)
       friend class port::event_flags;
-      micro_os_plus_evflags_port_data_t port_;
+      micro_os_plus_event_flags_port_data_t port_;
 #endif
 
       /**

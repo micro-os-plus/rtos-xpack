@@ -261,10 +261,10 @@ extern "C"
    *
    * @see micro_os_plus::rtos::internal::event_flags
    */
-  typedef struct micro_os_plus_internal_evflags_s
+  typedef struct micro_os_plus_internal_event_flags_s
   {
     micro_os_plus_flags_mask_t flags_mask;
-  } micro_os_plus_internal_evflags_t;
+  } micro_os_plus_internal_event_flags_t;
 
   // ==========================================================================
 #define MICRO_OS_PLUS_THREAD_PRIO_SHIFT (4)
@@ -603,7 +603,7 @@ extern "C"
     micro_os_plus_thread_prio_t prio_assigned;
     micro_os_plus_thread_prio_t prio_inherited;
     bool interrupted;
-    micro_os_plus_internal_evflags_t event_flags;
+    micro_os_plus_internal_event_flags_t event_flags;
 #if defined(MICRO_OS_PLUS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE)
     micro_os_plus_thread_user_storage_t user_storage; //
 #endif // defined(MICRO_OS_PLUS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE)
@@ -1396,19 +1396,20 @@ typedef uint8_t micro_os_plus_mqueue_size_t;
    * @headerfile c-api.h <micro-os-plus/rtos/c-api.h>
    *
    * @details
-   * Initialise this structure with `micro_os_plus_evflags_attributes_init()`
-   * and then set any of the individual members directly.
+   * Initialise this structure with
+   * `micro_os_plus_event_flags_attributes_init()` and then set any of the
+   * individual members directly.
    *
    * @see micro_os_plus::rtos::event_flags::attributes
    */
-  typedef struct micro_os_plus_evflags_attributes_s
+  typedef struct micro_os_plus_event_flags_attributes_s
   {
     /**
      * @brief Pointer to clock object instance.
      */
     void* clock;
 
-  } micro_os_plus_evflags_attributes_t;
+  } micro_os_plus_event_flags_attributes_t;
 
   /**
    * @brief Event flags object storage.
@@ -1417,7 +1418,7 @@ typedef uint8_t micro_os_plus_mqueue_size_t;
    * @details
    * This C structure has the same size as the C++
    * `micro_os_plus::rtos::event_flags` object and must be initialised with
-   * `micro_os_plus_evflags_create()`.
+   * `micro_os_plus_event_flags_create()`.
    *
    * Later on a pointer to it can be used both in C and C++
    * to refer to the event flags object instance.
@@ -1427,7 +1428,7 @@ typedef uint8_t micro_os_plus_mqueue_size_t;
    *
    * @see micro_os_plus::rtos::event_flags
    */
-  typedef struct micro_os_plus_evflags_s
+  typedef struct micro_os_plus_event_flags_s
   {
     /**
      * @cond ignore
@@ -1440,16 +1441,16 @@ typedef uint8_t micro_os_plus_mqueue_size_t;
 #endif
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_EVENT_FLAGS)
-    micro_os_plus_evflags_port_data_t port_;
+    micro_os_plus_event_flags_port_data_t port_;
 #endif
 
-    micro_os_plus_internal_evflags_t flags;
+    micro_os_plus_internal_event_flags_t flags;
 
     /**
      * @endcond
      */
 
-  } micro_os_plus_evflags_t;
+  } micro_os_plus_event_flags_t;
 
 #pragma GCC diagnostic pop
 

@@ -2400,8 +2400,8 @@ extern "C"
    *  Nothing.
    */
   void
-  micro_os_plus_evflags_attributes_init (
-      micro_os_plus_evflags_attributes_t* attr);
+  micro_os_plus_event_flags_attributes_init (
+      micro_os_plus_event_flags_attributes_t* attr);
 
   /**
    * @}
@@ -2421,9 +2421,9 @@ extern "C"
    *  Nothing.
    */
   void
-  micro_os_plus_evflags_construct (
-      micro_os_plus_evflags_t* evflags, const char* name,
-      const micro_os_plus_evflags_attributes_t* attr);
+  micro_os_plus_event_flags_construct (
+      micro_os_plus_event_flags_t* evflags, const char* name,
+      const micro_os_plus_event_flags_attributes_t* attr);
 
   /**
    * @brief Destruct the statically allocated event flags object instance.
@@ -2432,7 +2432,7 @@ extern "C"
    *  Nothing.
    */
   void
-  micro_os_plus_evflags_destruct (micro_os_plus_evflags_t* evflags);
+  micro_os_plus_event_flags_destruct (micro_os_plus_event_flags_t* evflags);
 
   /**
    * @brief Allocate an event flags object instance and construct it.
@@ -2440,9 +2440,9 @@ extern "C"
    * @param [in] attr Pointer to attributes (may be NULL).
    * @return Pointer to new event flags object instance.
    */
-  micro_os_plus_evflags_t*
-  micro_os_plus_evflags_new (const char* name,
-                             const micro_os_plus_evflags_attributes_t* attr);
+  micro_os_plus_event_flags_t*
+  micro_os_plus_event_flags_new (
+      const char* name, const micro_os_plus_event_flags_attributes_t* attr);
 
   /**
    * @brief Destruct the event flags object instance and deallocate it.
@@ -2452,7 +2452,7 @@ extern "C"
    *  Nothing.
    */
   void
-  micro_os_plus_evflags_delete (micro_os_plus_evflags_t* evflags);
+  micro_os_plus_event_flags_delete (micro_os_plus_event_flags_t* evflags);
 
   /**
    * @}
@@ -2469,7 +2469,7 @@ extern "C"
    * @return Null terminated string.
    */
   const char*
-  micro_os_plus_evflags_get_name (micro_os_plus_evflags_t* evflags);
+  micro_os_plus_event_flags_get_name (micro_os_plus_event_flags_t* evflags);
 
   /**
    * @brief Wait for event flags.
@@ -2487,10 +2487,10 @@ extern "C"
    * @retval ENOTRECOVERABLE Wait failed.
    */
   micro_os_plus_result_t
-  micro_os_plus_evflags_wait (micro_os_plus_evflags_t* evflags,
-                              micro_os_plus_flags_mask_t mask,
-                              micro_os_plus_flags_mask_t* oflags,
-                              micro_os_plus_flags_mode_t mode);
+  micro_os_plus_event_flags_wait (micro_os_plus_event_flags_t* evflags,
+                                  micro_os_plus_flags_mask_t mask,
+                                  micro_os_plus_flags_mask_t* oflags,
+                                  micro_os_plus_flags_mode_t mode);
 
   /**
    * @brief Try to wait for event flags.
@@ -2507,10 +2507,10 @@ extern "C"
    * @retval ENOTRECOVERABLE Wait failed.
    */
   micro_os_plus_result_t
-  micro_os_plus_evflags_try_wait (micro_os_plus_evflags_t* evflags,
-                                  micro_os_plus_flags_mask_t mask,
-                                  micro_os_plus_flags_mask_t* oflags,
-                                  micro_os_plus_flags_mode_t mode);
+  micro_os_plus_event_flags_try_wait (micro_os_plus_event_flags_t* evflags,
+                                      micro_os_plus_flags_mask_t mask,
+                                      micro_os_plus_flags_mask_t* oflags,
+                                      micro_os_plus_flags_mode_t mode);
 
   /**
    * @brief Timed wait for event flags.
@@ -2531,11 +2531,11 @@ extern "C"
    * @retval ENOTRECOVERABLE Wait failed.
    */
   micro_os_plus_result_t
-  micro_os_plus_evflags_timed_wait (micro_os_plus_evflags_t* evflags,
-                                    micro_os_plus_flags_mask_t mask,
-                                    micro_os_plus_clock_duration_t timeout,
-                                    micro_os_plus_flags_mask_t* oflags,
-                                    micro_os_plus_flags_mode_t mode);
+  micro_os_plus_event_flags_timed_wait (micro_os_plus_event_flags_t* evflags,
+                                        micro_os_plus_flags_mask_t mask,
+                                        micro_os_plus_clock_duration_t timeout,
+                                        micro_os_plus_flags_mask_t* oflags,
+                                        micro_os_plus_flags_mode_t mode);
 
   /**
    * @brief Raise event flags.
@@ -2548,9 +2548,9 @@ extern "C"
    * @retval ENOTRECOVERABLE Raise failed.
    */
   micro_os_plus_result_t
-  micro_os_plus_evflags_raise (micro_os_plus_evflags_t* evflags,
-                               micro_os_plus_flags_mask_t mask,
-                               micro_os_plus_flags_mask_t* oflags);
+  micro_os_plus_event_flags_raise (micro_os_plus_event_flags_t* evflags,
+                                   micro_os_plus_flags_mask_t mask,
+                                   micro_os_plus_flags_mask_t* oflags);
 
   /**
    * @brief Clear event flags.
@@ -2562,9 +2562,9 @@ extern "C"
    * @retval EINVAL The mask is zero.
    */
   micro_os_plus_result_t
-  micro_os_plus_evflags_clear (micro_os_plus_evflags_t* evflags,
-                               micro_os_plus_flags_mask_t mask,
-                               micro_os_plus_flags_mask_t* oflags);
+  micro_os_plus_event_flags_clear (micro_os_plus_event_flags_t* evflags,
+                                   micro_os_plus_flags_mask_t mask,
+                                   micro_os_plus_flags_mask_t* oflags);
 
   /**
    * @brief Get (and possibly clear) event flags.
@@ -2575,9 +2575,9 @@ extern "C"
    * @return The selected bits from the flags mask.
    */
   micro_os_plus_flags_mask_t
-  micro_os_plus_evflags_get (micro_os_plus_evflags_t* evflags,
-                             micro_os_plus_flags_mask_t mask,
-                             micro_os_plus_flags_mode_t mode);
+  micro_os_plus_event_flags_get (micro_os_plus_event_flags_t* evflags,
+                                 micro_os_plus_flags_mask_t mask,
+                                 micro_os_plus_flags_mode_t mode);
 
   /**
    * @brief Check if there are threads waiting.
@@ -2586,7 +2586,7 @@ extern "C"
    * @retval false There are no threads waiting.
    */
   bool
-  micro_os_plus_evflags_are_waiting (micro_os_plus_evflags_t* evflags);
+  micro_os_plus_event_flags_are_waiting (micro_os_plus_event_flags_t* evflags);
 
   /**
    * @}

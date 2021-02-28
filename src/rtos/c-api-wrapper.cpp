@@ -416,11 +416,12 @@ static_assert (offsetof (rtos::message_queue::attributes, mq_queue_size_bytes)
                                 mq_queue_size_bytes),
                "adjust micro_os_plus_mqueue_attributes_t members");
 
-static_assert (sizeof (rtos::event_flags) == sizeof (micro_os_plus_evflags_t),
-               "adjust size of micro_os_plus_evflags_t");
+static_assert (sizeof (rtos::event_flags)
+                   == sizeof (micro_os_plus_event_flags_t),
+               "adjust size of micro_os_plus_event_flags_t");
 static_assert (sizeof (rtos::event_flags::attributes)
-                   == sizeof (micro_os_plus_evflags_attributes_t),
-               "adjust size of micro_os_plus_evflags_attributes_t");
+                   == sizeof (micro_os_plus_event_flags_attributes_t),
+               "adjust size of micro_os_plus_event_flags_attributes_t");
 
 static_assert (sizeof (class thread::stack)
                    == sizeof (micro_os_plus_thread_stack_t),
@@ -3408,8 +3409,8 @@ micro_os_plus_mqueue_reset (micro_os_plus_mqueue_t* mqueue)
  *  @ref micro_os_plus::rtos::event_flags::attributes
  */
 void
-micro_os_plus_evflags_attributes_init (
-    micro_os_plus_evflags_attributes_t* attr)
+micro_os_plus_event_flags_attributes_init (
+    micro_os_plus_event_flags_attributes_t* attr)
 {
   assert (attr != nullptr);
   new (attr) event_flags::attributes ();
@@ -3418,7 +3419,7 @@ micro_os_plus_evflags_attributes_init (
 /**
  * @details
  *
- * @note Must be paired with `micro_os_plus_evflags_destruct()`.
+ * @note Must be paired with `micro_os_plus_event_flags_destruct()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
@@ -3426,14 +3427,14 @@ micro_os_plus_evflags_attributes_init (
  *  @ref micro_os_plus::rtos::event_flags
  */
 void
-micro_os_plus_evflags_construct (
-    micro_os_plus_evflags_t* evflags, const char* name,
-    const micro_os_plus_evflags_attributes_t* attr)
+micro_os_plus_event_flags_construct (
+    micro_os_plus_event_flags_t* evflags, const char* name,
+    const micro_os_plus_event_flags_attributes_t* attr)
 {
   assert (evflags != nullptr);
   if (attr == nullptr)
     {
-      attr = (const micro_os_plus_evflags_attributes_t*)&event_flags::
+      attr = (const micro_os_plus_event_flags_attributes_t*)&event_flags::
           initializer;
     }
   new (evflags) event_flags (name, (const event_flags::attributes&)*attr);
@@ -3442,7 +3443,7 @@ micro_os_plus_evflags_construct (
 /**
  * @details
  *
- * @note Must be paired with `micro_os_plus_evflags_construct()`.
+ * @note Must be paired with `micro_os_plus_event_flags_construct()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
@@ -3450,7 +3451,7 @@ micro_os_plus_evflags_construct (
  *  @ref micro_os_plus::rtos::event_flags
  */
 void
-micro_os_plus_evflags_destruct (micro_os_plus_evflags_t* evflags)
+micro_os_plus_event_flags_destruct (micro_os_plus_event_flags_t* evflags)
 {
   assert (evflags != nullptr);
   (reinterpret_cast<event_flags&> (*evflags)).~event_flags ();
@@ -3463,23 +3464,23 @@ micro_os_plus_evflags_destruct (micro_os_plus_evflags_t* evflags)
  * system allocator and construct it.
  *
  * @note Equivalent of C++ `new event_flags(...)`.
- * @note Must be paired with `micro_os_plus_evflags_delete()`.
+ * @note Must be paired with `micro_os_plus_event_flags_delete()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::event_flags
  */
-micro_os_plus_evflags_t*
-micro_os_plus_evflags_new (const char* name,
-                           const micro_os_plus_evflags_attributes_t* attr)
+micro_os_plus_event_flags_t*
+micro_os_plus_event_flags_new (
+    const char* name, const micro_os_plus_event_flags_attributes_t* attr)
 {
   if (attr == nullptr)
     {
-      attr = (const micro_os_plus_evflags_attributes_t*)&event_flags::
+      attr = (const micro_os_plus_event_flags_attributes_t*)&event_flags::
           initializer;
     }
-  return reinterpret_cast<micro_os_plus_evflags_t*> (
+  return reinterpret_cast<micro_os_plus_event_flags_t*> (
       new event_flags (name, (const event_flags::attributes&)*attr));
 }
 
@@ -3490,7 +3491,7 @@ micro_os_plus_evflags_new (const char* name,
  * space using the RTOS system allocator.
  *
  * @note Equivalent of C++ `delete ptr_evflags`.
- * @note Must be paired with `micro_os_plus_evflags_new()`.
+ * @note Must be paired with `micro_os_plus_event_flags_new()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
@@ -3498,7 +3499,7 @@ micro_os_plus_evflags_new (const char* name,
  *  @ref micro_os_plus::rtos::event_flags
  */
 void
-micro_os_plus_evflags_delete (micro_os_plus_evflags_t* evflags)
+micro_os_plus_event_flags_delete (micro_os_plus_event_flags_t* evflags)
 {
   assert (evflags != nullptr);
   delete reinterpret_cast<event_flags*> (evflags);
@@ -3513,7 +3514,7 @@ micro_os_plus_evflags_delete (micro_os_plus_evflags_t* evflags)
  *  @ref micro_os_plus::rtos::event_flags::name()
  */
 const char*
-micro_os_plus_evflags_get_name (micro_os_plus_evflags_t* evflags)
+micro_os_plus_event_flags_get_name (micro_os_plus_event_flags_t* evflags)
 {
   assert (evflags != nullptr);
   return (reinterpret_cast<event_flags&> (*evflags)).name ();
@@ -3528,10 +3529,10 @@ micro_os_plus_evflags_get_name (micro_os_plus_evflags_t* evflags)
  *  @ref micro_os_plus::rtos::event_flags::wait()
  */
 micro_os_plus_result_t
-micro_os_plus_evflags_wait (micro_os_plus_evflags_t* evflags,
-                            micro_os_plus_flags_mask_t mask,
-                            micro_os_plus_flags_mask_t* oflags,
-                            micro_os_plus_flags_mode_t mode)
+micro_os_plus_event_flags_wait (micro_os_plus_event_flags_t* evflags,
+                                micro_os_plus_flags_mask_t mask,
+                                micro_os_plus_flags_mask_t* oflags,
+                                micro_os_plus_flags_mode_t mode)
 {
   assert (evflags != nullptr);
   return (micro_os_plus_result_t) (reinterpret_cast<event_flags&> (*evflags))
@@ -3547,10 +3548,10 @@ micro_os_plus_evflags_wait (micro_os_plus_evflags_t* evflags,
  *  @ref micro_os_plus::rtos::event_flags::try_wait()
  */
 micro_os_plus_result_t
-micro_os_plus_evflags_try_wait (micro_os_plus_evflags_t* evflags,
-                                micro_os_plus_flags_mask_t mask,
-                                micro_os_plus_flags_mask_t* oflags,
-                                micro_os_plus_flags_mode_t mode)
+micro_os_plus_event_flags_try_wait (micro_os_plus_event_flags_t* evflags,
+                                    micro_os_plus_flags_mask_t mask,
+                                    micro_os_plus_flags_mask_t* oflags,
+                                    micro_os_plus_flags_mode_t mode)
 {
   assert (evflags != nullptr);
   return (micro_os_plus_result_t) (reinterpret_cast<event_flags&> (*evflags))
@@ -3566,11 +3567,11 @@ micro_os_plus_evflags_try_wait (micro_os_plus_evflags_t* evflags,
  *  @ref micro_os_plus::rtos::event_flags::timed_wait()
  */
 micro_os_plus_result_t
-micro_os_plus_evflags_timed_wait (micro_os_plus_evflags_t* evflags,
-                                  micro_os_plus_flags_mask_t mask,
-                                  micro_os_plus_clock_duration_t timeout,
-                                  micro_os_plus_flags_mask_t* oflags,
-                                  micro_os_plus_flags_mode_t mode)
+micro_os_plus_event_flags_timed_wait (micro_os_plus_event_flags_t* evflags,
+                                      micro_os_plus_flags_mask_t mask,
+                                      micro_os_plus_clock_duration_t timeout,
+                                      micro_os_plus_flags_mask_t* oflags,
+                                      micro_os_plus_flags_mode_t mode)
 {
   assert (evflags != nullptr);
   return (micro_os_plus_result_t) (reinterpret_cast<event_flags&> (*evflags))
@@ -3586,9 +3587,9 @@ micro_os_plus_evflags_timed_wait (micro_os_plus_evflags_t* evflags,
  *  @ref micro_os_plus::rtos::event_flags::raise()
  */
 micro_os_plus_result_t
-micro_os_plus_evflags_raise (micro_os_plus_evflags_t* evflags,
-                             micro_os_plus_flags_mask_t mask,
-                             micro_os_plus_flags_mask_t* oflags)
+micro_os_plus_event_flags_raise (micro_os_plus_event_flags_t* evflags,
+                                 micro_os_plus_flags_mask_t mask,
+                                 micro_os_plus_flags_mask_t* oflags)
 {
   assert (evflags != nullptr);
   return (micro_os_plus_result_t) (reinterpret_cast<event_flags&> (*evflags))
@@ -3604,9 +3605,9 @@ micro_os_plus_evflags_raise (micro_os_plus_evflags_t* evflags,
  *  @ref micro_os_plus::rtos::event_flags::clear()
  */
 micro_os_plus_result_t
-micro_os_plus_evflags_clear (micro_os_plus_evflags_t* evflags,
-                             micro_os_plus_flags_mask_t mask,
-                             micro_os_plus_flags_mask_t* oflags)
+micro_os_plus_event_flags_clear (micro_os_plus_event_flags_t* evflags,
+                                 micro_os_plus_flags_mask_t mask,
+                                 micro_os_plus_flags_mask_t* oflags)
 {
   assert (evflags != nullptr);
   return (micro_os_plus_result_t) (reinterpret_cast<event_flags&> (*evflags))
@@ -3622,9 +3623,9 @@ micro_os_plus_evflags_clear (micro_os_plus_evflags_t* evflags,
  *  @ref micro_os_plus::rtos::event_flags::get()
  */
 micro_os_plus_flags_mask_t
-micro_os_plus_evflags_get (micro_os_plus_evflags_t* evflags,
-                           micro_os_plus_flags_mask_t mask,
-                           micro_os_plus_flags_mode_t mode)
+micro_os_plus_event_flags_get (micro_os_plus_event_flags_t* evflags,
+                               micro_os_plus_flags_mask_t mask,
+                               micro_os_plus_flags_mode_t mode)
 {
   assert (evflags != nullptr);
   return (micro_os_plus_flags_mask_t) (
@@ -3641,7 +3642,7 @@ micro_os_plus_evflags_get (micro_os_plus_evflags_t* evflags,
  *  @ref micro_os_plus::rtos::event_flags::raise()
  */
 bool
-micro_os_plus_evflags_are_waiting (micro_os_plus_evflags_t* evflags)
+micro_os_plus_event_flags_are_waiting (micro_os_plus_event_flags_t* evflags)
 {
   assert (evflags != nullptr);
   return (reinterpret_cast<event_flags&> (*evflags)).waiting ();
