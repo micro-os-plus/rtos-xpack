@@ -199,25 +199,25 @@ namespace micro_os_plus
        * @brief Construct a memory pool object instance.
        * @param [in] blocks The maximum number of items in the pool.
        * @param [in] block_size_bytes The size of an item, in bytes.
-       * @param [in] attr Reference to attributes.
+       * @param [in] attributes Reference to attributes.
        * @param [in] allocator Reference to allocator. Default a
        * local temporary instance.
        */
       memory_pool (std::size_t blocks, std::size_t block_size_bytes,
-                   const attributes& attr = initializer,
+                   const attributes& attributes = initializer,
                    const allocator_type& allocator = allocator_type ());
       /**
        * @brief Construct a named memory pool object instance.
        * @param [in] name Pointer to name.
        * @param [in] blocks The maximum number of items in the pool.
        * @param [in] block_size_bytes The size of an item, in bytes.
-       * @param [in] attr Reference to attributes.
+       * @param [in] attributes Reference to attributes.
        * @param [in] allocator Reference to allocator. Default a
        * local temporary instance.
        */
       memory_pool (const char* name, std::size_t blocks,
                    std::size_t block_size_bytes,
-                   const attributes& attr = initializer,
+                   const attributes& attributes = initializer,
                    const allocator_type& allocator = allocator_type ());
 
     protected:
@@ -405,13 +405,13 @@ namespace micro_os_plus
        * @brief Internal function used during memory pool construction.
        * @param [in] blocks The maximum number of items in the pool.
        * @param [in] block_size_bytes The size of an item, in bytes.
-       * @param [in] attr Reference to attributes.
+       * @param [in] attributes Reference to attributes.
        * @param [in] arena_address Pointer to queue storage.
        * @param [in] arena_size_bytes Size of queue storage.
        */
       void
       internal_construct_ (std::size_t blocks, std::size_t block_size_bytes,
-                           const attributes& attr, void* arena_address,
+                           const attributes& attributes, void* arena_address,
                            std::size_t arena_size_bytes);
 
       /**
@@ -463,7 +463,7 @@ namespace micro_os_plus
 #endif
       /**
        * @brief The static address where the pool is stored
-       * (from `attr.arena_address`).
+       * (from `attributes.arena_address`).
        */
       void* pool_arena_address_ = nullptr;
       /**
@@ -484,7 +484,7 @@ namespace micro_os_plus
 
       /**
        * @brief Total size of the statically allocated pool storage
-       * (from `attr.arena_size_bytes`).
+       * (from `attributes.arena_size_bytes`).
        */
       std::size_t pool_arena_size_bytes_ = 0;
       /**
@@ -546,12 +546,12 @@ namespace micro_os_plus
        * @brief Construct a memory pool object instance.
        * @param [in] blocks The maximum number of items in the pool.
        * @param [in] block_size_bytes The size of an item, in bytes.
-       * @param [in] attr Reference to attributes.
+       * @param [in] attributes Reference to attributes.
        * @param [in] allocator Reference to allocator. Default a
        * local temporary instance.
        */
       memory_pool_allocated (std::size_t blocks, std::size_t block_size_bytes,
-                             const attributes& attr = initializer,
+                             const attributes& attributes = initializer,
                              const allocator_type& allocator
                              = allocator_type ());
 
@@ -560,13 +560,13 @@ namespace micro_os_plus
        * @param [in] name Pointer to name.
        * @param [in] blocks The maximum number of items in the pool.
        * @param [in] block_size_bytes The size of an item, in bytes.
-       * @param [in] attr Reference to attributes.
+       * @param [in] attributes Reference to attributes.
        * @param [in] allocator Reference to allocator. Default a
        * local temporary instance.
        */
       memory_pool_allocated (const char* name, std::size_t blocks,
                              std::size_t block_size_bytes,
-                             const attributes& attr = initializer,
+                             const attributes& attributes = initializer,
                              const allocator_type& allocator
                              = allocator_type ());
 
@@ -627,12 +627,12 @@ namespace micro_os_plus
       /**
        * @brief Construct a memory pool object instance.
        * @param [in] blocks The maximum number of items in the pool.
-       * @param [in] attr Reference to attributes.
+       * @param [in] attributes Reference to attributes.
        * @param [in] allocator Reference to allocator. Default a
        * local temporary instance.
        */
       memory_pool_typed (std::size_t blocks,
-                         const memory_pool::attributes& attr
+                         const memory_pool::attributes& attributes
                          = memory_pool::initializer,
                          const allocator_type& allocator = allocator_type ());
 
@@ -640,12 +640,12 @@ namespace micro_os_plus
        * @brief Construct a named memory pool object instance.
        * @param [in] name Pointer to name.
        * @param [in] blocks The maximum number of items in the pool.
-       * @param [in] attr Reference to attributes.
+       * @param [in] attributes Reference to attributes.
        * @param [in] allocator Reference to allocator. Default a
        * local temporary instance.
        */
       memory_pool_typed (const char* name, std::size_t blocks,
-                         const memory_pool::attributes& attr
+                         const memory_pool::attributes& attributes
                          = memory_pool::initializer,
                          const allocator_type& allocator = allocator_type ());
 
@@ -753,17 +753,17 @@ namespace micro_os_plus
 
       /**
        * @brief Construct a memory pool object instance.
-       * @param [in] attr Reference to attributes.
+       * @param [in] attributes Reference to attributes.
        */
-      memory_pool_inclusive (const attributes& attr = initializer);
+      memory_pool_inclusive (const attributes& attributes = initializer);
 
       /**
        * @brief Construct a named memory pool object instance.
        * @param [in] name Pointer to name.
-       * @param [in] attr Reference to attributes.
+       * @param [in] attributes Reference to attributes.
        */
       memory_pool_inclusive (const char* name,
-                             const attributes& attr = initializer);
+                             const attributes& attributes = initializer);
 
       /**
        * @cond ignore
@@ -984,8 +984,8 @@ namespace micro_os_plus
     template <typename Allocator>
     inline memory_pool_allocated<Allocator>::memory_pool_allocated (
         std::size_t blocks, std::size_t block_size_bytes,
-        const attributes& attr, const allocator_type& allocator)
-        : memory_pool_allocated{ nullptr, blocks, block_size_bytes, attr,
+        const attributes& attributes, const allocator_type& allocator)
+        : memory_pool_allocated{ nullptr, blocks, block_size_bytes, attributes,
                                  allocator }
     {
       ;
@@ -1019,17 +1019,18 @@ namespace micro_os_plus
     template <typename Allocator>
     memory_pool_allocated<Allocator>::memory_pool_allocated (
         const char* name, std::size_t blocks, std::size_t block_size_bytes,
-        const attributes& attr, const allocator_type& allocator)
+        const attributes& attributes, const allocator_type& allocator)
         : memory_pool{ name }
     {
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_MEMPOOL)
       trace::printf ("%s() @%p %s %d %d\n", __func__, this, this->name (),
                      blocks, block_size_bytes);
 #endif
-      if (attr.arena_address != nullptr)
+      if (attributes.arena_address != nullptr)
         {
           // Do not use any allocator at all.
-          internal_construct_ (blocks, block_size_bytes, attr, nullptr, 0);
+          internal_construct_ (blocks, block_size_bytes, attributes, nullptr,
+                               0);
         }
       else
         {
@@ -1049,7 +1050,8 @@ namespace micro_os_plus
                   allocated_pool_size_elements_);
 
           internal_construct_ (
-              blocks, block_size_bytes, attr, allocated_pool_arena_address_,
+              blocks, block_size_bytes, attributes,
+              allocated_pool_arena_address_,
               allocated_pool_size_elements_
                   * sizeof (typename allocator_type::value_type));
         }
@@ -1122,10 +1124,10 @@ namespace micro_os_plus
      */
     template <typename T, typename Allocator>
     inline memory_pool_typed<T, Allocator>::memory_pool_typed (
-        std::size_t blocks, const memory_pool::attributes& attr,
+        std::size_t blocks, const memory_pool::attributes& attributes,
         const allocator_type& allocator)
-        : memory_pool_allocated<allocator_type> (blocks, sizeof (T), attr,
-                                                 allocator)
+        : memory_pool_allocated<allocator_type> (blocks, sizeof (T),
+                                                 attributes, allocator)
     {
       ;
     }
@@ -1161,9 +1163,10 @@ namespace micro_os_plus
     template <typename T, typename Allocator>
     inline memory_pool_typed<T, Allocator>::memory_pool_typed (
         const char* name, std::size_t blocks,
-        const memory_pool::attributes& attr, const allocator_type& allocator)
+        const memory_pool::attributes& attributes,
+        const allocator_type& allocator)
         : memory_pool_allocated<allocator_type> (name, blocks, sizeof (T),
-                                                 attr, allocator)
+                                                 attributes, allocator)
     {
       ;
     }
@@ -1280,9 +1283,11 @@ namespace micro_os_plus
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
     template <typename T, std::size_t N>
-    memory_pool_inclusive<T, N>::memory_pool_inclusive (const attributes& attr)
+    memory_pool_inclusive<T, N>::memory_pool_inclusive (
+        const attributes& attributes)
     {
-      internal_construct_ (blocks, sizeof (T), attr, &arena_, sizeof (arena_));
+      internal_construct_ (blocks, sizeof (T), attributes, &arena_,
+                           sizeof (arena_));
     }
 
     /**
@@ -1312,11 +1317,12 @@ namespace micro_os_plus
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
     template <typename T, std::size_t N>
-    memory_pool_inclusive<T, N>::memory_pool_inclusive (const char* name,
-                                                        const attributes& attr)
+    memory_pool_inclusive<T, N>::memory_pool_inclusive (
+        const char* name, const attributes& attributes)
         : memory_pool{ name }
     {
-      internal_construct_ (blocks, sizeof (T), attr, &arena_, sizeof (arena_));
+      internal_construct_ (blocks, sizeof (T), attributes, &arena_,
+                           sizeof (arena_));
     }
 
     /**

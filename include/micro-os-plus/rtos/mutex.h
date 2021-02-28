@@ -349,16 +349,17 @@ namespace micro_os_plus
 
       /**
        * @brief Construct a mutex object instance.
-       * @param [in] attr Reference to attributes.
+       * @param [in] attributes Reference to attributes.
        */
-      mutex (const attributes& attr = initializer_normal);
+      mutex (const attributes& attributes = initializer_normal);
 
       /**
        * @brief Construct a named mutex object instance.
        * @param [in] name Pointer to name.
-       * @param [in] attr Reference to attributes.
+       * @param [in] attributes Reference to attributes.
        */
-      mutex (const char* name, const attributes& attr = initializer_normal);
+      mutex (const char* name,
+             const attributes& attributes = initializer_normal);
 
       /**
        * @cond ignore
@@ -714,13 +715,13 @@ namespace micro_os_plus
       /**
        * @brief Construct a recursive mutex object instance.
        */
-      mutex_recursive (const attributes& attr = initializer_recursive);
+      mutex_recursive (const attributes& attributes = initializer_recursive);
 
       /**
        * @brief Construct a named recursive mutex object instance.
        */
       mutex_recursive (const char* name,
-                       const attributes& attr = initializer_recursive);
+                       const attributes& attributes = initializer_recursive);
 
       /**
        * @cond ignore
@@ -866,15 +867,15 @@ namespace micro_os_plus
 
     // ========================================================================
 
-    inline mutex_recursive::mutex_recursive (const attributes& attr)
-        : mutex{ attr }
+    inline mutex_recursive::mutex_recursive (const attributes& attributes)
+        : mutex{ attributes }
     {
       ;
     }
 
     inline mutex_recursive::mutex_recursive (const char* name,
-                                             const attributes& attr)
-        : mutex{ name, attr }
+                                             const attributes& attributes)
+        : mutex{ name, attributes }
     {
       ;
     }

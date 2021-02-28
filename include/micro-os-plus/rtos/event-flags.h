@@ -124,16 +124,17 @@ namespace micro_os_plus
 
       /**
        * @brief Construct an event flags object instance.
-       * @param [in] attr Reference to attributes.
+       * @param [in] attributes Reference to attributes.
        */
-      event_flags (const attributes& attr = initializer);
+      event_flags (const attributes& attributes = initializer);
 
       /**
        * @brief Construct a named event flags object instance.
        * @param [in] name Pointer to name.
-       * @param [in] attr Reference to attributes.
+       * @param [in] attributes Reference to attributes.
        */
-      event_flags (const char* name, const attributes& attr = initializer);
+      event_flags (const char* name,
+                   const attributes& attributes = initializer);
 
       /**
        * @cond ignore

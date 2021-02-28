@@ -229,8 +229,8 @@ namespace micro_os_plus
      *  ([IEEE Std 1003.1, 2013
      * Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
      */
-    condition_variable::condition_variable (const attributes& attr)
-        : condition_variable{ nullptr, attr }
+    condition_variable::condition_variable (const attributes& attributes)
+        : condition_variable{ nullptr, attributes }
     {
       ;
     }
@@ -266,7 +266,7 @@ namespace micro_os_plus
      * Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
      */
     condition_variable::condition_variable (const char* name,
-                                            const attributes& attr
+                                            const attributes& attributes
                                             __attribute__ ((unused)))
         : object_named_system{ name }
     {

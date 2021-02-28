@@ -123,8 +123,8 @@ namespace micro_os_plus
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
-    event_flags::event_flags (const attributes& attr)
-        : event_flags{ nullptr, attr }
+    event_flags::event_flags (const attributes& attributes)
+        : event_flags{ nullptr, attributes }
     {
       ;
     }
@@ -153,7 +153,7 @@ namespace micro_os_plus
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
-    event_flags::event_flags (const char* name, const attributes& attr)
+    event_flags::event_flags (const char* name, const attributes& attributes)
         : object_named_system{ name }
     {
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_EVFLAGS)
@@ -164,7 +164,7 @@ namespace micro_os_plus
       micro_os_plus_assert_throw (!interrupts::in_handler_mode (), EPERM);
 
 #if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_EVENT_FLAGS)
-      clock_ = attr.clock != nullptr ? attr.clock : &sysclock;
+      clock_ = attributes.clock != nullptr ? attributes.clock : &sysclock;
 #endif
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_EVENT_FLAGS)

@@ -248,17 +248,17 @@ namespace micro_os_plus
 
       /**
        * @brief Construct a semaphore object instance.
-       * @param [in] attr Reference to attributes.
+       * @param [in] attributes Reference to attributes.
        */
-      semaphore (const attributes& attr = initializer_binary);
+      semaphore (const attributes& attributes = initializer_binary);
 
       /**
        * @brief Construct a named semaphore object instance.
        * @param [in] name Pointer to name.
-       * @param [in] attr Reference to attributes.
+       * @param [in] attributes Reference to attributes.
        */
       semaphore (const char* name,
-                 const attributes& attr = initializer_binary);
+                 const attributes& attributes = initializer_binary);
 
     protected:
       /**
@@ -267,7 +267,7 @@ namespace micro_os_plus
 
       semaphore (const char* name, const count_t max_value,
                  const count_t initial_value,
-                 const attributes& attr = initializer_binary);
+                 const attributes& attributes = initializer_binary);
 
       /**
        * @endcond
@@ -727,8 +727,8 @@ namespace micro_os_plus
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
-    inline semaphore::semaphore (const attributes& attr)
-        : semaphore{ nullptr, attr }
+    inline semaphore::semaphore (const attributes& attributes)
+        : semaphore{ nullptr, attributes }
     {
       ;
     }

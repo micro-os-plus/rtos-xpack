@@ -448,13 +448,13 @@ extern "C"
 
   /**
    * @brief Initialise the thread attributes.
-   * @param [in] attr Pointer to thread attributes object instance.
+   * @param [in] attributes Pointer to thread attributes object instance.
    * @par Returns
    *  Nothing.
    */
   void
   micro_os_plus_thread_attributes_init (
-      micro_os_plus_thread_attributes_t* attr);
+      micro_os_plus_thread_attributes_t* attributes);
 
   /**
    * @}
@@ -471,7 +471,7 @@ extern "C"
    * @param [in] name Pointer to name (may be NULL).
    * @param [in] function Pointer to thread function.
    * @param [in] arguments Pointer to thread function arguments (may be NULL).
-   * @param [in] attr Pointer to attributes (may be NULL)
+   * @param [in] attributes Pointer to attributes (may be NULL)
    * @par Returns
    *  Nothing.
    */
@@ -480,7 +480,7 @@ extern "C"
       micro_os_plus_thread_t* thread, const char* name,
       micro_os_plus_thread_func_t function,
       const micro_os_plus_thread_func_args_t arguments,
-      const micro_os_plus_thread_attributes_t* attr);
+      const micro_os_plus_thread_attributes_t* attributes);
 
   /**
    * @brief Destruct the statically allocated thread object instance.
@@ -496,14 +496,14 @@ extern "C"
    * @param [in] name Pointer to name (may be NULL).
    * @param [in] function Pointer to thread function.
    * @param [in] arguments Pointer to thread function arguments (may be NULL).
-   * @param [in] attr Pointer to attributes (may be NULL)
+   * @param [in] attributes Pointer to attributes (may be NULL)
    * @return Pointer to new thread object instance.
    */
   micro_os_plus_thread_t*
-  micro_os_plus_thread_new (const char* name,
-                            micro_os_plus_thread_func_t function,
-                            const micro_os_plus_thread_func_args_t arguments,
-                            const micro_os_plus_thread_attributes_t* attr);
+  micro_os_plus_thread_new (
+      const char* name, micro_os_plus_thread_func_t function,
+      const micro_os_plus_thread_func_args_t arguments,
+      const micro_os_plus_thread_attributes_t* attributes);
 
   /**
    * @brief Destruct the thread object instance and deallocate it.
@@ -1013,22 +1013,23 @@ extern "C"
 
   /**
    * @brief Initialise the single shot timer attributes.
-   * @param [in] attr Pointer to timer attributes object instance.
+   * @param [in] attributes Pointer to timer attributes object instance.
    * @par Returns
    *  Nothing.
    */
   void
-  micro_os_plus_timer_attributes_init (micro_os_plus_timer_attributes_t* attr);
+  micro_os_plus_timer_attributes_init (
+      micro_os_plus_timer_attributes_t* attributes);
 
   /**
    * @brief Initialise the periodic timer attributes.
-   * @param [in] attr Pointer to timer attributes object instance.
+   * @param [in] attributes Pointer to timer attributes object instance.
    * @par Returns
    *  Nothing.
    */
   void
   micro_os_plus_timer_attributes_periodic_init (
-      micro_os_plus_timer_attributes_t* attr);
+      micro_os_plus_timer_attributes_t* attributes);
 
   /**
    * @brief Get a periodic timer attributes object instance.
@@ -1052,7 +1053,7 @@ extern "C"
    * @param [in] name Pointer to name (may be NULL).
    * @param [in] function Pointer to timer function.
    * @param [in] arguments Pointer to timer function arguments (may be NULL).
-   * @param [in] attr Pointer to attributes (may be NULL).
+   * @param [in] attributes Pointer to attributes (may be NULL).
    * @par Returns
    *  Nothing.
    */
@@ -1061,7 +1062,7 @@ extern "C"
       micro_os_plus_timer_t* timer, const char* name,
       micro_os_plus_timer_function_t function,
       micro_os_plus_timer_function_arguments_t arguments,
-      const micro_os_plus_timer_attributes_t* attr);
+      const micro_os_plus_timer_attributes_t* attributes);
 
   /**
    * @brief Destruct the statically allocated timer object instance.
@@ -1077,14 +1078,14 @@ extern "C"
    * @param [in] name Pointer to name (may be NULL).
    * @param [in] function Pointer to timer function.
    * @param [in] arguments Pointer to timer function arguments (may be NULL).
-   * @param [in] attr Pointer to attributes (may be NULL).
+   * @param [in] attributes Pointer to attributes (may be NULL).
    * @return Pointer to new timer object instance.
    */
   micro_os_plus_timer_t*
   micro_os_plus_timer_new (const char* name,
                            micro_os_plus_timer_function_t function,
                            micro_os_plus_timer_function_arguments_t arguments,
-                           const micro_os_plus_timer_attributes_t* attr);
+                           const micro_os_plus_timer_attributes_t* attributes);
 
   /**
    * @brief Destruct the timer object instance and deallocate it.
@@ -1156,22 +1157,23 @@ extern "C"
 
   /**
    * @brief Initialise the mutex attributes.
-   * @param [in] attr Pointer to mutex attributes object instance.
+   * @param [in] attributes Pointer to mutex attributes object instance.
    * @par Returns
    *  Nothing.
    */
   void
-  micro_os_plus_mutex_attributes_init (micro_os_plus_mutex_attributes_t* attr);
+  micro_os_plus_mutex_attributes_init (
+      micro_os_plus_mutex_attributes_t* attributes);
 
   /**
    * @brief Initialise the recursive mutex attributes.
-   * @param [in] attr Pointer to mutex attributes object instance.
+   * @param [in] attributes Pointer to mutex attributes object instance.
    * @par Returns
    *  Nothing.
    */
   void
   micro_os_plus_mutex_attributes_recursive_init (
-      micro_os_plus_mutex_attributes_t* attr);
+      micro_os_plus_mutex_attributes_t* attributes);
 
   /**
    * @brief Get a recursive mutex attributes object instance.
@@ -1193,27 +1195,27 @@ extern "C"
    * @brief Construct a statically allocated mutex object instance.
    * @param [in] mutex Pointer to mutex object instance storage.
    * @param [in] name Pointer to name (may be NULL).
-   * @param [in] attr Pointer to attributes (may be NULL).
+   * @param [in] attributes Pointer to attributes (may be NULL).
    * @par Returns
    *  Nothing.
    */
   void
-  micro_os_plus_mutex_construct (micro_os_plus_mutex_t* mutex,
-                                 const char* name,
-                                 const micro_os_plus_mutex_attributes_t* attr);
+  micro_os_plus_mutex_construct (
+      micro_os_plus_mutex_t* mutex, const char* name,
+      const micro_os_plus_mutex_attributes_t* attributes);
 
   /**
    * @brief Construct a statically allocated recursive mutex object instance.
    * @param [in] mutex Pointer to mutex object instance storage.
    * @param [in] name Pointer to name (may be NULL).
-   * @param [in] attr Pointer to attributes (may be NULL).
+   * @param [in] attributes Pointer to attributes (may be NULL).
    * @par Returns
    *  Nothing.
    */
   void
   micro_os_plus_mutex_recursive_construct (
       micro_os_plus_mutex_t* mutex, const char* name,
-      const micro_os_plus_mutex_attributes_t* attr);
+      const micro_os_plus_mutex_attributes_t* attributes);
 
   /**
    * @brief Destruct the statically allocated mutex object instance.
@@ -1227,22 +1229,22 @@ extern "C"
   /**
    * @brief Allocate a mutex object instance and construct it.
    * @param [in] name Pointer to name (may be NULL).
-   * @param [in] attr Pointer to attributes (may be NULL).
+   * @param [in] attributes Pointer to attributes (may be NULL).
    * @return Pointer to new mutex object instance.
    */
   micro_os_plus_mutex_t*
   micro_os_plus_mutex_new (const char* name,
-                           const micro_os_plus_mutex_attributes_t* attr);
+                           const micro_os_plus_mutex_attributes_t* attributes);
 
   /**
    * @brief Allocated a recursive mutex object instance and construct it.
    * @param [in] name Pointer to name (may be NULL).
-   * @param [in] attr Pointer to attributes (may be NULL).
+   * @param [in] attributes Pointer to attributes (may be NULL).
    * @return Pointer to new recursive mutex object instance.
    */
   micro_os_plus_mutex_t*
   micro_os_plus_mutex_recursive_new (
-      const char* name, const micro_os_plus_mutex_attributes_t* attr);
+      const char* name, const micro_os_plus_mutex_attributes_t* attributes);
 
   /**
    * @brief Destruct the mutex object instance and deallocate it.
@@ -1453,13 +1455,14 @@ extern "C"
 
   /**
    * @brief Initialise the condition variable attributes.
-   * @param [in] attr Pointer to condition variable attributes object instance.
+   * @param [in] attributes Pointer to condition variable attributes object
+   * instance.
    * @par Returns
    *  Nothing.
    */
   void
   micro_os_plus_condition_variable_attributes_init (
-      micro_os_plus_condition_variable_attributes_t* attr);
+      micro_os_plus_condition_variable_attributes_t* attributes);
 
   /**
    * @}
@@ -1475,7 +1478,7 @@ extern "C"
    *  object instance.
    * @param [in] condvar Pointer to condition variable object instance storage.
    * @param [in] name Pointer to name (may be NULL).
-   * @param [in] attr Pointer to attributes (may be NULL).
+   * @param [in] attributes Pointer to attributes (may be NULL).
    * @par Errors
    *  The constructor shall fail if:
    *  - `EAGAIN` - The system lacked the necessary resources
@@ -1490,7 +1493,7 @@ extern "C"
   void
   micro_os_plus_condition_variable_construct (
       micro_os_plus_condition_variable_t* condvar, const char* name,
-      const micro_os_plus_condition_variable_attributes_t* attr);
+      const micro_os_plus_condition_variable_attributes_t* attributes);
 
   /**
    * @brief Destruct the statically allocated condition variable
@@ -1506,7 +1509,7 @@ extern "C"
   /**
    * @brief Allocate a condition variable object instance and construct it.
    * @param [in] name Pointer to name (may be NULL).
-   * @param [in] attr Pointer to attributes (may be NULL).
+   * @param [in] attributes Pointer to attributes (may be NULL).
    * @par Errors
    *  The constructor shall fail if:
    *  - `EAGAIN` - The system lacked the necessary resources
@@ -1520,7 +1523,7 @@ extern "C"
   micro_os_plus_condition_variable_t*
   micro_os_plus_condition_variable_new (
       const char* name,
-      const micro_os_plus_condition_variable_attributes_t* attr);
+      const micro_os_plus_condition_variable_attributes_t* attributes);
 
   /**
    * @brief Destruct the condition variable object instance and deallocate it.
@@ -1644,35 +1647,35 @@ extern "C"
 
   /**
    * @brief Initialise the counting semaphore attributes.
-   * @param [in] attr Pointer to semaphore attributes object instance.
+   * @param [in] attributes Pointer to semaphore attributes object instance.
    * @par Returns
    *  Nothing.
    */
   void
   micro_os_plus_semaphore_attributes_init (
-      micro_os_plus_semaphore_attributes_t* attr);
+      micro_os_plus_semaphore_attributes_t* attributes);
 
   /**
    * @brief Initialise the binary semaphore attributes.
-   * @param [in] attr Pointer to semaphore attributes object instance.
+   * @param [in] attributes Pointer to semaphore attributes object instance.
    * @param [in] initial_value Initial count value.
    * @par Returns
    *  Nothing.
    */
   void
   micro_os_plus_semaphore_attributes_binary_init (
-      micro_os_plus_semaphore_attributes_t* attr,
+      micro_os_plus_semaphore_attributes_t* attributes,
       const micro_os_plus_semaphore_count_t initial_value);
 
   /**
    * @brief Initialise the counting semaphore attributes.
-   * @param [in] attr Pointer to semaphore attributes object instance.
+   * @param [in] attributes Pointer to semaphore attributes object instance.
    * @param [in] max_value Maximum count value.
    * @param [in] initial_value Initial count value.
    */
   void
   micro_os_plus_semaphore_attributes_counting_init (
-      micro_os_plus_semaphore_attributes_t* attr,
+      micro_os_plus_semaphore_attributes_t* attributes,
       const micro_os_plus_semaphore_count_t max_value,
       const micro_os_plus_semaphore_count_t initial_value);
 
@@ -1696,14 +1699,14 @@ extern "C"
    * @brief Construct a statically allocated semaphore object instance.
    * @param [in] semaphore Pointer to semaphore object instance storage.
    * @param [in] name Pointer to name (may be NULL).
-   * @param [in] attr Pointer to attributes (may be NULL).
+   * @param [in] attributes Pointer to attributes (may be NULL).
    * @par Returns
    *  Nothing.
    */
   void
   micro_os_plus_semaphore_construct (
       micro_os_plus_semaphore_t* semaphore, const char* name,
-      const micro_os_plus_semaphore_attributes_t* attr);
+      const micro_os_plus_semaphore_attributes_t* attributes);
 
   /**
    * @brief Construct a statically allocated binary semaphore object instance.
@@ -1746,12 +1749,13 @@ extern "C"
   /**
    * @brief Allocated a semaphore object instance and construct it.
    * @param [in] name Pointer to name (may be NULL).
-   * @param [in] attr Pointer to attributes (may be NULL).
+   * @param [in] attributes Pointer to attributes (may be NULL).
    * @return Pointer to new semaphore object instance.
    */
   micro_os_plus_semaphore_t*
   micro_os_plus_semaphore_new (
-      const char* name, const micro_os_plus_semaphore_attributes_t* attr);
+      const char* name,
+      const micro_os_plus_semaphore_attributes_t* attributes);
 
   /**
    * @brief Allocate a binary semaphore object instance and construct it.
@@ -1913,13 +1917,13 @@ extern "C"
 
   /**
    * @brief Initialise the memory pool attributes.
-   * @param [in] attr Pointer to memory pool attributes object instance.
+   * @param [in] attributes Pointer to memory pool attributes object instance.
    * @par Returns
    *  Nothing.
    */
   void
   micro_os_plus_memory_pool_attributes_init (
-      micro_os_plus_memory_pool_attributes_t* attr);
+      micro_os_plus_memory_pool_attributes_t* attributes);
 
   /**
    * @}
@@ -1936,7 +1940,7 @@ extern "C"
    * @param [in] name Pointer to name (may be NULL).
    * @param [in] blocks The maximum number of items in the pool.
    * @param [in] block_size_bytes The size of an item, in bytes.
-   * @param [in] attr Pointer to attributes (may be NULL).
+   * @param [in] attributes Pointer to attributes (may be NULL).
    * @par Returns
    *  Nothing.
    */
@@ -1944,7 +1948,7 @@ extern "C"
   micro_os_plus_memory_pool_construct (
       micro_os_plus_memory_pool_t* mempool, const char* name, size_t blocks,
       size_t block_size_bytes,
-      const micro_os_plus_memory_pool_attributes_t* attr);
+      const micro_os_plus_memory_pool_attributes_t* attributes);
 
   /**
    * @brief Destruct the statically allocated memory pool object instance.
@@ -1960,13 +1964,13 @@ extern "C"
    * @param [in] name Pointer to name (may be NULL).
    * @param [in] blocks The maximum number of items in the pool.
    * @param [in] block_size_bytes The size of an item, in bytes.
-   * @param [in] attr Pointer to attributes (may be NULL).
+   * @param [in] attributes Pointer to attributes (may be NULL).
    * @return Pointer to new memory pool object instance.
    */
   micro_os_plus_memory_pool_t*
   micro_os_plus_memory_pool_new (
       const char* name, size_t blocks, size_t block_size_bytes,
-      const micro_os_plus_memory_pool_attributes_t* attr);
+      const micro_os_plus_memory_pool_attributes_t* attributes);
 
   /**
    * @brief Destruct the memory pool object instance and deallocate it.
@@ -2115,13 +2119,14 @@ extern "C"
 
   /**
    * @brief Initialise the message queue attributes.
-   * @param [in] attr Pointer to message queue attributes object instance.
+   * @param [in] attributes Pointer to message queue attributes object
+   * instance.
    * @par Returns
    *  Nothing.
    */
   void
   micro_os_plus_message_queue_attributes_init (
-      micro_os_plus_message_queue_attributes_t* attr);
+      micro_os_plus_message_queue_attributes_t* attributes);
 
   /**
    * @}
@@ -2138,7 +2143,7 @@ extern "C"
    * @param [in] name Pointer to name (may be NULL).
    * @param [in] messages The number of messages.
    * @param [in] message_size_bytes The message size, in bytes.
-   * @param [in] attr Pointer to attributes (may be NULL).
+   * @param [in] attributes Pointer to attributes (may be NULL).
    * @par Returns
    *  Nothing.
    */
@@ -2146,7 +2151,7 @@ extern "C"
   micro_os_plus_message_queue_construct (
       micro_os_plus_message_queue_t* mqueue, const char* name, size_t messages,
       size_t message_size_bytes,
-      const micro_os_plus_message_queue_attributes_t* attr);
+      const micro_os_plus_message_queue_attributes_t* attributes);
 
   /**
    * @brief Destruct the statically allocated message queue object instance.
@@ -2162,13 +2167,13 @@ extern "C"
    * @param [in] name Pointer to name (may be NULL).
    * @param [in] messages The number of messages.
    * @param [in] message_size_bytes The message size, in bytes.
-   * @param [in] attr Pointer to attributes (may be NULL).
+   * @param [in] attributes Pointer to attributes (may be NULL).
    * @return Pointer to new message queue object instance.
    */
   micro_os_plus_message_queue_t*
   micro_os_plus_message_queue_new (
       const char* name, size_t messages, size_t message_size_bytes,
-      const micro_os_plus_message_queue_attributes_t* attr);
+      const micro_os_plus_message_queue_attributes_t* attributes);
 
   /**
    * @brief Destruct the message queue object instance and deallocate it.
@@ -2416,13 +2421,13 @@ extern "C"
 
   /**
    * @brief Initialise the event flags attributes.
-   * @param [in] attr Pointer to event flags attributes object instance.
+   * @param [in] attributes Pointer to event flags attributes object instance.
    * @par Returns
    *  Nothing.
    */
   void
   micro_os_plus_event_flags_attributes_init (
-      micro_os_plus_event_flags_attributes_t* attr);
+      micro_os_plus_event_flags_attributes_t* attributes);
 
   /**
    * @}
@@ -2437,14 +2442,14 @@ extern "C"
    * @brief Construct a statically allocated event flags object instance.
    * @param [in] evflags Pointer to event flags object instance storage.
    * @param [in] name Pointer to name (may be NULL).
-   * @param [in] attr Pointer to attributes (may be NULL).
+   * @param [in] attributes Pointer to attributes (may be NULL).
    * @par Returns
    *  Nothing.
    */
   void
   micro_os_plus_event_flags_construct (
       micro_os_plus_event_flags_t* evflags, const char* name,
-      const micro_os_plus_event_flags_attributes_t* attr);
+      const micro_os_plus_event_flags_attributes_t* attributes);
 
   /**
    * @brief Destruct the statically allocated event flags object instance.
@@ -2458,12 +2463,13 @@ extern "C"
   /**
    * @brief Allocate an event flags object instance and construct it.
    * @param [in] name Pointer to name (may be NULL).
-   * @param [in] attr Pointer to attributes (may be NULL).
+   * @param [in] attributes Pointer to attributes (may be NULL).
    * @return Pointer to new event flags object instance.
    */
   micro_os_plus_event_flags_t*
   micro_os_plus_event_flags_new (
-      const char* name, const micro_os_plus_event_flags_attributes_t* attr);
+      const char* name,
+      const micro_os_plus_event_flags_attributes_t* attributes);
 
   /**
    * @brief Destruct the event flags object instance and deallocate it.

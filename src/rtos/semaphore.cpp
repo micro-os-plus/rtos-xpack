@@ -154,8 +154,9 @@ namespace micro_os_plus
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
-    semaphore::semaphore (const char* name, const attributes& attr)
-        : semaphore{ name, attr.max_value, attr.initial_value, attr }
+    semaphore::semaphore (const char* name, const attributes& attributes)
+        : semaphore{ name, attributes.max_value, attributes.initial_value,
+                     attributes }
     {
       ;
     }
@@ -166,7 +167,7 @@ namespace micro_os_plus
 
     semaphore::semaphore (const char* name, const count_t max_value,
                           const count_t initial_value,
-                          const attributes& attr
+                          const attributes& attributes
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_SEMAPHORE)
                           __attribute__ ((unused))
 #endif
@@ -192,7 +193,7 @@ namespace micro_os_plus
       count_ = initial_value;
 
 #if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_SEMAPHORE)
-      clock_ = attr.clock != nullptr ? attr.clock : &sysclock;
+      clock_ = attributes.clock != nullptr ? attributes.clock : &sysclock;
 #endif
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_SEMAPHORE)

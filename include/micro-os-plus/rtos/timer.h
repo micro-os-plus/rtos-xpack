@@ -253,20 +253,20 @@ namespace micro_os_plus
        * @brief Construct a timer object instance.
        * @param [in] function Pointer to timer function.
        * @param [in] arguments Pointer to timer function arguments.
-       * @param [in] attr Reference to attributes.
+       * @param [in] attributes Reference to attributes.
        */
       timer (func_t function, func_args_t arguments,
-             const attributes& attr = once_initializer);
+             const attributes& attributes = once_initializer);
 
       /**
        * @brief Construct a named timer object instance.
        * @param [in] name Pointer to name.
        * @param [in] function Pointer to timer function.
        * @param [in] arguments Pointer to timer function arguments.
-       * @param [in] attr Reference to attributes.
+       * @param [in] attributes Reference to attributes.
        */
       timer (const char* name, func_t function, func_args_t arguments,
-             const attributes& attr = once_initializer);
+             const attributes& attributes = once_initializer);
 
       /**
        * @cond ignore

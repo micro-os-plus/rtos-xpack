@@ -389,9 +389,9 @@ namespace micro_os_plus
      */
     message_queue::message_queue (std::size_t messages,
                                   std::size_t message_size_bytes,
-                                  const attributes& attr,
+                                  const attributes& attributes,
                                   const allocator_type& allocator)
-        : message_queue{ nullptr, messages, message_size_bytes, attr,
+        : message_queue{ nullptr, messages, message_size_bytes, attributes,
                          allocator }
     {
       ;
@@ -426,7 +426,7 @@ namespace micro_os_plus
      */
     message_queue::message_queue (const char* name, std::size_t messages,
                                   std::size_t message_size_bytes,
-                                  const attributes& attr,
+                                  const attributes& attributes,
                                   const allocator_type& allocator)
         : object_named_system{ name }
     {
@@ -435,10 +435,11 @@ namespace micro_os_plus
                      messages, message_size_bytes);
 #endif
 
-      if (attr.arena_address != nullptr)
+      if (attributes.arena_address != nullptr)
         {
           // Do not use any allocator at all.
-          internal_construct_ (messages, message_size_bytes, attr, nullptr, 0);
+          internal_construct_ (messages, message_size_bytes, attributes,
+                               nullptr, 0);
         }
       else
         {
@@ -458,7 +459,8 @@ namespace micro_os_plus
                   allocated_arena_size_elements_);
 
           internal_construct_ (
-              messages, message_size_bytes, attr, allocated_arena_address_,
+              messages, message_size_bytes, attributes,
+              allocated_arena_address_,
               allocated_arena_size_elements_
                   * sizeof (typename allocator_type::value_type));
         }
@@ -517,7 +519,7 @@ namespace micro_os_plus
     void
     message_queue::internal_construct_ (std::size_t messages,
                                         std::size_t message_size_bytes,
-                                        const attributes& attr,
+                                        const attributes& attributes,
                                         void* arena_addressess,
                                         std::size_t arena_size_bytes)
     {
@@ -525,7 +527,7 @@ namespace micro_os_plus
       micro_os_plus_assert_throw (!interrupts::in_handler_mode (), EPERM);
 
 #if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
-      clock_ = attr.clock != nullptr ? attr.clock : &sysclock;
+      clock_ = attributes.clock != nullptr ? attributes.clock : &sysclock;
 #endif
       message_size_bytes_
           = static_cast<message_queue::message_size_t> (message_size_bytes);
@@ -545,15 +547,15 @@ namespace micro_os_plus
       if (arena_addressess != nullptr)
         {
           // The attributes should not define any storage in this case.
-          assert (attr.arena_address == nullptr);
+          assert (attributes.arena_address == nullptr);
 
           arena_address_ = arena_addressess;
           arena_size_bytes_ = arena_size_bytes;
         }
       else
         {
-          arena_address_ = attr.arena_address;
-          arena_size_bytes_ = attr.arena_size_bytes;
+          arena_address_ = attributes.arena_address;
+          arena_size_bytes_ = attributes.arena_size_bytes;
         }
 
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_MQUEUE)

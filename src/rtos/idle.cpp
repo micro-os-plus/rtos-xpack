@@ -132,12 +132,13 @@ void __attribute__ ((weak)) micro_os_plus_startup_create_thread_idle (void)
 
 #else
 
-  thread::attributes attr = thread::initializer;
-  attr.stack_size_bytes = MICRO_OS_PLUS_INTEGER_RTOS_IDLE_STACK_SIZE_BYTES;
+  thread::attributes attributes = thread::initializer;
+  attributes.stack_size_bytes
+      = MICRO_OS_PLUS_INTEGER_RTOS_IDLE_STACK_SIZE_BYTES;
 
   // No need for an explicit delete, it is deallocated by the unique_ptr.
   micro_os_plus_idle_thread_ = std::unique_ptr<thread> (
-      new thread ("idle", micro_os_plus_idle, nullptr, attr));
+      new thread ("idle", micro_os_plus_idle, nullptr, attributes));
 
   micro_os_plus_idle_thread = micro_os_plus_idle_thread_.get ();
 

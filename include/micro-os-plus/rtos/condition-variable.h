@@ -122,7 +122,7 @@ namespace micro_os_plus
 
       /**
        * @brief Construct a condition variable object instance.
-       * @param [in] attr Reference to attributes.
+       * @param [in] attributes Reference to attributes.
        * @par Errors
        *  The constructor shall fail if:
        *  - `EAGAIN` - The system lacked the necessary resources
@@ -132,12 +132,12 @@ namespace micro_os_plus
        * @par
        *  The constructor shall not fail with an error code of `EINTR`.
        */
-      condition_variable (const attributes& attr = initializer);
+      condition_variable (const attributes& attributes = initializer);
 
       /**
        * @brief Construct a named condition variable object instance.
        * @param [in] name Pointer to name.
-       * @param [in] attr Reference to attributes.
+       * @param [in] attributes Reference to attributes.
        * @par Errors
        *  The constructor shall fail if:
        *  - `EAGAIN` - The system lacked the necessary resources
@@ -148,7 +148,7 @@ namespace micro_os_plus
        *  The constructor shall not fail with an error code of `EINTR`.
        */
       condition_variable (const char* name,
-                          const attributes& attr = initializer);
+                          const attributes& attributes = initializer);
 
       /**
        * @cond ignore

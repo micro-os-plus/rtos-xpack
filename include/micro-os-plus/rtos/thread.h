@@ -978,12 +978,12 @@ namespace micro_os_plus
        * @brief Construct a thread object instance.
        * @param [in] function Pointer to thread function.
        * @param [in] arguments Pointer to thread function arguments.
-       * @param [in] attr Reference to attributes.
+       * @param [in] attributes Reference to attributes.
        * @param [in] allocator Reference to allocator. Default a local
        * temporary instance.
        */
       thread (func_t function, func_args_t arguments,
-              const attributes& attr = initializer,
+              const attributes& attributes = initializer,
               const allocator_type& allocator = allocator_type ());
 
       /**
@@ -991,12 +991,12 @@ namespace micro_os_plus
        * @param [in] name Pointer to name.
        * @param [in] function Pointer to thread function.
        * @param [in] arguments Pointer to thread function arguments.
-       * @param [in] attr Reference to attributes.
+       * @param [in] attributes Reference to attributes.
        * @param [in] allocator Reference to allocator. Default a local
        * temporary instance.
        */
       thread (const char* name, func_t function, func_args_t arguments,
-              const attributes& attr = initializer,
+              const attributes& attributes = initializer,
               const allocator_type& allocator = allocator_type ());
 
     protected:
@@ -1366,13 +1366,13 @@ namespace micro_os_plus
        * @brief Internal function used during thread construction.
        * @param [in] function Pointer to thread function.
        * @param [in] arguments Pointer to thread function arguments.
-       * @param [in] attr Reference to attributes.
+       * @param [in] attributes Reference to attributes.
        * @param [in] stack_address Pointer to stack storage or nullptr.
        * @param [in] stack_size_bytes Size of stack storage or 0.
        */
       void
       internal_construct_ (func_t function, func_args_t arguments,
-                           const attributes& attr, void* stack_address,
+                           const attributes& attributes, void* stack_address,
                            std::size_t stack_size_bytes);
 
       /**
@@ -1684,12 +1684,12 @@ namespace micro_os_plus
        * @brief Construct a thread object instance.
        * @param [in] function Pointer to thread function.
        * @param [in] arguments Pointer to thread function arguments.
-       * @param [in] attr Reference to attributes.
+       * @param [in] attributes Reference to attributes.
        * @param [in] allocator Reference to allocator. Default a
        * local temporary instance.
        */
       thread_allocated (func_t function, func_args_t arguments,
-                        const attributes& attr = initializer,
+                        const attributes& attributes = initializer,
                         const allocator_type& allocator = allocator_type ());
 
       /**
@@ -1697,13 +1697,13 @@ namespace micro_os_plus
        * @param [in] name Pointer to name.
        * @param [in] function Pointer to thread function.
        * @param [in] arguments Pointer to thread function arguments.
-       * @param [in] attr Reference to attributes.
+       * @param [in] attributes Reference to attributes.
        * @param [in] allocator Reference to allocator. Default a
        * local temporary instance.
        */
       thread_allocated (const char* name, func_t function,
                         func_args_t arguments,
-                        const attributes& attr = initializer,
+                        const attributes& attributes = initializer,
                         const allocator_type& allocator = allocator_type ());
 
       /**
@@ -1779,21 +1779,21 @@ namespace micro_os_plus
        * @brief Construct a thread object instance.
        * @param [in] function Pointer to thread function.
        * @param [in] arguments Pointer to thread function arguments.
-       * @param [in] attr Reference to attributes.
+       * @param [in] attributes Reference to attributes.
        */
       thread_inclusive (func_t function, func_args_t arguments,
-                        const attributes& attr = initializer);
+                        const attributes& attributes = initializer);
 
       /**
        * @brief Construct a named thread object instance.
        * @param [in] name Pointer to name.
        * @param [in] function Pointer to thread function.
        * @param [in] arguments Pointer to thread function arguments.
-       * @param [in] attr Reference to attributes.
+       * @param [in] attributes Reference to attributes.
        */
       thread_inclusive (const char* name, func_t function,
                         func_args_t arguments,
-                        const attributes& attr = initializer);
+                        const attributes& attributes = initializer);
 
       /**
        * @cond ignore
@@ -2465,9 +2465,10 @@ namespace micro_os_plus
      */
     template <typename Allocator>
     inline thread_allocated<Allocator>::thread_allocated (
-        func_t function, func_args_t arguments, const attributes& attr,
+        func_t function, func_args_t arguments, const attributes& attributes,
         const allocator_type& allocator)
-        : thread_allocated{ nullptr, function, arguments, attr, allocator }
+        : thread_allocated{ nullptr, function, arguments, attributes,
+                            allocator }
     {
       ;
     }
@@ -2519,25 +2520,25 @@ namespace micro_os_plus
     template <typename Allocator>
     thread_allocated<Allocator>::thread_allocated (
         const char* name, func_t function, func_args_t arguments,
-        const attributes& attr, const allocator_type& allocator)
+        const attributes& attributes, const allocator_type& allocator)
         : thread{ name }
     {
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD)
       trace::printf ("%s @%p %s\n", __func__, this, this->name ());
 #endif
-      if (attr.stack_address != nullptr
-          && attr.stack_size_bytes > stack::min_size ())
+      if (attributes.stack_address != nullptr
+          && attributes.stack_size_bytes > stack::min_size ())
         {
-          internal_construct_ (function, arguments, attr, nullptr, 0);
+          internal_construct_ (function, arguments, attributes, nullptr, 0);
         }
       else
         {
           allocator_ = &allocator;
 
-          if (attr.stack_size_bytes > stack::min_size ())
+          if (attributes.stack_size_bytes > stack::min_size ())
             {
               allocated_stack_size_elements_
-                  = (attr.stack_size_bytes
+                  = (attributes.stack_size_bytes
                      + sizeof (typename allocator_type::value_type) - 1)
                     / sizeof (typename allocator_type::value_type);
             }
@@ -2558,7 +2559,7 @@ namespace micro_os_plus
           assert (allocated_stack_address_ != nullptr);
 
           internal_construct_ (
-              function, arguments, attr, allocated_stack_address_,
+              function, arguments, attributes, allocated_stack_address_,
               allocated_stack_size_elements_
                   * sizeof (typename allocator_type::value_type));
         }
@@ -2674,8 +2675,8 @@ namespace micro_os_plus
     template <std::size_t N>
     inline thread_inclusive<N>::thread_inclusive (func_t function,
                                                   func_args_t arguments,
-                                                  const attributes& attr)
-        : thread_inclusive<N>{ nullptr, function, arguments, attr }
+                                                  const attributes& attributes)
+        : thread_inclusive<N>{ nullptr, function, arguments, attributes }
     {
       ;
     }
@@ -2732,13 +2733,13 @@ namespace micro_os_plus
     template <std::size_t N>
     thread_inclusive<N>::thread_inclusive (const char* name, func_t function,
                                            func_args_t arguments,
-                                           const attributes& attr)
+                                           const attributes& attributes)
         : thread{ name }
     {
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD)
       trace::printf ("%s @%p %s\n", __func__, this, this->name ());
 #endif
-      internal_construct_ (function, arguments, attr, &stack_,
+      internal_construct_ (function, arguments, attributes, &stack_,
                            stack_size_bytes);
     }
 

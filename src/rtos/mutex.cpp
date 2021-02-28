@@ -458,7 +458,7 @@ namespace micro_os_plus
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
-    mutex::mutex (const attributes& attr) : mutex{ nullptr, attr }
+    mutex::mutex (const attributes& attributes) : mutex{ nullptr, attributes }
     {
       ;
     }
@@ -493,12 +493,13 @@ namespace micro_os_plus
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
-    mutex::mutex (const char* name, const attributes& attr)
+    mutex::mutex (const char* name, const attributes& attributes)
         : object_named_system{ name }, //
-          type_ (attr.type), //
-          protocol_ (attr.protocol), //
-          robustness_ (attr.robustness), //
-          max_count_ ((attr.type == type::recursive) ? attr.max_count : 1)
+          type_ (attributes.type), //
+          protocol_ (attributes.protocol), //
+          robustness_ (attributes.robustness), //
+          max_count_ (
+              (attributes.type == type::recursive) ? attributes.max_count : 1)
     {
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_MUTEX)
       trace::printf ("%s() @%p %s\n", __func__, this, this->name ());
@@ -512,16 +513,16 @@ namespace micro_os_plus
       micro_os_plus_assert_throw (robustness_ <= robustness::max_, EINVAL);
 
 #if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_MUTEX)
-      clock_ = attr.clock != nullptr ? attr.clock : &sysclock;
+      clock_ = attributes.clock != nullptr ? attributes.clock : &sysclock;
 #endif
 
       micro_os_plus_assert_throw (
-          attr.priority_ceiling >= thread::priority::lowest, EINVAL);
+          attributes.priority_ceiling >= thread::priority::lowest, EINVAL);
       micro_os_plus_assert_throw (
-          attr.priority_ceiling <= thread::priority::highest, EINVAL);
+          attributes.priority_ceiling <= thread::priority::highest, EINVAL);
 
-      initial_priority_ceiling_ = attr.priority_ceiling;
-      priority_ceiling_ = attr.priority_ceiling;
+      initial_priority_ceiling_ = attributes.priority_ceiling;
+      priority_ceiling_ = attributes.priority_ceiling;
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MUTEX)
 
@@ -1528,13 +1529,13 @@ namespace micro_os_plus
     // ==========================================================================
 
     /**
-     * @fn mutex_recursive::mutex_recursive (const attributes& attr)
+     * @fn mutex_recursive::mutex_recursive (const attributes& attributes)
      * @copydetails mutex::mutex(const attributes&)
      */
 
     /**
      * @fn mutex_recursive::mutex_recursive (const char* name, const
-     * attributes& attr)
+     * attributes& attributes)
      * @copydetails mutex::mutex(const char* name, const attributes&)
      */
 

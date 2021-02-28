@@ -844,10 +844,11 @@ micro_os_plus_this_thread_flags_get (micro_os_plus_flags_mask_t mask,
  *  @ref micro_os_plus::rtos::thread::attributes
  */
 void
-micro_os_plus_thread_attributes_init (micro_os_plus_thread_attributes_t* attr)
+micro_os_plus_thread_attributes_init (
+    micro_os_plus_thread_attributes_t* attributes)
 {
-  assert (attr != nullptr);
-  new (attr) thread::attributes ();
+  assert (attributes != nullptr);
+  new (attributes) thread::attributes ();
 }
 
 /**
@@ -865,16 +866,17 @@ micro_os_plus_thread_construct (
     micro_os_plus_thread_t* thread, const char* name,
     micro_os_plus_thread_func_t function,
     const micro_os_plus_thread_func_args_t arguments,
-    const micro_os_plus_thread_attributes_t* attr)
+    const micro_os_plus_thread_attributes_t* attributes)
 {
   assert (thread != nullptr);
-  if (attr == nullptr)
+  if (attributes == nullptr)
     {
-      attr = (const micro_os_plus_thread_attributes_t*)&thread::initializer;
+      attributes
+          = (const micro_os_plus_thread_attributes_t*)&thread::initializer;
     }
   new (thread) rtos::thread (name, (thread::func_t)function,
                              (thread::func_args_t)arguments,
-                             (const thread::attributes&)*attr);
+                             (const thread::attributes&)*attributes);
 }
 
 /**
@@ -912,15 +914,16 @@ micro_os_plus_thread_t*
 micro_os_plus_thread_new (const char* name,
                           micro_os_plus_thread_func_t function,
                           const micro_os_plus_thread_func_args_t arguments,
-                          const micro_os_plus_thread_attributes_t* attr)
+                          const micro_os_plus_thread_attributes_t* attributes)
 {
-  if (attr == nullptr)
+  if (attributes == nullptr)
     {
-      attr = (const micro_os_plus_thread_attributes_t*)&thread::initializer;
+      attributes
+          = (const micro_os_plus_thread_attributes_t*)&thread::initializer;
     }
   return reinterpret_cast<micro_os_plus_thread_t*> (new rtos::thread (
       name, (thread::func_t)function, (thread::func_args_t)arguments,
-      (const thread::attributes&)*attr));
+      (const thread::attributes&)*attributes));
 }
 
 /**
@@ -1618,10 +1621,11 @@ micro_os_plus_sysclock_wait_for (micro_os_plus_clock_duration_t timeout)
  *  @ref micro_os_plus::rtos::timer::attributes
  */
 void
-micro_os_plus_timer_attributes_init (micro_os_plus_timer_attributes_t* attr)
+micro_os_plus_timer_attributes_init (
+    micro_os_plus_timer_attributes_t* attributes)
 {
-  assert (attr != nullptr);
-  new (attr) timer::attributes ();
+  assert (attributes != nullptr);
+  new (attributes) timer::attributes ();
 }
 
 /**
@@ -1634,10 +1638,10 @@ micro_os_plus_timer_attributes_init (micro_os_plus_timer_attributes_t* attr)
  */
 void
 micro_os_plus_timer_attributes_periodic_init (
-    micro_os_plus_timer_attributes_t* attr)
+    micro_os_plus_timer_attributes_t* attributes)
 {
-  assert (attr != nullptr);
-  new (attr) timer::attributes_periodic ();
+  assert (attributes != nullptr);
+  new (attributes) timer::attributes_periodic ();
 }
 
 /**
@@ -1669,17 +1673,17 @@ micro_os_plus_timer_construct (
     micro_os_plus_timer_t* timer, const char* name,
     micro_os_plus_timer_function_t function,
     micro_os_plus_timer_function_arguments_t arguments,
-    const micro_os_plus_timer_attributes_t* attr)
+    const micro_os_plus_timer_attributes_t* attributes)
 {
   assert (timer != nullptr);
-  if (attr == nullptr)
+  if (attributes == nullptr)
     {
-      attr = (const micro_os_plus_timer_attributes_t*)&timer::
+      attributes = (const micro_os_plus_timer_attributes_t*)&timer::
           periodic_initializer;
     }
   new (timer) rtos::timer (name, (timer::func_t)function,
                            (timer::func_args_t)arguments,
-                           (const timer::attributes&)*attr);
+                           (const timer::attributes&)*attributes);
 }
 
 /**
@@ -1717,16 +1721,16 @@ micro_os_plus_timer_t*
 micro_os_plus_timer_new (const char* name,
                          micro_os_plus_timer_function_t function,
                          micro_os_plus_timer_function_arguments_t arguments,
-                         const micro_os_plus_timer_attributes_t* attr)
+                         const micro_os_plus_timer_attributes_t* attributes)
 {
-  if (attr == nullptr)
+  if (attributes == nullptr)
     {
-      attr = (const micro_os_plus_timer_attributes_t*)&timer::
+      attributes = (const micro_os_plus_timer_attributes_t*)&timer::
           periodic_initializer;
     }
   return reinterpret_cast<micro_os_plus_timer_t*> (new rtos::timer (
       name, (timer::func_t)function, (timer::func_args_t)arguments,
-      (const timer::attributes&)*attr));
+      (const timer::attributes&)*attributes));
 }
 
 /**
@@ -1809,10 +1813,11 @@ micro_os_plus_timer_stop (micro_os_plus_timer_t* timer)
  *  @ref micro_os_plus::rtos::mutex::attributes
  */
 void
-micro_os_plus_mutex_attributes_init (micro_os_plus_mutex_attributes_t* attr)
+micro_os_plus_mutex_attributes_init (
+    micro_os_plus_mutex_attributes_t* attributes)
 {
-  assert (attr != nullptr);
-  new (attr) mutex::attributes ();
+  assert (attributes != nullptr);
+  new (attributes) mutex::attributes ();
 }
 
 /**
@@ -1825,10 +1830,10 @@ micro_os_plus_mutex_attributes_init (micro_os_plus_mutex_attributes_t* attr)
  */
 void
 micro_os_plus_mutex_attributes_recursive_init (
-    micro_os_plus_mutex_attributes_t* attr)
+    micro_os_plus_mutex_attributes_t* attributes)
 {
-  assert (attr != nullptr);
-  new (attr) mutex::attributes_recursive ();
+  assert (attributes != nullptr);
+  new (attributes) mutex::attributes_recursive ();
 }
 
 /**
@@ -1857,16 +1862,17 @@ micro_os_plus_mutex_attributes_get_recursive (void)
  *  @ref micro_os_plus::rtos::mutex
  */
 void
-micro_os_plus_mutex_construct (micro_os_plus_mutex_t* mutex, const char* name,
-                               const micro_os_plus_mutex_attributes_t* attr)
+micro_os_plus_mutex_construct (
+    micro_os_plus_mutex_t* mutex, const char* name,
+    const micro_os_plus_mutex_attributes_t* attributes)
 {
   assert (mutex != nullptr);
-  if (attr == nullptr)
+  if (attributes == nullptr)
     {
-      attr = (const micro_os_plus_mutex_attributes_t*)&mutex::
+      attributes = (const micro_os_plus_mutex_attributes_t*)&mutex::
           initializer_normal;
     }
-  new (mutex) rtos::mutex (name, (const mutex::attributes&)*attr);
+  new (mutex) rtos::mutex (name, (const mutex::attributes&)*attributes);
 }
 
 /**
@@ -1882,15 +1888,16 @@ micro_os_plus_mutex_construct (micro_os_plus_mutex_t* mutex, const char* name,
 void
 micro_os_plus_mutex_recursive_construct (
     micro_os_plus_mutex_t* mutex, const char* name,
-    const micro_os_plus_mutex_attributes_t* attr)
+    const micro_os_plus_mutex_attributes_t* attributes)
 {
   assert (mutex != nullptr);
-  if (attr == nullptr)
+  if (attributes == nullptr)
     {
-      attr = (const micro_os_plus_mutex_attributes_t*)&mutex::
+      attributes = (const micro_os_plus_mutex_attributes_t*)&mutex::
           initializer_recursive;
     }
-  new (mutex) rtos::mutex_recursive (name, (const mutex::attributes&)*attr);
+  new (mutex)
+      rtos::mutex_recursive (name, (const mutex::attributes&)*attributes);
 }
 
 /**
@@ -1927,15 +1934,15 @@ micro_os_plus_mutex_destruct (micro_os_plus_mutex_t* mutex)
  */
 micro_os_plus_mutex_t*
 micro_os_plus_mutex_new (const char* name,
-                         const micro_os_plus_mutex_attributes_t* attr)
+                         const micro_os_plus_mutex_attributes_t* attributes)
 {
-  if (attr == nullptr)
+  if (attributes == nullptr)
     {
-      attr = (const micro_os_plus_mutex_attributes_t*)&mutex::
+      attributes = (const micro_os_plus_mutex_attributes_t*)&mutex::
           initializer_normal;
     }
   return reinterpret_cast<micro_os_plus_mutex_t*> (
-      new rtos::mutex (name, (const mutex::attributes&)*attr));
+      new rtos::mutex (name, (const mutex::attributes&)*attributes));
 }
 
 /**
@@ -1954,15 +1961,15 @@ micro_os_plus_mutex_new (const char* name,
  */
 micro_os_plus_mutex_t*
 micro_os_plus_mutex_recursive_new (
-    const char* name, const micro_os_plus_mutex_attributes_t* attr)
+    const char* name, const micro_os_plus_mutex_attributes_t* attributes)
 {
-  if (attr == nullptr)
+  if (attributes == nullptr)
     {
-      attr = (const micro_os_plus_mutex_attributes_t*)&mutex::
+      attributes = (const micro_os_plus_mutex_attributes_t*)&mutex::
           initializer_recursive;
     }
   return reinterpret_cast<micro_os_plus_mutex_t*> (
-      new rtos::mutex_recursive (name, (const mutex::attributes&)*attr));
+      new rtos::mutex_recursive (name, (const mutex::attributes&)*attributes));
 }
 
 /**
@@ -2209,10 +2216,10 @@ micro_os_plus_mutex_reset (micro_os_plus_mutex_t* mutex)
  */
 void
 micro_os_plus_condition_variable_attributes_init (
-    micro_os_plus_condition_variable_attributes_t* attr)
+    micro_os_plus_condition_variable_attributes_t* attributes)
 {
-  assert (attr != nullptr);
-  new (attr) condition_variable::attributes ();
+  assert (attributes != nullptr);
+  new (attributes) condition_variable::attributes ();
 }
 
 /**
@@ -2228,17 +2235,17 @@ micro_os_plus_condition_variable_attributes_init (
 void
 micro_os_plus_condition_variable_construct (
     micro_os_plus_condition_variable_t* condvar, const char* name,
-    const micro_os_plus_condition_variable_attributes_t* attr)
+    const micro_os_plus_condition_variable_attributes_t* attributes)
 {
   assert (condvar != nullptr);
-  if (attr == nullptr)
+  if (attributes == nullptr)
     {
-      attr
+      attributes
           = (const micro_os_plus_condition_variable_attributes_t*)&condition_variable::
               initializer;
     }
-  new (condvar)
-      condition_variable (name, (const condition_variable::attributes&)*attr);
+  new (condvar) condition_variable (
+      name, (const condition_variable::attributes&)*attributes);
 }
 
 /**
@@ -2276,17 +2283,17 @@ micro_os_plus_condition_variable_destruct (
 micro_os_plus_condition_variable_t*
 micro_os_plus_condition_variable_new (
     const char* name,
-    const micro_os_plus_condition_variable_attributes_t* attr)
+    const micro_os_plus_condition_variable_attributes_t* attributes)
 {
-  if (attr == nullptr)
+  if (attributes == nullptr)
     {
-      attr
+      attributes
           = (const micro_os_plus_condition_variable_attributes_t*)&condition_variable::
               initializer;
     }
   return reinterpret_cast<micro_os_plus_condition_variable_t*> (
-      new condition_variable (name,
-                              (const condition_variable::attributes&)*attr));
+      new condition_variable (
+          name, (const condition_variable::attributes&)*attributes));
 }
 
 /**
@@ -2412,10 +2419,10 @@ micro_os_plus_condition_variable_timed_wait (
  */
 void
 micro_os_plus_semaphore_attributes_init (
-    micro_os_plus_semaphore_attributes_t* attr)
+    micro_os_plus_semaphore_attributes_t* attributes)
 {
-  assert (attr != nullptr);
-  new (attr) semaphore::attributes{};
+  assert (attributes != nullptr);
+  new (attributes) semaphore::attributes{};
 }
 
 /**
@@ -2428,11 +2435,11 @@ micro_os_plus_semaphore_attributes_init (
  */
 void
 micro_os_plus_semaphore_attributes_binary_init (
-    micro_os_plus_semaphore_attributes_t* attr,
+    micro_os_plus_semaphore_attributes_t* attributes,
     const micro_os_plus_semaphore_count_t initial_value)
 {
-  assert (attr != nullptr);
-  new (attr) semaphore::attributes_binary{ initial_value };
+  assert (attributes != nullptr);
+  new (attributes) semaphore::attributes_binary{ initial_value };
 }
 
 /**
@@ -2445,12 +2452,12 @@ micro_os_plus_semaphore_attributes_binary_init (
  */
 void
 micro_os_plus_semaphore_attributes_counting_init (
-    micro_os_plus_semaphore_attributes_t* attr,
+    micro_os_plus_semaphore_attributes_t* attributes,
     const micro_os_plus_semaphore_count_t max_value,
     const micro_os_plus_semaphore_count_t initial_value)
 {
-  assert (attr != nullptr);
-  new (attr) semaphore::attributes_counting{ max_value, initial_value };
+  assert (attributes != nullptr);
+  new (attributes) semaphore::attributes_counting{ max_value, initial_value };
 }
 
 /**
@@ -2481,15 +2488,16 @@ micro_os_plus_semaphore_attributes_get_binary (void)
 void
 micro_os_plus_semaphore_construct (
     micro_os_plus_semaphore_t* semaphore, const char* name,
-    const micro_os_plus_semaphore_attributes_t* attr)
+    const micro_os_plus_semaphore_attributes_t* attributes)
 {
   assert (semaphore != nullptr);
-  if (attr == nullptr)
+  if (attributes == nullptr)
     {
-      attr = (const micro_os_plus_semaphore_attributes_t*)&semaphore::
+      attributes = (const micro_os_plus_semaphore_attributes_t*)&semaphore::
           initializer_binary;
     }
-  new (semaphore) rtos::semaphore{ name, (const semaphore::attributes&)*attr };
+  new (semaphore)
+      rtos::semaphore{ name, (const semaphore::attributes&)*attributes };
 }
 
 /**
@@ -2565,16 +2573,16 @@ micro_os_plus_semaphore_destruct (micro_os_plus_semaphore_t* semaphore)
  *  @ref micro_os_plus::rtos::semaphore
  */
 micro_os_plus_semaphore_t*
-micro_os_plus_semaphore_new (const char* name,
-                             const micro_os_plus_semaphore_attributes_t* attr)
+micro_os_plus_semaphore_new (
+    const char* name, const micro_os_plus_semaphore_attributes_t* attributes)
 {
-  if (attr == nullptr)
+  if (attributes == nullptr)
     {
-      attr = (const micro_os_plus_semaphore_attributes_t*)&semaphore::
+      attributes = (const micro_os_plus_semaphore_attributes_t*)&semaphore::
           initializer_binary;
     }
   return reinterpret_cast<micro_os_plus_semaphore_t*> (
-      new rtos::semaphore{ name, (const semaphore::attributes&)*attr });
+      new rtos::semaphore{ name, (const semaphore::attributes&)*attributes });
 }
 
 /**
@@ -2810,10 +2818,10 @@ micro_os_plus_semaphore_get_max_value (micro_os_plus_semaphore_t* semaphore)
  */
 void
 micro_os_plus_memory_pool_attributes_init (
-    micro_os_plus_memory_pool_attributes_t* attr)
+    micro_os_plus_memory_pool_attributes_t* attributes)
 {
-  assert (attr != nullptr);
-  new (attr) memory_pool::attributes ();
+  assert (attributes != nullptr);
+  new (attributes) memory_pool::attributes ();
 }
 
 /**
@@ -2830,16 +2838,17 @@ void
 micro_os_plus_memory_pool_construct (
     micro_os_plus_memory_pool_t* mempool, const char* name, size_t blocks,
     size_t block_size_bytes,
-    const micro_os_plus_memory_pool_attributes_t* attr)
+    const micro_os_plus_memory_pool_attributes_t* attributes)
 {
   assert (mempool != nullptr);
-  if (attr == nullptr)
+  if (attributes == nullptr)
     {
-      attr = (const micro_os_plus_memory_pool_attributes_t*)&memory_pool::
-          initializer;
+      attributes
+          = (const micro_os_plus_memory_pool_attributes_t*)&memory_pool::
+              initializer;
     }
   new (mempool) memory_pool (name, blocks, block_size_bytes,
-                             (const memory_pool::attributes&)*attr);
+                             (const memory_pool::attributes&)*attributes);
 }
 
 /**
@@ -2876,15 +2885,17 @@ micro_os_plus_memory_pool_destruct (micro_os_plus_memory_pool_t* mempool)
 micro_os_plus_memory_pool_t*
 micro_os_plus_memory_pool_new (
     const char* name, size_t blocks, size_t block_size_bytes,
-    const micro_os_plus_memory_pool_attributes_t* attr)
+    const micro_os_plus_memory_pool_attributes_t* attributes)
 {
-  if (attr == nullptr)
+  if (attributes == nullptr)
     {
-      attr = (const micro_os_plus_memory_pool_attributes_t*)&memory_pool::
-          initializer;
+      attributes
+          = (const micro_os_plus_memory_pool_attributes_t*)&memory_pool::
+              initializer;
     }
-  return reinterpret_cast<micro_os_plus_memory_pool_t*> (new memory_pool (
-      name, blocks, block_size_bytes, (const memory_pool::attributes&)*attr));
+  return reinterpret_cast<micro_os_plus_memory_pool_t*> (
+      new memory_pool (name, blocks, block_size_bytes,
+                       (const memory_pool::attributes&)*attributes));
 }
 
 /**
@@ -3104,10 +3115,10 @@ micro_os_plus_memory_pool_get_pool (micro_os_plus_memory_pool_t* mempool)
  */
 void
 micro_os_plus_message_queue_attributes_init (
-    micro_os_plus_message_queue_attributes_t* attr)
+    micro_os_plus_message_queue_attributes_t* attributes)
 {
-  assert (attr != nullptr);
-  new (attr) message_queue::attributes ();
+  assert (attributes != nullptr);
+  new (attributes) message_queue::attributes ();
 }
 
 /**
@@ -3124,16 +3135,17 @@ void
 micro_os_plus_message_queue_construct (
     micro_os_plus_message_queue_t* mqueue, const char* name, size_t messages,
     size_t message_size_bytes,
-    const micro_os_plus_message_queue_attributes_t* attr)
+    const micro_os_plus_message_queue_attributes_t* attributes)
 {
   assert (mqueue != nullptr);
-  if (attr == nullptr)
+  if (attributes == nullptr)
     {
-      attr = (const micro_os_plus_message_queue_attributes_t*)&message_queue::
-          initializer;
+      attributes
+          = (const micro_os_plus_message_queue_attributes_t*)&message_queue::
+              initializer;
     }
   new (mqueue) message_queue (name, messages, message_size_bytes,
-                              (const message_queue::attributes&)*attr);
+                              (const message_queue::attributes&)*attributes);
 }
 
 /**
@@ -3170,16 +3182,17 @@ micro_os_plus_message_queue_destruct (micro_os_plus_message_queue_t* mqueue)
 micro_os_plus_message_queue_t*
 micro_os_plus_message_queue_new (
     const char* name, size_t messages, size_t message_size_bytes,
-    const micro_os_plus_message_queue_attributes_t* attr)
+    const micro_os_plus_message_queue_attributes_t* attributes)
 {
-  if (attr == nullptr)
+  if (attributes == nullptr)
     {
-      attr = (const micro_os_plus_message_queue_attributes_t*)&message_queue::
-          initializer;
+      attributes
+          = (const micro_os_plus_message_queue_attributes_t*)&message_queue::
+              initializer;
     }
   return reinterpret_cast<micro_os_plus_message_queue_t*> (
       new message_queue (name, messages, message_size_bytes,
-                         (const message_queue::attributes&)*attr));
+                         (const message_queue::attributes&)*attributes));
 }
 
 /**
@@ -3433,10 +3446,10 @@ micro_os_plus_message_queue_reset (micro_os_plus_message_queue_t* mqueue)
  */
 void
 micro_os_plus_event_flags_attributes_init (
-    micro_os_plus_event_flags_attributes_t* attr)
+    micro_os_plus_event_flags_attributes_t* attributes)
 {
-  assert (attr != nullptr);
-  new (attr) event_flags::attributes ();
+  assert (attributes != nullptr);
+  new (attributes) event_flags::attributes ();
 }
 
 /**
@@ -3452,15 +3465,17 @@ micro_os_plus_event_flags_attributes_init (
 void
 micro_os_plus_event_flags_construct (
     micro_os_plus_event_flags_t* evflags, const char* name,
-    const micro_os_plus_event_flags_attributes_t* attr)
+    const micro_os_plus_event_flags_attributes_t* attributes)
 {
   assert (evflags != nullptr);
-  if (attr == nullptr)
+  if (attributes == nullptr)
     {
-      attr = (const micro_os_plus_event_flags_attributes_t*)&event_flags::
-          initializer;
+      attributes
+          = (const micro_os_plus_event_flags_attributes_t*)&event_flags::
+              initializer;
     }
-  new (evflags) event_flags (name, (const event_flags::attributes&)*attr);
+  new (evflags)
+      event_flags (name, (const event_flags::attributes&)*attributes);
 }
 
 /**
@@ -3496,15 +3511,16 @@ micro_os_plus_event_flags_destruct (micro_os_plus_event_flags_t* evflags)
  */
 micro_os_plus_event_flags_t*
 micro_os_plus_event_flags_new (
-    const char* name, const micro_os_plus_event_flags_attributes_t* attr)
+    const char* name, const micro_os_plus_event_flags_attributes_t* attributes)
 {
-  if (attr == nullptr)
+  if (attributes == nullptr)
     {
-      attr = (const micro_os_plus_event_flags_attributes_t*)&event_flags::
-          initializer;
+      attributes
+          = (const micro_os_plus_event_flags_attributes_t*)&event_flags::
+              initializer;
     }
   return reinterpret_cast<micro_os_plus_event_flags_t*> (
-      new event_flags (name, (const event_flags::attributes&)*attr));
+      new event_flags (name, (const event_flags::attributes&)*attributes));
 }
 
 /**
