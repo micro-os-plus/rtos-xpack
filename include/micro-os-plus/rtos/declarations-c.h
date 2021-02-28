@@ -933,27 +933,27 @@ extern "C"
     /**
      * @brief Mutex priority ceiling.
      */
-    micro_os_plus_thread_priority_t mx_priority_ceiling;
+    micro_os_plus_thread_priority_t mutex_priority_ceiling;
 
     /**
      * @brief Mutex protocol.
      */
-    micro_os_plus_mutex_protocol_t mx_protocol;
+    micro_os_plus_mutex_protocol_t mutex_protocol;
 
     /**
      * @brief Mutex robustness.
      */
-    micro_os_plus_mutex_robustness_t mx_robustness;
+    micro_os_plus_mutex_robustness_t mutex_robustness;
 
     /**
      * @brief Mutex type.
      */
-    micro_os_plus_mutex_type_t mx_type;
+    micro_os_plus_mutex_type_t mutex_type;
 
     /**
      * @brief Recursive mutex max count.
      */
-    micro_os_plus_mutex_count_t mx_max_count;
+    micro_os_plus_mutex_count_t mutex_max_count;
 
   } micro_os_plus_mutex_attributes_t;
 

@@ -348,23 +348,24 @@ static_assert (sizeof (rtos::mutex) == sizeof (micro_os_plus_mutex_t),
 static_assert (sizeof (rtos::mutex::attributes)
                    == sizeof (micro_os_plus_mutex_attributes_t),
                "adjust size of micro_os_plus_mutex_attributes_t");
-static_assert (offsetof (rtos::mutex::attributes, mx_priority_ceiling)
+static_assert (offsetof (rtos::mutex::attributes, mutex_priority_ceiling)
                    == offsetof (micro_os_plus_mutex_attributes_t,
-                                mx_priority_ceiling),
+                                mutex_priority_ceiling),
                "adjust micro_os_plus_mutex_attributes_t members");
-static_assert (offsetof (rtos::mutex::attributes, mx_protocol)
-                   == offsetof (micro_os_plus_mutex_attributes_t, mx_protocol),
-               "adjust micro_os_plus_mutex_attributes_t members");
-static_assert (offsetof (rtos::mutex::attributes, mx_robustness)
+static_assert (offsetof (rtos::mutex::attributes, mutex_protocol)
                    == offsetof (micro_os_plus_mutex_attributes_t,
-                                mx_robustness),
+                                mutex_protocol),
                "adjust micro_os_plus_mutex_attributes_t members");
-static_assert (offsetof (rtos::mutex::attributes, mx_type)
-                   == offsetof (micro_os_plus_mutex_attributes_t, mx_type),
-               "adjust micro_os_plus_mutex_attributes_t members");
-static_assert (offsetof (rtos::mutex::attributes, mx_max_count)
+static_assert (offsetof (rtos::mutex::attributes, mutex_robustness)
                    == offsetof (micro_os_plus_mutex_attributes_t,
-                                mx_max_count),
+                                mutex_robustness),
+               "adjust micro_os_plus_mutex_attributes_t members");
+static_assert (offsetof (rtos::mutex::attributes, mutex_type)
+                   == offsetof (micro_os_plus_mutex_attributes_t, mutex_type),
+               "adjust micro_os_plus_mutex_attributes_t members");
+static_assert (offsetof (rtos::mutex::attributes, mutex_max_count)
+                   == offsetof (micro_os_plus_mutex_attributes_t,
+                                mutex_max_count),
                "adjust micro_os_plus_mutex_attributes_t members");
 
 static_assert (sizeof (rtos::condition_variable)

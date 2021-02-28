@@ -67,23 +67,23 @@ namespace micro_os_plus
      */
 
     /**
-     * @var thread::priority_t mutex::attributes::mx_max_count
+     * @var thread::priority_t mutex::attributes::mutex_max_count
      * @details
-     * The @ref mx_max_count attribute defines the upper limit of
+     * The @ref mutex_max_count attribute defines the upper limit of
      * recursion for a recursive mutex. Further attempts to lock
      * the mutex will result in `EAGAIN`.
      */
 
     /**
-     * @var thread::priority_t mutex::attributes::mx_priority_ceiling
+     * @var thread::priority_t mutex::attributes::mutex_priority_ceiling
      * @details
-     * The @ref mx_priority_ceiling attribute defines the priority
+     * The @ref mutex_priority_ceiling attribute defines the priority
      * ceiling of initialised mutexes, which is the minimum priority
      * level at which the critical section guarded by the mutex is
      * executed. In order to avoid priority inversion, the priority
      * ceiling of the mutex shall be set to a priority higher than
      * or equal to the highest priority of all the threads that may
-     * lock that mutex. The values of @ref mx_priority_ceiling are
+     * lock that mutex. The values of @ref mutex_priority_ceiling are
      * within the maximum range of priorities defined under the
      * SCHED_FIFO scheduling policy.
      *
@@ -97,7 +97,7 @@ namespace micro_os_plus
      */
 
     /**
-     * @var mutex::protocol_t mutex::attributes::mx_protocol
+     * @var mutex::protocol_t mutex::attributes::mutex_protocol
      * @details
      * The default value of this attribute shall be `mutex::protocol::inherit`.
      *
@@ -115,7 +115,7 @@ namespace micro_os_plus
      */
 
     /**
-     * @var mutex::robustness_t mutex::attributes::mx_robustness
+     * @var mutex::robustness_t mutex::attributes::mutex_robustness
      * @details
      * The default value of this attribute shall be
      * `mutex::robustness::stalled`.
@@ -132,7 +132,7 @@ namespace micro_os_plus
      */
 
     /**
-     * @var mutex::type_t mutex::attributes::mx_type
+     * @var mutex::type_t mutex::attributes::mutex_type
      * @details
      * The default value of this attribute shall be `mutex::type::default_`.
      *
@@ -153,7 +153,7 @@ namespace micro_os_plus
      * Allow to define the behaviour of the mutex
      * related to scheduling.
      *
-     * The mutex protocol is defined via the `mx_protocol` attribute of
+     * The mutex protocol is defined via the `mutex_protocol` attribute of
      * the `mutex::attributes` class. Valid values are:
      *
      * - `mutex::protocol::none`
@@ -241,7 +241,7 @@ namespace micro_os_plus
      * Allow to define the behaviour when the thread
      * owning a mutex terminates.
      *
-     * The mutex robustness is defined via the `mx_robustness` attribute of
+     * The mutex robustness is defined via the `mutex_robustness` attribute of
      * the `mutex::attributes` class. Valid values are:
      *
      * - `mutex::robustness::stalled`
@@ -285,7 +285,7 @@ namespace micro_os_plus
      * Allow to define the behaviour of calls which lock
      * and unlock the mutex. See `mutex::lock()` for details.
      *
-     * The mutex type is defined via the `mx_type` attribute of
+     * The mutex type is defined via the `mutex_type` attribute of
      * the `mutex::attributes` class. Valid mutex types are:
      *
      * - `mutex::type::normal`
@@ -495,11 +495,11 @@ namespace micro_os_plus
      */
     mutex::mutex (const char* name, const attributes& attr)
         : object_named_system{ name }, //
-          type_ (attr.mx_type), //
-          protocol_ (attr.mx_protocol), //
-          robustness_ (attr.mx_robustness), //
-          max_count_ ((attr.mx_type == type::recursive) ? attr.mx_max_count
-                                                        : 1)
+          type_ (attr.mutex_type), //
+          protocol_ (attr.mutex_protocol), //
+          robustness_ (attr.mutex_robustness), //
+          max_count_ (
+              (attr.mutex_type == type::recursive) ? attr.mutex_max_count : 1)
     {
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_MUTEX)
       trace::printf ("%s() @%p %s\n", __func__, this, this->name ());
@@ -517,12 +517,12 @@ namespace micro_os_plus
 #endif
 
       micro_os_plus_assert_throw (
-          attr.mx_priority_ceiling >= thread::priority::lowest, EINVAL);
+          attr.mutex_priority_ceiling >= thread::priority::lowest, EINVAL);
       micro_os_plus_assert_throw (
-          attr.mx_priority_ceiling <= thread::priority::highest, EINVAL);
+          attr.mutex_priority_ceiling <= thread::priority::highest, EINVAL);
 
-      initial_priority_ceiling_ = attr.mx_priority_ceiling;
-      priority_ceiling_ = attr.mx_priority_ceiling;
+      initial_priority_ceiling_ = attr.mutex_priority_ceiling;
+      priority_ceiling_ = attr.mutex_priority_ceiling;
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MUTEX)
 

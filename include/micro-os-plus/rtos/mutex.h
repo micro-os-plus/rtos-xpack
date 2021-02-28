@@ -257,27 +257,27 @@ namespace micro_os_plus
         /**
          * @brief Attribute with the mutex priority ceiling.
          */
-        thread::priority_t mx_priority_ceiling = thread::priority::highest;
+        thread::priority_t mutex_priority_ceiling = thread::priority::highest;
 
         /**
          * @brief Attribute with the mutex protocol.
          */
-        protocol_t mx_protocol = protocol::default_;
+        protocol_t mutex_protocol = protocol::default_;
 
         /**
          * @brief Attribute with the mutex robustness.
          */
-        robustness_t mx_robustness = robustness::stalled;
+        robustness_t mutex_robustness = robustness::stalled;
 
         /**
          * @brief Attribute with the mutex type.
          */
-        type_t mx_type = type::default_;
+        type_t mutex_type = type::default_;
 
         /**
          * @brief Attribute with the mutex maximum recursive count.
          */
-        count_t mx_max_count = max_count;
+        count_t mutex_max_count = max_count;
 
         // Add more attributes here.
 
@@ -792,7 +792,7 @@ namespace micro_os_plus
      * @cond ignore
      */
 
-    constexpr mutex::attributes::attributes (type_t type) : mx_type (type)
+    constexpr mutex::attributes::attributes (type_t type) : mutex_type (type)
     {
       ;
     }
