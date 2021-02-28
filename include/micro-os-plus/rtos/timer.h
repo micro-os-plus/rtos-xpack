@@ -63,7 +63,7 @@ namespace micro_os_plus
        * @brief Entry point of a timer call back function.
        * @ingroup micro-os-plus-rtos-timer
        */
-      using func_t = void (*) (func_args_t args);
+      using func_t = void (*) (func_args_t arguments);
 
       /**
        * @brief Type of of variables holding timer run types.
@@ -252,20 +252,20 @@ namespace micro_os_plus
       /**
        * @brief Construct a timer object instance.
        * @param [in] function Pointer to timer function.
-       * @param [in] args Pointer to timer function arguments.
+       * @param [in] arguments Pointer to timer function arguments.
        * @param [in] attr Reference to attributes.
        */
-      timer (func_t function, func_args_t args,
+      timer (func_t function, func_args_t arguments,
              const attributes& attr = once_initializer);
 
       /**
        * @brief Construct a named timer object instance.
        * @param [in] name Pointer to name.
        * @param [in] function Pointer to timer function.
-       * @param [in] args Pointer to timer function arguments.
+       * @param [in] arguments Pointer to timer function arguments.
        * @param [in] attr Reference to attributes.
        */
-      timer (const char* name, func_t function, func_args_t args,
+      timer (const char* name, func_t function, func_args_t arguments,
              const attributes& attr = once_initializer);
 
       /**

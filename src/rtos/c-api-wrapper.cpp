@@ -861,20 +861,20 @@ micro_os_plus_thread_attributes_init (micro_os_plus_thread_attributes_t* attr)
  *  @ref micro_os_plus::rtos::thread
  */
 void
-micro_os_plus_thread_construct (micro_os_plus_thread_t* thread,
-                                const char* name,
-                                micro_os_plus_thread_func_t function,
-                                const micro_os_plus_thread_func_args_t args,
-                                const micro_os_plus_thread_attributes_t* attr)
+micro_os_plus_thread_construct (
+    micro_os_plus_thread_t* thread, const char* name,
+    micro_os_plus_thread_func_t function,
+    const micro_os_plus_thread_func_args_t arguments,
+    const micro_os_plus_thread_attributes_t* attr)
 {
   assert (thread != nullptr);
   if (attr == nullptr)
     {
       attr = (const micro_os_plus_thread_attributes_t*)&thread::initializer;
     }
-  new (thread)
-      rtos::thread (name, (thread::func_t)function, (thread::func_args_t)args,
-                    (const thread::attributes&)*attr);
+  new (thread) rtos::thread (name, (thread::func_t)function,
+                             (thread::func_args_t)arguments,
+                             (const thread::attributes&)*attr);
 }
 
 /**
@@ -911,7 +911,7 @@ micro_os_plus_thread_destruct (micro_os_plus_thread_t* thread)
 micro_os_plus_thread_t*
 micro_os_plus_thread_new (const char* name,
                           micro_os_plus_thread_func_t function,
-                          const micro_os_plus_thread_func_args_t args,
+                          const micro_os_plus_thread_func_args_t arguments,
                           const micro_os_plus_thread_attributes_t* attr)
 {
   if (attr == nullptr)
@@ -919,7 +919,7 @@ micro_os_plus_thread_new (const char* name,
       attr = (const micro_os_plus_thread_attributes_t*)&thread::initializer;
     }
   return reinterpret_cast<micro_os_plus_thread_t*> (new rtos::thread (
-      name, (thread::func_t)function, (thread::func_args_t)args,
+      name, (thread::func_t)function, (thread::func_args_t)arguments,
       (const thread::attributes&)*attr));
 }
 
@@ -1665,10 +1665,11 @@ micro_os_plus_timer_attributes_get_periodic (void)
  *  @ref micro_os_plus::rtos::timer
  */
 void
-micro_os_plus_timer_construct (micro_os_plus_timer_t* timer, const char* name,
-                               micro_os_plus_timer_function_t function,
-                               micro_os_plus_timer_function_arguments_t args,
-                               const micro_os_plus_timer_attributes_t* attr)
+micro_os_plus_timer_construct (
+    micro_os_plus_timer_t* timer, const char* name,
+    micro_os_plus_timer_function_t function,
+    micro_os_plus_timer_function_arguments_t arguments,
+    const micro_os_plus_timer_attributes_t* attr)
 {
   assert (timer != nullptr);
   if (attr == nullptr)
@@ -1676,9 +1677,9 @@ micro_os_plus_timer_construct (micro_os_plus_timer_t* timer, const char* name,
       attr = (const micro_os_plus_timer_attributes_t*)&timer::
           periodic_initializer;
     }
-  new (timer)
-      rtos::timer (name, (timer::func_t)function, (timer::func_args_t)args,
-                   (const timer::attributes&)*attr);
+  new (timer) rtos::timer (name, (timer::func_t)function,
+                           (timer::func_args_t)arguments,
+                           (const timer::attributes&)*attr);
 }
 
 /**
@@ -1715,7 +1716,7 @@ micro_os_plus_timer_destruct (micro_os_plus_timer_t* timer)
 micro_os_plus_timer_t*
 micro_os_plus_timer_new (const char* name,
                          micro_os_plus_timer_function_t function,
-                         micro_os_plus_timer_function_arguments_t args,
+                         micro_os_plus_timer_function_arguments_t arguments,
                          const micro_os_plus_timer_attributes_t* attr)
 {
   if (attr == nullptr)
@@ -1723,9 +1724,9 @@ micro_os_plus_timer_new (const char* name,
       attr = (const micro_os_plus_timer_attributes_t*)&timer::
           periodic_initializer;
     }
-  return reinterpret_cast<micro_os_plus_timer_t*> (
-      new rtos::timer (name, (timer::func_t)function, (timer::func_args_t)args,
-                       (const timer::attributes&)*attr));
+  return reinterpret_cast<micro_os_plus_timer_t*> (new rtos::timer (
+      name, (timer::func_t)function, (timer::func_args_t)arguments,
+      (const timer::attributes&)*attr));
 }
 
 /**

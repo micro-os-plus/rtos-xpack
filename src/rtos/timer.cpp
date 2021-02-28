@@ -87,7 +87,7 @@ namespace micro_os_plus
      *
      * // Thread function.
      * void
-     * function(void* args)
+     * function(void* arguments)
      * {
      *   // Do something.
      *   ...
@@ -136,8 +136,9 @@ namespace micro_os_plus
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
-    timer::timer (func_t function, func_args_t args, const attributes& attr)
-        : timer{ nullptr, function, args, attr }
+    timer::timer (func_t function, func_args_t arguments,
+                  const attributes& attr)
+        : timer{ nullptr, function, arguments, attr }
     {
       ;
     }
@@ -165,7 +166,7 @@ namespace micro_os_plus
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
-    timer::timer (const char* name, func_t function, func_args_t args,
+    timer::timer (const char* name, func_t function, func_args_t arguments,
                   const attributes& attr)
         : object_named_system{ name }
     {
@@ -180,7 +181,7 @@ namespace micro_os_plus
 
       type_ = attr.timer_type;
       func_ = function;
-      func_args_ = args;
+      func_args_ = arguments;
 
 #if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_TIMER)
       clock_ = attr.clock != nullptr ? attr.clock : &sysclock;
@@ -188,7 +189,7 @@ namespace micro_os_plus
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_TIMER)
 
-      port::timer::create (this, function, args);
+      port::timer::create (this, function, arguments);
 
 #else
 

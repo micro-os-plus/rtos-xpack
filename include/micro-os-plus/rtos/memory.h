@@ -937,12 +937,12 @@ namespace micro_os_plus
        * @tparam Args Variable arguments list.
        *
        * @param allocator Reference to allocator.
-       * @param args Arguments used to construct the object of type T.
+       * @param arguments Arguments used to construct the object of type T.
        * @return A standard unique pointer with deleter.
        */
       template <typename T, typename A, typename... Args>
       auto
-      allocate_unique (const A& allocator, Args&&... args);
+      allocate_unique (const A& allocator, Args&&... arguments);
 
       // ----------------------------------------------------------------------
 
@@ -1687,7 +1687,7 @@ namespace micro_os_plus
        */
       template <typename T, typename A, typename... Args>
       auto
-      allocate_unique (const A& allocator, Args&&... args)
+      allocate_unique (const A& allocator, Args&&... arguments)
       {
         /**
          * @brief Standard allocator type definition.
@@ -1721,7 +1721,7 @@ namespace micro_os_plus
           {
             // Use placement new to construct the object.
             allocator_traits::construct (alloc, std::addressof (*p),
-                                         std::forward<Args> (args)...);
+                                         std::forward<Args> (arguments)...);
 
             // Figure out the deleter type.
             using D = allocator_deleter<A>;
@@ -1739,7 +1739,7 @@ namespace micro_os_plus
 
         // Use placement new to construct the object.
         allocator_traits::construct (alloc, std::addressof (*p),
-                                     std::forward<Args> (args)...);
+                                     std::forward<Args> (arguments)...);
 
         // Figure out the deleter type.
         using D = allocator_deleter<A>;

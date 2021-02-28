@@ -360,7 +360,7 @@ extern "C"
    * @see micro_os_plus::rtos::thread::func_t
    */
   typedef void* (*micro_os_plus_thread_func_t) (
-      micro_os_plus_thread_func_args_t args);
+      micro_os_plus_thread_func_args_t arguments);
 
   /**
    * @brief Type of variables holding thread states.
@@ -727,7 +727,7 @@ extern "C"
    * @see micro_os_plus::rtos::timer::func_t
    */
   typedef void (*micro_os_plus_timer_function_t) (
-      micro_os_plus_timer_function_arguments_t args);
+      micro_os_plus_timer_function_arguments_t arguments);
 
   /**
    * @brief Type of variables holding timer types.

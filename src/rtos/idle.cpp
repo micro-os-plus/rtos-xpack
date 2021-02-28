@@ -35,7 +35,7 @@ using namespace micro_os_plus::rtos;
 // ----------------------------------------------------------------------------
 
 void*
-micro_os_plus_idle (thread::func_args_t args);
+micro_os_plus_idle (thread::func_args_t arguments);
 
 void
 micro_os_plus_rtos_idle_actions (void);
@@ -145,7 +145,7 @@ void __attribute__ ((weak)) micro_os_plus_startup_create_thread_idle (void)
 }
 
 void*
-micro_os_plus_idle (thread::func_args_t args __attribute__ ((unused)))
+micro_os_plus_idle (thread::func_args_t arguments __attribute__ ((unused)))
 {
 
   // The thread was created with the default priority, and the

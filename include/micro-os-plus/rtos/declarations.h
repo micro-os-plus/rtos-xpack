@@ -932,7 +932,7 @@ namespace micro_os_plus
         typedef void (*func_t) (void);
 
         static void
-        create (void* context, void* function, void* args);
+        create (void* context, void* function, void* arguments);
       };
       /* class context */
 

@@ -169,7 +169,7 @@ namespace micro_os_plus
      * @brief  Create an object that is owned by a `shared_ptr` and is
      *  allocated using the RTOS system allocator.
      * @ingroup micro-os-plus-rtos-memres
-     * @param  args  Arguments for the _T_ object's constructor.
+     * @param  arguments  Arguments for the _T_ object's constructor.
      * @return A shared_ptr that owns the newly created object.
      * @throw * An exception may be thrown from `allocate()` or
      *          from the constructor of _T_.
@@ -177,12 +177,12 @@ namespace micro_os_plus
     template <typename T, typename... Args>
     inline typename std::enable_if<!std::is_array<T>::value,
                                    std::shared_ptr<T>>::type
-    make_shared (Args&&... args)
+    make_shared (Args&&... arguments)
     {
       // -Wno-psabi to disble the ABI warning.
       typedef typename std::remove_const<T>::type T_nc;
       return std::allocate_shared<T> (memory::allocator<T_nc> (),
-                                      std::forward<Args> (args)...);
+                                      std::forward<Args> (arguments)...);
     }
 
   } // namespace rtos

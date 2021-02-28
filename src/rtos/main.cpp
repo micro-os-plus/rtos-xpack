@@ -48,7 +48,7 @@ namespace
 
   // Since the native threads have a single argument, and it is better to
   // avoid C++11 tuples and function objects, there is no other simple
-  // way than to pack the args in a structure and use it by the
+  // way than to pack the arguments in a structure and use it by the
   // trampoline to invoke the os_main().
 
 #pragma GCC diagnostic push

@@ -120,7 +120,7 @@ namespace micro_os_plus
      *
      * // Thread function.
      * void*
-     * function(void* args)
+     * function(void* arguments)
      * {
      *   // Do something.
      *   ...
@@ -311,9 +311,9 @@ namespace micro_os_plus
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
-    thread::thread (func_t function, func_args_t args, const attributes& attr,
-                    const allocator_type& allocator)
-        : thread{ nullptr, function, args, attr, allocator }
+    thread::thread (func_t function, func_args_t arguments,
+                    const attributes& attr, const allocator_type& allocator)
+        : thread{ nullptr, function, arguments, attr, allocator }
     {
       ;
     }
@@ -362,7 +362,7 @@ namespace micro_os_plus
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
-    thread::thread (const char* name, func_t function, func_args_t args,
+    thread::thread (const char* name, func_t function, func_args_t arguments,
                     const attributes& attr, const allocator_type& allocator)
         : object_named_system{ name }
     {
@@ -375,7 +375,7 @@ namespace micro_os_plus
       if (attr.stack_address != nullptr
           && attr.stack_size_bytes > stack::min_size ())
         {
-          internal_construct_ (function, args, attr, nullptr, 0);
+          internal_construct_ (function, arguments, attr, nullptr, 0);
         }
       else
         {
@@ -404,7 +404,8 @@ namespace micro_os_plus
           // Stack allocation failed.
           assert (allocated_stack_address_ != nullptr);
 
-          internal_construct_ (function, args, attr, allocated_stack_address_,
+          internal_construct_ (function, arguments, attr,
+                               allocated_stack_address_,
                                allocated_stack_size_elements_
                                    * sizeof (stack::allocation_element_t));
         }
@@ -415,7 +416,7 @@ namespace micro_os_plus
      */
 
     void
-    thread::internal_construct_ (func_t function, func_args_t args,
+    thread::internal_construct_ (func_t function, func_args_t arguments,
                                  const attributes& attr, void* stack_address,
                                  std::size_t stack_size_bytes)
     {
@@ -462,7 +463,7 @@ namespace micro_os_plus
         priority_assigned_ = attr.priority;
 
         func_ = function;
-        func_args_ = args;
+        func_args_ = arguments;
 
         parent_ = this_thread::_thread ();
         if (scheduler::started () && (parent_ != nullptr))
