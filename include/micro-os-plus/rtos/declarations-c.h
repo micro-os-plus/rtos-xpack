@@ -1268,13 +1268,14 @@ extern "C"
 
   // ==========================================================================
 #if defined(MICRO_OS_PLUS_BOOL_RTOS_MESSAGE_QUEUE_SIZE_16BITS)
-  typedef uint16_t micro_os_plus_mqueue_size_t;
+  typedef uint16_t micro_os_plus_message_queue_size_t;
 #else
-typedef uint8_t micro_os_plus_mqueue_size_t;
+typedef uint8_t micro_os_plus_message_queue_size_t;
 #endif
 
-  typedef uint16_t micro_os_plus_mqueue_msg_size_t;
-  typedef micro_os_plus_mqueue_size_t micro_os_plus_mqueue_index_t;
+  typedef uint16_t micro_os_plus_message_queue_message_size_t;
+  typedef micro_os_plus_message_queue_size_t
+      micro_os_plus_message_queue_index_t;
 
   /**
    * @addtogroup micro-os-plus-rtos-c-mqueue
@@ -1286,7 +1287,7 @@ typedef uint8_t micro_os_plus_mqueue_size_t;
    *
    * @see micro_os_plus::rtos::message_queue::priority_t
    */
-  typedef uint8_t micro_os_plus_mqueue_priority_t;
+  typedef uint8_t micro_os_plus_message_queue_priority_t;
 
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wpadded"
@@ -1296,12 +1297,13 @@ typedef uint8_t micro_os_plus_mqueue_size_t;
    * @headerfile c-api.h <micro-os-plus/rtos/c-api.h>
    *
    * @details
-   * Initialise this structure with `micro_os_plus_mqueue_attributes_init()`
-   * and then set any of the individual members directly.
+   * Initialise this structure with
+   * `micro_os_plus_message_queue_attributes_init()` and then set any of the
+   * individual members directly.
    *
    * @see micro_os_plus::rtos::message_queue::attributes
    */
-  typedef struct micro_os_plus_mqueue_attributes_s
+  typedef struct micro_os_plus_message_queue_attributes_s
   {
     /**
      * @brief Pointer to clock object instance.
@@ -1318,7 +1320,7 @@ typedef uint8_t micro_os_plus_mqueue_size_t;
      */
     size_t mq_queue_size_bytes;
 
-  } micro_os_plus_mqueue_attributes_t;
+  } micro_os_plus_message_queue_attributes_t;
 
   /**
    * @brief Message queue object storage.
@@ -1327,7 +1329,7 @@ typedef uint8_t micro_os_plus_mqueue_size_t;
    * @details
    * This C structure has the same size as the C++
    * `micro_os_plus::rtos::message_queue` object and must be initialised with
-   * `micro_os_plus_mqueue_create()`.
+   * `micro_os_plus_message_queue_create()`.
    *
    * Later on a pointer to it can be used both in C and C++
    * to refer to the message queue object instance.
@@ -1337,7 +1339,7 @@ typedef uint8_t micro_os_plus_mqueue_size_t;
    *
    * @see micro_os_plus::rtos::message_queue
    */
-  typedef struct micro_os_plus_mqueue_s
+  typedef struct micro_os_plus_message_queue_s
   {
     /**
      * @cond ignore
@@ -1349,9 +1351,9 @@ typedef uint8_t micro_os_plus_mqueue_size_t;
     micro_os_plus_internal_threads_waiting_list_t send_list;
     micro_os_plus_internal_threads_waiting_list_t receive_list;
     void* clock;
-    micro_os_plus_mqueue_index_t* prev_array;
-    micro_os_plus_mqueue_index_t* next_array;
-    micro_os_plus_mqueue_priority_t* priority_array;
+    micro_os_plus_message_queue_index_t* prev_array;
+    micro_os_plus_message_queue_index_t* next_array;
+    micro_os_plus_message_queue_priority_t* priority_array;
     void* first_free;
 #endif
 
@@ -1360,25 +1362,25 @@ typedef uint8_t micro_os_plus_mqueue_size_t;
     void* allocator;
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
-    micro_os_plus_mqueue_port_data_t port;
+    micro_os_plus_message_queue_port_data_t port;
 #endif
 
     size_t queue_size_bytes;
     size_t allocated_queue_size_elements;
 
-    micro_os_plus_mqueue_msg_size_t msg_size_bytes;
-    micro_os_plus_mqueue_size_t msgs;
+    micro_os_plus_message_queue_message_size_t msg_size_bytes;
+    micro_os_plus_message_queue_size_t msgs;
 
-    micro_os_plus_mqueue_size_t count;
+    micro_os_plus_message_queue_size_t count;
 #if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
-    micro_os_plus_mqueue_index_t head;
+    micro_os_plus_message_queue_index_t head;
 #endif
 
     /**
      * @endcond
      */
 
-  } micro_os_plus_mqueue_t;
+  } micro_os_plus_message_queue_t;
 
 #pragma GCC diagnostic pop
 

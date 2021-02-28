@@ -840,7 +840,7 @@ namespace micro_os_plus
      * pointed to by the argument
      * _msg_ to the message queue. The _nbytes_ argument specifies the length
      * of the message, in bytes, pointed to by _msg_. The value of _nbytes_
-     * shall be less than or equal to the _msg_size_bytes_ parameter of the
+     * shall be less than or equal to the _messsge_size_bytes_ parameter of the
      * message queue object, or `send()` shall fail.
      *
      * If the specified message queue is not full, `send()`
@@ -960,7 +960,7 @@ namespace micro_os_plus
      * pointed to by the argument
      * _msg_ to the message queue. The _nbytes_ argument specifies the length
      * of the message, in bytes, pointed to by _msg_. The value of _nbytes_
-     * shall be less than or equal to the _msg_size_bytes_ parameter of the
+     * shall be less than or equal to the _messsge_size_bytes_ parameter of the
      * message queue object, or `try_send()` shall fail.
      *
      * If the message queue is not full, `try_send()`
@@ -1032,7 +1032,7 @@ namespace micro_os_plus
      * pointed to by the argument
      * _msg_ to the message queue. The _nbytes_ argument specifies the length
      * of the message, in bytes, pointed to by _msg_. The value of _nbytes_
-     * shall be less than or equal to the _msg_size_bytes_ attribute of the
+     * shall be less than or equal to the _messsge_size_bytes_ attribute of the
      * message queue object, or `timed_send()` shall fail.
      *
      * If the message queue is not full, `timed_send()` shall behave
@@ -1184,7 +1184,7 @@ namespace micro_os_plus
      * of the highest
      * priority message(s) from the message queue. If the size of the
      * buffer in bytes, specified by the _nbytes_ argument, is less than
-     * the _msg_size_bytes_ attribute of the message queue, the function
+     * the _messsge_size_bytes_ attribute of the message queue, the function
      * shall fail and return an error. Otherwise, the selected message
      * shall be removed from the queue and copied to the buffer pointed
      * to by the _msg_ argument.
@@ -1302,7 +1302,7 @@ namespace micro_os_plus
      * oldest of the highest
      * priority message(s) from the message queue. If the size of the
      * buffer in bytes, specified by the nbytes argument, is less than
-     * the _msg_size_bytes_ attribute of the message queue, the function
+     * the _messsge_size_bytes_ attribute of the message queue, the function
      * shall fail and return an error. Otherwise, the selected message
      * shall be removed from the queue and copied to the buffer pointed
      * to by the _msg_ argument.
@@ -1374,7 +1374,7 @@ namespace micro_os_plus
      * oldest of the highest
      * priority message(s) from the message queue. If the size of the
      * buffer in bytes, specified by the _nbytes_ argument, is less than
-     * the _msg_size_bytes_ attribute of the message queue, the function
+     * the _messsge_size_bytes_ attribute of the message queue, the function
      * shall fail and return an error. Otherwise, the selected message
      * shall be removed from the queue and copied to the buffer pointed
      * to by the _msg_ argument.

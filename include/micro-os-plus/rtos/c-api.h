@@ -2119,8 +2119,8 @@ extern "C"
    *  Nothing.
    */
   void
-  micro_os_plus_mqueue_attributes_init (
-      micro_os_plus_mqueue_attributes_t* attr);
+  micro_os_plus_message_queue_attributes_init (
+      micro_os_plus_message_queue_attributes_t* attr);
 
   /**
    * @}
@@ -2142,9 +2142,10 @@ extern "C"
    *  Nothing.
    */
   void
-  micro_os_plus_mqueue_construct (
-      micro_os_plus_mqueue_t* mqueue, const char* name, size_t msgs,
-      size_t msg_size_bytes, const micro_os_plus_mqueue_attributes_t* attr);
+  micro_os_plus_message_queue_construct (
+      micro_os_plus_message_queue_t* mqueue, const char* name, size_t msgs,
+      size_t msg_size_bytes,
+      const micro_os_plus_message_queue_attributes_t* attr);
 
   /**
    * @brief Destruct the statically allocated message queue object instance.
@@ -2153,7 +2154,7 @@ extern "C"
    *  Nothing.
    */
   void
-  micro_os_plus_mqueue_destruct (micro_os_plus_mqueue_t* mqueue);
+  micro_os_plus_message_queue_destruct (micro_os_plus_message_queue_t* mqueue);
 
   /**
    * @brief Allocate a message queue object instance and construct it.
@@ -2163,10 +2164,10 @@ extern "C"
    * @param [in] attr Pointer to attributes (may be NULL).
    * @return Pointer to new message queue object instance.
    */
-  micro_os_plus_mqueue_t*
-  micro_os_plus_mqueue_new (const char* name, size_t msgs,
-                            size_t msg_size_bytes,
-                            const micro_os_plus_mqueue_attributes_t* attr);
+  micro_os_plus_message_queue_t*
+  micro_os_plus_message_queue_new (
+      const char* name, size_t msgs, size_t msg_size_bytes,
+      const micro_os_plus_message_queue_attributes_t* attr);
 
   /**
    * @brief Destruct the message queue object instance and deallocate it.
@@ -2176,7 +2177,7 @@ extern "C"
    *  Nothing.
    */
   void
-  micro_os_plus_mqueue_delete (micro_os_plus_mqueue_t* mqueue);
+  micro_os_plus_message_queue_delete (micro_os_plus_message_queue_t* mqueue);
 
   /**
    * @}
@@ -2193,7 +2194,7 @@ extern "C"
    * @return Null terminated string.
    */
   const char*
-  micro_os_plus_mqueue_get_name (micro_os_plus_mqueue_t* mqueue);
+  micro_os_plus_message_queue_get_name (micro_os_plus_message_queue_t* mqueue);
 
   /**
    * @brief Send a message to the queue.
@@ -2213,9 +2214,9 @@ extern "C"
    * @retval EINTR The operation was interrupted.
    */
   micro_os_plus_result_t
-  micro_os_plus_mqueue_send (micro_os_plus_mqueue_t* mqueue, const void* msg,
-                             size_t nbytes,
-                             micro_os_plus_mqueue_priority_t mprio);
+  micro_os_plus_message_queue_send (
+      micro_os_plus_message_queue_t* mqueue, const void* msg, size_t nbytes,
+      micro_os_plus_message_queue_priority_t mprio);
 
   /**
    * @brief Try to send a message to the queue.
@@ -2234,9 +2235,9 @@ extern "C"
    *  (extension to POSIX).
    */
   micro_os_plus_result_t
-  micro_os_plus_mqueue_try_send (micro_os_plus_mqueue_t* mqueue,
-                                 const void* msg, size_t nbytes,
-                                 micro_os_plus_mqueue_priority_t mprio);
+  micro_os_plus_message_queue_try_send (
+      micro_os_plus_message_queue_t* mqueue, const void* msg, size_t nbytes,
+      micro_os_plus_message_queue_priority_t mprio);
 
   /**
    * @brief Send a message to the queue with timeout.
@@ -2259,10 +2260,10 @@ extern "C"
    * @retval EINTR The operation was interrupted.
    */
   micro_os_plus_result_t
-  micro_os_plus_mqueue_timed_send (micro_os_plus_mqueue_t* mqueue,
-                                   const void* msg, size_t nbytes,
-                                   micro_os_plus_clock_duration_t timeout,
-                                   micro_os_plus_mqueue_priority_t mprio);
+  micro_os_plus_message_queue_timed_send (
+      micro_os_plus_message_queue_t* mqueue, const void* msg, size_t nbytes,
+      micro_os_plus_clock_duration_t timeout,
+      micro_os_plus_message_queue_priority_t mprio);
 
   /**
    * @brief Receive a message from the queue.
@@ -2284,9 +2285,9 @@ extern "C"
    * @retval EINTR The operation was interrupted.
    */
   micro_os_plus_result_t
-  micro_os_plus_mqueue_receive (micro_os_plus_mqueue_t* mqueue, void* msg,
-                                size_t nbytes,
-                                micro_os_plus_mqueue_priority_t* mprio);
+  micro_os_plus_message_queue_receive (
+      micro_os_plus_message_queue_t* mqueue, void* msg, size_t nbytes,
+      micro_os_plus_message_queue_priority_t* mprio);
 
   /**
    * @brief Try to receive a message from the queue.
@@ -2307,9 +2308,9 @@ extern "C"
    * @retval EWOULDBLOCK The specified message queue is empty.
    */
   micro_os_plus_result_t
-  micro_os_plus_mqueue_try_receive (micro_os_plus_mqueue_t* mqueue, void* msg,
-                                    size_t nbytes,
-                                    micro_os_plus_mqueue_priority_t* mprio);
+  micro_os_plus_message_queue_try_receive (
+      micro_os_plus_message_queue_t* mqueue, void* msg, size_t nbytes,
+      micro_os_plus_message_queue_priority_t* mprio);
 
   /**
    * @brief Receive a message from the queue with timeout.
@@ -2334,10 +2335,10 @@ extern "C"
    *  specified timeout expired.
    */
   micro_os_plus_result_t
-  micro_os_plus_mqueue_timed_receive (micro_os_plus_mqueue_t* mqueue,
-                                      void* msg, size_t nbytes,
-                                      micro_os_plus_clock_duration_t timeout,
-                                      micro_os_plus_mqueue_priority_t* mprio);
+  micro_os_plus_message_queue_timed_receive (
+      micro_os_plus_message_queue_t* mqueue, void* msg, size_t nbytes,
+      micro_os_plus_clock_duration_t timeout,
+      micro_os_plus_message_queue_priority_t* mprio);
 
   /**
    * @brief Get queue capacity.
@@ -2345,7 +2346,8 @@ extern "C"
    * @return The max number of messages that can be queued.
    */
   size_t
-  micro_os_plus_mqueue_get_capacity (micro_os_plus_mqueue_t* mqueue);
+  micro_os_plus_message_queue_get_capacity (
+      micro_os_plus_message_queue_t* mqueue);
 
   /**
    * @brief Get queue length.
@@ -2353,7 +2355,8 @@ extern "C"
    * @return The number of messages in the queue.
    */
   size_t
-  micro_os_plus_mqueue_get_length (micro_os_plus_mqueue_t* mqueue);
+  micro_os_plus_message_queue_get_length (
+      micro_os_plus_message_queue_t* mqueue);
 
   /**
    * @brief Get message size.
@@ -2361,7 +2364,8 @@ extern "C"
    * @return The message size, in bytes.
    */
   size_t
-  micro_os_plus_mqueue_get_msg_size (micro_os_plus_mqueue_t* mqueue);
+  micro_os_plus_message_queue_get_message_size (
+      micro_os_plus_message_queue_t* mqueue);
 
   /**
    * @brief Check if the queue is empty.
@@ -2370,7 +2374,7 @@ extern "C"
    * @retval false The queue has some messages.
    */
   bool
-  micro_os_plus_mqueue_is_empty (micro_os_plus_mqueue_t* mqueue);
+  micro_os_plus_message_queue_is_empty (micro_os_plus_message_queue_t* mqueue);
 
   /**
    * @brief Check if the queue is full.
@@ -2379,7 +2383,7 @@ extern "C"
    * @retval false The queue is not full.
    */
   bool
-  micro_os_plus_mqueue_is_full (micro_os_plus_mqueue_t* mqueue);
+  micro_os_plus_message_queue_is_full (micro_os_plus_message_queue_t* mqueue);
 
   /**
    * @brief Reset the message queue.
@@ -2388,7 +2392,7 @@ extern "C"
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
    */
   micro_os_plus_result_t
-  micro_os_plus_mqueue_reset (micro_os_plus_mqueue_t* mqueue);
+  micro_os_plus_message_queue_reset (micro_os_plus_message_queue_t* mqueue);
 
   /**
    * @}

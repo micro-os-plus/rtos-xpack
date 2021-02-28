@@ -193,33 +193,33 @@ static_assert (alignof (micro_os_plus_memory_pool_size_t)
                    == alignof (memory_pool::size_t),
                "adjust align of micro_os_plus_memory_pool_size_t");
 
-static_assert (sizeof (micro_os_plus_mqueue_size_t)
+static_assert (sizeof (micro_os_plus_message_queue_size_t)
                    == sizeof (message_queue::size_t),
-               "adjust size of micro_os_plus_mqueue_size_t");
-static_assert (alignof (micro_os_plus_mqueue_size_t)
+               "adjust size of micro_os_plus_message_queue_size_t");
+static_assert (alignof (micro_os_plus_message_queue_size_t)
                    == alignof (message_queue::size_t),
-               "adjust align of micro_os_plus_mqueue_size_t");
+               "adjust align of micro_os_plus_message_queue_size_t");
 
-static_assert (sizeof (micro_os_plus_mqueue_msg_size_t)
+static_assert (sizeof (micro_os_plus_message_queue_message_size_t)
                    == sizeof (message_queue::msg_size_t),
-               "adjust size of micro_os_plus_mqueue_msg_size_t");
-static_assert (alignof (micro_os_plus_mqueue_msg_size_t)
+               "adjust size of micro_os_plus_message_queue_message_size_t");
+static_assert (alignof (micro_os_plus_message_queue_message_size_t)
                    == alignof (message_queue::msg_size_t),
-               "adjust align of micro_os_plus_mqueue_msg_size_t");
+               "adjust align of micro_os_plus_message_queue_message_size_t");
 
-static_assert (sizeof (micro_os_plus_mqueue_index_t)
+static_assert (sizeof (micro_os_plus_message_queue_index_t)
                    == sizeof (message_queue::index_t),
-               "adjust size of micro_os_plus_mqueue_index_t");
-static_assert (alignof (micro_os_plus_mqueue_index_t)
+               "adjust size of micro_os_plus_message_queue_index_t");
+static_assert (alignof (micro_os_plus_message_queue_index_t)
                    == alignof (message_queue::index_t),
-               "adjust align of micro_os_plus_mqueue_index_t");
+               "adjust align of micro_os_plus_message_queue_index_t");
 
-static_assert (sizeof (micro_os_plus_mqueue_priority_t)
+static_assert (sizeof (micro_os_plus_message_queue_priority_t)
                    == sizeof (message_queue::priority_t),
-               "adjust size of micro_os_plus_mqueue_priority_t");
-static_assert (alignof (micro_os_plus_mqueue_priority_t)
+               "adjust size of micro_os_plus_message_queue_priority_t");
+static_assert (alignof (micro_os_plus_message_queue_priority_t)
                    == alignof (message_queue::priority_t),
-               "adjust align of micro_os_plus_mqueue_priority_t");
+               "adjust align of micro_os_plus_message_queue_priority_t");
 
 // ----------------------------------------------------------------------------
 
@@ -403,19 +403,20 @@ static_assert (offsetof (rtos::memory_pool::attributes, mp_pool_size_bytes)
                                 mp_pool_size_bytes),
                "adjust micro_os_plus_memory_pool_attributes_t members");
 
-static_assert (sizeof (rtos::message_queue) == sizeof (micro_os_plus_mqueue_t),
-               "adjust size of micro_os_plus_mqueue_t");
+static_assert (sizeof (rtos::message_queue)
+                   == sizeof (micro_os_plus_message_queue_t),
+               "adjust size of micro_os_plus_message_queue_t");
 static_assert (sizeof (rtos::message_queue::attributes)
-                   == sizeof (micro_os_plus_mqueue_attributes_t),
-               "adjust size of micro_os_plus_mqueue_attributes_t");
+                   == sizeof (micro_os_plus_message_queue_attributes_t),
+               "adjust size of micro_os_plus_message_queue_attributes_t");
 static_assert (offsetof (rtos::message_queue::attributes, mq_queue_address)
-                   == offsetof (micro_os_plus_mqueue_attributes_t,
+                   == offsetof (micro_os_plus_message_queue_attributes_t,
                                 mq_queue_addr),
-               "adjust micro_os_plus_mqueue_attributes_t members");
+               "adjust micro_os_plus_message_queue_attributes_t members");
 static_assert (offsetof (rtos::message_queue::attributes, mq_queue_size_bytes)
-                   == offsetof (micro_os_plus_mqueue_attributes_t,
+                   == offsetof (micro_os_plus_message_queue_attributes_t,
                                 mq_queue_size_bytes),
-               "adjust micro_os_plus_mqueue_attributes_t members");
+               "adjust micro_os_plus_message_queue_attributes_t members");
 
 static_assert (sizeof (rtos::event_flags)
                    == sizeof (micro_os_plus_event_flags_t),
@@ -3100,7 +3101,8 @@ micro_os_plus_memory_pool_get_pool (micro_os_plus_memory_pool_t* mempool)
  *  @ref micro_os_plus::rtos::message_queue::attributes
  */
 void
-micro_os_plus_mqueue_attributes_init (micro_os_plus_mqueue_attributes_t* attr)
+micro_os_plus_message_queue_attributes_init (
+    micro_os_plus_message_queue_attributes_t* attr)
 {
   assert (attr != nullptr);
   new (attr) message_queue::attributes ();
@@ -3109,7 +3111,7 @@ micro_os_plus_mqueue_attributes_init (micro_os_plus_mqueue_attributes_t* attr)
 /**
  * @details
  *
- * @note Must be paired with `micro_os_plus_mqueue_destruct()`.
+ * @note Must be paired with `micro_os_plus_message_queue_destruct()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
@@ -3117,15 +3119,15 @@ micro_os_plus_mqueue_attributes_init (micro_os_plus_mqueue_attributes_t* attr)
  *  @ref micro_os_plus::rtos::message_queue
  */
 void
-micro_os_plus_mqueue_construct (micro_os_plus_mqueue_t* mqueue,
-                                const char* name, size_t msgs,
-                                size_t msg_size_bytes,
-                                const micro_os_plus_mqueue_attributes_t* attr)
+micro_os_plus_message_queue_construct (
+    micro_os_plus_message_queue_t* mqueue, const char* name, size_t msgs,
+    size_t msg_size_bytes,
+    const micro_os_plus_message_queue_attributes_t* attr)
 {
   assert (mqueue != nullptr);
   if (attr == nullptr)
     {
-      attr = (const micro_os_plus_mqueue_attributes_t*)&message_queue::
+      attr = (const micro_os_plus_message_queue_attributes_t*)&message_queue::
           initializer;
     }
   new (mqueue) message_queue (name, msgs, msg_size_bytes,
@@ -3135,7 +3137,7 @@ micro_os_plus_mqueue_construct (micro_os_plus_mqueue_t* mqueue,
 /**
  * @details
  *
- * @note Must be paired with `micro_os_plus_mqueue_construct()`.
+ * @note Must be paired with `micro_os_plus_message_queue_construct()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
@@ -3143,7 +3145,7 @@ micro_os_plus_mqueue_construct (micro_os_plus_mqueue_t* mqueue,
  *  @ref micro_os_plus::rtos::message_queue
  */
 void
-micro_os_plus_mqueue_destruct (micro_os_plus_mqueue_t* mqueue)
+micro_os_plus_message_queue_destruct (micro_os_plus_message_queue_t* mqueue)
 {
   assert (mqueue != nullptr);
   (reinterpret_cast<message_queue&> (*mqueue)).~message_queue ();
@@ -3156,23 +3158,24 @@ micro_os_plus_mqueue_destruct (micro_os_plus_mqueue_t* mqueue)
  * system allocator and construct it.
  *
  * @note Equivalent of C++ `new message_queue(...)`.
- * @note Must be paired with `micro_os_plus_mqueue_delete()`.
+ * @note Must be paired with `micro_os_plus_message_queue_delete()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::message_queue
  */
-micro_os_plus_mqueue_t*
-micro_os_plus_mqueue_new (const char* name, size_t msgs, size_t msg_size_bytes,
-                          const micro_os_plus_mqueue_attributes_t* attr)
+micro_os_plus_message_queue_t*
+micro_os_plus_message_queue_new (
+    const char* name, size_t msgs, size_t msg_size_bytes,
+    const micro_os_plus_message_queue_attributes_t* attr)
 {
   if (attr == nullptr)
     {
-      attr = (const micro_os_plus_mqueue_attributes_t*)&message_queue::
+      attr = (const micro_os_plus_message_queue_attributes_t*)&message_queue::
           initializer;
     }
-  return reinterpret_cast<micro_os_plus_mqueue_t*> (new message_queue (
+  return reinterpret_cast<micro_os_plus_message_queue_t*> (new message_queue (
       name, msgs, msg_size_bytes, (const message_queue::attributes&)*attr));
 }
 
@@ -3183,7 +3186,7 @@ micro_os_plus_mqueue_new (const char* name, size_t msgs, size_t msg_size_bytes,
  * space using the RTOS system allocator.
  *
  * @note Equivalent of C++ `delete ptr_mqueue`.
- * @note Must be paired with `micro_os_plus_mqueue_new()`.
+ * @note Must be paired with `micro_os_plus_message_queue_new()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
@@ -3191,7 +3194,7 @@ micro_os_plus_mqueue_new (const char* name, size_t msgs, size_t msg_size_bytes,
  *  @ref micro_os_plus::rtos::message_queue
  */
 void
-micro_os_plus_mqueue_delete (micro_os_plus_mqueue_t* mqueue)
+micro_os_plus_message_queue_delete (micro_os_plus_message_queue_t* mqueue)
 {
   assert (mqueue != nullptr);
   delete reinterpret_cast<message_queue*> (mqueue);
@@ -3206,7 +3209,7 @@ micro_os_plus_mqueue_delete (micro_os_plus_mqueue_t* mqueue)
  *  @ref micro_os_plus::rtos::message_queue::name()
  */
 const char*
-micro_os_plus_mqueue_get_name (micro_os_plus_mqueue_t* mqueue)
+micro_os_plus_message_queue_get_name (micro_os_plus_message_queue_t* mqueue)
 {
   assert (mqueue != nullptr);
   return (reinterpret_cast<message_queue&> (*mqueue)).name ();
@@ -3221,9 +3224,9 @@ micro_os_plus_mqueue_get_name (micro_os_plus_mqueue_t* mqueue)
  *  @ref micro_os_plus::rtos::message_queue::send()
  */
 micro_os_plus_result_t
-micro_os_plus_mqueue_send (micro_os_plus_mqueue_t* mqueue, const void* msg,
-                           size_t nbytes,
-                           micro_os_plus_mqueue_priority_t mprio)
+micro_os_plus_message_queue_send (micro_os_plus_message_queue_t* mqueue,
+                                  const void* msg, size_t nbytes,
+                                  micro_os_plus_message_queue_priority_t mprio)
 {
   assert (mqueue != nullptr);
   return (micro_os_plus_result_t) (reinterpret_cast<message_queue&> (*mqueue))
@@ -3239,9 +3242,9 @@ micro_os_plus_mqueue_send (micro_os_plus_mqueue_t* mqueue, const void* msg,
  *  @ref micro_os_plus::rtos::message_queue::try_send()
  */
 micro_os_plus_result_t
-micro_os_plus_mqueue_try_send (micro_os_plus_mqueue_t* mqueue, const void* msg,
-                               size_t nbytes,
-                               micro_os_plus_mqueue_priority_t mprio)
+micro_os_plus_message_queue_try_send (
+    micro_os_plus_message_queue_t* mqueue, const void* msg, size_t nbytes,
+    micro_os_plus_message_queue_priority_t mprio)
 {
   assert (mqueue != nullptr);
   return (micro_os_plus_result_t) (reinterpret_cast<message_queue&> (*mqueue))
@@ -3257,10 +3260,10 @@ micro_os_plus_mqueue_try_send (micro_os_plus_mqueue_t* mqueue, const void* msg,
  *  @ref micro_os_plus::rtos::message_queue::timed_send()
  */
 micro_os_plus_result_t
-micro_os_plus_mqueue_timed_send (micro_os_plus_mqueue_t* mqueue,
-                                 const void* msg, size_t nbytes,
-                                 micro_os_plus_clock_duration_t timeout,
-                                 micro_os_plus_mqueue_priority_t mprio)
+micro_os_plus_message_queue_timed_send (
+    micro_os_plus_message_queue_t* mqueue, const void* msg, size_t nbytes,
+    micro_os_plus_clock_duration_t timeout,
+    micro_os_plus_message_queue_priority_t mprio)
 {
   assert (mqueue != nullptr);
   return (micro_os_plus_result_t) (reinterpret_cast<message_queue&> (*mqueue))
@@ -3276,9 +3279,9 @@ micro_os_plus_mqueue_timed_send (micro_os_plus_mqueue_t* mqueue,
  *  @ref micro_os_plus::rtos::message_queue::receive()
  */
 micro_os_plus_result_t
-micro_os_plus_mqueue_receive (micro_os_plus_mqueue_t* mqueue, void* msg,
-                              size_t nbytes,
-                              micro_os_plus_mqueue_priority_t* mprio)
+micro_os_plus_message_queue_receive (
+    micro_os_plus_message_queue_t* mqueue, void* msg, size_t nbytes,
+    micro_os_plus_message_queue_priority_t* mprio)
 {
   assert (mqueue != nullptr);
   return (micro_os_plus_result_t) (reinterpret_cast<message_queue&> (*mqueue))
@@ -3294,9 +3297,9 @@ micro_os_plus_mqueue_receive (micro_os_plus_mqueue_t* mqueue, void* msg,
  *  @ref micro_os_plus::rtos::message_queue::try_receive()
  */
 micro_os_plus_result_t
-micro_os_plus_mqueue_try_receive (micro_os_plus_mqueue_t* mqueue, void* msg,
-                                  size_t nbytes,
-                                  micro_os_plus_mqueue_priority_t* mprio)
+micro_os_plus_message_queue_try_receive (
+    micro_os_plus_message_queue_t* mqueue, void* msg, size_t nbytes,
+    micro_os_plus_message_queue_priority_t* mprio)
 {
   assert (mqueue != nullptr);
   return (micro_os_plus_result_t) (reinterpret_cast<message_queue&> (*mqueue))
@@ -3312,10 +3315,10 @@ micro_os_plus_mqueue_try_receive (micro_os_plus_mqueue_t* mqueue, void* msg,
  *  @ref micro_os_plus::rtos::message_queue::timed_receive()
  */
 micro_os_plus_result_t
-micro_os_plus_mqueue_timed_receive (micro_os_plus_mqueue_t* mqueue, void* msg,
-                                    size_t nbytes,
-                                    micro_os_plus_clock_duration_t timeout,
-                                    micro_os_plus_mqueue_priority_t* mprio)
+micro_os_plus_message_queue_timed_receive (
+    micro_os_plus_message_queue_t* mqueue, void* msg, size_t nbytes,
+    micro_os_plus_clock_duration_t timeout,
+    micro_os_plus_message_queue_priority_t* mprio)
 {
   assert (mqueue != nullptr);
   return (micro_os_plus_result_t) (reinterpret_cast<message_queue&> (*mqueue))
@@ -3331,7 +3334,7 @@ micro_os_plus_mqueue_timed_receive (micro_os_plus_mqueue_t* mqueue, void* msg,
  *  @ref micro_os_plus::rtos::message_queue::length()
  */
 size_t
-micro_os_plus_mqueue_get_length (micro_os_plus_mqueue_t* mqueue)
+micro_os_plus_message_queue_get_length (micro_os_plus_message_queue_t* mqueue)
 {
   assert (mqueue != nullptr);
   return (reinterpret_cast<message_queue&> (*mqueue)).length ();
@@ -3346,7 +3349,8 @@ micro_os_plus_mqueue_get_length (micro_os_plus_mqueue_t* mqueue)
  *  @ref micro_os_plus::rtos::message_queue::capacity()
  */
 size_t
-micro_os_plus_mqueue_get_capacity (micro_os_plus_mqueue_t* mqueue)
+micro_os_plus_message_queue_get_capacity (
+    micro_os_plus_message_queue_t* mqueue)
 {
   assert (mqueue != nullptr);
   return (reinterpret_cast<message_queue&> (*mqueue)).capacity ();
@@ -3361,7 +3365,8 @@ micro_os_plus_mqueue_get_capacity (micro_os_plus_mqueue_t* mqueue)
  *  @ref micro_os_plus::rtos::message_queue::msg_size()
  */
 size_t
-micro_os_plus_mqueue_get_msg_size (micro_os_plus_mqueue_t* mqueue)
+micro_os_plus_message_queue_get_message_size (
+    micro_os_plus_message_queue_t* mqueue)
 {
   assert (mqueue != nullptr);
   return (reinterpret_cast<message_queue&> (*mqueue)).msg_size ();
@@ -3376,7 +3381,7 @@ micro_os_plus_mqueue_get_msg_size (micro_os_plus_mqueue_t* mqueue)
  *  @ref micro_os_plus::rtos::message_queue::empty()
  */
 bool
-micro_os_plus_mqueue_is_empty (micro_os_plus_mqueue_t* mqueue)
+micro_os_plus_message_queue_is_empty (micro_os_plus_message_queue_t* mqueue)
 {
   assert (mqueue != nullptr);
   return (reinterpret_cast<message_queue&> (*mqueue)).empty ();
@@ -3391,7 +3396,7 @@ micro_os_plus_mqueue_is_empty (micro_os_plus_mqueue_t* mqueue)
  *  @ref micro_os_plus::rtos::message_queue::full()
  */
 bool
-micro_os_plus_mqueue_is_full (micro_os_plus_mqueue_t* mqueue)
+micro_os_plus_message_queue_is_full (micro_os_plus_message_queue_t* mqueue)
 {
   assert (mqueue != nullptr);
   return (reinterpret_cast<message_queue&> (*mqueue)).full ();
@@ -3406,7 +3411,7 @@ micro_os_plus_mqueue_is_full (micro_os_plus_mqueue_t* mqueue)
  *  @ref micro_os_plus::rtos::message_queue::reset()
  */
 micro_os_plus_result_t
-micro_os_plus_mqueue_reset (micro_os_plus_mqueue_t* mqueue)
+micro_os_plus_message_queue_reset (micro_os_plus_message_queue_t* mqueue)
 {
   assert (mqueue != nullptr);
   return (micro_os_plus_result_t) (reinterpret_cast<message_queue&> (*mqueue))

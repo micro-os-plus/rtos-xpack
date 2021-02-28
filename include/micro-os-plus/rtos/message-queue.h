@@ -90,7 +90,7 @@ namespace micro_os_plus
        * @brief Maximum message size.
        * @ingroup micro-os-plus-rtos-mqueue
        */
-      static constexpr msg_size_t max_msg_size = 0xFFFF;
+      static constexpr msg_size_t max_message_size = 0xFFFF;
 
       /**
        * @brief Type of list index storage.
@@ -679,7 +679,7 @@ namespace micro_os_plus
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
       friend class port::message_queue;
-      micro_os_plus_mqueue_port_data_t port_;
+      micro_os_plus_message_queue_port_data_t port_;
 #endif
 
       /**
