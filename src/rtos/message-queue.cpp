@@ -520,7 +520,7 @@ namespace micro_os_plus
     message_queue::internal_construct_ (std::size_t messages,
                                         std::size_t message_size_bytes,
                                         const attributes& attributes,
-                                        void* arena_addressess,
+                                        void* arena_address,
                                         std::size_t arena_size_bytes)
     {
       // Don't call this from interrupt handlers.
@@ -544,12 +544,12 @@ namespace micro_os_plus
       assert (messages > 0);
 
       // If the storage is given explicitly, override attributes.
-      if (arena_addressess != nullptr)
+      if (arena_address != nullptr)
         {
           // The attributes should not define any storage in this case.
           assert (attributes.arena_address == nullptr);
 
-          arena_address_ = arena_addressess;
+          arena_address_ = arena_address;
           arena_size_bytes_ = arena_size_bytes;
         }
       else

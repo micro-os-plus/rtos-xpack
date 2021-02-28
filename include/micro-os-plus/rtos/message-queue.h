@@ -556,7 +556,7 @@ namespace micro_os_plus
        * @param [in] messages The number of messages.
        * @param [in] message_size_bytes The message size, in bytes.
        * @param [in] attributes Reference to attributes.
-       * @param [in] arena_addressess Pointer to queue storage.
+       * @param [in] arena_address Pointer to queue storage.
        * @param [in] arena_size_bytes Size of queue storage.
        * @par Returns
        *  Nothing.
@@ -564,8 +564,7 @@ namespace micro_os_plus
       void
       internal_construct_ (std::size_t messages,
                            std::size_t message_size_bytes,
-                           const attributes& attributes,
-                           void* arena_addressess,
+                           const attributes& attributes, void* arena_address,
                            std::size_t arena_size_bytes);
 
       /**
