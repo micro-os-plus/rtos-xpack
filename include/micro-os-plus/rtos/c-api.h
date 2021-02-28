@@ -249,7 +249,7 @@ extern "C"
    * @retval false Execution is in a thread context.
    */
   bool
-  micro_os_plus_irq_in_handler_mode (void);
+  micro_os_plus_interrupts_in_handler_mode (void);
 
   /**
    * @brief Enter an interrupts critical section.
@@ -257,8 +257,8 @@ extern "C"
    *  None.
    * @return The previous value of the interrupts priority register.
    */
-  micro_os_plus_irq_state_t
-  micro_os_plus_irq_critical_enter (void);
+  micro_os_plus_interrupts_state_t
+  micro_os_plus_interrupts_critical_enter (void);
 
   /**
    * @brief Exit the interrupts critical section.
@@ -267,7 +267,8 @@ extern "C"
    *  Nothing.
    */
   void
-  micro_os_plus_irq_critical_exit (micro_os_plus_irq_state_t state);
+  micro_os_plus_interrupts_critical_exit (
+      micro_os_plus_interrupts_state_t state);
 
   // --------------------------------------------------------------------------
 
@@ -277,8 +278,8 @@ extern "C"
    *  None.
    * @return The previous value of the interrupts priority register.
    */
-  micro_os_plus_irq_state_t
-  micro_os_plus_irq_uncritical_enter (void);
+  micro_os_plus_interrupts_state_t
+  micro_os_plus_interrupts_uncritical_enter (void);
 
   /**
    * @brief Exit the interrupts uncritical section.
@@ -287,7 +288,8 @@ extern "C"
    *  Nothing.
    */
   void
-  micro_os_plus_irq_uncritical_exit (micro_os_plus_irq_state_t state);
+  micro_os_plus_interrupts_uncritical_exit (
+      micro_os_plus_interrupts_state_t state);
 
 #if defined(MICRO_OS_PLUS_HAS_INTERRUPTS_STACK) || defined(__DOXYGEN__)
 
@@ -298,7 +300,7 @@ extern "C"
    * @return A pointer to the interrupts stack object instance.
    */
   micro_os_plus_thread_stack_t*
-  micro_os_plus_irq_get_stack (void);
+  micro_os_plus_interrupts_get_stack (void);
 
 #endif
 

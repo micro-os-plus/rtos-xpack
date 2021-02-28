@@ -62,12 +62,12 @@ static_assert (alignof (micro_os_plus_scheduler_state_t)
                    == alignof (scheduler::state_t),
                "adjust align of micro_os_plus_scheduler_state_t");
 
-static_assert (sizeof (micro_os_plus_irq_state_t)
+static_assert (sizeof (micro_os_plus_interrupts_state_t)
                    == sizeof (interrupts::state_t),
-               "adjust size of micro_os_plus_irq_state_t");
-static_assert (alignof (micro_os_plus_irq_state_t)
+               "adjust size of micro_os_plus_interrupts_state_t");
+static_assert (alignof (micro_os_plus_interrupts_state_t)
                    == alignof (interrupts::state_t),
-               "adjust align of micro_os_plus_irq_state_t");
+               "adjust align of micro_os_plus_interrupts_state_t");
 
 static_assert (sizeof (micro_os_plus_clock_timestamp_t)
                    == sizeof (clock::timestamp_t),
@@ -622,7 +622,7 @@ micro_os_plus_scheduler_stat_get_cpu_cycles (void)
  *  @ref micro_os_plus::rtos::interrupts::in_handler_mode()
  */
 bool
-micro_os_plus_irq_in_handler_mode (void)
+micro_os_plus_interrupts_in_handler_mode (void)
 {
   return interrupts::in_handler_mode ();
 }
@@ -637,8 +637,8 @@ micro_os_plus_irq_in_handler_mode (void)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::interrupts::critical_section::enter()
  */
-micro_os_plus_irq_state_t
-micro_os_plus_irq_critical_enter (void)
+micro_os_plus_interrupts_state_t
+micro_os_plus_interrupts_critical_enter (void)
 {
   return interrupts::critical_section::enter ();
 }
@@ -652,7 +652,7 @@ micro_os_plus_irq_critical_enter (void)
  *  @ref micro_os_plus::rtos::interrupts::critical_section::exit()
  */
 void
-micro_os_plus_irq_critical_exit (micro_os_plus_irq_state_t state)
+micro_os_plus_interrupts_critical_exit (micro_os_plus_interrupts_state_t state)
 {
   interrupts::critical_section::exit (state);
 }
@@ -667,8 +667,8 @@ micro_os_plus_irq_critical_exit (micro_os_plus_irq_state_t state)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::interrupts::uncritical_section::enter()
  */
-micro_os_plus_irq_state_t
-micro_os_plus_irq_uncritical_enter (void)
+micro_os_plus_interrupts_state_t
+micro_os_plus_interrupts_uncritical_enter (void)
 {
   return interrupts::uncritical_section::enter ();
 }
@@ -682,7 +682,8 @@ micro_os_plus_irq_uncritical_enter (void)
  *  @ref micro_os_plus::rtos::interrupts::uncritical_section::exit()
  */
 void
-micro_os_plus_irq_uncritical_exit (micro_os_plus_irq_state_t state)
+micro_os_plus_interrupts_uncritical_exit (
+    micro_os_plus_interrupts_state_t state)
 {
   interrupts::uncritical_section::exit (state);
 }
@@ -699,7 +700,7 @@ micro_os_plus_irq_uncritical_exit (micro_os_plus_irq_state_t state)
  */
 
 micro_os_plus_thread_stack_t*
-micro_os_plus_irq_get_stack (void)
+micro_os_plus_interrupts_get_stack (void)
 {
   return reinterpret_cast<micro_os_plus_thread_stack_t*> (
       rtos::interrupts::stack ());

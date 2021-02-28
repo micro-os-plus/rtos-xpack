@@ -182,7 +182,8 @@ extern "C"
    *
    * @see micro_os_plus::rtos::interrupts::state_t
    */
-  typedef micro_os_plus_port_irq_state_t micro_os_plus_irq_state_t;
+  typedef micro_os_plus_port_interrupts_state_t
+      micro_os_plus_interrupts_state_t;
 
   // --------------------------------------------------------------------------
 
