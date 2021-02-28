@@ -57,13 +57,13 @@ namespace micro_os_plus
        * @brief Timer call back function arguments.
        * @ingroup micro-os-plus-rtos-timer
        */
-      using func_args_t = void*;
+      using function_arguments_t = void*;
 
       /**
        * @brief Entry point of a timer call back function.
        * @ingroup micro-os-plus-rtos-timer
        */
-      using func_t = void (*) (func_args_t arguments);
+      using function_t = void (*) (function_arguments_t arguments);
 
       /**
        * @brief Type of of variables holding timer run types.
@@ -255,7 +255,7 @@ namespace micro_os_plus
        * @param [in] arguments Pointer to timer function arguments.
        * @param [in] attributes Reference to attributes.
        */
-      timer (func_t function, func_args_t arguments,
+      timer (function_t function, function_arguments_t arguments,
              const attributes& attributes = once_initializer);
 
       /**
@@ -265,7 +265,8 @@ namespace micro_os_plus
        * @param [in] arguments Pointer to timer function arguments.
        * @param [in] attributes Reference to attributes.
        */
-      timer (const char* name, func_t function, func_args_t arguments,
+      timer (const char* name, function_t function,
+             function_arguments_t arguments,
              const attributes& attributes = once_initializer);
 
       /**
@@ -398,8 +399,8 @@ namespace micro_os_plus
        * @cond ignore
        */
 
-      func_t func_;
-      func_args_t func_args_;
+      function_t func_;
+      function_arguments_t func_args_;
 
 #if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_TIMER)
       clock* clock_ = nullptr;

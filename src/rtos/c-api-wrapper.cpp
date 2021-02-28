@@ -104,18 +104,19 @@ static_assert (alignof (micro_os_plus_statistics_duration_t)
                    == alignof (statistics::duration_t),
                "adjust align of micro_os_plus_statistics_duration_t");
 
-static_assert (sizeof (micro_os_plus_thread_func_args_t)
-                   == sizeof (thread::func_args_t),
-               "adjust size of micro_os_plus_thread_func_args_t");
-static_assert (alignof (micro_os_plus_thread_func_args_t)
-                   == alignof (thread::func_args_t),
-               "adjust align of micro_os_plus_thread_func_args_t");
+static_assert (sizeof (micro_os_plus_thread_function_arguments_t)
+                   == sizeof (thread::function_arguments_t),
+               "adjust size of micro_os_plus_thread_function_arguments_t");
+static_assert (alignof (micro_os_plus_thread_function_arguments_t)
+                   == alignof (thread::function_arguments_t),
+               "adjust align of micro_os_plus_thread_function_arguments_t");
 
-static_assert (sizeof (micro_os_plus_thread_func_t) == sizeof (thread::func_t),
-               "adjust size of micro_os_plus_thread_func_t");
-static_assert (alignof (micro_os_plus_thread_func_t)
-                   == alignof (thread::func_t),
-               "adjust align of micro_os_plus_thread_func_t");
+static_assert (sizeof (micro_os_plus_thread_function_t)
+                   == sizeof (thread::function_t),
+               "adjust size of micro_os_plus_thread_function_t");
+static_assert (alignof (micro_os_plus_thread_function_t)
+                   == alignof (thread::function_t),
+               "adjust align of micro_os_plus_thread_function_t");
 
 static_assert (sizeof (micro_os_plus_thread_state_t)
                    == sizeof (thread::state_t),
@@ -132,17 +133,17 @@ static_assert (alignof (micro_os_plus_thread_priority_t)
                "adjust align of micro_os_plus_thread_priority_t");
 
 static_assert (sizeof (micro_os_plus_timer_function_arguments_t)
-                   == sizeof (timer::func_args_t),
+                   == sizeof (timer::function_arguments_t),
                "adjust size of micro_os_plus_timer_function_arguments_t");
 static_assert (alignof (micro_os_plus_timer_function_arguments_t)
-                   == alignof (timer::func_args_t),
+                   == alignof (timer::function_arguments_t),
                "adjust align of micro_os_plus_timer_function_arguments_t");
 
 static_assert (sizeof (micro_os_plus_timer_function_t)
-                   == sizeof (timer::func_t),
+                   == sizeof (timer::function_t),
                "adjust size of micro_os_plus_timer_function_t");
 static_assert (alignof (micro_os_plus_timer_function_t)
-                   == alignof (timer::func_t),
+                   == alignof (timer::function_t),
                "adjust align of micro_os_plus_timer_function_t");
 
 static_assert (sizeof (micro_os_plus_timer_type_t) == sizeof (timer::type_t),
@@ -864,8 +865,8 @@ micro_os_plus_thread_attributes_init (
 void
 micro_os_plus_thread_construct (
     micro_os_plus_thread_t* thread, const char* name,
-    micro_os_plus_thread_func_t function,
-    const micro_os_plus_thread_func_args_t arguments,
+    micro_os_plus_thread_function_t function,
+    const micro_os_plus_thread_function_arguments_t arguments,
     const micro_os_plus_thread_attributes_t* attributes)
 {
   assert (thread != nullptr);
@@ -874,8 +875,8 @@ micro_os_plus_thread_construct (
       attributes
           = (const micro_os_plus_thread_attributes_t*)&thread::initializer;
     }
-  new (thread) rtos::thread (name, (thread::func_t)function,
-                             (thread::func_args_t)arguments,
+  new (thread) rtos::thread (name, (thread::function_t)function,
+                             (thread::function_arguments_t)arguments,
                              (const thread::attributes&)*attributes);
 }
 
@@ -911,19 +912,20 @@ micro_os_plus_thread_destruct (micro_os_plus_thread_t* thread)
  *  @ref micro_os_plus::rtos::thread
  */
 micro_os_plus_thread_t*
-micro_os_plus_thread_new (const char* name,
-                          micro_os_plus_thread_func_t function,
-                          const micro_os_plus_thread_func_args_t arguments,
-                          const micro_os_plus_thread_attributes_t* attributes)
+micro_os_plus_thread_new (
+    const char* name, micro_os_plus_thread_function_t function,
+    const micro_os_plus_thread_function_arguments_t arguments,
+    const micro_os_plus_thread_attributes_t* attributes)
 {
   if (attributes == nullptr)
     {
       attributes
           = (const micro_os_plus_thread_attributes_t*)&thread::initializer;
     }
-  return reinterpret_cast<micro_os_plus_thread_t*> (new rtos::thread (
-      name, (thread::func_t)function, (thread::func_args_t)arguments,
-      (const thread::attributes&)*attributes));
+  return reinterpret_cast<micro_os_plus_thread_t*> (
+      new rtos::thread (name, (thread::function_t)function,
+                        (thread::function_arguments_t)arguments,
+                        (const thread::attributes&)*attributes));
 }
 
 /**
@@ -1681,8 +1683,8 @@ micro_os_plus_timer_construct (
       attributes = (const micro_os_plus_timer_attributes_t*)&timer::
           periodic_initializer;
     }
-  new (timer) rtos::timer (name, (timer::func_t)function,
-                           (timer::func_args_t)arguments,
+  new (timer) rtos::timer (name, (timer::function_t)function,
+                           (timer::function_arguments_t)arguments,
                            (const timer::attributes&)*attributes);
 }
 
@@ -1728,9 +1730,10 @@ micro_os_plus_timer_new (const char* name,
       attributes = (const micro_os_plus_timer_attributes_t*)&timer::
           periodic_initializer;
     }
-  return reinterpret_cast<micro_os_plus_timer_t*> (new rtos::timer (
-      name, (timer::func_t)function, (timer::func_args_t)arguments,
-      (const timer::attributes&)*attributes));
+  return reinterpret_cast<micro_os_plus_timer_t*> (
+      new rtos::timer (name, (timer::function_t)function,
+                       (timer::function_arguments_t)arguments,
+                       (const timer::attributes&)*attributes));
 }
 
 /**

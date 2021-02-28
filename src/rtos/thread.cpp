@@ -311,7 +311,7 @@ namespace micro_os_plus
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
-    thread::thread (func_t function, func_args_t arguments,
+    thread::thread (function_t function, function_arguments_t arguments,
                     const attributes& attributes,
                     const allocator_type& allocator)
         : thread{ nullptr, function, arguments, attributes, allocator }
@@ -363,7 +363,8 @@ namespace micro_os_plus
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
-    thread::thread (const char* name, func_t function, func_args_t arguments,
+    thread::thread (const char* name, function_t function,
+                    function_arguments_t arguments,
                     const attributes& attributes,
                     const allocator_type& allocator)
         : object_named_system{ name }
@@ -418,7 +419,8 @@ namespace micro_os_plus
      */
 
     void
-    thread::internal_construct_ (func_t function, func_args_t arguments,
+    thread::internal_construct_ (function_t function,
+                                 function_arguments_t arguments,
                                  const attributes& attributes,
                                  void* stack_address,
                                  std::size_t stack_size_bytes)

@@ -49,7 +49,7 @@
 namespace
 {
   // Anonymous definition required for the next forward definition.
-  using _func_args_t = void*;
+  using _function_arguments_t = void*;
 } // namespace
 
 void
@@ -384,7 +384,7 @@ namespace micro_os_plus
        * Useful to cast other similar types
        * to silence possible compiler warnings.
        */
-      using func_args_t = _func_args_t;
+      using function_arguments_t = _function_arguments_t;
 
       /**
        * @brief Type of thread function.
@@ -392,7 +392,7 @@ namespace micro_os_plus
        * Useful to cast other similar types
        * to silence possible compiler warnings.
        */
-      using func_t = void* (*)(func_args_t arguments);
+      using function_t = void* (*)(function_arguments_t arguments);
 
       // ======================================================================
 
@@ -982,7 +982,7 @@ namespace micro_os_plus
        * @param [in] allocator Reference to allocator. Default a local
        * temporary instance.
        */
-      thread (func_t function, func_args_t arguments,
+      thread (function_t function, function_arguments_t arguments,
               const attributes& attributes = initializer,
               const allocator_type& allocator = allocator_type ());
 
@@ -995,7 +995,8 @@ namespace micro_os_plus
        * @param [in] allocator Reference to allocator. Default a local
        * temporary instance.
        */
-      thread (const char* name, func_t function, func_args_t arguments,
+      thread (const char* name, function_t function,
+              function_arguments_t arguments,
               const attributes& attributes = initializer,
               const allocator_type& allocator = allocator_type ());
 
@@ -1371,7 +1372,7 @@ namespace micro_os_plus
        * @param [in] stack_size_bytes Size of stack storage or 0.
        */
       void
-      internal_construct_ (func_t function, func_args_t arguments,
+      internal_construct_ (function_t function, function_arguments_t arguments,
                            const attributes& attributes, void* stack_address,
                            std::size_t stack_size_bytes);
 
@@ -1549,8 +1550,8 @@ namespace micro_os_plus
       // TODO: make it fully intrusive with computed offset.
       internal::waiting_thread_node ready_node_{ *this };
 
-      func_t func_ = nullptr;
-      func_args_t func_args_ = nullptr;
+      function_t func_ = nullptr;
+      function_arguments_t func_args_ = nullptr;
       void* func_result_ = nullptr;
 
       // Pointer to parent, or null for top/detached thread.
@@ -1688,7 +1689,7 @@ namespace micro_os_plus
        * @param [in] allocator Reference to allocator. Default a
        * local temporary instance.
        */
-      thread_allocated (func_t function, func_args_t arguments,
+      thread_allocated (function_t function, function_arguments_t arguments,
                         const attributes& attributes = initializer,
                         const allocator_type& allocator = allocator_type ());
 
@@ -1701,8 +1702,8 @@ namespace micro_os_plus
        * @param [in] allocator Reference to allocator. Default a
        * local temporary instance.
        */
-      thread_allocated (const char* name, func_t function,
-                        func_args_t arguments,
+      thread_allocated (const char* name, function_t function,
+                        function_arguments_t arguments,
                         const attributes& attributes = initializer,
                         const allocator_type& allocator = allocator_type ());
 
@@ -1781,7 +1782,7 @@ namespace micro_os_plus
        * @param [in] arguments Pointer to thread function arguments.
        * @param [in] attributes Reference to attributes.
        */
-      thread_inclusive (func_t function, func_args_t arguments,
+      thread_inclusive (function_t function, function_arguments_t arguments,
                         const attributes& attributes = initializer);
 
       /**
@@ -1791,8 +1792,8 @@ namespace micro_os_plus
        * @param [in] arguments Pointer to thread function arguments.
        * @param [in] attributes Reference to attributes.
        */
-      thread_inclusive (const char* name, func_t function,
-                        func_args_t arguments,
+      thread_inclusive (const char* name, function_t function,
+                        function_arguments_t arguments,
                         const attributes& attributes = initializer);
 
       /**
@@ -2465,8 +2466,8 @@ namespace micro_os_plus
      */
     template <typename Allocator>
     inline thread_allocated<Allocator>::thread_allocated (
-        func_t function, func_args_t arguments, const attributes& attributes,
-        const allocator_type& allocator)
+        function_t function, function_arguments_t arguments,
+        const attributes& attributes, const allocator_type& allocator)
         : thread_allocated{ nullptr, function, arguments, attributes,
                             allocator }
     {
@@ -2519,7 +2520,7 @@ namespace micro_os_plus
      */
     template <typename Allocator>
     thread_allocated<Allocator>::thread_allocated (
-        const char* name, func_t function, func_args_t arguments,
+        const char* name, function_t function, function_arguments_t arguments,
         const attributes& attributes, const allocator_type& allocator)
         : thread{ name }
     {
@@ -2673,9 +2674,9 @@ namespace micro_os_plus
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
     template <std::size_t N>
-    inline thread_inclusive<N>::thread_inclusive (func_t function,
-                                                  func_args_t arguments,
-                                                  const attributes& attributes)
+    inline thread_inclusive<N>::thread_inclusive (
+        function_t function, function_arguments_t arguments,
+        const attributes& attributes)
         : thread_inclusive<N>{ nullptr, function, arguments, attributes }
     {
       ;
@@ -2731,8 +2732,9 @@ namespace micro_os_plus
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
     template <std::size_t N>
-    thread_inclusive<N>::thread_inclusive (const char* name, func_t function,
-                                           func_args_t arguments,
+    thread_inclusive<N>::thread_inclusive (const char* name,
+                                           function_t function,
+                                           function_arguments_t arguments,
                                            const attributes& attributes)
         : thread{ name }
     {

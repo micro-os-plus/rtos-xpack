@@ -478,8 +478,8 @@ extern "C"
   void
   micro_os_plus_thread_construct (
       micro_os_plus_thread_t* thread, const char* name,
-      micro_os_plus_thread_func_t function,
-      const micro_os_plus_thread_func_args_t arguments,
+      micro_os_plus_thread_function_t function,
+      const micro_os_plus_thread_function_arguments_t arguments,
       const micro_os_plus_thread_attributes_t* attributes);
 
   /**
@@ -501,8 +501,8 @@ extern "C"
    */
   micro_os_plus_thread_t*
   micro_os_plus_thread_new (
-      const char* name, micro_os_plus_thread_func_t function,
-      const micro_os_plus_thread_func_args_t arguments,
+      const char* name, micro_os_plus_thread_function_t function,
+      const micro_os_plus_thread_function_arguments_t arguments,
       const micro_os_plus_thread_attributes_t* attributes);
 
   /**

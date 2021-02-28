@@ -346,9 +346,9 @@ extern "C"
    * Useful to cast other similar types
    * to silence possible compiler warnings.
    *
-   * @see micro_os_plus::rtos::thread::func_args_t
+   * @see micro_os_plus::rtos::thread::function_arguments_t
    */
-  typedef void* micro_os_plus_thread_func_args_t;
+  typedef void* micro_os_plus_thread_function_arguments_t;
 
   /**
    * @brief Type of thread function.
@@ -357,10 +357,10 @@ extern "C"
    * Useful to cast other similar types
    * to silence possible compiler warnings.
    *
-   * @see micro_os_plus::rtos::thread::func_t
+   * @see micro_os_plus::rtos::thread::function_t
    */
-  typedef void* (*micro_os_plus_thread_func_t) (
-      micro_os_plus_thread_func_args_t arguments);
+  typedef void* (*micro_os_plus_thread_function_t) (
+      micro_os_plus_thread_function_arguments_t arguments);
 
   /**
    * @brief Type of variables holding thread states.
@@ -585,8 +585,8 @@ extern "C"
     const char* name;
     int errno_; // Prevent the macro to expand (for example with a prefix).
     micro_os_plus_internal_waiting_thread_node_t ready_node;
-    micro_os_plus_thread_func_t function;
-    micro_os_plus_thread_func_args_t function_arguments;
+    micro_os_plus_thread_function_t function;
+    micro_os_plus_thread_function_arguments_t function_arguments;
     void* func_result_;
     void* parent;
     micro_os_plus_internal_double_list_links_t child_links;
@@ -713,7 +713,7 @@ extern "C"
    * Useful to cast other similar types
    * to silence possible compiler warnings.
    *
-   * @see micro_os_plus::rtos::timer::func_args_t
+   * @see micro_os_plus::rtos::timer::function_arguments_t
    */
   typedef void* micro_os_plus_timer_function_arguments_t;
 
@@ -724,7 +724,7 @@ extern "C"
    * Useful to cast other similar types
    * to silence possible compiler warnings.
    *
-   * @see micro_os_plus::rtos::timer::func_t
+   * @see micro_os_plus::rtos::timer::function_t
    */
   typedef void (*micro_os_plus_timer_function_t) (
       micro_os_plus_timer_function_arguments_t arguments);

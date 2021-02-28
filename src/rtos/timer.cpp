@@ -136,7 +136,7 @@ namespace micro_os_plus
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
-    timer::timer (func_t function, func_args_t arguments,
+    timer::timer (function_t function, function_arguments_t arguments,
                   const attributes& attributes)
         : timer{ nullptr, function, arguments, attributes }
     {
@@ -166,8 +166,8 @@ namespace micro_os_plus
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
-    timer::timer (const char* name, func_t function, func_args_t arguments,
-                  const attributes& attributes)
+    timer::timer (const char* name, function_t function,
+                  function_arguments_t arguments, const attributes& attributes)
         : object_named_system{ name }
     {
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_TIMER)

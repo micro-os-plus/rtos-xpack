@@ -151,9 +151,9 @@ int
   // not registering any destructor, and for main this is important,
   // since the destructors are executed on its context, and it cannot
   // destruct itself.
-  new (&micro_os_plus_main_thread_)
-      main_thread{ "main", reinterpret_cast<thread::func_t> (_main_trampoline),
-                   nullptr };
+  new (&micro_os_plus_main_thread_) main_thread{
+    "main", reinterpret_cast<thread::function_t> (_main_trampoline), nullptr
+  };
 
   micro_os_plus_main_thread
       = reinterpret_cast<rtos::thread*> (&micro_os_plus_main_thread_);
@@ -164,7 +164,7 @@ int
   attributes.stack_size_bytes
       = MICRO_OS_PLUS_INTEGER_RTOS_MAIN_STACK_SIZE_BYTES;
   micro_os_plus_main_thread = new thread (
-      "main", reinterpret_cast<thread::func_t> (_main_trampoline), nullptr,
+      "main", reinterpret_cast<thread::function_t> (_main_trampoline), nullptr,
       attributes);
 
 #endif // defined(MICRO_OS_PLUS_EXCLUDE_DYNAMIC_MEMORY_ALLOCATIONS)

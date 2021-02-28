@@ -929,7 +929,7 @@ namespace micro_os_plus
 
         // Used to avoid a complex casts below,
         // that might confuse the Eclipse formatter.
-        typedef void (*func_t) (void);
+        typedef void (*function_t) (void);
 
         static void
         create (void* context, void* function, void* arguments);
