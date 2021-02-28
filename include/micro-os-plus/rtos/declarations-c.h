@@ -502,12 +502,12 @@ extern "C"
    * @headerfile c-api.h <micro-os-plus/rtos/c-api.h>
    *
    * @details
-   * Initialise this structure with `micro_os_plus_thread_attr_init()`, and
-   * then set any of the individual members directly.
+   * Initialise this structure with `micro_os_plus_thread_attributes_init()`,
+   * and then set any of the individual members directly.
    *
    * @see micro_os_plus::rtos::thread::attributes
    */
-  typedef struct micro_os_plus_thread_attr_s
+  typedef struct micro_os_plus_thread_attributes_s
   {
     /**
      * @brief Address of the clock to use for timeouts.
@@ -555,7 +555,7 @@ extern "C"
      */
     micro_os_plus_thread_prio_t th_priority;
 
-  } micro_os_plus_thread_attr_t;
+  } micro_os_plus_thread_attributes_t;
 
   /**
    * @brief Thread object storage.
@@ -750,12 +750,12 @@ extern "C"
    * @headerfile c-api.h <micro-os-plus/rtos/c-api.h>
    *
    * @details
-   * Initialise this structure with `micro_os_plus_timer_attr_init()` and then
-   * set any of the individual members directly.
+   * Initialise this structure with `micro_os_plus_timer_attributes_init()` and
+   * then set any of the individual members directly.
    *
    * @see micro_os_plus::rtos::timer::attributes
    */
-  typedef struct micro_os_plus_timer_attr_s
+  typedef struct micro_os_plus_timer_attributes_s
   {
     /**
      * @brief Pointer to clock object instance.
@@ -767,7 +767,7 @@ extern "C"
      */
     micro_os_plus_timer_type_t tm_type;
 
-  } micro_os_plus_timer_attr_t;
+  } micro_os_plus_timer_attributes_t;
 
   /**
    * @brief Timer object storage.
@@ -917,12 +917,12 @@ extern "C"
    * @headerfile c-api.h <micro-os-plus/rtos/c-api.h>
    *
    * @details
-   * Initialise this structure with `micro_os_plus_mutex_attr_init()` and then
-   * set any of the individual members directly.
+   * Initialise this structure with `micro_os_plus_mutex_attributes_init()` and
+   * then set any of the individual members directly.
    *
    * @see micro_os_plus::rtos::mutex::attributes
    */
-  typedef struct micro_os_plus_mutex_attr_s
+  typedef struct micro_os_plus_mutex_attributes_s
   {
     /**
      * @brief Pointer to clock object instance.
@@ -954,7 +954,7 @@ extern "C"
      */
     micro_os_plus_mutex_count_t mx_max_count;
 
-  } micro_os_plus_mutex_attr_t;
+  } micro_os_plus_mutex_attributes_t;
 
   /**
    * @brief Mutex object storage.
@@ -1023,19 +1023,19 @@ extern "C"
    * @headerfile c-api.h <micro-os-plus/rtos/c-api.h>
    *
    * @details
-   * Initialise this structure with `micro_os_plus_condvar_attr_init()` and
-   * then set any of the individual members directly.
+   * Initialise this structure with `micro_os_plus_condvar_attributes_init()`
+   * and then set any of the individual members directly.
    *
    * @see micro_os_plus::rtos::condition_variable::attributes
    */
-  typedef struct micro_os_plus_condvar_attr_s
+  typedef struct micro_os_plus_condvar_attributes_s
   {
     /**
      * @brief Pointer to clock object instance.
      */
     void* clock;
 
-  } micro_os_plus_condvar_attr_t;
+  } micro_os_plus_condvar_attributes_t;
 
   /**
    * @brief Condition variable object storage.
@@ -1097,12 +1097,12 @@ extern "C"
    * @headerfile c-api.h <micro-os-plus/rtos/c-api.h>
    *
    * @details
-   * Initialise this structure with `micro_os_plus_semaphore_attr_init()` and
-   * then set any of the individual members directly.
+   * Initialise this structure with `micro_os_plus_semaphore_attributes_init()`
+   * and then set any of the individual members directly.
    *
    * @see micro_os_plus::rtos::semaphore::attributes
    */
-  typedef struct micro_os_plus_semaphore_attr_s
+  typedef struct micro_os_plus_semaphore_attributes_s
   {
     /**
      * @brief Pointer to clock object instance.
@@ -1119,7 +1119,7 @@ extern "C"
      */
     micro_os_plus_semaphore_count_t sm_initial_value;
 
-  } micro_os_plus_semaphore_attr_t;
+  } micro_os_plus_semaphore_attributes_t;
 
   /**
    * @brief Semaphore object storage.
@@ -1184,12 +1184,12 @@ extern "C"
    * @headerfile c-api.h <micro-os-plus/rtos/c-api.h>
    *
    * @details
-   * Initialise this structure with `micro_os_plus_mempool_attr_init()` and
-   * then set any of the individual members directly.
+   * Initialise this structure with `micro_os_plus_mempool_attributes_init()`
+   * and then set any of the individual members directly.
    *
    * @see micro_os_plus::rtos::memory_pool::attributes
    */
-  typedef struct micro_os_plus_mempool_attr_s
+  typedef struct micro_os_plus_mempool_attributes_s
   {
     /**
      * @brief Pointer to clock object instance.
@@ -1206,7 +1206,7 @@ extern "C"
      */
     size_t mp_pool_size_bytes;
 
-  } micro_os_plus_mempool_attr_t;
+  } micro_os_plus_mempool_attributes_t;
 
   /**
    * @brief Memory pool object storage.
@@ -1292,12 +1292,12 @@ typedef uint8_t micro_os_plus_mqueue_size_t;
    * @headerfile c-api.h <micro-os-plus/rtos/c-api.h>
    *
    * @details
-   * Initialise this structure with `micro_os_plus_mqueue_attr_init()` and then
-   * set any of the individual members directly.
+   * Initialise this structure with `micro_os_plus_mqueue_attributes_init()`
+   * and then set any of the individual members directly.
    *
    * @see micro_os_plus::rtos::message_queue::attributes
    */
-  typedef struct micro_os_plus_mqueue_attr_s
+  typedef struct micro_os_plus_mqueue_attributes_s
   {
     /**
      * @brief Pointer to clock object instance.
@@ -1314,7 +1314,7 @@ typedef uint8_t micro_os_plus_mqueue_size_t;
      */
     size_t mq_queue_size_bytes;
 
-  } micro_os_plus_mqueue_attr_t;
+  } micro_os_plus_mqueue_attributes_t;
 
   /**
    * @brief Message queue object storage.
@@ -1396,19 +1396,19 @@ typedef uint8_t micro_os_plus_mqueue_size_t;
    * @headerfile c-api.h <micro-os-plus/rtos/c-api.h>
    *
    * @details
-   * Initialise this structure with `micro_os_plus_evflags_attr_init()` and
-   * then set any of the individual members directly.
+   * Initialise this structure with `micro_os_plus_evflags_attributes_init()`
+   * and then set any of the individual members directly.
    *
    * @see micro_os_plus::rtos::event_flags::attributes
    */
-  typedef struct micro_os_plus_evflags_attr_s
+  typedef struct micro_os_plus_evflags_attributes_s
   {
     /**
      * @brief Pointer to clock object instance.
      */
     void* clock;
 
-  } micro_os_plus_evflags_attr_t;
+  } micro_os_plus_evflags_attributes_t;
 
   /**
    * @brief Event flags object storage.
