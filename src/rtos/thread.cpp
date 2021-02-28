@@ -296,8 +296,8 @@ namespace micro_os_plus
      * be as if there was an implicit call to `exit()` using the
      * return value of `main()` as the exit code.
      *
-     * If the attributes define a stack area (via `th_stack_address` and
-     * `th_stack_size_bytes`), that stack is used, otherwise
+     * If the attributes define a stack area (via `thread_stack_address` and
+     * `thread_stack_size_bytes`), that stack is used, otherwise
      * the stack is dynamically allocated using the RTOS specific allocator
      * (`rtos::memory::allocator`).
      *
@@ -347,8 +347,8 @@ namespace micro_os_plus
      * be as if there was an implicit call to `exit()` using the
      * return value of `main()` as the exit code.
      *
-     * If the attributes define a stack area (via `th_stack_address` and
-     * `th_stack_size_bytes`), that stack is used, otherwise
+     * If the attributes define a stack area (via `thread_stack_address` and
+     * `thread_stack_size_bytes`), that stack is used, otherwise
      * the stack is dynamically allocated using the RTOS specific allocator
      * (`rtos::memory::allocator`).
      *
@@ -372,8 +372,8 @@ namespace micro_os_plus
 
       allocator_ = &allocator;
 
-      if (attr.th_stack_address != nullptr
-          && attr.th_stack_size_bytes > stack::min_size ())
+      if (attr.thread_stack_address != nullptr
+          && attr.thread_stack_size_bytes > stack::min_size ())
         {
           internal_construct_ (function, args, attr, nullptr, 0);
         }
@@ -382,10 +382,10 @@ namespace micro_os_plus
           using allocator_type2
               = memory::allocator<stack::allocation_element_t>;
 
-          if (attr.th_stack_size_bytes > stack::min_size ())
+          if (attr.thread_stack_size_bytes > stack::min_size ())
             {
               allocated_stack_size_elements_
-                  = (attr.th_stack_size_bytes
+                  = (attr.thread_stack_size_bytes
                      + sizeof (stack::allocation_element_t) - 1)
                     / sizeof (stack::allocation_element_t);
             }
@@ -425,17 +425,17 @@ namespace micro_os_plus
       // The thread function must be real.
       assert (function != nullptr);
       // Don't forget to set the thread priority.
-      assert (attr.th_priority != priority::none);
+      assert (attr.thread_priority != priority::none);
 
       clock_ = attr.clock != nullptr ? attr.clock : &sysclock;
 
       if (stack_address != nullptr)
         {
           // The attributes should not define any storage in this case.
-          if (attr.th_stack_size_bytes > stack::min_size ())
+          if (attr.thread_stack_size_bytes > stack::min_size ())
             {
               // The stack address must be real.
-              assert (attr.th_stack_address == nullptr);
+              assert (attr.thread_stack_address == nullptr);
             }
 
           stack ().set (static_cast<stack::element_t*> (stack_address),
@@ -443,13 +443,14 @@ namespace micro_os_plus
         }
       else
         {
-          stack ().set (static_cast<stack::element_t*> (attr.th_stack_address),
-                        attr.th_stack_size_bytes);
+          stack ().set (
+              static_cast<stack::element_t*> (attr.thread_stack_address),
+              attr.thread_stack_size_bytes);
         }
 
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD)
       trace::printf ("%s() @%p %s p%u stack{%p,%u}\n", __func__, this, name (),
-                     attr.th_priority, stack ().bottom_address_,
+                     attr.thread_priority, stack ().bottom_address_,
                      stack ().size_bytes_);
 #endif
 
@@ -459,7 +460,7 @@ namespace micro_os_plus
         scheduler::critical_section scs;
 
         // Get attributes from user structure.
-        priority_assigned_ = attr.th_priority;
+        priority_assigned_ = attr.thread_priority;
 
         func_ = function;
         func_args_ = args;

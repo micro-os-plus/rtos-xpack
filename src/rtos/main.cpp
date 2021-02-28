@@ -161,7 +161,8 @@ int
 #else
 
   thread::attributes attr = thread::initializer;
-  attr.th_stack_size_bytes = MICRO_OS_PLUS_INTEGER_RTOS_MAIN_STACK_SIZE_BYTES;
+  attr.thread_stack_size_bytes
+      = MICRO_OS_PLUS_INTEGER_RTOS_MAIN_STACK_SIZE_BYTES;
   micro_os_plus_main_thread = new thread (
       "main", reinterpret_cast<thread::func_t> (_main_trampoline), nullptr,
       attr);
