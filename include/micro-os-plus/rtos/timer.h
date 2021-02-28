@@ -182,7 +182,7 @@ namespace micro_os_plus
         /**
          * @brief Timer type attribute.
          */
-        type_t tm_type = run::once;
+        type_t timer_type = run::once;
 
         // Add more attributes.
 
@@ -448,7 +448,7 @@ namespace micro_os_plus
      * @cond ignore
      */
 
-    constexpr timer::attributes::attributes (type_t type) : tm_type (type)
+    constexpr timer::attributes::attributes (type_t type) : timer_type (type)
     {
       ;
     }

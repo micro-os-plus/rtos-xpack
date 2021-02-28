@@ -766,7 +766,7 @@ extern "C"
     /**
      * @brief Timer type.
      */
-    micro_os_plus_timer_type_t tm_type;
+    micro_os_plus_timer_type_t timer_type;
 
   } micro_os_plus_timer_attributes_t;
 

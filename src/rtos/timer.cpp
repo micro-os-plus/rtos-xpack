@@ -178,7 +178,7 @@ namespace micro_os_plus
       // Don't call this from critical regions.
       micro_os_plus_assert_throw (function != nullptr, EINVAL);
 
-      type_ = attr.tm_type;
+      type_ = attr.timer_type;
       func_ = function;
       func_args_ = args;
 

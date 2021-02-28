@@ -339,8 +339,8 @@ static_assert (sizeof (rtos::timer) == sizeof (micro_os_plus_timer_t),
 static_assert (sizeof (rtos::timer::attributes)
                    == sizeof (micro_os_plus_timer_attributes_t),
                "adjust size of micro_os_plus_timer_attributes_t");
-static_assert (offsetof (rtos::timer::attributes, tm_type)
-                   == offsetof (micro_os_plus_timer_attributes_t, tm_type),
+static_assert (offsetof (rtos::timer::attributes, timer_type)
+                   == offsetof (micro_os_plus_timer_attributes_t, timer_type),
                "adjust micro_os_plus_timer_attributes_t members");
 
 static_assert (sizeof (rtos::mutex) == sizeof (micro_os_plus_mutex_t),
