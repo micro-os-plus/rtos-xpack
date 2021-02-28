@@ -506,20 +506,20 @@ namespace micro_os_plus
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_throw (!interrupts::in_handler_mode (), EPERM);
+      micro_os_plus_assert_throw (!interrupts::in_handler_mode (), EPERM);
 
-      os_assert_throw (type_ <= type::max_, EINVAL);
-      os_assert_throw (protocol_ <= protocol::max_, EINVAL);
-      os_assert_throw (robustness_ <= robustness::max_, EINVAL);
+      micro_os_plus_assert_throw (type_ <= type::max_, EINVAL);
+      micro_os_plus_assert_throw (protocol_ <= protocol::max_, EINVAL);
+      micro_os_plus_assert_throw (robustness_ <= robustness::max_, EINVAL);
 
 #if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_MUTEX)
       clock_ = attr.clock != nullptr ? attr.clock : &sysclock;
 #endif
 
-      os_assert_throw (attr.mx_priority_ceiling >= thread::priority::lowest,
-                       EINVAL);
-      os_assert_throw (attr.mx_priority_ceiling <= thread::priority::highest,
-                       EINVAL);
+      micro_os_plus_assert_throw (
+          attr.mx_priority_ceiling >= thread::priority::lowest, EINVAL);
+      micro_os_plus_assert_throw (
+          attr.mx_priority_ceiling <= thread::priority::highest, EINVAL);
 
       initial_prio_ceiling_ = attr.mx_priority_ceiling;
       prio_ceiling_ = attr.mx_priority_ceiling;
@@ -961,9 +961,9 @@ namespace micro_os_plus
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err (!interrupts::in_handler_mode (), EPERM);
+      micro_os_plus_assert_err (!interrupts::in_handler_mode (), EPERM);
       // Don't try to lock a non-recursive mutex again.
-      os_assert_err (!scheduler::locked (), EPERM);
+      micro_os_plus_assert_err (!scheduler::locked (), EPERM);
 
       if (!recoverable_)
         {
@@ -1084,7 +1084,7 @@ namespace micro_os_plus
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err (!interrupts::in_handler_mode (), EPERM);
+      micro_os_plus_assert_err (!interrupts::in_handler_mode (), EPERM);
 
       if (!recoverable_)
         {
@@ -1164,9 +1164,9 @@ namespace micro_os_plus
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err (!interrupts::in_handler_mode (), EPERM);
+      micro_os_plus_assert_err (!interrupts::in_handler_mode (), EPERM);
       // Don't try to lock a non-recursive mutex again.
-      os_assert_err (!scheduler::locked (), EPERM);
+      micro_os_plus_assert_err (!scheduler::locked (), EPERM);
 
       if (!recoverable_)
         {
@@ -1325,7 +1325,7 @@ namespace micro_os_plus
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err (!interrupts::in_handler_mode (), EPERM);
+      micro_os_plus_assert_err (!interrupts::in_handler_mode (), EPERM);
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MUTEX)
 
@@ -1407,7 +1407,7 @@ namespace micro_os_plus
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err (!interrupts::in_handler_mode (), EPERM);
+      micro_os_plus_assert_err (!interrupts::in_handler_mode (), EPERM);
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MUTEX)
 
@@ -1475,11 +1475,11 @@ namespace micro_os_plus
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err (!interrupts::in_handler_mode (), EPERM);
+      micro_os_plus_assert_err (!interrupts::in_handler_mode (), EPERM);
       // Don't call this for non-robust mutexes.
-      os_assert_err (robustness_ == robustness::robust, EINVAL);
+      micro_os_plus_assert_err (robustness_ == robustness::robust, EINVAL);
       // Don't call it if already consistent.
-      os_assert_err (!consistent_, EINVAL);
+      micro_os_plus_assert_err (!consistent_, EINVAL);
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MUTEX)
 
@@ -1512,7 +1512,7 @@ namespace micro_os_plus
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err (!interrupts::in_handler_mode (), EPERM);
+      micro_os_plus_assert_err (!interrupts::in_handler_mode (), EPERM);
 
       {
         // ----- Enter critical section -------------------------------------

@@ -181,7 +181,7 @@ namespace micro_os_plus
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_throw (!interrupts::in_handler_mode (), EPERM);
+      micro_os_plus_assert_throw (!interrupts::in_handler_mode (), EPERM);
 
       // The CMSIS RTOS validator requires the max_value to be equal to
       // the initial count, which can be 0, but we patch it on the way.
@@ -422,9 +422,9 @@ namespace micro_os_plus
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err (!interrupts::in_handler_mode (), EPERM);
+      micro_os_plus_assert_err (!interrupts::in_handler_mode (), EPERM);
       // Don't call this from critical regions.
-      os_assert_err (!scheduler::locked (), EPERM);
+      micro_os_plus_assert_err (!scheduler::locked (), EPERM);
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_SEMAPHORE)
 
@@ -598,9 +598,9 @@ namespace micro_os_plus
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err (!interrupts::in_handler_mode (), EPERM);
+      micro_os_plus_assert_err (!interrupts::in_handler_mode (), EPERM);
       // Don't call this from critical regions.
-      os_assert_err (!scheduler::locked (), EPERM);
+      micro_os_plus_assert_err (!scheduler::locked (), EPERM);
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_SEMAPHORE)
 
@@ -739,7 +739,7 @@ namespace micro_os_plus
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err (!interrupts::in_handler_mode (), EPERM);
+      micro_os_plus_assert_err (!interrupts::in_handler_mode (), EPERM);
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_SEMAPHORE)
 

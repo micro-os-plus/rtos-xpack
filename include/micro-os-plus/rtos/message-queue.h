@@ -679,7 +679,7 @@ namespace micro_os_plus
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
       friend class port::message_queue;
-      os_mqueue_port_data_t port_;
+      micro_os_plus_mqueue_port_data_t port_;
 #endif
 
       /**

@@ -516,7 +516,7 @@ namespace micro_os_plus
                                         std::size_t queue_size_bytes)
     {
       // Don't call this from interrupt handlers.
-      os_assert_throw (!interrupts::in_handler_mode (), EPERM);
+      micro_os_plus_assert_throw (!interrupts::in_handler_mode (), EPERM);
 
 #if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
       clock_ = attr.clock != nullptr ? attr.clock : &sysclock;
@@ -562,14 +562,15 @@ namespace micro_os_plus
       if (queue_addr_ != nullptr)
         {
           // The queue must be real, and have a non zero size.
-          os_assert_throw (queue_size_bytes_ > 0, EINVAL);
+          micro_os_plus_assert_throw (queue_size_bytes_ > 0, EINVAL);
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
-          os_assert_throw (queue_size_bytes_
-                               >= (std::size_t) (msgs * msg_size_bytes),
-                           EINVAL);
+          micro_os_plus_assert_throw (
+              queue_size_bytes_ >= (std::size_t) (msgs * msg_size_bytes),
+              EINVAL);
 #else
           // The queue must fit the storage.
-          os_assert_throw (queue_size_bytes_ >= storage_size, EINVAL);
+          micro_os_plus_assert_throw (queue_size_bytes_ >= storage_size,
+                                      EINVAL);
 #endif
         }
 
@@ -583,7 +584,7 @@ namespace micro_os_plus
       head_ = no_index;
 
       // The queue storage must have a real address.
-      os_assert_throw (queue_addr_ != nullptr, ENOMEM);
+      micro_os_plus_assert_throw (queue_addr_ != nullptr, ENOMEM);
 
       // The array of prev indexes follows immediately after the content array.
       prev_array_ = reinterpret_cast<index_t*> (
@@ -883,12 +884,12 @@ namespace micro_os_plus
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err (!interrupts::in_handler_mode (), EPERM);
+      micro_os_plus_assert_err (!interrupts::in_handler_mode (), EPERM);
       // Don't call this from critical regions.
-      os_assert_err (!scheduler::locked (), EPERM);
+      micro_os_plus_assert_err (!scheduler::locked (), EPERM);
 
-      os_assert_err (msg != nullptr, EINVAL);
-      os_assert_err (nbytes <= msg_size_bytes_, EMSGSIZE);
+      micro_os_plus_assert_err (msg != nullptr, EINVAL);
+      micro_os_plus_assert_err (nbytes <= msg_size_bytes_, EMSGSIZE);
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
 
@@ -996,8 +997,8 @@ namespace micro_os_plus
                      this, name ());
 #endif
 
-      os_assert_err (msg != nullptr, EINVAL);
-      os_assert_err (nbytes <= msg_size_bytes_, EMSGSIZE);
+      micro_os_plus_assert_err (msg != nullptr, EINVAL);
+      micro_os_plus_assert_err (nbytes <= msg_size_bytes_, EMSGSIZE);
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
 
@@ -1084,12 +1085,12 @@ namespace micro_os_plus
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err (!interrupts::in_handler_mode (), EPERM);
+      micro_os_plus_assert_err (!interrupts::in_handler_mode (), EPERM);
       // Don't call this from critical regions.
-      os_assert_err (!scheduler::locked (), EPERM);
+      micro_os_plus_assert_err (!scheduler::locked (), EPERM);
 
-      os_assert_err (msg != nullptr, EINVAL);
-      os_assert_err (nbytes <= msg_size_bytes_, EMSGSIZE);
+      micro_os_plus_assert_err (msg != nullptr, EINVAL);
+      micro_os_plus_assert_err (nbytes <= msg_size_bytes_, EMSGSIZE);
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
 
@@ -1223,12 +1224,12 @@ namespace micro_os_plus
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err (!interrupts::in_handler_mode (), EPERM);
+      micro_os_plus_assert_err (!interrupts::in_handler_mode (), EPERM);
       // Don't call this from critical regions.
-      os_assert_err (!scheduler::locked (), EPERM);
+      micro_os_plus_assert_err (!scheduler::locked (), EPERM);
 
-      os_assert_err (msg != nullptr, EINVAL);
-      os_assert_err (nbytes <= msg_size_bytes_, EMSGSIZE);
+      micro_os_plus_assert_err (msg != nullptr, EINVAL);
+      micro_os_plus_assert_err (nbytes <= msg_size_bytes_, EMSGSIZE);
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
 
@@ -1337,8 +1338,8 @@ namespace micro_os_plus
                      name ());
 #endif
 
-      os_assert_err (msg != nullptr, EINVAL);
-      os_assert_err (nbytes <= msg_size_bytes_, EMSGSIZE);
+      micro_os_plus_assert_err (msg != nullptr, EINVAL);
+      micro_os_plus_assert_err (nbytes <= msg_size_bytes_, EMSGSIZE);
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
 
@@ -1439,12 +1440,12 @@ namespace micro_os_plus
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err (!interrupts::in_handler_mode (), EPERM);
+      micro_os_plus_assert_err (!interrupts::in_handler_mode (), EPERM);
       // Don't call this from critical regions.
-      os_assert_err (!scheduler::locked (), EPERM);
+      micro_os_plus_assert_err (!scheduler::locked (), EPERM);
 
-      os_assert_err (msg != nullptr, EINVAL);
-      os_assert_err (nbytes <= msg_size_bytes_, EMSGSIZE);
+      micro_os_plus_assert_err (msg != nullptr, EINVAL);
+      micro_os_plus_assert_err (nbytes <= msg_size_bytes_, EMSGSIZE);
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
 
@@ -1549,7 +1550,7 @@ namespace micro_os_plus
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err (!interrupts::in_handler_mode (), EPERM);
+      micro_os_plus_assert_err (!interrupts::in_handler_mode (), EPERM);
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MESSAGE_QUEUE)
 

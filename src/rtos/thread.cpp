@@ -164,7 +164,7 @@ namespace micro_os_plus
                       pa, size_bytes_));
 
       // If there is not enough space for the minimal stack, fail.
-      os_assert_throw (bottom_address_ != nullptr, ENOMEM);
+      micro_os_plus_assert_throw (bottom_address_ != nullptr, ENOMEM);
 
       element_t* p = bottom_address_;
       element_t* pend = top ();
@@ -420,7 +420,7 @@ namespace micro_os_plus
                                  std::size_t stack_size_bytes)
     {
       // Don't call this from interrupt handlers.
-      os_assert_throw (!interrupts::in_handler_mode (), EPERM);
+      micro_os_plus_assert_throw (!interrupts::in_handler_mode (), EPERM);
 
       // The thread function must be real.
       assert (function != nullptr);
@@ -632,7 +632,8 @@ namespace micro_os_plus
     thread::priority_inherited (void)
     {
       // Don't call this from interrupt handlers.
-      os_assert_err (!interrupts::in_handler_mode (), priority::error);
+      micro_os_plus_assert_err (!interrupts::in_handler_mode (),
+                                priority::error);
 
       return prio_inherited_;
     }
@@ -667,10 +668,10 @@ namespace micro_os_plus
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err (!interrupts::in_handler_mode (), EPERM);
+      micro_os_plus_assert_err (!interrupts::in_handler_mode (), EPERM);
       // Check the priority, it is not in the allowed range.
-      os_assert_err (prio < priority::error, EINVAL);
-      os_assert_err (prio != priority::none, EINVAL);
+      micro_os_plus_assert_err (prio < priority::error, EINVAL);
+      micro_os_plus_assert_err (prio != priority::none, EINVAL);
 
       if (prio_assigned_ == prio)
         {
@@ -735,9 +736,9 @@ namespace micro_os_plus
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err (!interrupts::in_handler_mode (), EPERM);
+      micro_os_plus_assert_err (!interrupts::in_handler_mode (), EPERM);
       // Check the priority, it is not in the allowed range.
-      os_assert_err (prio < priority::error, EINVAL);
+      micro_os_plus_assert_err (prio < priority::error, EINVAL);
 
       // Warning: do not check for `priority::none`, since
       // `mutex::unlock()` sets it when the list of mutexes owned
@@ -816,7 +817,7 @@ namespace micro_os_plus
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err (!interrupts::in_handler_mode (), EPERM);
+      micro_os_plus_assert_err (!interrupts::in_handler_mode (), EPERM);
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_SCHEDULER)
 
@@ -874,9 +875,9 @@ namespace micro_os_plus
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err (!interrupts::in_handler_mode (), EPERM);
+      micro_os_plus_assert_err (!interrupts::in_handler_mode (), EPERM);
       // Don't call this from critical regions.
-      os_assert_err (!scheduler::locked (), EPERM);
+      micro_os_plus_assert_err (!scheduler::locked (), EPERM);
 
       // Fail if current thread
       assert (this != this_thread::_thread ());
@@ -929,7 +930,7 @@ namespace micro_os_plus
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err (!interrupts::in_handler_mode (), EPERM);
+      micro_os_plus_assert_err (!interrupts::in_handler_mode (), EPERM);
 
       // TODO: implement according to POSIX specs.
       return result::ok;
@@ -1149,7 +1150,7 @@ namespace micro_os_plus
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err (!interrupts::in_handler_mode (), EPERM);
+      micro_os_plus_assert_err (!interrupts::in_handler_mode (), EPERM);
 
       {
         // ----- Enter critical section -------------------------------------
@@ -1254,9 +1255,9 @@ namespace micro_os_plus
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err (!interrupts::in_handler_mode (), EPERM);
+      micro_os_plus_assert_err (!interrupts::in_handler_mode (), EPERM);
       // Don't call this from critical regions.
-      os_assert_err (!scheduler::locked (), EPERM);
+      micro_os_plus_assert_err (!scheduler::locked (), EPERM);
 
       {
         // ----- Enter critical section ---------------------------------
@@ -1324,7 +1325,7 @@ namespace micro_os_plus
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err (!interrupts::in_handler_mode (), EPERM);
+      micro_os_plus_assert_err (!interrupts::in_handler_mode (), EPERM);
 
       {
         // ----- Enter critical section -------------------------------------
@@ -1362,9 +1363,9 @@ namespace micro_os_plus
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err (!interrupts::in_handler_mode (), EPERM);
+      micro_os_plus_assert_err (!interrupts::in_handler_mode (), EPERM);
       // Don't call this from critical regions.
-      os_assert_err (!scheduler::locked (), EPERM);
+      micro_os_plus_assert_err (!scheduler::locked (), EPERM);
 
       {
         // ----- Enter critical section -------------------------------------
@@ -1476,7 +1477,7 @@ namespace micro_os_plus
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err (!interrupts::in_handler_mode (), flags::all);
+      micro_os_plus_assert_err (!interrupts::in_handler_mode (), flags::all);
 
       flags::mask_t ret = event_flags_.get (mask, mode);
 
@@ -1502,7 +1503,7 @@ namespace micro_os_plus
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err (!interrupts::in_handler_mode (), EPERM);
+      micro_os_plus_assert_err (!interrupts::in_handler_mode (), EPERM);
 
       result_t res = event_flags_.clear (mask, oflags);
 
@@ -1560,7 +1561,7 @@ namespace micro_os_plus
       thread (void)
       {
         // Don't call this from interrupt handlers.
-        os_assert_throw (!interrupts::in_handler_mode (), EPERM);
+        micro_os_plus_assert_throw (!interrupts::in_handler_mode (), EPERM);
 
         rtos::thread* th;
 
@@ -1581,7 +1582,7 @@ namespace micro_os_plus
       yield (void)
       {
         // Don't call this from interrupt handlers.
-        os_assert_throw (!interrupts::in_handler_mode (), EPERM);
+        micro_os_plus_assert_throw (!interrupts::in_handler_mode (), EPERM);
 
         if (!scheduler::started ())
           {

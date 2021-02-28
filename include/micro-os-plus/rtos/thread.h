@@ -53,7 +53,7 @@ namespace
 } // namespace
 
 void
-os_rtos_idle_actions (void);
+micro_os_plus_rtos_idle_actions (void);
 
 /**
  * @endcond
@@ -1205,7 +1205,7 @@ namespace micro_os_plus
        *  None.
        * @return The address of the thread user storage.
        */
-      os_thread_user_storage_t*
+      micro_os_plus_thread_user_storage_t*
       user_storage (void);
 
 #endif // defined(MICRO_OS_PLUS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE)
@@ -1332,7 +1332,7 @@ namespace micro_os_plus
       friend port::stack::element_t*
       port::scheduler::switch_stacks (port::stack::element_t* sp);
 
-      friend void ::os_rtos_idle_actions (void);
+      friend void ::micro_os_plus_rtos_idle_actions (void);
 
       friend class internal::ready_threads_list;
       friend class internal::thread_children_list;
@@ -1629,7 +1629,7 @@ namespace micro_os_plus
 
 #if defined(MICRO_OS_PLUS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE) \
     || defined(__DOXYGEN__)
-      os_thread_user_storage_t user_storage_;
+      micro_os_plus_thread_user_storage_t user_storage_;
 #endif // defined(MICRO_OS_PLUS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE)
 
 #if defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
@@ -1643,7 +1643,7 @@ namespace micro_os_plus
       // Implementation
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_SCHEDULER)
       friend class port::thread;
-      os_thread_port_data_t port_;
+      micro_os_plus_thread_port_data_t port_;
 #endif
 
       // Better be the last one!
@@ -2339,7 +2339,7 @@ namespace micro_os_plus
      *
      * @note Can be invoked from Interrupt Service Routines.
      */
-    inline os_thread_user_storage_t*
+    inline micro_os_plus_thread_user_storage_t*
     thread::user_storage (void)
     {
       return &user_storage_;

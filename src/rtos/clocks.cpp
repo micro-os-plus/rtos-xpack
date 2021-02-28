@@ -39,7 +39,7 @@ using namespace micro_os_plus::rtos;
  * Must be called from the physical interrupt handler.
  */
 void
-os_systick_handler (void)
+micro_os_plus_systick_handler (void)
 {
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_SCHEDULER)
   // Prevent scheduler actions before starting it.
@@ -73,7 +73,7 @@ os_systick_handler (void)
     {
       ticks = clock_systick::frequency_hz;
 
-      os_rtc_handler ();
+      micro_os_plus_rtc_handler ();
     }
 
 #endif // !defined(MICRO_OS_PLUS_INCLUDE_RTOS_REALTIME_CLOCK_DRIVER)
@@ -94,7 +94,7 @@ os_systick_handler (void)
  * Must be called from the physical RTC interrupt handler.
  */
 void
-os_rtc_handler (void)
+micro_os_plus_rtc_handler (void)
 {
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_SCHEDULER)
@@ -205,9 +205,9 @@ namespace micro_os_plus
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err (!interrupts::in_handler_mode (), EPERM);
+      micro_os_plus_assert_err (!interrupts::in_handler_mode (), EPERM);
       // Don't call this from critical regions.
-      os_assert_err (!scheduler::locked (), EPERM);
+      micro_os_plus_assert_err (!scheduler::locked (), EPERM);
 
       clock::timestamp_t timestamp = steady_now () + duration;
       for (;;)
@@ -247,9 +247,9 @@ namespace micro_os_plus
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err (!interrupts::in_handler_mode (), EPERM);
+      micro_os_plus_assert_err (!interrupts::in_handler_mode (), EPERM);
       // Don't call this from critical regions.
-      os_assert_err (!scheduler::locked (), EPERM);
+      micro_os_plus_assert_err (!scheduler::locked (), EPERM);
 
       for (;;)
         {
@@ -289,9 +289,9 @@ namespace micro_os_plus
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err (!interrupts::in_handler_mode (), EPERM);
+      micro_os_plus_assert_err (!interrupts::in_handler_mode (), EPERM);
       // Don't call this from critical regions.
-      os_assert_err (!scheduler::locked (), EPERM);
+      micro_os_plus_assert_err (!scheduler::locked (), EPERM);
 
       clock::timestamp_t timestamp = steady_now () + timeout;
 
@@ -440,9 +440,9 @@ namespace micro_os_plus
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err (!interrupts::in_handler_mode (), EPERM);
+      micro_os_plus_assert_err (!interrupts::in_handler_mode (), EPERM);
       // Don't call this from critical regions.
-      os_assert_err (!scheduler::locked (), EPERM);
+      micro_os_plus_assert_err (!scheduler::locked (), EPERM);
 
       for (;;)
         {

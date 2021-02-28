@@ -469,7 +469,7 @@ namespace micro_os_plus
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_SEMAPHORE)
       friend class port::semaphore;
-      os_semaphore_port_data_t port_;
+      micro_os_plus_semaphore_port_data_t port_;
 #endif
 
       // Constant set during construction.

@@ -309,7 +309,7 @@ namespace micro_os_plus
                                       std::size_t pool_size_bytes)
     {
       // Don't call this from interrupt handlers.
-      os_assert_throw (!interrupts::in_handler_mode (), EPERM);
+      micro_os_plus_assert_throw (!interrupts::in_handler_mode (), EPERM);
 
 #if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_MEMORY_POOL)
       clock_ = attr.clock != nullptr ? attr.clock : &sysclock;
@@ -359,13 +359,14 @@ namespace micro_os_plus
       if (pool_addr_ != nullptr)
         {
           // The pool must be real, and have a non zero size.
-          os_assert_throw (pool_size_bytes_ > 0, EINVAL);
+          micro_os_plus_assert_throw (pool_size_bytes_ > 0, EINVAL);
           // The pool must fit the storage.
-          os_assert_throw (pool_size_bytes_ >= storage_size, EINVAL);
+          micro_os_plus_assert_throw (pool_size_bytes_ >= storage_size,
+                                      EINVAL);
         }
 
       // The pool must have a real address.
-      os_assert_throw (pool_addr_ != nullptr, ENOMEM);
+      micro_os_plus_assert_throw (pool_addr_ != nullptr, ENOMEM);
 
       internal_init_ ();
     }
@@ -493,9 +494,9 @@ namespace micro_os_plus
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_throw (!interrupts::in_handler_mode (), EPERM);
+      micro_os_plus_assert_throw (!interrupts::in_handler_mode (), EPERM);
       // Don't call this from critical regions.
-      os_assert_throw (!scheduler::locked (), EPERM);
+      micro_os_plus_assert_throw (!scheduler::locked (), EPERM);
 
       void* p;
 
@@ -654,9 +655,9 @@ namespace micro_os_plus
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_throw (!interrupts::in_handler_mode (), EPERM);
+      micro_os_plus_assert_throw (!interrupts::in_handler_mode (), EPERM);
       // Don't call this from critical regions.
-      os_assert_throw (!scheduler::locked (), EPERM);
+      micro_os_plus_assert_throw (!scheduler::locked (), EPERM);
 
       void* p;
 
@@ -811,7 +812,7 @@ namespace micro_os_plus
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_err (!interrupts::in_handler_mode (), EPERM);
+      micro_os_plus_assert_err (!interrupts::in_handler_mode (), EPERM);
 
       {
         // ----- Enter critical section -------------------------------------

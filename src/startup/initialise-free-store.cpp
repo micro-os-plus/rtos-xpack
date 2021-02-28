@@ -88,8 +88,8 @@ static std::aligned_storage<sizeof (application_memory_resource),
  * function entirely.
  */
 void
-os_startup_initialize_free_store (void* heap_address,
-                                  std::size_t heap_size_bytes)
+micro_os_plus_startup_initialize_free_store (void* heap_address,
+                                             std::size_t heap_size_bytes)
 {
   trace::printf ("%s(%p,%u)\n", __func__, heap_address, heap_size_bytes);
 
@@ -101,7 +101,8 @@ os_startup_initialize_free_store (void* heap_address,
 
   // Configure the memory manager to throw an exception when out of memory.
   reinterpret_cast<rtos::memory::memory_resource*> (&application_free_store)
-      ->out_of_memory_handler (os_rtos_application_out_of_memory_hook);
+      ->out_of_memory_handler (
+          micro_os_plus_rtos_application_out_of_memory_hook);
 
   // Set the application free store memory manager.
   estd::pmr::set_default_resource (
@@ -128,7 +129,7 @@ os_startup_initialize_free_store (void* heap_address,
     };
 
     // Configure the memory manager to throw an exception when out of memory.
-    mr->out_of_memory_handler (os_rtos_system_out_of_memory_hook);
+    mr->out_of_memory_handler (micro_os_plus_rtos_system_out_of_memory_hook);
 
     // Set RTOS system memory manager.
     rtos::memory::set_default_resource (mr);
@@ -153,7 +154,7 @@ os_startup_initialize_free_store (void* heap_address,
         "pool-th");
 
     // Configure the memory manager to throw an exception when out of memory.
-    mr->out_of_memory_handler (os_rtos_system_out_of_memory_hook);
+    mr->out_of_memory_handler (micro_os_plus_rtos_system_out_of_memory_hook);
 
     rtos::memory::set_resource_typed<rtos::thread> (mr);
   }
@@ -172,7 +173,7 @@ os_startup_initialize_free_store (void* heap_address,
         "pool-cv");
 
     // Configure the memory manager to throw an exception when out of memory.
-    mr->out_of_memory_handler (os_rtos_system_out_of_memory_hook);
+    mr->out_of_memory_handler (micro_os_plus_rtos_system_out_of_memory_hook);
 
     rtos::memory::set_resource_typed<rtos::condition_variable> (mr);
   }
@@ -189,7 +190,7 @@ os_startup_initialize_free_store (void* heap_address,
         MICRO_OS_PLUS_INTEGER_RTOS_ALLOC_EVENT_FLAGS_POOL_SIZE> ("pool-ef");
 
     // Configure the memory manager to throw an exception when out of memory.
-    mr->out_of_memory_handler (os_rtos_system_out_of_memory_hook);
+    mr->out_of_memory_handler (micro_os_plus_rtos_system_out_of_memory_hook);
 
     rtos::memory::set_resource_typed<rtos::event_flags> (mr);
   }
@@ -206,7 +207,7 @@ os_startup_initialize_free_store (void* heap_address,
         MICRO_OS_PLUS_INTEGER_RTOS_ALLOC_MEMORY_POOL_POOL_SIZE> ("pool-mp");
 
     // Configure the memory manager to throw an exception when out of memory.
-    mr->out_of_memory_handler (os_rtos_system_out_of_memory_hook);
+    mr->out_of_memory_handler (micro_os_plus_rtos_system_out_of_memory_hook);
 
     rtos::memory::set_resource_typed<rtos::memory_pool> (mr);
   }
@@ -224,7 +225,7 @@ os_startup_initialize_free_store (void* heap_address,
         MICRO_OS_PLUS_INTEGER_RTOS_ALLOC_MESSAGE_QUEUE_POOL_SIZE> ("pool-mq");
 
     // Configure the memory manager to throw an exception when out of memory.
-    mr->out_of_memory_handler (os_rtos_system_out_of_memory_hook);
+    mr->out_of_memory_handler (micro_os_plus_rtos_system_out_of_memory_hook);
 
     rtos::memory::set_resource_typed<rtos::message_queue> (mr);
   }
@@ -241,7 +242,7 @@ os_startup_initialize_free_store (void* heap_address,
         "pool-mx");
 
     // Configure the memory manager to throw an exception when out of memory.
-    mr->out_of_memory_handler (os_rtos_system_out_of_memory_hook);
+    mr->out_of_memory_handler (micro_os_plus_rtos_system_out_of_memory_hook);
 
     rtos::memory::set_resource_typed<rtos::mutex> (mr);
   }
@@ -258,7 +259,7 @@ os_startup_initialize_free_store (void* heap_address,
         "pool-sp");
 
     // Configure the memory manager to throw an exception when out of memory.
-    mr->out_of_memory_handler (os_rtos_system_out_of_memory_hook);
+    mr->out_of_memory_handler (micro_os_plus_rtos_system_out_of_memory_hook);
 
     rtos::memory::set_resource_typed<rtos::semaphore> (mr);
   }
@@ -275,7 +276,7 @@ os_startup_initialize_free_store (void* heap_address,
         "pool-tm");
 
     // Configure the memory manager to throw an exception when out of memory.
-    mr->out_of_memory_handler (os_rtos_system_out_of_memory_hook);
+    mr->out_of_memory_handler (micro_os_plus_rtos_system_out_of_memory_hook);
 
     rtos::memory::set_resource_typed<rtos::timer> (mr);
   }
@@ -300,7 +301,8 @@ os_startup_initialize_free_store (void* heap_address,
  * @note Since most allocations are done in critical sections,
  * this function is very likely to be called with the scheduler locked.
  */
-void __attribute__ ((weak)) os_rtos_application_out_of_memory_hook (void)
+void __attribute__ ((weak))
+micro_os_plus_rtos_application_out_of_memory_hook (void)
 {
   estd::__throw_bad_alloc ();
 }
@@ -322,7 +324,7 @@ void __attribute__ ((weak)) os_rtos_application_out_of_memory_hook (void)
  * @note Since most allocations are done in critical sections,
  * this function is very likely to be called with the scheduler locked.
  */
-void __attribute__ ((weak)) os_rtos_system_out_of_memory_hook (void)
+void __attribute__ ((weak)) micro_os_plus_rtos_system_out_of_memory_hook (void)
 {
   estd::__throw_bad_alloc ();
 }

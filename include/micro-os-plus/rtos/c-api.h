@@ -70,7 +70,7 @@ extern "C"
     /**
      * @brief Function completed; no error or event occurred.
      */
-    os_ok = 0,
+    micro_os_plus_ok = 0,
   };
 
   /**
@@ -118,11 +118,11 @@ extern "C"
    * @brief Initialise the RTOS scheduler.
    * @par Parameters
    *  None.
-   * @retval os_ok The scheduler was initialised.
+   * @retval micro_os_plus_ok The scheduler was initialised.
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
    */
-  os_result_t
-  os_sched_initialize (void);
+  micro_os_plus_result_t
+  micro_os_plus_sched_initialize (void);
 
   /**
    * @brief Start the RTOS scheduler.
@@ -131,7 +131,7 @@ extern "C"
    * @par Returns
    *  Nothing.
    */
-  void __attribute__ ((noreturn)) os_sched_start (void);
+  void __attribute__ ((noreturn)) micro_os_plus_sched_start (void);
 
   /**
    * @brief Check if the scheduler was started.
@@ -141,7 +141,7 @@ extern "C"
    * @retval false The scheduler was not started.
    */
   bool
-  os_sched_is_started (void);
+  micro_os_plus_sched_is_started (void);
 
   /**
    * @brief Lock the scheduler.
@@ -149,8 +149,8 @@ extern "C"
    *  None.
    * @return The previous state of the scheduler lock.
    */
-  os_sched_state_t
-  os_sched_lock (void);
+  micro_os_plus_sched_state_t
+  micro_os_plus_sched_lock (void);
 
   /**
    * @brief Unlock the scheduler.
@@ -158,16 +158,16 @@ extern "C"
    *  None.
    * @return The previous state of the scheduler lock.
    */
-  os_sched_state_t
-  os_sched_unlock (void);
+  micro_os_plus_sched_state_t
+  micro_os_plus_sched_unlock (void);
 
   /**
    * @brief Lock/unlock the scheduler.
    * @param [in] state The new state of the scheduler lock.
    * @return The previous state of the scheduler lock.
    */
-  os_sched_state_t
-  os_sched_set_locked (os_sched_state_t state);
+  micro_os_plus_sched_state_t
+  micro_os_plus_sched_set_locked (micro_os_plus_sched_state_t state);
 
   /**
    * @brief Check if the scheduler is locked.
@@ -177,7 +177,7 @@ extern "C"
    * @retval false The scheduler is switching threads (not locked).
    */
   bool
-  os_sched_is_locked (void);
+  micro_os_plus_sched_is_locked (void);
 
   /**
    * @brief Check if the scheduler is in preemptive mode.
@@ -187,7 +187,7 @@ extern "C"
    * @retval false The scheduler is not in preemptive mode.
    */
   bool
-  os_sched_is_preemptive (void);
+  micro_os_plus_sched_is_preemptive (void);
 
   /**
    * @brief Set the scheduler preemptive mode.
@@ -195,7 +195,7 @@ extern "C"
    * @return The previous state of the preemptive mode.
    */
   bool
-  os_sched_set_preemptive (bool state);
+  micro_os_plus_sched_set_preemptive (bool state);
 
   /**
    * @}
@@ -214,8 +214,8 @@ extern "C"
    * @return Integer with the total number of context switches since
    *  scheduler start.
    */
-  os_statistics_counter_t
-  os_sched_stat_get_context_switches (void);
+  micro_os_plus_statistics_counter_t
+  micro_os_plus_sched_stat_get_context_switches (void);
 
 #endif // defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
@@ -226,8 +226,8 @@ extern "C"
    * @return Integer with the number of CPU cycles, possibly
    * divided by some prescaller.
    */
-  os_statistics_duration_t
-  os_sched_stat_get_cpu_cycles (void);
+  micro_os_plus_statistics_duration_t
+  micro_os_plus_sched_stat_get_cpu_cycles (void);
 
 #endif // defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
@@ -249,7 +249,7 @@ extern "C"
    * @retval false Execution is in a thread context.
    */
   bool
-  os_irq_in_handler_mode (void);
+  micro_os_plus_irq_in_handler_mode (void);
 
   /**
    * @brief Enter an interrupts critical section.
@@ -257,8 +257,8 @@ extern "C"
    *  None.
    * @return The previous value of the interrupts priority register.
    */
-  os_irq_state_t
-  os_irq_critical_enter (void);
+  micro_os_plus_irq_state_t
+  micro_os_plus_irq_critical_enter (void);
 
   /**
    * @brief Exit the interrupts critical section.
@@ -267,7 +267,7 @@ extern "C"
    *  Nothing.
    */
   void
-  os_irq_critical_exit (os_irq_state_t state);
+  micro_os_plus_irq_critical_exit (micro_os_plus_irq_state_t state);
 
   // --------------------------------------------------------------------------
 
@@ -277,8 +277,8 @@ extern "C"
    *  None.
    * @return The previous value of the interrupts priority register.
    */
-  os_irq_state_t
-  os_irq_uncritical_enter (void);
+  micro_os_plus_irq_state_t
+  micro_os_plus_irq_uncritical_enter (void);
 
   /**
    * @brief Exit the interrupts uncritical section.
@@ -287,7 +287,7 @@ extern "C"
    *  Nothing.
    */
   void
-  os_irq_uncritical_exit (os_irq_state_t state);
+  micro_os_plus_irq_uncritical_exit (micro_os_plus_irq_state_t state);
 
 #if defined(MICRO_OS_PLUS_HAS_INTERRUPTS_STACK) || defined(__DOXYGEN__)
 
@@ -297,8 +297,8 @@ extern "C"
    *  None.
    * @return A pointer to the interrupts stack object instance.
    */
-  os_thread_stack_t*
-  os_irq_get_stack (void);
+  micro_os_plus_thread_stack_t*
+  micro_os_plus_irq_get_stack (void);
 
 #endif
 
@@ -327,8 +327,8 @@ extern "C"
    *  None.
    * @return Pointer to the current running thread object instance.
    */
-  os_thread_t*
-  os_this_thread (void);
+  micro_os_plus_thread_t*
+  micro_os_plus_this_thread (void);
 
   /**
    * @brief Suspend the current running thread to wait for an event.
@@ -338,7 +338,7 @@ extern "C"
    *  Nothing.
    */
   void
-  os_this_thread_suspend (void);
+  micro_os_plus_this_thread_suspend (void);
 
   /**
    * @brief Terminate the current running thread.
@@ -346,7 +346,8 @@ extern "C"
    * @par Returns
    *  Nothing.
    */
-  void __attribute__ ((noreturn)) os_this_thread_exit (void* exit_ptr);
+  void __attribute__ ((noreturn))
+  micro_os_plus_this_thread_exit (void* exit_ptr);
 
   /**
    * @brief Wait for thread event flags.
@@ -356,15 +357,16 @@ extern "C"
    *  may be `NULL`.
    * @param [in] mode Mode bits to select if either all or any flags
    *  are expected, and if the flags should be cleared.
-   * @retval os_ok All expected flags are raised.
+   * @retval micro_os_plus_ok All expected flags are raised.
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
    * @retval EINVAL The mask is outside of the permitted range.
    * @retval EINTR The operation was interrupted.
    * @retval ENOTRECOVERABLE Wait failed.
    */
-  os_result_t
-  os_this_thread_flags_wait (os_flags_mask_t mask, os_flags_mask_t* oflags,
-                             os_flags_mode_t mode);
+  micro_os_plus_result_t
+  micro_os_plus_this_thread_flags_wait (micro_os_plus_flags_mask_t mask,
+                                        micro_os_plus_flags_mask_t* oflags,
+                                        micro_os_plus_flags_mode_t mode);
 
   /**
    * @brief Try to wait for thread event flags.
@@ -374,14 +376,15 @@ extern "C"
    *  may be `NULL`.
    * @param [in] mode Mode bits to select if either all or any flags
    *  are expected, and if the flags should be cleared.
-   * @retval os_ok All expected flags are raised.
+   * @retval micro_os_plus_ok All expected flags are raised.
    * @retval EINVAL The mask is outside of the permitted range.
    * @retval EWOULDBLOCK The expected condition did not occur.
    * @retval ENOTRECOVERABLE Wait failed.
    */
-  os_result_t
-  os_this_thread_flags_try_wait (os_flags_mask_t mask, os_flags_mask_t* oflags,
-                                 os_flags_mode_t mode);
+  micro_os_plus_result_t
+  micro_os_plus_this_thread_flags_try_wait (micro_os_plus_flags_mask_t mask,
+                                            micro_os_plus_flags_mask_t* oflags,
+                                            micro_os_plus_flags_mode_t mode);
 
   /**
    * @brief Timed wait for thread event flags.
@@ -392,7 +395,7 @@ extern "C"
    * @param [in] mode Mode bits to select if either all or any flags
    *  are expected, and if the flags should be cleared.
    * @param [in] timeout Timeout to wait, in clock units (ticks or seconds).
-   * @retval os_ok All expected flags are raised.
+   * @retval micro_os_plus_ok All expected flags are raised.
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
    * @retval ETIMEDOUT The expected condition did not occur during the
    *  entire timeout duration.
@@ -400,23 +403,23 @@ extern "C"
    * @retval EINTR The operation was interrupted.
    * @retval ENOTRECOVERABLE Wait failed.
    */
-  os_result_t
-  os_this_thread_flags_timed_wait (os_flags_mask_t mask,
-                                   os_clock_duration_t timeout,
-                                   os_flags_mask_t* oflags,
-                                   os_flags_mode_t mode);
+  micro_os_plus_result_t
+  micro_os_plus_this_thread_flags_timed_wait (
+      micro_os_plus_flags_mask_t mask, micro_os_plus_clock_duration_t timeout,
+      micro_os_plus_flags_mask_t* oflags, micro_os_plus_flags_mode_t mode);
 
   /**
    * @brief Clear thread event flags.
    * @param [in] mask The OR-ed flags to clear.
    * @param [out] oflags Optional pointer where to store the
    *  previous flags; may be `NULL`.
-   * @retval os_ok The flags were cleared.
+   * @retval micro_os_plus_ok The flags were cleared.
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
    * @retval EINVAL The mask is zero.
    */
-  os_result_t
-  os_this_thread_flags_clear (os_flags_mask_t mask, os_flags_mask_t* oflags);
+  micro_os_plus_result_t
+  micro_os_plus_this_thread_flags_clear (micro_os_plus_flags_mask_t mask,
+                                         micro_os_plus_flags_mask_t* oflags);
 
   /**
    * @brief Get/clear thread event flags.
@@ -427,8 +430,9 @@ extern "C"
    *  event flags mask.
    * @retval sig::all Cannot be invoked from an Interrupt Service Routines.
    */
-  os_flags_mask_t
-  os_this_thread_flags_get (os_flags_mask_t mask, os_flags_mode_t mode);
+  micro_os_plus_flags_mask_t
+  micro_os_plus_this_thread_flags_get (micro_os_plus_flags_mask_t mask,
+                                       micro_os_plus_flags_mode_t mode);
 
   /**
    * @}
@@ -447,7 +451,7 @@ extern "C"
    *  Nothing.
    */
   void
-  os_thread_attr_init (os_thread_attr_t* attr);
+  micro_os_plus_thread_attr_init (micro_os_plus_thread_attr_t* attr);
 
   /**
    * @}
@@ -469,9 +473,11 @@ extern "C"
    *  Nothing.
    */
   void
-  os_thread_construct (os_thread_t* thread, const char* name,
-                       os_thread_func_t func, const os_thread_func_args_t args,
-                       const os_thread_attr_t* attr);
+  micro_os_plus_thread_construct (micro_os_plus_thread_t* thread,
+                                  const char* name,
+                                  micro_os_plus_thread_func_t func,
+                                  const micro_os_plus_thread_func_args_t args,
+                                  const micro_os_plus_thread_attr_t* attr);
 
   /**
    * @brief Destruct the statically allocated thread object instance.
@@ -480,7 +486,7 @@ extern "C"
    *  Nothing.
    */
   void
-  os_thread_destruct (os_thread_t* thread);
+  micro_os_plus_thread_destruct (micro_os_plus_thread_t* thread);
 
   /**
    * @brief Allocate a thread object instance and construct it.
@@ -490,10 +496,10 @@ extern "C"
    * @param [in] attr Pointer to attributes (may be NULL)
    * @return Pointer to new thread object instance.
    */
-  os_thread_t*
-  os_thread_new (const char* name, os_thread_func_t func,
-                 const os_thread_func_args_t args,
-                 const os_thread_attr_t* attr);
+  micro_os_plus_thread_t*
+  micro_os_plus_thread_new (const char* name, micro_os_plus_thread_func_t func,
+                            const micro_os_plus_thread_func_args_t args,
+                            const micro_os_plus_thread_attr_t* attr);
 
   /**
    * @brief Destruct the thread object instance and deallocate it.
@@ -503,7 +509,7 @@ extern "C"
    *  Nothing.
    */
   void
-  os_thread_delete (os_thread_t* thread);
+  micro_os_plus_thread_delete (micro_os_plus_thread_t* thread);
 
   /**
    * @}
@@ -520,37 +526,38 @@ extern "C"
    * @return Null terminated string.
    */
   const char*
-  os_thread_get_name (os_thread_t* thread);
+  micro_os_plus_thread_get_name (micro_os_plus_thread_t* thread);
 
   /**
    * @brief Get the thread current scheduling priority.
    * @param [in] thread Pointer to thread object instance.
    * @return The thread priority.
    */
-  os_thread_prio_t
-  os_thread_get_priority (os_thread_t* thread);
+  micro_os_plus_thread_prio_t
+  micro_os_plus_thread_get_priority (micro_os_plus_thread_t* thread);
 
   /**
    * @brief Set the thread dynamic scheduling priority.
    * @param [in] thread Pointer to thread object instance.
    * @param [in] prio New priority.
-   * @retval os_ok The priority was set.
+   * @retval micro_os_plus_ok The priority was set.
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
    * @retval EINVAL The value of prio is invalid for the
    *  scheduling policy of the specified thread.
    */
-  os_result_t
-  os_thread_set_priority (os_thread_t* thread, os_thread_prio_t prio);
+  micro_os_plus_result_t
+  micro_os_plus_thread_set_priority (micro_os_plus_thread_t* thread,
+                                     micro_os_plus_thread_prio_t prio);
 
   /**
    * @brief Wait for thread termination.
    * @param [in] thread Pointer to terminating thread object instance.
    * @param [in] exit_ptr Pointer to thread exit value. (may be NULL).
-   * @retval os_ok The thread was terminated.
+   * @retval micro_os_plus_ok The thread was terminated.
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
    */
-  os_result_t
-  os_thread_join (os_thread_t* thread, void** exit_ptr);
+  micro_os_plus_result_t
+  micro_os_plus_thread_join (micro_os_plus_thread_t* thread, void** exit_ptr);
 
   /**
    * @brief Resume the thread.
@@ -559,7 +566,7 @@ extern "C"
    *  Nothing.
    */
   void
-  os_thread_resume (os_thread_t* thread);
+  micro_os_plus_thread_resume (micro_os_plus_thread_t* thread);
 
   /**
    * @brief Raise thread event flags.
@@ -567,21 +574,22 @@ extern "C"
    * @param [in] mask The OR-ed flags to raise.
    * @param [out] oflags Optional pointer where to store the
    *  previous flags; may be `NULL`.
-   * @retval os_ok The flags were raised.
+   * @retval micro_os_plus_ok The flags were raised.
    * @retval EINVAL The mask is zero.
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
    */
-  os_result_t
-  os_thread_flags_raise (os_thread_t* thread, os_flags_mask_t mask,
-                         os_flags_mask_t* oflags);
+  micro_os_plus_result_t
+  micro_os_plus_thread_flags_raise (micro_os_plus_thread_t* thread,
+                                    micro_os_plus_flags_mask_t mask,
+                                    micro_os_plus_flags_mask_t* oflags);
 
   /**
    * @brief Get the thread scheduler state.
    * @param [in] thread Pointer to thread object instance.
    * @return Thread scheduler state.
    */
-  os_thread_state_t
-  os_thread_get_state (os_thread_t* thread);
+  micro_os_plus_thread_state_t
+  micro_os_plus_thread_get_state (micro_os_plus_thread_t* thread);
 
 #if defined(MICRO_OS_PLUS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE) \
     || defined(__DOXYGEN__)
@@ -591,8 +599,8 @@ extern "C"
    * @param [in] thread Pointer to thread object instance.
    * @return The address of the thread user storage.
    */
-  os_thread_user_storage_t*
-  os_thread_get_user_storage (os_thread_t* thread);
+  micro_os_plus_thread_user_storage_t*
+  micro_os_plus_thread_get_user_storage (micro_os_plus_thread_t* thread);
 
 #endif // defined(MICRO_OS_PLUS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE)
 
@@ -601,21 +609,8 @@ extern "C"
    * @param [in] thread Pointer to thread object instance.
    * @return A pointer to the context stack object instance.
    */
-  os_thread_stack_t*
-  os_thread_get_stack (os_thread_t* thread);
-
-  /**
-   * @}
-   */
-
-  // --------------------------------------------------------------------------
-  /**
-   * @name Compatibility Macros
-   * @{
-   */
-
-#define os_thread_create os_thread_construct
-#define os_thread_destroy os_thread_destruct
+  micro_os_plus_thread_stack_t*
+  micro_os_plus_thread_get_stack (micro_os_plus_thread_t* thread);
 
   /**
    * @}
@@ -634,7 +629,7 @@ extern "C"
    * @return  The default stack size in bytes.
    */
   size_t
-  os_thread_stack_get_default_size (void);
+  micro_os_plus_thread_stack_get_default_size (void);
 
   /**
    * @brief Set the default stack size.
@@ -642,7 +637,7 @@ extern "C"
    * @return  The previous value of the default stack size in bytes.
    */
   size_t
-  os_thread_stack_set_default_size (size_t size_bytes);
+  micro_os_plus_thread_stack_set_default_size (size_t size_bytes);
 
   /**
    * @brief Get the min stack size.
@@ -651,7 +646,7 @@ extern "C"
    * @return  The min stack size in bytes.
    */
   size_t
-  os_thread_stack_get_min_size (void);
+  micro_os_plus_thread_stack_get_min_size (void);
 
   /**
    * @brief Set the min stack size.
@@ -659,23 +654,23 @@ extern "C"
    * @return  The previous value of the min stack size in bytes.
    */
   size_t
-  os_thread_stack_set_min_size (size_t size_bytes);
+  micro_os_plus_thread_stack_set_min_size (size_t size_bytes);
 
   /**
    * @brief Get the stack lowest reserved address.
    * @param [in] stack Pointer to stack object instance.
    * @return  The address of the stack reserved area.
    */
-  os_thread_stack_element_t*
-  os_thread_stack_get_bottom (os_thread_stack_t* stack);
+  micro_os_plus_thread_stack_element_t*
+  micro_os_plus_thread_stack_get_bottom (micro_os_plus_thread_stack_t* stack);
 
   /**
    * @brief Get the top stack address.
    * @param [in] stack Pointer to stack object instance.
    * @return The address after the last stack element.
    */
-  os_thread_stack_element_t*
-  os_thread_stack_get_top (os_thread_stack_t* stack);
+  micro_os_plus_thread_stack_element_t*
+  micro_os_plus_thread_stack_get_top (micro_os_plus_thread_stack_t* stack);
 
   /**
    * @brief Get the stack size.
@@ -683,7 +678,7 @@ extern "C"
    * @return  The stack size in bytes.
    */
   size_t
-  os_thread_stack_get_size (os_thread_stack_t* stack);
+  micro_os_plus_thread_stack_get_size (micro_os_plus_thread_stack_t* stack);
 
   /**
    * @brief Compute how much available stack remains.
@@ -691,7 +686,8 @@ extern "C"
    * @return Number of available bytes.
    */
   size_t
-  os_thread_stack_get_available (os_thread_stack_t* stack);
+  micro_os_plus_thread_stack_get_available (
+      micro_os_plus_thread_stack_t* stack);
 
   /**
    * @brief Check if bottom magic word is still there.
@@ -700,7 +696,8 @@ extern "C"
    * @retval false  The magic word was overwritten.
    */
   bool
-  os_thread_stack_check_bottom_magic (os_thread_stack_t* stack);
+  micro_os_plus_thread_stack_check_bottom_magic (
+      micro_os_plus_thread_stack_t* stack);
 
   /**
    * @brief Check if top magic word is still there.
@@ -709,7 +706,8 @@ extern "C"
    * @retval false  The magic word was overwritten.
    */
   bool
-  os_thread_stack_check_top_magic (os_thread_stack_t* stack);
+  micro_os_plus_thread_stack_check_top_magic (
+      micro_os_plus_thread_stack_t* stack);
 
   /**
    * @}
@@ -728,8 +726,9 @@ extern "C"
    * @return A long integer with the number of times the thread
    * was scheduled for execution.
    */
-  os_statistics_counter_t
-  os_thread_stat_get_context_switches (os_thread_t* thread);
+  micro_os_plus_statistics_counter_t
+  micro_os_plus_thread_stat_get_context_switches (
+      micro_os_plus_thread_t* thread);
 
 #endif // defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
@@ -740,8 +739,8 @@ extern "C"
    * @return A long integer with the accumulated number of CPU cycles,
    * possibly divided by some prescaller.
    */
-  os_statistics_duration_t
-  os_thread_stat_get_cpu_cycles (os_thread_t* thread);
+  micro_os_plus_statistics_duration_t
+  micro_os_plus_thread_stat_get_cpu_cycles (micro_os_plus_thread_t* thread);
 
 #endif // defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
@@ -761,8 +760,8 @@ extern "C"
    * list of top threads.
    * @return An iterator positioned at the list begin.
    */
-  os_iterator_t
-  os_children_threads_iter_begin (os_thread_t* thread);
+  micro_os_plus_iterator_t
+  micro_os_plus_children_threads_iter_begin (micro_os_plus_thread_t* thread);
 
   /**
    * @brief Get the end of the list of children threads.
@@ -770,24 +769,24 @@ extern "C"
    * list of top threads.
    * @return An iterator positioned at the list end.
    */
-  os_iterator_t
-  os_children_threads_iter_end (os_thread_t* thread);
+  micro_os_plus_iterator_t
+  micro_os_plus_children_threads_iter_end (micro_os_plus_thread_t* thread);
 
   /**
    * @brief Get the thread from the current iterator position.
    * @param [in] iterator An active iterator.
    * @return The pointer to the thread object instance.
    */
-  os_thread_t*
-  os_children_threads_iter_get (os_iterator_t iterator);
+  micro_os_plus_thread_t*
+  micro_os_plus_children_threads_iter_get (micro_os_plus_iterator_t iterator);
 
   /**
    * @brief Advance the iterator to the next position.
    * @param [in] iterator An active iterator.
    * @return An iterator positioned at the next list element.
    */
-  os_iterator_t
-  os_children_threads_iter_next (os_iterator_t iterator);
+  micro_os_plus_iterator_t
+  micro_os_plus_children_threads_iter_next (micro_os_plus_iterator_t iterator);
 
   /**
    * @}
@@ -814,7 +813,7 @@ extern "C"
    * @return Null terminated string.
    */
   const char*
-  os_clock_get_name (os_clock_t* clock);
+  micro_os_plus_clock_get_name (micro_os_plus_clock_t* clock);
 
   /**
    * @brief Tell the current time, possibly adjusted for epoch.
@@ -822,16 +821,16 @@ extern "C"
    * @return The clock current timestamp (time units from startup
    * plus the epoch offset).
    */
-  os_clock_timestamp_t
-  os_clock_now (os_clock_t* clock);
+  micro_os_plus_clock_timestamp_t
+  micro_os_plus_clock_now (micro_os_plus_clock_t* clock);
 
   /**
    * @brief Tell the current time since startup.
    * @param [in] clock Pointer to clock object instance.
    * @return The clock current timestamp (time units from startup).
    */
-  os_clock_timestamp_t
-  os_clock_steady_now (os_clock_t* clock);
+  micro_os_plus_clock_timestamp_t
+  micro_os_plus_clock_steady_now (micro_os_plus_clock_t* clock);
 
   /**
    * @brief Sleep for a relative duration.
@@ -842,8 +841,9 @@ extern "C"
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
    * @retval EINTR The sleep was interrupted.
    */
-  os_result_t
-  os_clock_sleep_for (os_clock_t* clock, os_clock_duration_t duration);
+  micro_os_plus_result_t
+  micro_os_plus_clock_sleep_for (micro_os_plus_clock_t* clock,
+                                 micro_os_plus_clock_duration_t duration);
 
   /**
    * @brief Sleep until an absolute timestamp.
@@ -853,28 +853,30 @@ extern "C"
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
    * @retval EINTR The sleep was interrupted.
    */
-  os_result_t
-  os_clock_sleep_until (os_clock_t* clock, os_clock_timestamp_t timestamp);
+  micro_os_plus_result_t
+  micro_os_plus_clock_sleep_until (micro_os_plus_clock_t* clock,
+                                   micro_os_plus_clock_timestamp_t timestamp);
 
   /**
    * @brief Timed wait for an event.
    * @param [in] clock Pointer to clock object instance.
    * @param [in] timeout The timeout in clock units.
-   * @retval os_ok An event occurred before the timeout.
+   * @retval micro_os_plus_ok An event occurred before the timeout.
    * @retval ETIMEDOUT The wait lasted the entire duration.
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
    * @retval EINTR The sleep was interrupted.
    */
-  os_result_t
-  os_clock_wait_for (os_clock_t* clock, os_clock_duration_t timeout);
+  micro_os_plus_result_t
+  micro_os_plus_clock_wait_for (micro_os_plus_clock_t* clock,
+                                micro_os_plus_clock_duration_t timeout);
 
   /**
    * @brief Get adjustment offset.
    * @param [in] clock Pointer to clock object instance.
    * @return Integer value representing the offset to epoch.
    */
-  os_clock_offset_t
-  os_clock_get_offset (os_clock_t* clock);
+  micro_os_plus_clock_offset_t
+  micro_os_plus_clock_get_offset (micro_os_plus_clock_t* clock);
 
   /**
    * @brief Set adjustment offset.
@@ -882,29 +884,30 @@ extern "C"
    * @param [in] offset Integer representing the offset to epoch (positive).
    * @return Integer value representing the previous offset to epoch.
    */
-  os_clock_offset_t
-  os_clock_set_offset (os_clock_t* clock, os_clock_offset_t offset);
+  micro_os_plus_clock_offset_t
+  micro_os_plus_clock_set_offset (micro_os_plus_clock_t* clock,
+                                  micro_os_plus_clock_offset_t offset);
 
   /**
    * @brief Get `sysclock` (the system clock).
    * @return The address of the clock_systick instance.
    */
-  os_clock_t*
-  os_clock_get_sysclock (void);
+  micro_os_plus_clock_t*
+  micro_os_plus_clock_get_sysclock (void);
 
   /**
    * @brief Get `rtclock` (the real-time clock).
    * @return The address of the clock_rtc instance.
    */
-  os_clock_t*
-  os_clock_get_rtclock (void);
+  micro_os_plus_clock_t*
+  micro_os_plus_clock_get_rtclock (void);
 
   /**
    * @brief Get `hrclock` (the high resolution clock).
    * @return The address of the clock_highres instance.
    */
-  os_clock_t*
-  os_clock_get_hrclock (void);
+  micro_os_plus_clock_t*
+  micro_os_plus_clock_get_hrclock (void);
 
   // --------------------------------------------------------------------------
 
@@ -914,8 +917,8 @@ extern "C"
    *  None.
    * @return The number of SysTick input clocks since startup.
    */
-  os_clock_timestamp_t
-  os_sysclock_now (void);
+  micro_os_plus_clock_timestamp_t
+  micro_os_plus_sysclock_now (void);
 
   /**
    * @brief Sleep for a relative duration.
@@ -925,8 +928,8 @@ extern "C"
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
    * @retval EINTR The sleep was interrupted.
    */
-  os_result_t
-  os_sysclock_sleep_for (os_clock_duration_t duration);
+  micro_os_plus_result_t
+  micro_os_plus_sysclock_sleep_for (micro_os_plus_clock_duration_t duration);
 
   /**
    * @brief Sleep until an absolute timestamp.
@@ -935,19 +938,20 @@ extern "C"
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
    * @retval EINTR The sleep was interrupted.
    */
-  os_result_t
-  os_sysclock_sleep_until (os_clock_timestamp_t timestamp);
+  micro_os_plus_result_t
+  micro_os_plus_sysclock_sleep_until (
+      micro_os_plus_clock_timestamp_t timestamp);
 
   /**
    * @brief Timed wait for an event.
    * @param [in] timeout The timeout in clock units.
-   * @retval os_ok An event occurred before the timeout.
+   * @retval micro_os_plus_ok An event occurred before the timeout.
    * @retval ETIMEDOUT The wait lasted the entire duration.
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
    * @retval EINTR The sleep was interrupted.
    */
-  os_result_t
-  os_sysclock_wait_for (os_clock_duration_t timeout);
+  micro_os_plus_result_t
+  micro_os_plus_sysclock_wait_for (micro_os_plus_clock_duration_t timeout);
 
 #pragma GCC diagnostic push
 #if defined(__cplusplus)
@@ -959,10 +963,10 @@ extern "C"
    * @param [in] microsec The number of microseconds.
    * @return The number of ticks.
    */
-  inline __attribute__ ((always_inline)) os_clock_duration_t
-  os_sysclock_ticks_cast (uint32_t microsec)
+  inline __attribute__ ((always_inline)) micro_os_plus_clock_duration_t
+  micro_os_plus_sysclock_ticks_cast (uint32_t microsec)
   {
-    return (os_clock_duration_t) (
+    return (micro_os_plus_clock_duration_t) (
         (((microsec) * ((uint32_t)MICRO_OS_PLUS_INTEGER_SYSTICK_FREQUENCY_HZ))
          + (uint32_t)1000000ul - 1)
         / (uint32_t)1000000ul);
@@ -973,10 +977,10 @@ extern "C"
    * @param [in] microsec The number of microseconds.
    * @return The number of ticks.
    */
-  inline __attribute__ ((always_inline)) os_clock_duration_t
-  os_sysclock_ticks_cast_long (uint64_t microsec)
+  inline __attribute__ ((always_inline)) micro_os_plus_clock_duration_t
+  micro_os_plus_sysclock_ticks_cast_long (uint64_t microsec)
   {
-    return (os_clock_duration_t) (
+    return (micro_os_plus_clock_duration_t) (
         (((microsec) * ((uint64_t)MICRO_OS_PLUS_INTEGER_SYSTICK_FREQUENCY_HZ))
          + (uint64_t)1000000ul - 1)
         / (uint64_t)1000000ul);
@@ -1010,7 +1014,7 @@ extern "C"
    *  Nothing.
    */
   void
-  os_timer_attr_init (os_timer_attr_t* attr);
+  micro_os_plus_timer_attr_init (micro_os_plus_timer_attr_t* attr);
 
   /**
    * @brief Initialise the periodic timer attributes.
@@ -1019,14 +1023,14 @@ extern "C"
    *  Nothing.
    */
   void
-  os_timer_attr_periodic_init (os_timer_attr_t* attr);
+  micro_os_plus_timer_attr_periodic_init (micro_os_plus_timer_attr_t* attr);
 
   /**
    * @brief Get a periodic timer attributes object instance.
    * @return Pointer to timer attributes object instance.
    */
-  const os_timer_attr_t*
-  os_timer_attr_get_periodic (void);
+  const micro_os_plus_timer_attr_t*
+  micro_os_plus_timer_attr_get_periodic (void);
 
   /**
    * @}
@@ -1048,9 +1052,11 @@ extern "C"
    *  Nothing.
    */
   void
-  os_timer_construct (os_timer_t* timer, const char* name,
-                      os_timer_func_t function, os_timer_func_args_t args,
-                      const os_timer_attr_t* attr);
+  micro_os_plus_timer_construct (micro_os_plus_timer_t* timer,
+                                 const char* name,
+                                 micro_os_plus_timer_func_t function,
+                                 micro_os_plus_timer_func_args_t args,
+                                 const micro_os_plus_timer_attr_t* attr);
 
   /**
    * @brief Destruct the statically allocated timer object instance.
@@ -1059,7 +1065,7 @@ extern "C"
    *  Nothing.
    */
   void
-  os_timer_destruct (os_timer_t* timer);
+  micro_os_plus_timer_destruct (micro_os_plus_timer_t* timer);
 
   /**
    * @brief Allocate a timer object instance and construct it.
@@ -1069,9 +1075,11 @@ extern "C"
    * @param [in] attr Pointer to attributes (may be NULL).
    * @return Pointer to new timer object instance.
    */
-  os_timer_t*
-  os_timer_new (const char* name, os_timer_func_t function,
-                os_timer_func_args_t args, const os_timer_attr_t* attr);
+  micro_os_plus_timer_t*
+  micro_os_plus_timer_new (const char* name,
+                           micro_os_plus_timer_func_t function,
+                           micro_os_plus_timer_func_args_t args,
+                           const micro_os_plus_timer_attr_t* attr);
 
   /**
    * @brief Destruct the timer object instance and deallocate it.
@@ -1080,7 +1088,7 @@ extern "C"
    *  Nothing.
    */
   void
-  os_timer_delete (os_timer_t* timer);
+  micro_os_plus_timer_delete (micro_os_plus_timer_t* timer);
 
   /**
    * @}
@@ -1097,48 +1105,36 @@ extern "C"
    * @return Null terminated string.
    */
   const char*
-  os_timer_get_name (os_timer_t* timer);
+  micro_os_plus_timer_get_name (micro_os_plus_timer_t* timer);
 
   /**
    * @brief Start or restart the timer.
    * @param [in] timer Pointer to timer object instance.
    * @param [in] period Timer period, in clock units (ticks or seconds).
-   * @retval os_ok The timer has been started or restarted.
+   * @retval micro_os_plus_ok The timer has been started or restarted.
    * @retval ENOTRECOVERABLE Timer could not be started.
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
    */
-  os_result_t
-  os_timer_start (os_timer_t* timer, os_clock_duration_t period);
+  micro_os_plus_result_t
+  micro_os_plus_timer_start (micro_os_plus_timer_t* timer,
+                             micro_os_plus_clock_duration_t period);
 
   /**
    * @brief Stop the timer.
    * @param [in] timer Pointer to timer object instance.
-   * @retval os_ok The timer has been stopped.
+   * @retval micro_os_plus_ok The timer has been stopped.
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
    * @retval EAGAIN The timer is not yet started.
    * @retval ENOTRECOVERABLE Timer could not be stopped.
    */
-  os_result_t
-  os_timer_stop (os_timer_t* timer);
+  micro_os_plus_result_t
+  micro_os_plus_timer_stop (micro_os_plus_timer_t* timer);
 
   /**
    * @}
    */
 
-  // --------------------------------------------------------------------------
-  /**
-   * @name Compatibility Macros
-   * @{
-   */
-
-#define os_timer_create os_timer_construct
-#define os_timer_destroy os_timer_destruct
-
-  /**
-   * @}
-   */
-
-  /**
+   /**
    * @}
    */
 
@@ -1160,7 +1156,7 @@ extern "C"
    *  Nothing.
    */
   void
-  os_mutex_attr_init (os_mutex_attr_t* attr);
+  micro_os_plus_mutex_attr_init (micro_os_plus_mutex_attr_t* attr);
 
   /**
    * @brief Initialise the recursive mutex attributes.
@@ -1169,14 +1165,14 @@ extern "C"
    *  Nothing.
    */
   void
-  os_mutex_attr_recursive_init (os_mutex_attr_t* attr);
+  micro_os_plus_mutex_attr_recursive_init (micro_os_plus_mutex_attr_t* attr);
 
   /**
    * @brief Get a recursive mutex attributes object instance.
    * @return Pointer to mutex attributes object instance.
    */
-  const os_mutex_attr_t*
-  os_mutex_attr_get_recursive (void);
+  const micro_os_plus_mutex_attr_t*
+  micro_os_plus_mutex_attr_get_recursive (void);
 
   /**
    * @}
@@ -1196,8 +1192,9 @@ extern "C"
    *  Nothing.
    */
   void
-  os_mutex_construct (os_mutex_t* mutex, const char* name,
-                      const os_mutex_attr_t* attr);
+  micro_os_plus_mutex_construct (micro_os_plus_mutex_t* mutex,
+                                 const char* name,
+                                 const micro_os_plus_mutex_attr_t* attr);
 
   /**
    * @brief Construct a statically allocated recursive mutex object instance.
@@ -1208,8 +1205,9 @@ extern "C"
    *  Nothing.
    */
   void
-  os_mutex_recursive_construct (os_mutex_t* mutex, const char* name,
-                                const os_mutex_attr_t* attr);
+  micro_os_plus_mutex_recursive_construct (
+      micro_os_plus_mutex_t* mutex, const char* name,
+      const micro_os_plus_mutex_attr_t* attr);
 
   /**
    * @brief Destruct the statically allocated mutex object instance.
@@ -1218,7 +1216,7 @@ extern "C"
    *  Nothing.
    */
   void
-  os_mutex_destruct (os_mutex_t* mutex);
+  micro_os_plus_mutex_destruct (micro_os_plus_mutex_t* mutex);
 
   /**
    * @brief Allocate a mutex object instance and construct it.
@@ -1226,8 +1224,9 @@ extern "C"
    * @param [in] attr Pointer to attributes (may be NULL).
    * @return Pointer to new mutex object instance.
    */
-  os_mutex_t*
-  os_mutex_new (const char* name, const os_mutex_attr_t* attr);
+  micro_os_plus_mutex_t*
+  micro_os_plus_mutex_new (const char* name,
+                           const micro_os_plus_mutex_attr_t* attr);
 
   /**
    * @brief Allocated a recursive mutex object instance and construct it.
@@ -1235,8 +1234,9 @@ extern "C"
    * @param [in] attr Pointer to attributes (may be NULL).
    * @return Pointer to new recursive mutex object instance.
    */
-  os_mutex_t*
-  os_mutex_recursive_new (const char* name, const os_mutex_attr_t* attr);
+  micro_os_plus_mutex_t*
+  micro_os_plus_mutex_recursive_new (const char* name,
+                                     const micro_os_plus_mutex_attr_t* attr);
 
   /**
    * @brief Destruct the mutex object instance and deallocate it.
@@ -1245,7 +1245,7 @@ extern "C"
    *  Nothing.
    */
   void
-  os_mutex_delete (os_mutex_t* mutex);
+  micro_os_plus_mutex_delete (micro_os_plus_mutex_t* mutex);
 
   /**
    * @}
@@ -1262,61 +1262,61 @@ extern "C"
    * @return Null terminated string.
    */
   const char*
-  os_mutex_get_name (os_mutex_t* mutex);
+  micro_os_plus_mutex_get_name (micro_os_plus_mutex_t* mutex);
 
   /**
    * @brief Lock/acquire the mutex.
    * @param [in] mutex Pointer to mutex object instance.
-   * @retval os_ok The mutex was locked.
+   * @retval micro_os_plus_ok The mutex was locked.
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
    * @retval ENOTRECOVERABLE The state protected by the mutex is
    *  not recoverable..
    * @retval EAGAIN The mutex could not be acquired because the maximum
    *  number of recursive locks for mutex has been exceeded.
    * @retval EINVAL The mutex was created with the protocol
-   *  attribute having the value `os_mutex_protocol_protect` and the
+   *  attribute having the value `micro_os_plus_mutex_protocol_protect` and the
    *  calling thread's priority is higher than the mutex's
    *  current priority ceiling.
    * @retval EOWNERDEAD The mutex is a robust mutex and the process
    *  containing the previous owning thread terminated while holding
    *  the mutex lock. The mutex lock shall be acquired by the calling
    *  thread and it is up to the new owner to make the state consistent.
-   * @retval EDEADLK The mutex type is `os_mutex_type_errorcheck` and
-   *  the current thread already owns the mutex.
+   * @retval EDEADLK The mutex type is `micro_os_plus_mutex_type_errorcheck`
+   * and the current thread already owns the mutex.
    */
-  os_result_t
-  os_mutex_lock (os_mutex_t* mutex);
+  micro_os_plus_result_t
+  micro_os_plus_mutex_lock (micro_os_plus_mutex_t* mutex);
 
   /**
    * @brief Try to lock/acquire the mutex.
    * @param [in] mutex Pointer to mutex object instance.
-   * @retval os_ok The mutex was locked.
+   * @retval micro_os_plus_ok The mutex was locked.
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
    * @retval ENOTRECOVERABLE The state protected by the mutex is
    *  not recoverable..
    * @retval EAGAIN The mutex could not be acquired because the maximum
    *  number of recursive locks for mutex has been exceeded.
    * @retval EINVAL The mutex was created with the protocol
-   *  attribute having the value `os_mutex_protocol_protect` and the
+   *  attribute having the value `micro_os_plus_mutex_protocol_protect` and the
    *  calling thread's priority is higher than the mutex's
    *  current priority ceiling.
    * @retval EOWNERDEAD The mutex is a robust mutex and the process
    *  containing the previous owning thread terminated while holding
    *  the mutex lock. The mutex lock shall be acquired by the calling
    *  thread and it is up to the new owner to make the state consistent.
-   * @retval EDEADLK The mutex type is `os_mutex_type_errorcheck` and
-   *  the current thread already owns the mutex.
+   * @retval EDEADLK The mutex type is `micro_os_plus_mutex_type_errorcheck`
+   * and the current thread already owns the mutex.
    * @retval EWOULDBLOCK The mutex could not be acquired because it was
    *  already locked.
    */
-  os_result_t
-  os_mutex_try_lock (os_mutex_t* mutex);
+  micro_os_plus_result_t
+  micro_os_plus_mutex_try_lock (micro_os_plus_mutex_t* mutex);
 
   /**
    * @brief Timed attempt to lock/acquire the mutex.
    * @param [in] mutex Pointer to mutex object instance.
    * @param [in] timeout Timeout to wait, in clock units (ticks or seconds).
-   * @retval os_ok The mutex was locked.
+   * @retval micro_os_plus_ok The mutex was locked.
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
    * @retval ETIMEDOUT The mutex could not be locked before the
    *  specified timeout expired.
@@ -1324,7 +1324,7 @@ extern "C"
    *  is not recoverable.
    * @retval EAGAIN The mutex could not be acquired because the
    *  maximum number of recursive locks for mutex has been exceeded.
-   * @retval EDEADLK The mutex type is `os_mutex_type_errorcheck`
+   * @retval EDEADLK The mutex type is `micro_os_plus_mutex_type_errorcheck`
    *  and the current thread already owns the mutex.
    * @retval EINVAL The process or thread would have blocked, and
    *  the timeout parameter is invalid.
@@ -1334,29 +1334,30 @@ extern "C"
    *  calling thread and it is up to the new owner to make the
    *  state consistent.
    */
-  os_result_t
-  os_mutex_timed_lock (os_mutex_t* mutex, os_clock_duration_t timeout);
+  micro_os_plus_result_t
+  micro_os_plus_mutex_timed_lock (micro_os_plus_mutex_t* mutex,
+                                  micro_os_plus_clock_duration_t timeout);
 
   /**
    * @brief Unlock/release the mutex.
    * @param [in] mutex Pointer to mutex object instance.
-   * @retval os_ok The mutex was unlocked.
+   * @retval micro_os_plus_ok The mutex was unlocked.
    * @retval EPERM Cannot be invoked from an Interrupt Service Routine;
-   *  the mutex type is `os_mutex_type_errorcheck` or
-   *  `os_mutex_type_recursive`, or the mutex is a robust mutex,
+   *  the mutex type is `micro_os_plus_mutex_type_errorcheck` or
+   *  `micro_os_plus_mutex_type_recursive`, or the mutex is a robust mutex,
    *  and the current thread does not own the mutex.
    * @retval ENOTRECOVERABLE The mutex was not unlocked.
    */
-  os_result_t
-  os_mutex_unlock (os_mutex_t* mutex);
+  micro_os_plus_result_t
+  micro_os_plus_mutex_unlock (micro_os_plus_mutex_t* mutex);
 
   /**
    * @brief Get the priority ceiling of a mutex.
    * @param [in] mutex Pointer to mutex object instance.
    * @return The priority ceiling.
    */
-  os_thread_prio_t
-  os_mutex_get_prio_ceiling (os_mutex_t* mutex);
+  micro_os_plus_thread_prio_t
+  micro_os_plus_mutex_get_prio_ceiling (micro_os_plus_mutex_t* mutex);
 
   /**
    * @brief Change the priority ceiling of a mutex.
@@ -1364,47 +1365,48 @@ extern "C"
    * @param [in] prio_ceiling new priority.
    * @param [out] old_prio_ceiling pointer to location where to
    *  store the previous priority; may be `NULL`.
-   * @retval os_ok The priority was changed.
+   * @retval micro_os_plus_ok The priority was changed.
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
    */
-  os_result_t
-  os_mutex_set_prio_ceiling (os_mutex_t* mutex, os_thread_prio_t prio_ceiling,
-                             os_thread_prio_t* old_prio_ceiling);
+  micro_os_plus_result_t
+  micro_os_plus_mutex_set_prio_ceiling (
+      micro_os_plus_mutex_t* mutex, micro_os_plus_thread_prio_t prio_ceiling,
+      micro_os_plus_thread_prio_t* old_prio_ceiling);
 
   /**
    * @brief Mark mutex as consistent.
    * @param [in] mutex Pointer to mutex object instance.
-   * @retval os_ok The mutex was marked as consistent.
+   * @retval micro_os_plus_ok The mutex was marked as consistent.
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
    * @retval EINVAL The mutex object referenced by mutex is not robust
    *  or does not protect an inconsistent state.
    */
-  os_result_t
-  os_mutex_mark_consistent (os_mutex_t* mutex);
+  micro_os_plus_result_t
+  micro_os_plus_mutex_mark_consistent (micro_os_plus_mutex_t* mutex);
 
   /**
    * @brief Get the thread that owns the mutex.
    * @param [in] mutex Pointer to mutex object instance.
    * @return Pointer to thread or `NULL` if not owned.
    */
-  os_thread_t*
-  os_mutex_get_owner (os_mutex_t* mutex);
+  micro_os_plus_thread_t*
+  micro_os_plus_mutex_get_owner (micro_os_plus_mutex_t* mutex);
 
   /**
    * @brief Get the mutex type.
    * @param [in] mutex Pointer to mutex object instance.
    * @return An integer encoding the @ref micro_os_plus::rtos::mutex::type.
    */
-  os_mutex_type_t
-  os_mutex_get_type (os_mutex_t* mutex);
+  micro_os_plus_mutex_type_t
+  micro_os_plus_mutex_get_type (micro_os_plus_mutex_t* mutex);
 
   /**
    * @brief Get the mutex protocol.
    * @param [in] mutex Pointer to mutex object instance.
    * @return An integer encoding the @ref micro_os_plus::rtos::mutex::protocol.
    */
-  os_mutex_protocol_t
-  os_mutex_get_protocol (os_mutex_t* mutex);
+  micro_os_plus_mutex_protocol_t
+  micro_os_plus_mutex_get_protocol (micro_os_plus_mutex_t* mutex);
 
   /**
    * @brief Get the mutex robustness.
@@ -1412,30 +1414,16 @@ extern "C"
    * @return An integer encoding the @ref
    * micro_os_plus::rtos::mutex::robustness.
    */
-  os_mutex_robustness_t
-  os_mutex_get_robustness (os_mutex_t* mutex);
+  micro_os_plus_mutex_robustness_t
+  micro_os_plus_mutex_get_robustness (micro_os_plus_mutex_t* mutex);
 
   /**
    * @brief Reset the mutex.
    * @param [in] mutex Pointer to mutex object instance.
-   * @retval os_ok The mutex was reset.
+   * @retval micro_os_plus_ok The mutex was reset.
    */
-  os_result_t
-  os_mutex_reset (os_mutex_t* mutex);
-
-  /**
-   * @}
-   */
-
-  // --------------------------------------------------------------------------
-  /**
-   * @name Compatibility Macros
-   * @{
-   */
-
-#define os_mutex_create os_mutex_construct
-#define os_mutex_recursive_create os_mutex_recursive_construct
-#define os_mutex_destroy os_mutex_destruct
+  micro_os_plus_result_t
+  micro_os_plus_mutex_reset (micro_os_plus_mutex_t* mutex);
 
   /**
    * @}
@@ -1463,7 +1451,7 @@ extern "C"
    *  Nothing.
    */
   void
-  os_condvar_attr_init (os_condvar_attr_t* attr);
+  micro_os_plus_condvar_attr_init (micro_os_plus_condvar_attr_t* attr);
 
   /**
    * @}
@@ -1492,8 +1480,9 @@ extern "C"
    *  Nothing.
    */
   void
-  os_condvar_construct (os_condvar_t* condvar, const char* name,
-                        const os_condvar_attr_t* attr);
+  micro_os_plus_condvar_construct (micro_os_plus_condvar_t* condvar,
+                                   const char* name,
+                                   const micro_os_plus_condvar_attr_t* attr);
 
   /**
    * @brief Destruct the statically allocated condition variable
@@ -1503,7 +1492,7 @@ extern "C"
    *  Nothing.
    */
   void
-  os_condvar_destruct (os_condvar_t* condvar);
+  micro_os_plus_condvar_destruct (micro_os_plus_condvar_t* condvar);
 
   /**
    * @brief Allocate a condition variable object instance and construct it.
@@ -1519,8 +1508,9 @@ extern "C"
    *  The constructor shall not fail with an error code of `EINTR`.
    * @return Pointer to new condition variable object instance.
    */
-  os_condvar_t*
-  os_condvar_new (const char* name, const os_condvar_attr_t* attr);
+  micro_os_plus_condvar_t*
+  micro_os_plus_condvar_new (const char* name,
+                             const micro_os_plus_condvar_attr_t* attr);
 
   /**
    * @brief Destruct the condition variable object instance and deallocate it.
@@ -1530,7 +1520,7 @@ extern "C"
    *  Nothing.
    */
   void
-  os_condvar_delete (os_condvar_t* condvar);
+  micro_os_plus_condvar_delete (micro_os_plus_condvar_t* condvar);
 
   /**
    * @}
@@ -1547,35 +1537,35 @@ extern "C"
    * @return Null terminated string.
    */
   const char*
-  os_condvar_get_name (os_condvar_t* condvar);
+  micro_os_plus_condvar_get_name (micro_os_plus_condvar_t* condvar);
 
   /**
    * @brief Notify one thread waiting for a condition variable.
    * @param [in] condvar Pointer to condition variable object instance.
-   * @retval os_ok The thread was signalled.
+   * @retval micro_os_plus_ok The thread was signalled.
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
    * @par Errors
    *  The function shall not fail with an error code of `EINTR`.
    */
-  os_result_t
-  os_condvar_signal (os_condvar_t* condvar);
+  micro_os_plus_result_t
+  micro_os_plus_condvar_signal (micro_os_plus_condvar_t* condvar);
 
   /**
    * @brief Notify all threads waiting for a condition variable.
    * @param [in] condvar Pointer to condition variable object instance.
-   * @retval os_ok All waiting threads signalled.
+   * @retval micro_os_plus_ok All waiting threads signalled.
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
    * @par Errors
    *  The function shall not fail with an error code of `EINTR`.
    */
-  os_result_t
-  os_condvar_broadcast (os_condvar_t* condvar);
+  micro_os_plus_result_t
+  micro_os_plus_condvar_broadcast (micro_os_plus_condvar_t* condvar);
 
   /**
    * @brief Wait for a condition variable to be notified.
    * @param [in] condvar Pointer to condition variable object instance.
    * @param [in] mutex Pointer to the associated mutex.
-   * @retval os_ok The condition change was signalled.
+   * @retval micro_os_plus_ok The condition change was signalled.
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines,
    *  or the mutex type is `mutex::type::errorcheck` or the mutex
    *  is a robust mutex, and the current thread does not own the mutex.
@@ -1589,15 +1579,16 @@ extern "C"
    * @par Errors
    *  The function shall not fail with an error code of `EINTR`.
    */
-  os_result_t
-  os_condvar_wait (os_condvar_t* condvar, os_mutex_t* mutex);
+  micro_os_plus_result_t
+  micro_os_plus_condvar_wait (micro_os_plus_condvar_t* condvar,
+                              micro_os_plus_mutex_t* mutex);
 
   /**
    * @brief Timed wait for a condition variable to be notified.
    * @param [in] condvar Pointer to condition variable object instance.
    * @param [in] mutex Pointer to the associated mutex.
    * @param [in] timeout Timeout to wait.
-   * @retval os_ok The condition change was signalled.
+   * @retval micro_os_plus_ok The condition change was signalled.
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines,
    *  or the mutex type is `mutex::type::errorcheck` or the mutex
    *  is a robust mutex, and the current thread does not own the mutex.
@@ -1612,22 +1603,10 @@ extern "C"
    * @par Errors
    *  The function shall not fail with an error code of `EINTR`.
    */
-  os_result_t
-  os_condvar_timed_wait (os_condvar_t* condvar, os_mutex_t* mutex,
-                         os_clock_duration_t timeout);
-
-  /**
-   * @}
-   */
-
-  // --------------------------------------------------------------------------
-  /**
-   * @name Compatibility Macros
-   * @{
-   */
-
-#define os_condvar_create os_condvar_construct
-#define os_condvar_destroy os_condvar_destruct
+  micro_os_plus_result_t
+  micro_os_plus_condvar_timed_wait (micro_os_plus_condvar_t* condvar,
+                                    micro_os_plus_mutex_t* mutex,
+                                    micro_os_plus_clock_duration_t timeout);
 
   /**
    * @}
@@ -1655,7 +1634,7 @@ extern "C"
    *  Nothing.
    */
   void
-  os_semaphore_attr_init (os_semaphore_attr_t* attr);
+  micro_os_plus_semaphore_attr_init (micro_os_plus_semaphore_attr_t* attr);
 
   /**
    * @brief Initialise the binary semaphore attributes.
@@ -1665,8 +1644,9 @@ extern "C"
    *  Nothing.
    */
   void
-  os_semaphore_attr_binary_init (os_semaphore_attr_t* attr,
-                                 const os_semaphore_count_t initial_value);
+  micro_os_plus_semaphore_attr_binary_init (
+      micro_os_plus_semaphore_attr_t* attr,
+      const micro_os_plus_semaphore_count_t initial_value);
 
   /**
    * @brief Initialise the counting semaphore attributes.
@@ -1675,16 +1655,17 @@ extern "C"
    * @param [in] initial_value Initial count value.
    */
   void
-  os_semaphore_attr_counting_init (os_semaphore_attr_t* attr,
-                                   const os_semaphore_count_t max_value,
-                                   const os_semaphore_count_t initial_value);
+  micro_os_plus_semaphore_attr_counting_init (
+      micro_os_plus_semaphore_attr_t* attr,
+      const micro_os_plus_semaphore_count_t max_value,
+      const micro_os_plus_semaphore_count_t initial_value);
 
   /**
    * @brief Get a binary semaphore attributes object instance.
    * @return Pointer to semaphore attributes object instance.
    */
-  const os_semaphore_attr_t*
-  os_semaphore_attr_get_binary (void);
+  const micro_os_plus_semaphore_attr_t*
+  micro_os_plus_semaphore_attr_get_binary (void);
 
   /**
    * @}
@@ -1704,8 +1685,9 @@ extern "C"
    *  Nothing.
    */
   void
-  os_semaphore_construct (os_semaphore_t* semaphore, const char* name,
-                          const os_semaphore_attr_t* attr);
+  micro_os_plus_semaphore_construct (
+      micro_os_plus_semaphore_t* semaphore, const char* name,
+      const micro_os_plus_semaphore_attr_t* attr);
 
   /**
    * @brief Construct a statically allocated binary semaphore object instance.
@@ -1716,8 +1698,9 @@ extern "C"
    *  Nothing.
    */
   void
-  os_semaphore_binary_construct (os_semaphore_t* semaphore, const char* name,
-                                 const os_semaphore_count_t initial_value);
+  micro_os_plus_semaphore_binary_construct (
+      micro_os_plus_semaphore_t* semaphore, const char* name,
+      const micro_os_plus_semaphore_count_t initial_value);
 
   /**
    * @brief Construct a statically allocated counting semaphore
@@ -1730,9 +1713,10 @@ extern "C"
    *  Nothing.
    */
   void
-  os_semaphore_counting_construct (os_semaphore_t* semaphore, const char* name,
-                                   const os_semaphore_count_t max_value,
-                                   const os_semaphore_count_t initial_value);
+  micro_os_plus_semaphore_counting_construct (
+      micro_os_plus_semaphore_t* semaphore, const char* name,
+      const micro_os_plus_semaphore_count_t max_value,
+      const micro_os_plus_semaphore_count_t initial_value);
 
   /**
    * @brief Destruct the statically allocated semaphore object instance.
@@ -1741,7 +1725,7 @@ extern "C"
    *  Nothing.
    */
   void
-  os_semaphore_destruct (os_semaphore_t* semaphore);
+  micro_os_plus_semaphore_destruct (micro_os_plus_semaphore_t* semaphore);
 
   /**
    * @brief Allocated a semaphore object instance and construct it.
@@ -1749,8 +1733,9 @@ extern "C"
    * @param [in] attr Pointer to attributes (may be NULL).
    * @return Pointer to new semaphore object instance.
    */
-  os_semaphore_t*
-  os_semaphore_new (const char* name, const os_semaphore_attr_t* attr);
+  micro_os_plus_semaphore_t*
+  micro_os_plus_semaphore_new (const char* name,
+                               const micro_os_plus_semaphore_attr_t* attr);
 
   /**
    * @brief Allocate a binary semaphore object instance and construct it.
@@ -1758,9 +1743,9 @@ extern "C"
    * @param [in] initial_value Initial count value.
    * @return Pointer to new semaphore object instance.
    */
-  os_semaphore_t*
-  os_semaphore_binary_new (const char* name,
-                           const os_semaphore_count_t initial_value);
+  micro_os_plus_semaphore_t*
+  micro_os_plus_semaphore_binary_new (
+      const char* name, const micro_os_plus_semaphore_count_t initial_value);
 
   /**
    * @brief Allocate a counting semaphore object instance and construct it.
@@ -1769,10 +1754,10 @@ extern "C"
    * @param [in] initial_value Initial count value.
    * @return Pointer to new semaphore object instance.
    */
-  os_semaphore_t*
-  os_semaphore_counting_new (const char* name,
-                             const os_semaphore_count_t max_value,
-                             const os_semaphore_count_t initial_value);
+  micro_os_plus_semaphore_t*
+  micro_os_plus_semaphore_counting_new (
+      const char* name, const micro_os_plus_semaphore_count_t max_value,
+      const micro_os_plus_semaphore_count_t initial_value);
 
   /**
    * @brief Destruct the semaphore object instance.
@@ -1781,7 +1766,7 @@ extern "C"
    *  Nothing.
    */
   void
-  os_semaphore_delete (os_semaphore_t* semaphore);
+  micro_os_plus_semaphore_delete (micro_os_plus_semaphore_t* semaphore);
 
   /**
    * @}
@@ -1798,36 +1783,36 @@ extern "C"
    * @return Null terminated string.
    */
   const char*
-  os_semaphore_get_name (os_semaphore_t* semaphore);
+  micro_os_plus_semaphore_get_name (micro_os_plus_semaphore_t* semaphore);
 
   /**
    * @brief Post (unlock) the semaphore.
    * @param [in] semaphore Pointer to semaphore object instance.
-   * @retval os_ok The semaphore was posted.
+   * @retval micro_os_plus_ok The semaphore was posted.
    * @retval EAGAIN The maximum count value was exceeded.
    * @retval ENOTRECOVERABLE The semaphore could not be posted
    *  (extension to POSIX).
    */
-  os_result_t
-  os_semaphore_post (os_semaphore_t* semaphore);
+  micro_os_plus_result_t
+  micro_os_plus_semaphore_post (micro_os_plus_semaphore_t* semaphore);
 
   /**
    * @brief Lock the semaphore, possibly waiting.
    * @param [in] semaphore Pointer to semaphore object instance.
-   * @retval os_ok The calling process successfully
+   * @retval micro_os_plus_ok The calling process successfully
    *  performed the semaphore lock operation.
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
    * @retval ENOTRECOVERABLE Semaphore wait failed (extension to POSIX).
    * @retval EDEADLK A deadlock condition was detected.
    * @retval EINTR The operation was interrupted.
    */
-  os_result_t
-  os_semaphore_wait (os_semaphore_t* semaphore);
+  micro_os_plus_result_t
+  micro_os_plus_semaphore_wait (micro_os_plus_semaphore_t* semaphore);
 
   /**
    * @brief Try to lock the semaphore.
    * @param [in] semaphore Pointer to semaphore object instance.
-   * @retval os_ok The calling process successfully
+   * @retval micro_os_plus_ok The calling process successfully
    *  performed the semaphore lock operation.
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
    * @retval EWOULDBLOCK The semaphore was already locked.
@@ -1835,14 +1820,14 @@ extern "C"
    * @retval EDEADLK A deadlock condition was detected.
    * @retval EINTR The operation was interrupted.
    */
-  os_result_t
-  os_semaphore_try_wait (os_semaphore_t* semaphore);
+  micro_os_plus_result_t
+  micro_os_plus_semaphore_try_wait (micro_os_plus_semaphore_t* semaphore);
 
   /**
    * @brief Timed wait to lock the semaphore.
    * @param [in] semaphore Pointer to semaphore object instance.
    * @param [in] timeout Timeout to wait.
-   * @retval os_ok The calling process successfully
+   * @retval micro_os_plus_ok The calling process successfully
    *  performed the semaphore lock operation.
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
    * @retval EINVAL Invalid timeout (POSIX limits the timeout
@@ -1853,56 +1838,43 @@ extern "C"
    * @retval EDEADLK A deadlock condition was detected.
    * @retval EINTR The operation was interrupted.
    */
-  os_result_t
-  os_semaphore_timed_wait (os_semaphore_t* semaphore,
-                           os_clock_duration_t timeout);
+  micro_os_plus_result_t
+  micro_os_plus_semaphore_timed_wait (micro_os_plus_semaphore_t* semaphore,
+                                      micro_os_plus_clock_duration_t timeout);
 
   /**
    * @brief Get the semaphore count value.
    * @param [in] semaphore Pointer to semaphore object instance.
    * @return The semaphore count value.
    */
-  os_semaphore_count_t
-  os_semaphore_get_value (os_semaphore_t* semaphore);
+  micro_os_plus_semaphore_count_t
+  micro_os_plus_semaphore_get_value (micro_os_plus_semaphore_t* semaphore);
 
   /**
    * @brief Reset the semaphore.
    * @param [in] semaphore Pointer to semaphore object instance.
-   * @retval os_ok The semaphore was reset.
+   * @retval micro_os_plus_ok The semaphore was reset.
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
    */
-  os_result_t
-  os_semaphore_reset (os_semaphore_t* semaphore);
+  micro_os_plus_result_t
+  micro_os_plus_semaphore_reset (micro_os_plus_semaphore_t* semaphore);
 
   /**
    * @brief Get the semaphore initial count value.
    * @param [in] semaphore Pointer to semaphore object instance.
    * @return The numeric value set from attributes.
    */
-  os_semaphore_count_t
-  os_semaphore_get_initial_value (os_semaphore_t* semaphore);
+  micro_os_plus_semaphore_count_t
+  micro_os_plus_semaphore_get_initial_value (
+      micro_os_plus_semaphore_t* semaphore);
 
   /**
    * @brief Get the semaphore maximum count value.
    * @param [in] semaphore Pointer to semaphore object instance.
    * @return The numeric value set from attributes.
    */
-  os_semaphore_count_t
-  os_semaphore_get_max_value (os_semaphore_t* semaphore);
-
-  /**
-   * @}
-   */
-
-  /**
-   * @name Compatibility Macros
-   * @{
-   */
-
-#define os_semaphore_create os_semaphore_construct
-#define os_semaphore_binary_create os_semaphore_binary_construct
-#define os_semaphore_counting_create os_semaphore_counting_construct
-#define os_semaphore_destroy os_semaphore_destruct
+  micro_os_plus_semaphore_count_t
+  micro_os_plus_semaphore_get_max_value (micro_os_plus_semaphore_t* semaphore);
 
   /**
    * @}
@@ -1930,7 +1902,7 @@ extern "C"
    *  Nothing.
    */
   void
-  os_mempool_attr_init (os_mempool_attr_t* attr);
+  micro_os_plus_mempool_attr_init (micro_os_plus_mempool_attr_t* attr);
 
   /**
    * @}
@@ -1952,9 +1924,10 @@ extern "C"
    *  Nothing.
    */
   void
-  os_mempool_construct (os_mempool_t* mempool, const char* name, size_t blocks,
-                        size_t block_size_bytes,
-                        const os_mempool_attr_t* attr);
+  micro_os_plus_mempool_construct (micro_os_plus_mempool_t* mempool,
+                                   const char* name, size_t blocks,
+                                   size_t block_size_bytes,
+                                   const micro_os_plus_mempool_attr_t* attr);
 
   /**
    * @brief Destruct the statically allocated memory pool object instance.
@@ -1963,7 +1936,7 @@ extern "C"
    *  Nothing.
    */
   void
-  os_mempool_destruct (os_mempool_t* mempool);
+  micro_os_plus_mempool_destruct (micro_os_plus_mempool_t* mempool);
 
   /**
    * @brief Allocate a memory pool object instance and construct it.
@@ -1973,9 +1946,10 @@ extern "C"
    * @param [in] attr Pointer to attributes (may be NULL).
    * @return Pointer to new memory pool object instance.
    */
-  os_mempool_t*
-  os_mempool_new (const char* name, size_t blocks, size_t block_size_bytes,
-                  const os_mempool_attr_t* attr);
+  micro_os_plus_mempool_t*
+  micro_os_plus_mempool_new (const char* name, size_t blocks,
+                             size_t block_size_bytes,
+                             const micro_os_plus_mempool_attr_t* attr);
 
   /**
    * @brief Destruct the memory pool object instance and deallocate it.
@@ -1985,7 +1959,7 @@ extern "C"
    *  Nothing.
    */
   void
-  os_mempool_delete (os_mempool_t* mempool);
+  micro_os_plus_mempool_delete (micro_os_plus_mempool_t* mempool);
 
   /**
    * @}
@@ -2002,7 +1976,7 @@ extern "C"
    * @return Null terminated string.
    */
   const char*
-  os_mempool_get_name (os_mempool_t* mempool);
+  micro_os_plus_mempool_get_name (micro_os_plus_mempool_t* mempool);
 
   /**
    * @brief Allocate a memory block.
@@ -2010,7 +1984,7 @@ extern "C"
    * @return Pointer to memory block, or `NULL` if interrupted.
    */
   void*
-  os_mempool_alloc (os_mempool_t* mempool);
+  micro_os_plus_mempool_alloc (micro_os_plus_mempool_t* mempool);
 
   /**
    * @brief Try to allocate a memory block.
@@ -2018,7 +1992,7 @@ extern "C"
    * @return Pointer to memory block, or `NULL` if no memory available.
    */
   void*
-  os_mempool_try_alloc (os_mempool_t* mempool);
+  micro_os_plus_mempool_try_alloc (micro_os_plus_mempool_t* mempool);
 
   /**
    * @brief Allocate a memory block with timeout.
@@ -2027,17 +2001,18 @@ extern "C"
    * @return Pointer to memory block, or `NULL` if timeout.
    */
   void*
-  os_mempool_timed_alloc (os_mempool_t* mempool, os_clock_duration_t timeout);
+  micro_os_plus_mempool_timed_alloc (micro_os_plus_mempool_t* mempool,
+                                     micro_os_plus_clock_duration_t timeout);
 
   /**
    * @brief Free the memory block.
    * @param [in] mempool Pointer to memory pool object instance.
    * @param [in] block Pointer to memory block to free.
-   * @retval os_ok The memory block was released.
+   * @retval micro_os_plus_ok The memory block was released.
    * @retval EINVAL The block does not belong to the memory pool.
    */
-  os_result_t
-  os_mempool_free (os_mempool_t* mempool, void* block);
+  micro_os_plus_result_t
+  micro_os_plus_mempool_free (micro_os_plus_mempool_t* mempool, void* block);
 
   /**
    * @brief Get memory pool capacity.
@@ -2045,7 +2020,7 @@ extern "C"
    * @return The max number of blocks in the pool.
    */
   size_t
-  os_mempool_get_capacity (os_mempool_t* mempool);
+  micro_os_plus_mempool_get_capacity (micro_os_plus_mempool_t* mempool);
 
   /**
    * @brief Get blocks count.
@@ -2053,7 +2028,7 @@ extern "C"
    * @return The number of blocks used from the queue.
    */
   size_t
-  os_mempool_get_count (os_mempool_t* mempool);
+  micro_os_plus_mempool_get_count (micro_os_plus_mempool_t* mempool);
 
   /**
    * @brief Get block size.
@@ -2061,7 +2036,7 @@ extern "C"
    * @return The block size, in bytes.
    */
   size_t
-  os_mempool_get_block_size (os_mempool_t* mempool);
+  micro_os_plus_mempool_get_block_size (micro_os_plus_mempool_t* mempool);
 
   /**
    * @brief Check if the memory pool is empty.
@@ -2070,7 +2045,7 @@ extern "C"
    * @retval false The memory pool has allocated blocks.
    */
   bool
-  os_mempool_is_empty (os_mempool_t* mempool);
+  micro_os_plus_mempool_is_empty (micro_os_plus_mempool_t* mempool);
 
   /**
    * @brief Check if the memory pool is full.
@@ -2079,16 +2054,16 @@ extern "C"
    * @retval false There are still memory blocks that can be allocated.
    */
   bool
-  os_mempool_is_full (os_mempool_t* mempool);
+  micro_os_plus_mempool_is_full (micro_os_plus_mempool_t* mempool);
 
   /**
    * @brief Reset the memory pool.
    * @param [in] mempool Pointer to memory pool object instance.
-   * @retval os_ok The memory pool was reset.
+   * @retval micro_os_plus_ok The memory pool was reset.
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
    */
-  os_result_t
-  os_mempool_reset (os_mempool_t* mempool);
+  micro_os_plus_result_t
+  micro_os_plus_mempool_reset (micro_os_plus_mempool_t* mempool);
 
   /**
    * @brief Get the pool storage address.
@@ -2096,19 +2071,7 @@ extern "C"
    * @return Pointer to storage.
    */
   void*
-  os_mempool_get_pool (os_mempool_t* mempool);
-
-  /**
-   * @}
-   */
-
-  /**
-   * @name Compatibility Macros
-   * @{
-   */
-
-#define os_mempool_create os_mempool_construct
-#define os_mempool_destroy os_mempool_destruct
+  micro_os_plus_mempool_get_pool (micro_os_plus_mempool_t* mempool);
 
   /**
    * @}
@@ -2136,7 +2099,7 @@ extern "C"
    *  Nothing.
    */
   void
-  os_mqueue_attr_init (os_mqueue_attr_t* attr);
+  micro_os_plus_mqueue_attr_init (micro_os_plus_mqueue_attr_t* attr);
 
   /**
    * @}
@@ -2158,8 +2121,10 @@ extern "C"
    *  Nothing.
    */
   void
-  os_mqueue_construct (os_mqueue_t* mqueue, const char* name, size_t msgs,
-                       size_t msg_size_bytes, const os_mqueue_attr_t* attr);
+  micro_os_plus_mqueue_construct (micro_os_plus_mqueue_t* mqueue,
+                                  const char* name, size_t msgs,
+                                  size_t msg_size_bytes,
+                                  const micro_os_plus_mqueue_attr_t* attr);
 
   /**
    * @brief Destruct the statically allocated message queue object instance.
@@ -2168,7 +2133,7 @@ extern "C"
    *  Nothing.
    */
   void
-  os_mqueue_destruct (os_mqueue_t* mqueue);
+  micro_os_plus_mqueue_destruct (micro_os_plus_mqueue_t* mqueue);
 
   /**
    * @brief Allocate a message queue object instance and construct it.
@@ -2178,9 +2143,10 @@ extern "C"
    * @param [in] attr Pointer to attributes (may be NULL).
    * @return Pointer to new message queue object instance.
    */
-  os_mqueue_t*
-  os_mqueue_new (const char* name, size_t msgs, size_t msg_size_bytes,
-                 const os_mqueue_attr_t* attr);
+  micro_os_plus_mqueue_t*
+  micro_os_plus_mqueue_new (const char* name, size_t msgs,
+                            size_t msg_size_bytes,
+                            const micro_os_plus_mqueue_attr_t* attr);
 
   /**
    * @brief Destruct the message queue object instance and deallocate it.
@@ -2190,7 +2156,7 @@ extern "C"
    *  Nothing.
    */
   void
-  os_mqueue_delete (os_mqueue_t* mqueue);
+  micro_os_plus_mqueue_delete (micro_os_plus_mqueue_t* mqueue);
 
   /**
    * @}
@@ -2207,7 +2173,7 @@ extern "C"
    * @return Null terminated string.
    */
   const char*
-  os_mqueue_get_name (os_mqueue_t* mqueue);
+  micro_os_plus_mqueue_get_name (micro_os_plus_mqueue_t* mqueue);
 
   /**
    * @brief Send a message to the queue.
@@ -2217,7 +2183,7 @@ extern "C"
    *  higher than the value used when creating the queue.
    * @param [in] mprio The message priority. Enter 0 if priorities are not
    * used.
-   * @retval os_ok The message was enqueued.
+   * @retval micro_os_plus_ok The message was enqueued.
    * @retval EINVAL A parameter is invalid or outside of a permitted range.
    * @retval EMSGSIZE The specified message length, nbytes,
    *  exceeds the message size attribute of the message queue.
@@ -2226,9 +2192,9 @@ extern "C"
    *  (extension to POSIX).
    * @retval EINTR The operation was interrupted.
    */
-  os_result_t
-  os_mqueue_send (os_mqueue_t* mqueue, const void* msg, size_t nbytes,
-                  os_mqueue_prio_t mprio);
+  micro_os_plus_result_t
+  micro_os_plus_mqueue_send (micro_os_plus_mqueue_t* mqueue, const void* msg,
+                             size_t nbytes, micro_os_plus_mqueue_prio_t mprio);
 
   /**
    * @brief Try to send a message to the queue.
@@ -2238,7 +2204,7 @@ extern "C"
    *  higher than the value used when creating the queue.
    * @param [in] mprio The message priority. Enter 0 if priorities are not
    * used.
-   * @retval os_ok The message was enqueued.
+   * @retval micro_os_plus_ok The message was enqueued.
    * @retval EWOULDBLOCK The specified message queue is full.
    * @retval EINVAL A parameter is invalid or outside of a permitted range.
    * @retval EMSGSIZE The specified message length, nbytes,
@@ -2246,9 +2212,10 @@ extern "C"
    * @retval ENOTRECOVERABLE The message could not be enqueue
    *  (extension to POSIX).
    */
-  os_result_t
-  os_mqueue_try_send (os_mqueue_t* mqueue, const void* msg, size_t nbytes,
-                      os_mqueue_prio_t mprio);
+  micro_os_plus_result_t
+  micro_os_plus_mqueue_try_send (micro_os_plus_mqueue_t* mqueue,
+                                 const void* msg, size_t nbytes,
+                                 micro_os_plus_mqueue_prio_t mprio);
 
   /**
    * @brief Send a message to the queue with timeout.
@@ -2259,7 +2226,7 @@ extern "C"
    * @param [in] timeout The timeout duration.
    * @param [in] mprio The message priority. Enter 0 if priorities are not
    * used.
-   * @retval os_ok The message was enqueued.
+   * @retval micro_os_plus_ok The message was enqueued.
    * @retval EINVAL A parameter is invalid or outside of a permitted range.
    * @retval EMSGSIZE The specified message length, nbytes,
    *  exceeds the message size attribute of the message queue.
@@ -2270,9 +2237,11 @@ extern "C"
    *  (extension to POSIX).
    * @retval EINTR The operation was interrupted.
    */
-  os_result_t
-  os_mqueue_timed_send (os_mqueue_t* mqueue, const void* msg, size_t nbytes,
-                        os_clock_duration_t timeout, os_mqueue_prio_t mprio);
+  micro_os_plus_result_t
+  micro_os_plus_mqueue_timed_send (micro_os_plus_mqueue_t* mqueue,
+                                   const void* msg, size_t nbytes,
+                                   micro_os_plus_clock_duration_t timeout,
+                                   micro_os_plus_mqueue_prio_t mprio);
 
   /**
    * @brief Receive a message from the queue.
@@ -2282,7 +2251,7 @@ extern "C"
    *  be lower than the value used when creating the queue.
    * @param [out] mprio The address where to store the message
    *  priority. Enter `NULL` if priorities are not used.
-   * @retval os_ok The message was received.
+   * @retval micro_os_plus_ok The message was received.
    * @retval EINVAL A parameter is invalid or outside of a permitted range.
    * @retval EMSGSIZE The specified message length, nbytes, is
    *  greater than the message size attribute of the message queue.
@@ -2293,9 +2262,10 @@ extern "C"
    *  problem with the message.
    * @retval EINTR The operation was interrupted.
    */
-  os_result_t
-  os_mqueue_receive (os_mqueue_t* mqueue, void* msg, size_t nbytes,
-                     os_mqueue_prio_t* mprio);
+  micro_os_plus_result_t
+  micro_os_plus_mqueue_receive (micro_os_plus_mqueue_t* mqueue, void* msg,
+                                size_t nbytes,
+                                micro_os_plus_mqueue_prio_t* mprio);
 
   /**
    * @brief Try to receive a message from the queue.
@@ -2305,7 +2275,7 @@ extern "C"
    *  be lower than the value used when creating the queue.
    * @param [out] mprio The address where to store the message
    *  priority. Enter `NULL` if priorities are not used.
-   * @retval os_ok The message was received.
+   * @retval micro_os_plus_ok The message was received.
    * @retval EINVAL A parameter is invalid or outside of a permitted range.
    * @retval EMSGSIZE The specified message length, nbytes, is
    *  greater than the message size attribute of the message queue.
@@ -2315,9 +2285,10 @@ extern "C"
    *  problem with the message.
    * @retval EWOULDBLOCK The specified message queue is empty.
    */
-  os_result_t
-  os_mqueue_try_receive (os_mqueue_t* mqueue, void* msg, size_t nbytes,
-                         os_mqueue_prio_t* mprio);
+  micro_os_plus_result_t
+  micro_os_plus_mqueue_try_receive (micro_os_plus_mqueue_t* mqueue, void* msg,
+                                    size_t nbytes,
+                                    micro_os_plus_mqueue_prio_t* mprio);
 
   /**
    * @brief Receive a message from the queue with timeout.
@@ -2328,7 +2299,7 @@ extern "C"
    * @param [in] timeout The timeout duration.
    * @param [out] mprio The address where to store the message
    *  priority. Enter `NULL` if priorities are not used.
-   * @retval os_ok The message was received.
+   * @retval micro_os_plus_ok The message was received.
    * @retval EINVAL A parameter is invalid or outside of a permitted range.
    * @retval EMSGSIZE The specified message length, nbytes, is
    *  greater than the message size attribute of the message queue.
@@ -2341,10 +2312,11 @@ extern "C"
    * @retval ETIMEDOUT No message arrived on the queue before the
    *  specified timeout expired.
    */
-  os_result_t
-  os_mqueue_timed_receive (os_mqueue_t* mqueue, void* msg, size_t nbytes,
-                           os_clock_duration_t timeout,
-                           os_mqueue_prio_t* mprio);
+  micro_os_plus_result_t
+  micro_os_plus_mqueue_timed_receive (micro_os_plus_mqueue_t* mqueue,
+                                      void* msg, size_t nbytes,
+                                      micro_os_plus_clock_duration_t timeout,
+                                      micro_os_plus_mqueue_prio_t* mprio);
 
   /**
    * @brief Get queue capacity.
@@ -2352,7 +2324,7 @@ extern "C"
    * @return The max number of messages that can be queued.
    */
   size_t
-  os_mqueue_get_capacity (os_mqueue_t* mqueue);
+  micro_os_plus_mqueue_get_capacity (micro_os_plus_mqueue_t* mqueue);
 
   /**
    * @brief Get queue length.
@@ -2360,7 +2332,7 @@ extern "C"
    * @return The number of messages in the queue.
    */
   size_t
-  os_mqueue_get_length (os_mqueue_t* mqueue);
+  micro_os_plus_mqueue_get_length (micro_os_plus_mqueue_t* mqueue);
 
   /**
    * @brief Get message size.
@@ -2368,7 +2340,7 @@ extern "C"
    * @return The message size, in bytes.
    */
   size_t
-  os_mqueue_get_msg_size (os_mqueue_t* mqueue);
+  micro_os_plus_mqueue_get_msg_size (micro_os_plus_mqueue_t* mqueue);
 
   /**
    * @brief Check if the queue is empty.
@@ -2377,7 +2349,7 @@ extern "C"
    * @retval false The queue has some messages.
    */
   bool
-  os_mqueue_is_empty (os_mqueue_t* mqueue);
+  micro_os_plus_mqueue_is_empty (micro_os_plus_mqueue_t* mqueue);
 
   /**
    * @brief Check if the queue is full.
@@ -2386,28 +2358,16 @@ extern "C"
    * @retval false The queue is not full.
    */
   bool
-  os_mqueue_is_full (os_mqueue_t* mqueue);
+  micro_os_plus_mqueue_is_full (micro_os_plus_mqueue_t* mqueue);
 
   /**
    * @brief Reset the message queue.
    * @param [in] mqueue Pointer to message queue object instance.
-   * @retval os_ok The queue was reset.
+   * @retval micro_os_plus_ok The queue was reset.
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
    */
-  os_result_t
-  os_mqueue_reset (os_mqueue_t* mqueue);
-
-  /**
-   * @}
-   */
-
-  /**
-   * @name Compatibility Macros
-   * @{
-   */
-
-#define os_mqueue_create os_mqueue_construct
-#define os_mqueue_destroy os_mqueue_destruct
+  micro_os_plus_result_t
+  micro_os_plus_mqueue_reset (micro_os_plus_mqueue_t* mqueue);
 
   /**
    * @}
@@ -2435,7 +2395,7 @@ extern "C"
    *  Nothing.
    */
   void
-  os_evflags_attr_init (os_evflags_attr_t* attr);
+  micro_os_plus_evflags_attr_init (micro_os_plus_evflags_attr_t* attr);
 
   /**
    * @}
@@ -2455,8 +2415,9 @@ extern "C"
    *  Nothing.
    */
   void
-  os_evflags_construct (os_evflags_t* evflags, const char* name,
-                        const os_evflags_attr_t* attr);
+  micro_os_plus_evflags_construct (micro_os_plus_evflags_t* evflags,
+                                   const char* name,
+                                   const micro_os_plus_evflags_attr_t* attr);
 
   /**
    * @brief Destruct the statically allocated event flags object instance.
@@ -2465,7 +2426,7 @@ extern "C"
    *  Nothing.
    */
   void
-  os_evflags_destruct (os_evflags_t* evflags);
+  micro_os_plus_evflags_destruct (micro_os_plus_evflags_t* evflags);
 
   /**
    * @brief Allocate an event flags object instance and construct it.
@@ -2473,8 +2434,9 @@ extern "C"
    * @param [in] attr Pointer to attributes (may be NULL).
    * @return Pointer to new event flags object instance.
    */
-  os_evflags_t*
-  os_evflags_new (const char* name, const os_evflags_attr_t* attr);
+  micro_os_plus_evflags_t*
+  micro_os_plus_evflags_new (const char* name,
+                             const micro_os_plus_evflags_attr_t* attr);
 
   /**
    * @brief Destruct the event flags object instance and deallocate it.
@@ -2484,7 +2446,7 @@ extern "C"
    *  Nothing.
    */
   void
-  os_evflags_delete (os_evflags_t* evflags);
+  micro_os_plus_evflags_delete (micro_os_plus_evflags_t* evflags);
 
   /**
    * @}
@@ -2501,7 +2463,7 @@ extern "C"
    * @return Null terminated string.
    */
   const char*
-  os_evflags_get_name (os_evflags_t* evflags);
+  micro_os_plus_evflags_get_name (micro_os_plus_evflags_t* evflags);
 
   /**
    * @brief Wait for event flags.
@@ -2512,15 +2474,17 @@ extern "C"
    *  may be `NULL`.
    * @param [in] mode Mode bits to select if either all or any flags
    *  are expected, and if the flags should be cleared.
-   * @retval os_ok All expected flags were raised.
+   * @retval micro_os_plus_ok All expected flags were raised.
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
    * @retval EINVAL The mask is outside of the permitted range.
    * @retval EINTR The operation was interrupted.
    * @retval ENOTRECOVERABLE Wait failed.
    */
-  os_result_t
-  os_evflags_wait (os_evflags_t* evflags, os_flags_mask_t mask,
-                   os_flags_mask_t* oflags, os_flags_mode_t mode);
+  micro_os_plus_result_t
+  micro_os_plus_evflags_wait (micro_os_plus_evflags_t* evflags,
+                              micro_os_plus_flags_mask_t mask,
+                              micro_os_plus_flags_mask_t* oflags,
+                              micro_os_plus_flags_mode_t mode);
 
   /**
    * @brief Try to wait for event flags.
@@ -2531,14 +2495,16 @@ extern "C"
    *  may be `NULL`.
    * @param [in] mode Mode bits to select if either all or any flags
    *  are expected, and if the flags should be cleared.
-   * @retval os_ok All expected flags were raised.
+   * @retval micro_os_plus_ok All expected flags were raised.
    * @retval EINVAL The mask is outside of the permitted range.
    * @retval EWOULDBLOCK The expected condition did not occur.
    * @retval ENOTRECOVERABLE Wait failed.
    */
-  os_result_t
-  os_evflags_try_wait (os_evflags_t* evflags, os_flags_mask_t mask,
-                       os_flags_mask_t* oflags, os_flags_mode_t mode);
+  micro_os_plus_result_t
+  micro_os_plus_evflags_try_wait (micro_os_plus_evflags_t* evflags,
+                                  micro_os_plus_flags_mask_t mask,
+                                  micro_os_plus_flags_mask_t* oflags,
+                                  micro_os_plus_flags_mode_t mode);
 
   /**
    * @brief Timed wait for event flags.
@@ -2550,7 +2516,7 @@ extern "C"
    * @param [in] mode Mode bits to select if either all or any flags
    *  are expected, and if the flags should be cleared.
    * @param [in] timeout Timeout to wait.
-   * @retval os_ok All expected flags are raised.
+   * @retval micro_os_plus_ok All expected flags are raised.
    * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
    * @retval ETIMEDOUT The expected condition did not occur during the
    *  entire timeout duration.
@@ -2558,10 +2524,12 @@ extern "C"
    * @retval EINTR The operation was interrupted.
    * @retval ENOTRECOVERABLE Wait failed.
    */
-  os_result_t
-  os_evflags_timed_wait (os_evflags_t* evflags, os_flags_mask_t mask,
-                         os_clock_duration_t timeout, os_flags_mask_t* oflags,
-                         os_flags_mode_t mode);
+  micro_os_plus_result_t
+  micro_os_plus_evflags_timed_wait (micro_os_plus_evflags_t* evflags,
+                                    micro_os_plus_flags_mask_t mask,
+                                    micro_os_plus_clock_duration_t timeout,
+                                    micro_os_plus_flags_mask_t* oflags,
+                                    micro_os_plus_flags_mode_t mode);
 
   /**
    * @brief Raise event flags.
@@ -2569,13 +2537,14 @@ extern "C"
    * @param [in] mask The OR-ed flags to raise.
    * @param [out] oflags Optional pointer where to store the
    *  new value of the flags; may be `NULL`.
-   * @retval os_ok The flags were raised.
+   * @retval micro_os_plus_ok The flags were raised.
    * @retval EINVAL The mask is zero.
    * @retval ENOTRECOVERABLE Raise failed.
    */
-  os_result_t
-  os_evflags_raise (os_evflags_t* evflags, os_flags_mask_t mask,
-                    os_flags_mask_t* oflags);
+  micro_os_plus_result_t
+  micro_os_plus_evflags_raise (micro_os_plus_evflags_t* evflags,
+                               micro_os_plus_flags_mask_t mask,
+                               micro_os_plus_flags_mask_t* oflags);
 
   /**
    * @brief Clear event flags.
@@ -2583,12 +2552,13 @@ extern "C"
    * @param [in] mask The OR-ed flags to clear. Zero means 'all'.
    * @param [out] oflags Optional pointer where to store the
    *  previous value of the flags; may be `NULL`.
-   * @retval os_ok The flags were cleared.
+   * @retval micro_os_plus_ok The flags were cleared.
    * @retval EINVAL The mask is zero.
    */
-  os_result_t
-  os_evflags_clear (os_evflags_t* evflags, os_flags_mask_t mask,
-                    os_flags_mask_t* oflags);
+  micro_os_plus_result_t
+  micro_os_plus_evflags_clear (micro_os_plus_evflags_t* evflags,
+                               micro_os_plus_flags_mask_t mask,
+                               micro_os_plus_flags_mask_t* oflags);
 
   /**
    * @brief Get (and possibly clear) event flags.
@@ -2598,9 +2568,10 @@ extern "C"
    *  cleared (the other bits are ignored).
    * @return The selected bits from the flags mask.
    */
-  os_flags_mask_t
-  os_evflags_get (os_evflags_t* evflags, os_flags_mask_t mask,
-                  os_flags_mode_t mode);
+  micro_os_plus_flags_mask_t
+  micro_os_plus_evflags_get (micro_os_plus_evflags_t* evflags,
+                             micro_os_plus_flags_mask_t mask,
+                             micro_os_plus_flags_mode_t mode);
 
   /**
    * @brief Check if there are threads waiting.
@@ -2609,19 +2580,7 @@ extern "C"
    * @retval false There are no threads waiting.
    */
   bool
-  os_evflags_are_waiting (os_evflags_t* evflags);
-
-  /**
-   * @}
-   */
-
-  /**
-   * @name Compatibility Macros
-   * @{
-   */
-
-#define os_evflags_create os_evflags_construct
-#define os_evflags_destroy os_evflags_destruct
+  micro_os_plus_evflags_are_waiting (micro_os_plus_evflags_t* evflags);
 
   /**
    * @}
@@ -2646,8 +2605,8 @@ extern "C"
    * @brief Get the application default memory resource (free store).
    * @return Pointer to memory resource object instance.
    */
-  os_memory_t*
-  os_memory_get_default (void);
+  micro_os_plus_memory_t*
+  micro_os_plus_memory_get_default (void);
 
   /**
    * @brief Allocate a block of memory.
@@ -2656,7 +2615,8 @@ extern "C"
    * @param alignment Integer (power of 2) with alignment constraints.
    */
   void*
-  os_memory_allocate (os_memory_t* memory, size_t bytes, size_t alignment);
+  micro_os_plus_memory_allocate (micro_os_plus_memory_t* memory, size_t bytes,
+                                 size_t alignment);
 
   /**
    * @brief Deallocate the previously allocated block of memory.
@@ -2666,8 +2626,8 @@ extern "C"
    * @param alignment Integer (power of 2) with alignment constraints.
    */
   void
-  os_memory_deallocate (os_memory_t* memory, void* addr, size_t bytes,
-                        size_t alignment);
+  micro_os_plus_memory_deallocate (micro_os_plus_memory_t* memory, void* addr,
+                                   size_t bytes, size_t alignment);
 
   /**
    * @brief Reset the memory manager to the initial state.
@@ -2678,7 +2638,7 @@ extern "C"
    *  Nothing.
    */
   void
-  os_memory_reset (os_memory_t* memory);
+  micro_os_plus_memory_reset (micro_os_plus_memory_t* memory);
 
   /**
    * @brief Coalesce free blocks.
@@ -2689,7 +2649,7 @@ extern "C"
    * @retval false if the operation was ineffective.
    */
   bool
-  os_memory_coalesce (os_memory_t* memory);
+  micro_os_plus_memory_coalesce (micro_os_plus_memory_t* memory);
 
   /**
    * @brief Get the total size of managed memory.
@@ -2697,7 +2657,7 @@ extern "C"
    * @return Number of bytes.
    */
   size_t
-  os_memory_get_total_bytes (os_memory_t* memory);
+  micro_os_plus_memory_get_total_bytes (micro_os_plus_memory_t* memory);
 
   /**
    * @brief Get the total size of allocated chunks.
@@ -2705,7 +2665,7 @@ extern "C"
    * @return Number of bytes.
    */
   size_t
-  os_memory_get_allocated_bytes (os_memory_t* memory);
+  micro_os_plus_memory_get_allocated_bytes (micro_os_plus_memory_t* memory);
 
   /**
    * @brief Get the total size of free chunks.
@@ -2713,7 +2673,7 @@ extern "C"
    * @return Number of bytes.
    */
   size_t
-  os_memory_get_free_bytes (os_memory_t* memory);
+  micro_os_plus_memory_get_free_bytes (micro_os_plus_memory_t* memory);
 
   /**
    * @brief Get the number of allocated chunks.
@@ -2721,7 +2681,7 @@ extern "C"
    * @return Number of chunks.
    */
   size_t
-  os_memory_get_allocated_chunks (os_memory_t* memory);
+  micro_os_plus_memory_get_allocated_chunks (micro_os_plus_memory_t* memory);
 
   /**
    * @brief Get the number of free chunks.
@@ -2729,7 +2689,7 @@ extern "C"
    * @return Number of chunks.
    */
   size_t
-  os_memory_get_free_chunks (os_memory_t* memory);
+  micro_os_plus_memory_get_free_chunks (micro_os_plus_memory_t* memory);
 
 /**
  * @}

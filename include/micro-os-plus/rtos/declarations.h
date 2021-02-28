@@ -987,7 +987,7 @@ namespace micro_os_plus
         /**
          * @brief SysTick implementation hook.
          * @details
-         * It is called from `os_systick_handler()` after the
+         * It is called from `micro_os_plus_systick_handler()` after the
          * scheduler was started.
          */
         static void
@@ -1004,7 +1004,7 @@ namespace micro_os_plus
         /**
          * @brief RTC implementation hook.
          * @details
-         * It is called from `os_systick_handler()` after the
+         * It is called from `micro_os_plus_systick_handler()` after the
          * scheduler was started.
          */
         static void
@@ -1065,7 +1065,7 @@ extern "C"
 
 // ----------------------------------------------------------------------------
 
-// Required by os_assert_throw()
+// Required by micro_os_plus_assert_throw()
 #include <micro-os-plus/estd/system_error>
 
 /**
@@ -1076,7 +1076,7 @@ extern "C"
  * given error code is returned.
  */
 #ifdef NDEBUG /* ANSI standard */
-#define os_assert_err(__e, __er) \
+#define micro_os_plus_assert_err(__e, __er) \
   do \
     { \
       if (!(__e)) \
@@ -1084,7 +1084,7 @@ extern "C"
     } \
   while (false)
 #else
-#define os_assert_err(__e, __er) assert (__e)
+#define micro_os_plus_assert_err(__e, __er) assert (__e)
 #endif
 
 /**
@@ -1096,7 +1096,7 @@ extern "C"
  * `abort()` if exceptions are disabled).
  */
 #ifdef NDEBUG /* ANSI standard */
-#define os_assert_throw(__e, __er) \
+#define micro_os_plus_assert_throw(__e, __er) \
   do \
     { \
       if (!(__e)) \
@@ -1104,7 +1104,7 @@ extern "C"
     } \
   while (false)
 #else
-#define os_assert_throw(__e, __er) assert (__e)
+#define micro_os_plus_assert_throw(__e, __er) assert (__e)
 #endif
 
 #endif // __cplusplus

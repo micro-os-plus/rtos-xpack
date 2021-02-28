@@ -664,7 +664,7 @@ namespace micro_os_plus
     protected:
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MUTEX)
       friend class port::mutex;
-      os_mutex_port_data_t port_;
+      micro_os_plus_mutex_port_data_t port_;
 #endif
 
       // Can be updated in different thread contexts.

@@ -35,10 +35,10 @@ using namespace micro_os_plus::rtos;
 // ----------------------------------------------------------------------------
 
 void*
-os_idle (thread::func_args_t args);
+micro_os_plus_idle (thread::func_args_t args);
 
 void
-os_rtos_idle_actions (void);
+micro_os_plus_rtos_idle_actions (void);
 
 /**
  * @details
@@ -58,12 +58,13 @@ os_rtos_idle_actions (void);
  * it must return `false`, which will make the idle thread proceed as
  * usual, by entering a shallow sleep waiting for the next interrupt.
  */
-bool __attribute__ ((weak)) os_rtos_idle_enter_power_saving_mode_hook (void)
+bool __attribute__ ((weak))
+micro_os_plus_rtos_idle_enter_power_saving_mode_hook (void)
 {
   return false;
 }
 
-void __attribute__ ((weak)) os_rtos_idle_actions (void)
+void __attribute__ ((weak)) micro_os_plus_rtos_idle_actions (void)
 {
   while (!scheduler::terminated_threads_list_.empty ())
     {
@@ -87,7 +88,7 @@ void __attribute__ ((weak)) os_rtos_idle_actions (void)
   assert (rtos::interrupts::stack ()->check_bottom_magic ());
 #endif
 
-  if (!os_rtos_idle_enter_power_saving_mode_hook ())
+  if (!micro_os_plus_rtos_idle_enter_power_saving_mode_hook ())
     {
       port::scheduler::wait_for_interrupt ();
     }
@@ -98,9 +99,9 @@ void __attribute__ ((weak)) os_rtos_idle_actions (void)
 /**
  * @cond ignore
  */
-extern thread* os_idle_thread;
+extern thread* micro_os_plus_idle_thread;
 
-thread* os_idle_thread;
+thread* micro_os_plus_idle_thread;
 
 #pragma GCC diagnostic push
 #if defined(__clang__)
@@ -112,22 +113,22 @@ thread* os_idle_thread;
 #if defined(MICRO_OS_PLUS_EXCLUDE_DYNAMIC_MEMORY_ALLOCATIONS)
 
 static thread_inclusive<MICRO_OS_PLUS_INTEGER_RTOS_IDLE_STACK_SIZE_BYTES>
-    os_idle_thread_{ "idle", os_idle, nullptr };
+    micro_os_plus_idle_thread_{ "idle", micro_os_plus_idle, nullptr };
 
 #else
 
-static std::unique_ptr<thread> os_idle_thread_;
+static std::unique_ptr<thread> micro_os_plus_idle_thread_;
 
 #endif // defined(MICRO_OS_PLUS_EXCLUDE_DYNAMIC_MEMORY_ALLOCATIONS)
 
 #pragma GCC diagnostic pop
 
-void __attribute__ ((weak)) os_startup_create_thread_idle (void)
+void __attribute__ ((weak)) micro_os_plus_startup_create_thread_idle (void)
 {
 #if defined(MICRO_OS_PLUS_EXCLUDE_DYNAMIC_MEMORY_ALLOCATIONS)
 
   // The thread object instance was created by the static constructors.
-  os_idle_thread = &os_idle_thread_;
+  micro_os_plus_idle_thread = &micro_os_plus_idle_thread_;
 
 #else
 
@@ -135,16 +136,16 @@ void __attribute__ ((weak)) os_startup_create_thread_idle (void)
   attr.th_stack_size_bytes = MICRO_OS_PLUS_INTEGER_RTOS_IDLE_STACK_SIZE_BYTES;
 
   // No need for an explicit delete, it is deallocated by the unique_ptr.
-  os_idle_thread_
-      = std::unique_ptr<thread> (new thread ("idle", os_idle, nullptr, attr));
+  micro_os_plus_idle_thread_ = std::unique_ptr<thread> (
+      new thread ("idle", micro_os_plus_idle, nullptr, attr));
 
-  os_idle_thread = os_idle_thread_.get ();
+  micro_os_plus_idle_thread = micro_os_plus_idle_thread_.get ();
 
 #endif // defined(MICRO_OS_PLUS_EXCLUDE_DYNAMIC_MEMORY_ALLOCATIONS)
 }
 
 void*
-os_idle (thread::func_args_t args __attribute__ ((unused)))
+micro_os_plus_idle (thread::func_args_t args __attribute__ ((unused)))
 {
 
   // The thread was created with the default priority, and the
@@ -161,7 +162,7 @@ os_idle (thread::func_args_t args __attribute__ ((unused)))
 
   while (true)
     {
-      os_rtos_idle_actions ();
+      micro_os_plus_rtos_idle_actions ();
 
       // Possibly switch to threads that were resumed during sleep.
       this_thread::yield ();

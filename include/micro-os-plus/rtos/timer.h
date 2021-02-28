@@ -409,7 +409,7 @@ namespace micro_os_plus
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_TIMER)
       friend class port::timer;
-      os_timer_port_data_t port_;
+      micro_os_plus_timer_port_data_t port_;
 #endif
 
       type_t type_ = run::once;

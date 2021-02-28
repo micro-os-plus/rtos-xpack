@@ -40,155 +40,186 @@ using namespace micro_os_plus::rtos;
 // ----------------------------------------------------------------------------
 
 // Validate C typedefs sizes & alignment.
+static_assert (sizeof (micro_os_plus_result_t) == sizeof (result_t),
+               "adjust size of micro_os_plus_result_t");
+static_assert (alignof (micro_os_plus_result_t) == alignof (result_t),
+               "adjust align of micro_os_plus_result_t");
 
-static_assert (sizeof (os_result_t) == sizeof (result_t),
-               "adjust size of os_result_t");
-static_assert (alignof (os_result_t) == alignof (result_t),
-               "adjust align of os_result_t");
+static_assert (sizeof (micro_os_plus_flags_mode_t) == sizeof (flags::mode_t),
+               "adjust size of micro_os_plus_flags_mode_t");
+static_assert (alignof (micro_os_plus_flags_mode_t) == alignof (flags::mode_t),
+               "adjust align of micro_os_plus_flags_mode_t");
 
-static_assert (sizeof (os_flags_mode_t) == sizeof (flags::mode_t),
-               "adjust size of os_flags_mode_t");
-static_assert (alignof (os_flags_mode_t) == alignof (flags::mode_t),
-               "adjust align of os_flags_mode_t");
+static_assert (sizeof (micro_os_plus_flags_mask_t) == sizeof (flags::mask_t),
+               "adjust size of micro_os_plus_flags_mask_t");
+static_assert (alignof (micro_os_plus_flags_mask_t) == alignof (flags::mask_t),
+               "adjust align of micro_os_plus_flags_mask_t");
 
-static_assert (sizeof (os_flags_mask_t) == sizeof (flags::mask_t),
-               "adjust size of os_flags_mask_t");
-static_assert (alignof (os_flags_mask_t) == alignof (flags::mask_t),
-               "adjust align of os_flags_mask_t");
+static_assert (sizeof (micro_os_plus_sched_state_t)
+                   == sizeof (scheduler::state_t),
+               "adjust size of micro_os_plus_sched_state_t");
+static_assert (alignof (micro_os_plus_sched_state_t)
+                   == alignof (scheduler::state_t),
+               "adjust align of micro_os_plus_sched_state_t");
 
-static_assert (sizeof (os_sched_state_t) == sizeof (scheduler::state_t),
-               "adjust size of os_sched_state_t");
-static_assert (alignof (os_sched_state_t) == alignof (scheduler::state_t),
-               "adjust align of os_sched_state_t");
+static_assert (sizeof (micro_os_plus_irq_state_t)
+                   == sizeof (interrupts::state_t),
+               "adjust size of micro_os_plus_irq_state_t");
+static_assert (alignof (micro_os_plus_irq_state_t)
+                   == alignof (interrupts::state_t),
+               "adjust align of micro_os_plus_irq_state_t");
 
-static_assert (sizeof (os_irq_state_t) == sizeof (interrupts::state_t),
-               "adjust size of os_irq_state_t");
-static_assert (alignof (os_irq_state_t) == alignof (interrupts::state_t),
-               "adjust align of os_irq_state_t");
+static_assert (sizeof (micro_os_plus_clock_timestamp_t)
+                   == sizeof (clock::timestamp_t),
+               "adjust size of micro_os_plus_port_clock_timestamp_t");
+static_assert (alignof (micro_os_plus_clock_timestamp_t)
+                   == alignof (clock::timestamp_t),
+               "adjust align of micro_os_plus_port_clock_timestamp_t");
 
-static_assert (sizeof (os_clock_timestamp_t) == sizeof (clock::timestamp_t),
-               "adjust size of os_port_clock_timestamp_t");
-static_assert (alignof (os_clock_timestamp_t) == alignof (clock::timestamp_t),
-               "adjust align of os_port_clock_timestamp_t");
+static_assert (sizeof (micro_os_plus_clock_duration_t)
+                   == sizeof (clock::duration_t),
+               "adjust size of micro_os_plus_port_clock_duration_t");
+static_assert (alignof (micro_os_plus_clock_duration_t)
+                   == alignof (clock::duration_t),
+               "adjust align of micro_os_plus_port_clock_duration_t");
 
-static_assert (sizeof (os_clock_duration_t) == sizeof (clock::duration_t),
-               "adjust size of os_port_clock_duration_t");
-static_assert (alignof (os_clock_duration_t) == alignof (clock::duration_t),
-               "adjust align of os_port_clock_duration_t");
+static_assert (sizeof (micro_os_plus_clock_offset_t)
+                   == sizeof (clock::offset_t),
+               "adjust size of micro_os_plus_port_clock_offset_t");
+static_assert (alignof (micro_os_plus_clock_offset_t)
+                   == alignof (clock::offset_t),
+               "adjust align of micro_os_plus_port_clock_offset_t");
 
-static_assert (sizeof (os_clock_offset_t) == sizeof (clock::offset_t),
-               "adjust size of os_port_clock_offset_t");
-static_assert (alignof (os_clock_offset_t) == alignof (clock::offset_t),
-               "adjust align of os_port_clock_offset_t");
-
-static_assert (sizeof (os_statistics_counter_t)
+static_assert (sizeof (micro_os_plus_statistics_counter_t)
                    == sizeof (statistics::counter_t),
-               "adjust size of os_statistics_counter_t");
-static_assert (alignof (os_statistics_counter_t)
+               "adjust size of micro_os_plus_statistics_counter_t");
+static_assert (alignof (micro_os_plus_statistics_counter_t)
                    == alignof (statistics::counter_t),
-               "adjust align of os_statistics_counter_t");
+               "adjust align of micro_os_plus_statistics_counter_t");
 
-static_assert (sizeof (os_statistics_duration_t)
+static_assert (sizeof (micro_os_plus_statistics_duration_t)
                    == sizeof (statistics::duration_t),
-               "adjust size of os_statistics_duration_t");
-static_assert (alignof (os_statistics_duration_t)
+               "adjust size of micro_os_plus_statistics_duration_t");
+static_assert (alignof (micro_os_plus_statistics_duration_t)
                    == alignof (statistics::duration_t),
-               "adjust align of os_statistics_duration_t");
+               "adjust align of micro_os_plus_statistics_duration_t");
 
-static_assert (sizeof (os_thread_func_args_t) == sizeof (thread::func_args_t),
-               "adjust size of os_thread_func_args_t");
-static_assert (alignof (os_thread_func_args_t)
+static_assert (sizeof (micro_os_plus_thread_func_args_t)
+                   == sizeof (thread::func_args_t),
+               "adjust size of micro_os_plus_thread_func_args_t");
+static_assert (alignof (micro_os_plus_thread_func_args_t)
                    == alignof (thread::func_args_t),
-               "adjust align of os_thread_func_args_t");
+               "adjust align of micro_os_plus_thread_func_args_t");
 
-static_assert (sizeof (os_thread_func_t) == sizeof (thread::func_t),
-               "adjust size of os_thread_func_t");
-static_assert (alignof (os_thread_func_t) == alignof (thread::func_t),
-               "adjust align of os_thread_func_t");
+static_assert (sizeof (micro_os_plus_thread_func_t) == sizeof (thread::func_t),
+               "adjust size of micro_os_plus_thread_func_t");
+static_assert (alignof (micro_os_plus_thread_func_t)
+                   == alignof (thread::func_t),
+               "adjust align of micro_os_plus_thread_func_t");
 
-static_assert (sizeof (os_thread_state_t) == sizeof (thread::state_t),
-               "adjust size of os_thread_state_t");
-static_assert (alignof (os_thread_state_t) == alignof (thread::state_t),
-               "adjust align of os_thread_state_t");
+static_assert (sizeof (micro_os_plus_thread_state_t)
+                   == sizeof (thread::state_t),
+               "adjust size of micro_os_plus_thread_state_t");
+static_assert (alignof (micro_os_plus_thread_state_t)
+                   == alignof (thread::state_t),
+               "adjust align of micro_os_plus_thread_state_t");
 
-static_assert (sizeof (os_thread_prio_t) == sizeof (thread::priority_t),
-               "adjust size of os_thread_prio_t");
-static_assert (alignof (os_thread_prio_t) == alignof (thread::priority_t),
-               "adjust align of os_thread_prio_t");
+static_assert (sizeof (micro_os_plus_thread_prio_t)
+                   == sizeof (thread::priority_t),
+               "adjust size of micro_os_plus_thread_prio_t");
+static_assert (alignof (micro_os_plus_thread_prio_t)
+                   == alignof (thread::priority_t),
+               "adjust align of micro_os_plus_thread_prio_t");
 
-static_assert (sizeof (os_timer_func_args_t) == sizeof (timer::func_args_t),
-               "adjust size of os_timer_func_args_t");
-static_assert (alignof (os_timer_func_args_t) == alignof (timer::func_args_t),
-               "adjust align of os_timer_func_args_t");
+static_assert (sizeof (micro_os_plus_timer_func_args_t)
+                   == sizeof (timer::func_args_t),
+               "adjust size of micro_os_plus_timer_func_args_t");
+static_assert (alignof (micro_os_plus_timer_func_args_t)
+                   == alignof (timer::func_args_t),
+               "adjust align of micro_os_plus_timer_func_args_t");
 
-static_assert (sizeof (os_timer_func_t) == sizeof (timer::func_t),
-               "adjust size of os_timer_func_t");
-static_assert (alignof (os_timer_func_t) == alignof (timer::func_t),
-               "adjust align of os_timer_func_t");
+static_assert (sizeof (micro_os_plus_timer_func_t) == sizeof (timer::func_t),
+               "adjust size of micro_os_plus_timer_func_t");
+static_assert (alignof (micro_os_plus_timer_func_t) == alignof (timer::func_t),
+               "adjust align of micro_os_plus_timer_func_t");
 
-static_assert (sizeof (os_timer_type_t) == sizeof (timer::type_t),
-               "adjust size of os_timer_type_t");
-static_assert (alignof (os_timer_type_t) == alignof (timer::type_t),
-               "adjust align of os_timer_type_t");
+static_assert (sizeof (micro_os_plus_timer_type_t) == sizeof (timer::type_t),
+               "adjust size of micro_os_plus_timer_type_t");
+static_assert (alignof (micro_os_plus_timer_type_t) == alignof (timer::type_t),
+               "adjust align of micro_os_plus_timer_type_t");
 
-static_assert (sizeof (os_timer_state_t) == sizeof (timer::state_t),
-               "adjust size of os_timer_state_t");
-static_assert (alignof (os_timer_state_t) == alignof (timer::state_t),
-               "adjust align of os_timer_state_t");
+static_assert (sizeof (micro_os_plus_timer_state_t) == sizeof (timer::state_t),
+               "adjust size of micro_os_plus_timer_state_t");
+static_assert (alignof (micro_os_plus_timer_state_t)
+                   == alignof (timer::state_t),
+               "adjust align of micro_os_plus_timer_state_t");
 
-static_assert (sizeof (os_mutex_count_t) == sizeof (mutex::count_t),
-               "adjust size of os_mutex_count_t");
-static_assert (alignof (os_mutex_count_t) == alignof (mutex::count_t),
-               "adjust align of os_mutex_count_t");
+static_assert (sizeof (micro_os_plus_mutex_count_t) == sizeof (mutex::count_t),
+               "adjust size of micro_os_plus_mutex_count_t");
+static_assert (alignof (micro_os_plus_mutex_count_t)
+                   == alignof (mutex::count_t),
+               "adjust align of micro_os_plus_mutex_count_t");
 
-static_assert (sizeof (os_mutex_type_t) == sizeof (mutex::type_t),
-               "adjust size of os_mutex_type_t");
-static_assert (alignof (os_mutex_type_t) == alignof (mutex::type_t),
-               "adjust align of os_mutex_type_t");
+static_assert (sizeof (micro_os_plus_mutex_type_t) == sizeof (mutex::type_t),
+               "adjust size of micro_os_plus_mutex_type_t");
+static_assert (alignof (micro_os_plus_mutex_type_t) == alignof (mutex::type_t),
+               "adjust align of micro_os_plus_mutex_type_t");
 
-static_assert (sizeof (os_mutex_protocol_t) == sizeof (mutex::protocol_t),
-               "adjust size of os_mutex_protocol_t");
-static_assert (alignof (os_mutex_protocol_t) == alignof (mutex::protocol_t),
-               "adjust align of os_mutex_protocol_t");
+static_assert (sizeof (micro_os_plus_mutex_protocol_t)
+                   == sizeof (mutex::protocol_t),
+               "adjust size of micro_os_plus_mutex_protocol_t");
+static_assert (alignof (micro_os_plus_mutex_protocol_t)
+                   == alignof (mutex::protocol_t),
+               "adjust align of micro_os_plus_mutex_protocol_t");
 
-static_assert (sizeof (os_mutex_robustness_t) == sizeof (mutex::robustness_t),
-               "adjust size of os_mutex_robustness_t");
-static_assert (alignof (os_mutex_robustness_t)
+static_assert (sizeof (micro_os_plus_mutex_robustness_t)
+                   == sizeof (mutex::robustness_t),
+               "adjust size of micro_os_plus_mutex_robustness_t");
+static_assert (alignof (micro_os_plus_mutex_robustness_t)
                    == alignof (mutex::robustness_t),
-               "adjust align of os_mutex_robustness_t");
+               "adjust align of micro_os_plus_mutex_robustness_t");
 
-static_assert (sizeof (os_semaphore_count_t) == sizeof (semaphore::count_t),
-               "adjust size of os_semaphore_count_t");
-static_assert (alignof (os_semaphore_count_t) == alignof (semaphore::count_t),
-               "adjust align of os_semaphore_count_t");
+static_assert (sizeof (micro_os_plus_semaphore_count_t)
+                   == sizeof (semaphore::count_t),
+               "adjust size of micro_os_plus_semaphore_count_t");
+static_assert (alignof (micro_os_plus_semaphore_count_t)
+                   == alignof (semaphore::count_t),
+               "adjust align of micro_os_plus_semaphore_count_t");
 
-static_assert (sizeof (os_mempool_size_t) == sizeof (memory_pool::size_t),
-               "adjust size of os_mempool_size_t");
-static_assert (alignof (os_mempool_size_t) == alignof (memory_pool::size_t),
-               "adjust align of os_mempool_size_t");
+static_assert (sizeof (micro_os_plus_mempool_size_t)
+                   == sizeof (memory_pool::size_t),
+               "adjust size of micro_os_plus_mempool_size_t");
+static_assert (alignof (micro_os_plus_mempool_size_t)
+                   == alignof (memory_pool::size_t),
+               "adjust align of micro_os_plus_mempool_size_t");
 
-static_assert (sizeof (os_mqueue_size_t) == sizeof (message_queue::size_t),
-               "adjust size of os_mqueue_size_t");
-static_assert (alignof (os_mqueue_size_t) == alignof (message_queue::size_t),
-               "adjust align of os_mqueue_size_t");
+static_assert (sizeof (micro_os_plus_mqueue_size_t)
+                   == sizeof (message_queue::size_t),
+               "adjust size of micro_os_plus_mqueue_size_t");
+static_assert (alignof (micro_os_plus_mqueue_size_t)
+                   == alignof (message_queue::size_t),
+               "adjust align of micro_os_plus_mqueue_size_t");
 
-static_assert (sizeof (os_mqueue_msg_size_t)
+static_assert (sizeof (micro_os_plus_mqueue_msg_size_t)
                    == sizeof (message_queue::msg_size_t),
-               "adjust size of os_mqueue_msg_size_t");
-static_assert (alignof (os_mqueue_msg_size_t)
+               "adjust size of micro_os_plus_mqueue_msg_size_t");
+static_assert (alignof (micro_os_plus_mqueue_msg_size_t)
                    == alignof (message_queue::msg_size_t),
-               "adjust align of os_mqueue_msg_size_t");
+               "adjust align of micro_os_plus_mqueue_msg_size_t");
 
-static_assert (sizeof (os_mqueue_index_t) == sizeof (message_queue::index_t),
-               "adjust size of os_mqueue_index_t");
-static_assert (alignof (os_mqueue_index_t) == alignof (message_queue::index_t),
-               "adjust align of os_mqueue_index_t");
+static_assert (sizeof (micro_os_plus_mqueue_index_t)
+                   == sizeof (message_queue::index_t),
+               "adjust size of micro_os_plus_mqueue_index_t");
+static_assert (alignof (micro_os_plus_mqueue_index_t)
+                   == alignof (message_queue::index_t),
+               "adjust align of micro_os_plus_mqueue_index_t");
 
-static_assert (sizeof (os_mqueue_prio_t) == sizeof (message_queue::priority_t),
-               "adjust size of os_mqueue_prio_t");
-static_assert (alignof (os_mqueue_prio_t)
+static_assert (sizeof (micro_os_plus_mqueue_prio_t)
+                   == sizeof (message_queue::priority_t),
+               "adjust size of micro_os_plus_mqueue_prio_t");
+static_assert (alignof (micro_os_plus_mqueue_prio_t)
                    == alignof (message_queue::priority_t),
-               "adjust align of os_mqueue_prio_t");
+               "adjust align of micro_os_plus_mqueue_prio_t");
 
 // ----------------------------------------------------------------------------
 
@@ -197,69 +228,80 @@ static_assert (alignof (os_mqueue_prio_t)
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wenum-compare"
 
-static_assert (os_thread_priority_idle == thread::priority::idle,
-               "adjust os_thread_priority_idle");
-static_assert (os_thread_priority_low == thread::priority::low,
-               "adjust os_thread_priority_low");
-static_assert (os_thread_priority_below_normal
+static_assert (micro_os_plus_thread_priority_idle == thread::priority::idle,
+               "adjust micro_os_plus_thread_priority_idle");
+static_assert (micro_os_plus_thread_priority_low == thread::priority::low,
+               "adjust micro_os_plus_thread_priority_low");
+static_assert (micro_os_plus_thread_priority_below_normal
                    == thread::priority::below_normal,
-               "adjust os_thread_priority_below_normal");
-static_assert (os_thread_priority_normal == thread::priority::normal,
-               "adjust os_thread_priority_normal");
-static_assert (os_thread_priority_above_normal
+               "adjust micro_os_plus_thread_priority_below_normal");
+static_assert (micro_os_plus_thread_priority_normal
+                   == thread::priority::normal,
+               "adjust micro_os_plus_thread_priority_normal");
+static_assert (micro_os_plus_thread_priority_above_normal
                    == thread::priority::above_normal,
-               "adjust os_thread_priority_above_normal");
-static_assert (os_thread_priority_high == thread::priority::high,
-               "adjust os_thread_priority_high");
-static_assert (os_thread_priority_realtime == thread::priority::realtime,
-               "adjust os_thread_priority_realtime");
-static_assert (os_thread_priority_error == thread::priority::error,
-               "adjust os_thread_priority_error");
+               "adjust micro_os_plus_thread_priority_above_normal");
+static_assert (micro_os_plus_thread_priority_high == thread::priority::high,
+               "adjust micro_os_plus_thread_priority_high");
+static_assert (micro_os_plus_thread_priority_realtime
+                   == thread::priority::realtime,
+               "adjust micro_os_plus_thread_priority_realtime");
+static_assert (micro_os_plus_thread_priority_error == thread::priority::error,
+               "adjust micro_os_plus_thread_priority_error");
 
-static_assert (os_flags_mode_all == flags::mode::all,
-               "adjust os_flags_mode_all");
-static_assert (os_flags_mode_any == flags::mode::any,
-               "adjust os_flags_mode_any");
-static_assert (os_flags_mode_clear == flags::mode::clear,
-               "adjust os_flags_mode_clear");
+static_assert (micro_os_plus_flags_mode_all == flags::mode::all,
+               "adjust micro_os_plus_flags_mode_all");
+static_assert (micro_os_plus_flags_mode_any == flags::mode::any,
+               "adjust micro_os_plus_flags_mode_any");
+static_assert (micro_os_plus_flags_mode_clear == flags::mode::clear,
+               "adjust micro_os_plus_flags_mode_clear");
 
-static_assert (os_thread_state_undefined == thread::state::undefined,
-               "adjust os_thread_state_undefined");
-static_assert (os_thread_state_ready == thread::state::ready,
-               "adjust os_thread_state_ready");
-static_assert (os_thread_state_running == thread::state::running,
-               "adjust os_thread_state_running");
-static_assert (os_thread_state_suspended == thread::state::suspended,
-               "adjust os_thread_state_suspended");
-static_assert (os_thread_state_terminated == thread::state::terminated,
-               "adjust os_thread_state_terminated");
-static_assert (os_thread_state_destroyed == thread::state::destroyed,
-               "adjust os_thread_state_destroyed");
+static_assert (micro_os_plus_thread_state_undefined
+                   == thread::state::undefined,
+               "adjust micro_os_plus_thread_state_undefined");
+static_assert (micro_os_plus_thread_state_ready == thread::state::ready,
+               "adjust micro_os_plus_thread_state_ready");
+static_assert (micro_os_plus_thread_state_running == thread::state::running,
+               "adjust micro_os_plus_thread_state_running");
+static_assert (micro_os_plus_thread_state_suspended
+                   == thread::state::suspended,
+               "adjust micro_os_plus_thread_state_suspended");
+static_assert (micro_os_plus_thread_state_terminated
+                   == thread::state::terminated,
+               "adjust micro_os_plus_thread_state_terminated");
+static_assert (micro_os_plus_thread_state_destroyed
+                   == thread::state::destroyed,
+               "adjust micro_os_plus_thread_state_destroyed");
 
-static_assert (os_timer_once == timer::run::once, "adjust os_timer_once");
-static_assert (os_timer_periodic == timer::run::periodic,
-               "adjust os_timer_periodic");
+static_assert (micro_os_plus_timer_once == timer::run::once,
+               "adjust micro_os_plus_timer_once");
+static_assert (micro_os_plus_timer_periodic == timer::run::periodic,
+               "adjust micro_os_plus_timer_periodic");
 
-static_assert (os_mutex_protocol_none == mutex::protocol::none,
-               "adjust os_mutex_protocol_none");
-static_assert (os_mutex_protocol_inherit == mutex::protocol::inherit,
-               "adjust os_mutex_protocol_inherit");
-static_assert (os_mutex_protocol_protect == mutex::protocol::protect,
-               "adjust os_mutex_protocol_protect");
+static_assert (micro_os_plus_mutex_protocol_none == mutex::protocol::none,
+               "adjust micro_os_plus_mutex_protocol_none");
+static_assert (micro_os_plus_mutex_protocol_inherit
+                   == mutex::protocol::inherit,
+               "adjust micro_os_plus_mutex_protocol_inherit");
+static_assert (micro_os_plus_mutex_protocol_protect
+                   == mutex::protocol::protect,
+               "adjust micro_os_plus_mutex_protocol_protect");
 
-static_assert (os_mutex_robustness_stalled == mutex::robustness::stalled,
-               "adjust os_mutex_robustness_stalled");
-static_assert (os_mutex_robustness_robust == mutex::robustness::robust,
-               "adjust os_mutex_robustness_robust");
+static_assert (micro_os_plus_mutex_robustness_stalled
+                   == mutex::robustness::stalled,
+               "adjust micro_os_plus_mutex_robustness_stalled");
+static_assert (micro_os_plus_mutex_robustness_robust
+                   == mutex::robustness::robust,
+               "adjust micro_os_plus_mutex_robustness_robust");
 
-static_assert (os_mutex_type_normal == mutex::type::normal,
-               "adjust os_mutex_type_normal");
-static_assert (os_mutex_type_errorcheck == mutex::type::errorcheck,
-               "adjust os_mutex_type_errorcheck");
-static_assert (os_mutex_type_recursive == mutex::type::recursive,
-               "adjust os_mutex_type_recursive");
-static_assert (os_mutex_type_default == mutex::type::default_,
-               "adjust os_mutex_type_default");
+static_assert (micro_os_plus_mutex_type_normal == mutex::type::normal,
+               "adjust micro_os_plus_mutex_type_normal");
+static_assert (micro_os_plus_mutex_type_errorcheck == mutex::type::errorcheck,
+               "adjust micro_os_plus_mutex_type_errorcheck");
+static_assert (micro_os_plus_mutex_type_recursive == mutex::type::recursive,
+               "adjust micro_os_plus_mutex_type_recursive");
+static_assert (micro_os_plus_mutex_type_default == mutex::type::default_,
+               "adjust micro_os_plus_mutex_type_default");
 
 #pragma GCC diagnostic pop
 
@@ -271,117 +313,127 @@ static_assert (os_mutex_type_default == mutex::type::default_,
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Winvalid-offsetof"
 
-static_assert (sizeof (rtos::clock) == sizeof (os_clock_t),
-               "adjust os_clock_t size");
+static_assert (sizeof (rtos::clock) == sizeof (micro_os_plus_clock_t),
+               "adjust micro_os_plus_clock_t size");
 
-static_assert (sizeof (rtos::thread) == sizeof (os_thread_t),
-               "adjust os_thread_t size");
-static_assert (sizeof (rtos::thread::attributes) == sizeof (os_thread_attr_t),
-               "adjust os_thread_attr_t size");
+static_assert (sizeof (rtos::thread) == sizeof (micro_os_plus_thread_t),
+               "adjust micro_os_plus_thread_t size");
+static_assert (sizeof (rtos::thread::attributes)
+                   == sizeof (micro_os_plus_thread_attr_t),
+               "adjust micro_os_plus_thread_attr_t size");
 static_assert (offsetof (rtos::thread::attributes, th_stack_address)
-                   == offsetof (os_thread_attr_t, th_stack_address),
-               "adjust os_thread_attr_t members");
+                   == offsetof (micro_os_plus_thread_attr_t, th_stack_address),
+               "adjust micro_os_plus_thread_attr_t members");
 static_assert (offsetof (rtos::thread::attributes, th_stack_size_bytes)
-                   == offsetof (os_thread_attr_t, th_stack_size_bytes),
-               "adjust os_thread_attr_t members");
+                   == offsetof (micro_os_plus_thread_attr_t,
+                                th_stack_size_bytes),
+               "adjust micro_os_plus_thread_attr_t members");
 static_assert (offsetof (rtos::thread::attributes, th_priority)
-                   == offsetof (os_thread_attr_t, th_priority),
-               "adjust os_thread_attr_t members");
+                   == offsetof (micro_os_plus_thread_attr_t, th_priority),
+               "adjust micro_os_plus_thread_attr_t members");
 
-static_assert (sizeof (rtos::timer) == sizeof (os_timer_t),
-               "adjust size of os_timer_t");
-static_assert (sizeof (rtos::timer::attributes) == sizeof (os_timer_attr_t),
-               "adjust size of os_timer_attr_t");
+static_assert (sizeof (rtos::timer) == sizeof (micro_os_plus_timer_t),
+               "adjust size of micro_os_plus_timer_t");
+static_assert (sizeof (rtos::timer::attributes)
+                   == sizeof (micro_os_plus_timer_attr_t),
+               "adjust size of micro_os_plus_timer_attr_t");
 static_assert (offsetof (rtos::timer::attributes, tm_type)
-                   == offsetof (os_timer_attr_t, tm_type),
-               "adjust os_timer_attr_t members");
+                   == offsetof (micro_os_plus_timer_attr_t, tm_type),
+               "adjust micro_os_plus_timer_attr_t members");
 
-static_assert (sizeof (rtos::mutex) == sizeof (os_mutex_t),
-               "adjust size of os_mutex_t");
-static_assert (sizeof (rtos::mutex::attributes) == sizeof (os_mutex_attr_t),
-               "adjust size of os_mutex_attr_t");
+static_assert (sizeof (rtos::mutex) == sizeof (micro_os_plus_mutex_t),
+               "adjust size of micro_os_plus_mutex_t");
+static_assert (sizeof (rtos::mutex::attributes)
+                   == sizeof (micro_os_plus_mutex_attr_t),
+               "adjust size of micro_os_plus_mutex_attr_t");
 static_assert (offsetof (rtos::mutex::attributes, mx_priority_ceiling)
-                   == offsetof (os_mutex_attr_t, mx_priority_ceiling),
-               "adjust os_mutex_attr_t members");
+                   == offsetof (micro_os_plus_mutex_attr_t,
+                                mx_priority_ceiling),
+               "adjust micro_os_plus_mutex_attr_t members");
 static_assert (offsetof (rtos::mutex::attributes, mx_protocol)
-                   == offsetof (os_mutex_attr_t, mx_protocol),
-               "adjust os_mutex_attr_t members");
+                   == offsetof (micro_os_plus_mutex_attr_t, mx_protocol),
+               "adjust micro_os_plus_mutex_attr_t members");
 static_assert (offsetof (rtos::mutex::attributes, mx_robustness)
-                   == offsetof (os_mutex_attr_t, mx_robustness),
-               "adjust os_mutex_attr_t members");
+                   == offsetof (micro_os_plus_mutex_attr_t, mx_robustness),
+               "adjust micro_os_plus_mutex_attr_t members");
 static_assert (offsetof (rtos::mutex::attributes, mx_type)
-                   == offsetof (os_mutex_attr_t, mx_type),
-               "adjust os_mutex_attr_t members");
+                   == offsetof (micro_os_plus_mutex_attr_t, mx_type),
+               "adjust micro_os_plus_mutex_attr_t members");
 static_assert (offsetof (rtos::mutex::attributes, mx_max_count)
-                   == offsetof (os_mutex_attr_t, mx_max_count),
-               "adjust os_mutex_attr_t members");
+                   == offsetof (micro_os_plus_mutex_attr_t, mx_max_count),
+               "adjust micro_os_plus_mutex_attr_t members");
 
-static_assert (sizeof (rtos::condition_variable) == sizeof (os_condvar_t),
-               "adjust size of os_condvar_t");
+static_assert (sizeof (rtos::condition_variable)
+                   == sizeof (micro_os_plus_condvar_t),
+               "adjust size of micro_os_plus_condvar_t");
 static_assert (sizeof (rtos::condition_variable::attributes)
-                   == sizeof (os_condvar_attr_t),
-               "adjust size of os_condvar_attr_t");
+                   == sizeof (micro_os_plus_condvar_attr_t),
+               "adjust size of micro_os_plus_condvar_attr_t");
 
-static_assert (sizeof (rtos::semaphore) == sizeof (os_semaphore_t),
-               "adjust size of os_semaphore_t");
+static_assert (sizeof (rtos::semaphore) == sizeof (micro_os_plus_semaphore_t),
+               "adjust size of micro_os_plus_semaphore_t");
 static_assert (sizeof (rtos::semaphore::attributes)
-                   == sizeof (os_semaphore_attr_t),
-               "adjust size of os_semaphore_attr_t");
+                   == sizeof (micro_os_plus_semaphore_attr_t),
+               "adjust size of micro_os_plus_semaphore_attr_t");
 static_assert (offsetof (rtos::semaphore::attributes, sm_initial_value)
-                   == offsetof (os_semaphore_attr_t, sm_initial_value),
-               "adjust os_semaphore_attr_t members");
+                   == offsetof (micro_os_plus_semaphore_attr_t,
+                                sm_initial_value),
+               "adjust micro_os_plus_semaphore_attr_t members");
 static_assert (offsetof (rtos::semaphore::attributes, sm_max_value)
-                   == offsetof (os_semaphore_attr_t, sm_max_value),
-               "adjust os_semaphore_attr_t members");
+                   == offsetof (micro_os_plus_semaphore_attr_t, sm_max_value),
+               "adjust micro_os_plus_semaphore_attr_t members");
 
-static_assert (sizeof (rtos::memory_pool) == sizeof (os_mempool_t),
-               "adjust size of os_mempool_t");
+static_assert (sizeof (rtos::memory_pool) == sizeof (micro_os_plus_mempool_t),
+               "adjust size of micro_os_plus_mempool_t");
 static_assert (sizeof (rtos::memory_pool::attributes)
-                   == sizeof (os_mempool_attr_t),
-               "adjust size of os_mempool_attr_t");
+                   == sizeof (micro_os_plus_mempool_attr_t),
+               "adjust size of micro_os_plus_mempool_attr_t");
 static_assert (offsetof (rtos::memory_pool::attributes, mp_pool_address)
-                   == offsetof (os_mempool_attr_t, mp_pool_address),
-               "adjust os_mempool_attr_t members");
+                   == offsetof (micro_os_plus_mempool_attr_t, mp_pool_address),
+               "adjust micro_os_plus_mempool_attr_t members");
 static_assert (offsetof (rtos::memory_pool::attributes, mp_pool_size_bytes)
-                   == offsetof (os_mempool_attr_t, mp_pool_size_bytes),
-               "adjust os_mempool_attr_t members");
+                   == offsetof (micro_os_plus_mempool_attr_t,
+                                mp_pool_size_bytes),
+               "adjust micro_os_plus_mempool_attr_t members");
 
-static_assert (sizeof (rtos::message_queue) == sizeof (os_mqueue_t),
-               "adjust size of os_mqueue_t");
+static_assert (sizeof (rtos::message_queue) == sizeof (micro_os_plus_mqueue_t),
+               "adjust size of micro_os_plus_mqueue_t");
 static_assert (sizeof (rtos::message_queue::attributes)
-                   == sizeof (os_mqueue_attr_t),
-               "adjust size of os_mqueue_attr_t");
+                   == sizeof (micro_os_plus_mqueue_attr_t),
+               "adjust size of micro_os_plus_mqueue_attr_t");
 static_assert (offsetof (rtos::message_queue::attributes, mq_queue_address)
-                   == offsetof (os_mqueue_attr_t, mq_queue_addr),
-               "adjust os_mqueue_attr_t members");
+                   == offsetof (micro_os_plus_mqueue_attr_t, mq_queue_addr),
+               "adjust micro_os_plus_mqueue_attr_t members");
 static_assert (offsetof (rtos::message_queue::attributes, mq_queue_size_bytes)
-                   == offsetof (os_mqueue_attr_t, mq_queue_size_bytes),
-               "adjust os_mqueue_attr_t members");
+                   == offsetof (micro_os_plus_mqueue_attr_t,
+                                mq_queue_size_bytes),
+               "adjust micro_os_plus_mqueue_attr_t members");
 
-static_assert (sizeof (rtos::event_flags) == sizeof (os_evflags_t),
-               "adjust size of os_evflags_t");
+static_assert (sizeof (rtos::event_flags) == sizeof (micro_os_plus_evflags_t),
+               "adjust size of micro_os_plus_evflags_t");
 static_assert (sizeof (rtos::event_flags::attributes)
-                   == sizeof (os_evflags_attr_t),
-               "adjust size of os_evflags_attr_t");
+                   == sizeof (micro_os_plus_evflags_attr_t),
+               "adjust size of micro_os_plus_evflags_attr_t");
 
-static_assert (sizeof (class thread::stack) == sizeof (os_thread_stack_t),
-               "adjust size of os_thread_stack_t");
-static_assert (sizeof (class thread::context) == sizeof (os_thread_context_t),
-               "adjust size of os_thread_context_t");
+static_assert (sizeof (class thread::stack)
+                   == sizeof (micro_os_plus_thread_stack_t),
+               "adjust size of micro_os_plus_thread_stack_t");
+static_assert (sizeof (class thread::context)
+                   == sizeof (micro_os_plus_thread_context_t),
+               "adjust size of micro_os_plus_thread_context_t");
 
 #if defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES) \
     || defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 static_assert (sizeof (class thread::statistics)
-                   == sizeof (os_thread_statistics_t),
-               "adjust size of os_thread_statistics_t");
-#endif
+                   == sizeof (micro_os_plus_thread_statistics_t),
+               "adjust size of micro_os_plus_thread_statistics_t");
 
 static_assert (sizeof (internal::timer_node)
-                   == sizeof (os_internal_clock_timer_node_t),
-               "adjust size of os_internal_clock_timer_node_t");
+                   == sizeof (micro_os_plus_internal_clock_timer_node_t),
+               "adjust size of micro_os_plus_internal_clock_timer_node_t");
 
 #pragma GCC diagnostic pop
-
+#endif
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wold-style-cast"
 
@@ -395,10 +447,10 @@ static_assert (sizeof (internal::timer_node)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::scheduler::initialize()
  */
-os_result_t
-os_sched_initialize (void)
+micro_os_plus_result_t
+micro_os_plus_sched_initialize (void)
 {
-  return (os_result_t)scheduler::initialize ();
+  return (micro_os_plus_result_t)scheduler::initialize ();
 }
 
 /**
@@ -410,7 +462,7 @@ os_sched_initialize (void)
  *  @ref micro_os_plus::rtos::scheduler::start()
  */
 void
-os_sched_start (void)
+micro_os_plus_sched_start (void)
 {
   scheduler::start ();
 }
@@ -424,7 +476,7 @@ os_sched_start (void)
  *  @ref micro_os_plus::rtos::scheduler::started()
  */
 bool
-os_sched_is_started (void)
+micro_os_plus_sched_is_started (void)
 {
   return scheduler::started ();
 }
@@ -437,8 +489,8 @@ os_sched_is_started (void)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::scheduler::lock()
  */
-os_sched_state_t
-os_sched_lock (void)
+micro_os_plus_sched_state_t
+micro_os_plus_sched_lock (void)
 {
   return scheduler::lock ();
 }
@@ -451,8 +503,8 @@ os_sched_lock (void)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::scheduler::unlock()
  */
-os_sched_state_t
-os_sched_unlock (void)
+micro_os_plus_sched_state_t
+micro_os_plus_sched_unlock (void)
 {
   return scheduler::unlock ();
 }
@@ -465,8 +517,8 @@ os_sched_unlock (void)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::scheduler::lock()
  */
-os_sched_state_t
-os_sched_set_locked (os_sched_state_t state)
+micro_os_plus_sched_state_t
+micro_os_plus_sched_set_locked (micro_os_plus_sched_state_t state)
 {
   return scheduler::locked (state);
 }
@@ -480,7 +532,7 @@ os_sched_set_locked (os_sched_state_t state)
  *  @ref micro_os_plus::rtos::scheduler::locked()
  */
 bool
-os_sched_is_locked (void)
+micro_os_plus_sched_is_locked (void)
 {
   return scheduler::locked ();
 }
@@ -494,7 +546,7 @@ os_sched_is_locked (void)
  *  @ref micro_os_plus::rtos::scheduler::preemptive()
  */
 bool
-os_sched_is_preemptive (void)
+micro_os_plus_sched_is_preemptive (void)
 {
   return scheduler::preemptive ();
 }
@@ -508,7 +560,7 @@ os_sched_is_preemptive (void)
  *  @ref micro_os_plus::rtos::scheduler::preemptive(bool)
  */
 bool
-os_sched_set_preemptive (bool state)
+micro_os_plus_sched_set_preemptive (bool state)
 {
   return scheduler::preemptive (state);
 }
@@ -523,10 +575,10 @@ os_sched_set_preemptive (bool state)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::scheduler::statistics::context_switches()
  */
-os_statistics_counter_t
-os_sched_stat_get_context_switches (void)
+micro_os_plus_statistics_counter_t
+micro_os_plus_sched_stat_get_context_switches (void)
 {
-  return static_cast<os_statistics_counter_t> (
+  return static_cast<micro_os_plus_statistics_counter_t> (
       scheduler::statistics::context_switches ());
 }
 
@@ -542,10 +594,10 @@ os_sched_stat_get_context_switches (void)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::scheduler::statistics::cpu_cycles()
  */
-os_statistics_duration_t
-os_sched_stat_get_cpu_cycles (void)
+micro_os_plus_statistics_duration_t
+micro_os_plus_sched_stat_get_cpu_cycles (void)
 {
-  return static_cast<os_statistics_duration_t> (
+  return static_cast<micro_os_plus_statistics_duration_t> (
       scheduler::statistics::cpu_cycles ());
 }
 
@@ -562,7 +614,7 @@ os_sched_stat_get_cpu_cycles (void)
  *  @ref micro_os_plus::rtos::interrupts::in_handler_mode()
  */
 bool
-os_irq_in_handler_mode (void)
+micro_os_plus_irq_in_handler_mode (void)
 {
   return interrupts::in_handler_mode ();
 }
@@ -577,8 +629,8 @@ os_irq_in_handler_mode (void)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::interrupts::critical_section::enter()
  */
-os_irq_state_t
-os_irq_critical_enter (void)
+micro_os_plus_irq_state_t
+micro_os_plus_irq_critical_enter (void)
 {
   return interrupts::critical_section::enter ();
 }
@@ -592,7 +644,7 @@ os_irq_critical_enter (void)
  *  @ref micro_os_plus::rtos::interrupts::critical_section::exit()
  */
 void
-os_irq_critical_exit (os_irq_state_t state)
+micro_os_plus_irq_critical_exit (micro_os_plus_irq_state_t state)
 {
   interrupts::critical_section::exit (state);
 }
@@ -607,8 +659,8 @@ os_irq_critical_exit (os_irq_state_t state)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::interrupts::uncritical_section::enter()
  */
-os_irq_state_t
-os_irq_uncritical_enter (void)
+micro_os_plus_irq_state_t
+micro_os_plus_irq_uncritical_enter (void)
 {
   return interrupts::uncritical_section::enter ();
 }
@@ -622,7 +674,7 @@ os_irq_uncritical_enter (void)
  *  @ref micro_os_plus::rtos::interrupts::uncritical_section::exit()
  */
 void
-os_irq_uncritical_exit (os_irq_state_t state)
+micro_os_plus_irq_uncritical_exit (micro_os_plus_irq_state_t state)
 {
   interrupts::uncritical_section::exit (state);
 }
@@ -638,10 +690,11 @@ os_irq_uncritical_exit (os_irq_state_t state)
  *  @ref micro_os_plus::rtos::interrupts::stack()
  */
 
-os_thread_stack_t*
-os_irq_get_stack (void)
+micro_os_plus_thread_stack_t*
+micro_os_plus_irq_get_stack (void)
 {
-  return reinterpret_cast<os_thread_stack_t*> (rtos::interrupts::stack ());
+  return reinterpret_cast<micro_os_plus_thread_stack_t*> (
+      rtos::interrupts::stack ());
 }
 
 #endif
@@ -656,10 +709,10 @@ os_irq_get_stack (void)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::this_thread::thread()
  */
-os_thread_t*
-os_this_thread (void)
+micro_os_plus_thread_t*
+micro_os_plus_this_thread (void)
 {
-  return (os_thread_t*)&this_thread::thread ();
+  return (micro_os_plus_thread_t*)&this_thread::thread ();
 }
 
 /**
@@ -671,7 +724,7 @@ os_this_thread (void)
  *  @ref micro_os_plus::rtos::this_thread::suspend()
  */
 void
-os_this_thread_suspend (void)
+micro_os_plus_this_thread_suspend (void)
 {
   return this_thread::suspend ();
 }
@@ -685,7 +738,7 @@ os_this_thread_suspend (void)
  *  @ref micro_os_plus::rtos::this_thread::exit()
  */
 void
-os_this_thread_exit (void* exit_ptr)
+micro_os_plus_this_thread_exit (void* exit_ptr)
 {
   this_thread::exit (exit_ptr);
 }
@@ -698,11 +751,12 @@ os_this_thread_exit (void* exit_ptr)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::this_thread::flags_wait()
  */
-os_result_t
-os_this_thread_flags_wait (os_flags_mask_t mask, os_flags_mask_t* oflags,
-                           os_flags_mode_t mode)
+micro_os_plus_result_t
+micro_os_plus_this_thread_flags_wait (micro_os_plus_flags_mask_t mask,
+                                      micro_os_plus_flags_mask_t* oflags,
+                                      micro_os_plus_flags_mode_t mode)
 {
-  return (os_result_t)this_thread::flags_wait (mask, oflags, mode);
+  return (micro_os_plus_result_t)this_thread::flags_wait (mask, oflags, mode);
 }
 
 /**
@@ -713,11 +767,13 @@ os_this_thread_flags_wait (os_flags_mask_t mask, os_flags_mask_t* oflags,
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::this_thread::flags_try_wait()
  */
-os_result_t
-os_this_thread_flags_try_wait (os_flags_mask_t mask, os_flags_mask_t* oflags,
-                               os_flags_mode_t mode)
+micro_os_plus_result_t
+micro_os_plus_this_thread_flags_try_wait (micro_os_plus_flags_mask_t mask,
+                                          micro_os_plus_flags_mask_t* oflags,
+                                          micro_os_plus_flags_mode_t mode)
 {
-  return (os_result_t)this_thread::flags_try_wait (mask, oflags, mode);
+  return (micro_os_plus_result_t)this_thread::flags_try_wait (mask, oflags,
+                                                              mode);
 }
 
 /**
@@ -728,13 +784,13 @@ os_this_thread_flags_try_wait (os_flags_mask_t mask, os_flags_mask_t* oflags,
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::this_thread::flags_timed_wait()
  */
-os_result_t
-os_this_thread_flags_timed_wait (os_flags_mask_t mask,
-                                 os_clock_duration_t timeout,
-                                 os_flags_mask_t* oflags, os_flags_mode_t mode)
+micro_os_plus_result_t
+micro_os_plus_this_thread_flags_timed_wait (
+    micro_os_plus_flags_mask_t mask, micro_os_plus_clock_duration_t timeout,
+    micro_os_plus_flags_mask_t* oflags, micro_os_plus_flags_mode_t mode)
 {
-  return (os_result_t)this_thread::flags_timed_wait (mask, timeout, oflags,
-                                                     mode);
+  return (micro_os_plus_result_t)this_thread::flags_timed_wait (mask, timeout,
+                                                                oflags, mode);
 }
 
 /**
@@ -745,10 +801,11 @@ os_this_thread_flags_timed_wait (os_flags_mask_t mask,
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::this_thread::flags_clear()
  */
-os_result_t
-os_this_thread_flags_clear (os_flags_mask_t mask, os_flags_mask_t* oflags)
+micro_os_plus_result_t
+micro_os_plus_this_thread_flags_clear (micro_os_plus_flags_mask_t mask,
+                                       micro_os_plus_flags_mask_t* oflags)
 {
-  return (os_result_t)this_thread::flags_clear (mask, oflags);
+  return (micro_os_plus_result_t)this_thread::flags_clear (mask, oflags);
 }
 
 /**
@@ -759,10 +816,11 @@ os_this_thread_flags_clear (os_flags_mask_t mask, os_flags_mask_t* oflags)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::this_thread::flags_get()
  */
-os_flags_mask_t
-os_this_thread_flags_get (os_flags_mask_t mask, os_flags_mode_t mode)
+micro_os_plus_flags_mask_t
+micro_os_plus_this_thread_flags_get (micro_os_plus_flags_mask_t mask,
+                                     micro_os_plus_flags_mode_t mode)
 {
-  return (os_flags_mask_t)this_thread::flags_get (mask, mode);
+  return (micro_os_plus_flags_mask_t)this_thread::flags_get (mask, mode);
 }
 
 // ----------------------------------------------------------------------------
@@ -776,7 +834,7 @@ os_this_thread_flags_get (os_flags_mask_t mask, os_flags_mode_t mode)
  *  @ref micro_os_plus::rtos::thread::attributes
  */
 void
-os_thread_attr_init (os_thread_attr_t* attr)
+micro_os_plus_thread_attr_init (micro_os_plus_thread_attr_t* attr)
 {
   assert (attr != nullptr);
   new (attr) thread::attributes ();
@@ -785,7 +843,7 @@ os_thread_attr_init (os_thread_attr_t* attr)
 /**
  * @details
  *
- * @note Must be paired with `os_thread_destruct()`.
+ * @note Must be paired with `micro_os_plus_thread_destruct()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
@@ -793,14 +851,16 @@ os_thread_attr_init (os_thread_attr_t* attr)
  *  @ref micro_os_plus::rtos::thread
  */
 void
-os_thread_construct (os_thread_t* thread, const char* name,
-                     os_thread_func_t func, const os_thread_func_args_t args,
-                     const os_thread_attr_t* attr)
+micro_os_plus_thread_construct (micro_os_plus_thread_t* thread,
+                                const char* name,
+                                micro_os_plus_thread_func_t func,
+                                const micro_os_plus_thread_func_args_t args,
+                                const micro_os_plus_thread_attr_t* attr)
 {
   assert (thread != nullptr);
   if (attr == nullptr)
     {
-      attr = (const os_thread_attr_t*)&thread::initializer;
+      attr = (const micro_os_plus_thread_attr_t*)&thread::initializer;
     }
   new (thread)
       rtos::thread (name, (thread::func_t)func, (thread::func_args_t)args,
@@ -810,7 +870,7 @@ os_thread_construct (os_thread_t* thread, const char* name,
 /**
  * @details
  *
- * @note Must be paired with `os_thread_construct()`.
+ * @note Must be paired with `micro_os_plus_thread_construct()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
@@ -818,7 +878,7 @@ os_thread_construct (os_thread_t* thread, const char* name,
  *  @ref micro_os_plus::rtos::thread
  */
 void
-os_thread_destruct (os_thread_t* thread)
+micro_os_plus_thread_destruct (micro_os_plus_thread_t* thread)
 {
   assert (thread != nullptr);
   (reinterpret_cast<rtos::thread&> (*thread)).~thread ();
@@ -831,22 +891,23 @@ os_thread_destruct (os_thread_t* thread)
  * system allocator and construct it.
  *
  * @note Equivalent of C++ `new thread(...)`.
- * @note Must be paired with `os_thread_delete()`.
+ * @note Must be paired with `micro_os_plus_thread_delete()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::thread
  */
-os_thread_t*
-os_thread_new (const char* name, os_thread_func_t func,
-               const os_thread_func_args_t args, const os_thread_attr_t* attr)
+micro_os_plus_thread_t*
+micro_os_plus_thread_new (const char* name, micro_os_plus_thread_func_t func,
+                          const micro_os_plus_thread_func_args_t args,
+                          const micro_os_plus_thread_attr_t* attr)
 {
   if (attr == nullptr)
     {
-      attr = (const os_thread_attr_t*)&thread::initializer;
+      attr = (const micro_os_plus_thread_attr_t*)&thread::initializer;
     }
-  return reinterpret_cast<os_thread_t*> (
+  return reinterpret_cast<micro_os_plus_thread_t*> (
       new rtos::thread (name, (thread::func_t)func, (thread::func_args_t)args,
                         (const thread::attributes&)*attr));
 }
@@ -858,7 +919,7 @@ os_thread_new (const char* name, os_thread_func_t func,
  * space using the RTOS system allocator.
  *
  * @note Equivalent of C++ `delete ptr_th`.
- * @note Must be paired with `os_thread_new()`.
+ * @note Must be paired with `micro_os_plus_thread_new()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
@@ -866,7 +927,7 @@ os_thread_new (const char* name, os_thread_func_t func,
  *  @ref micro_os_plus::rtos::thread
  */
 void
-os_thread_delete (os_thread_t* thread)
+micro_os_plus_thread_delete (micro_os_plus_thread_t* thread)
 {
   assert (thread != nullptr);
   delete reinterpret_cast<rtos::thread*> (thread);
@@ -881,7 +942,7 @@ os_thread_delete (os_thread_t* thread)
  *  @ref micro_os_plus::rtos::thread::name()
  */
 const char*
-os_thread_get_name (os_thread_t* thread)
+micro_os_plus_thread_get_name (micro_os_plus_thread_t* thread)
 {
   assert (thread != nullptr);
   return (reinterpret_cast<rtos::thread&> (*thread)).name ();
@@ -895,11 +956,12 @@ os_thread_get_name (os_thread_t* thread)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::thread::priority()
  */
-os_thread_prio_t
-os_thread_get_priority (os_thread_t* thread)
+micro_os_plus_thread_prio_t
+micro_os_plus_thread_get_priority (micro_os_plus_thread_t* thread)
 {
   assert (thread != nullptr);
-  return (os_thread_prio_t) (reinterpret_cast<rtos::thread&> (*thread))
+  return (micro_os_plus_thread_prio_t) (
+             reinterpret_cast<rtos::thread&> (*thread))
       .priority ();
 }
 
@@ -911,11 +973,12 @@ os_thread_get_priority (os_thread_t* thread)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::thread::priority(priority_t)
  */
-os_result_t
-os_thread_set_priority (os_thread_t* thread, os_thread_prio_t prio)
+micro_os_plus_result_t
+micro_os_plus_thread_set_priority (micro_os_plus_thread_t* thread,
+                                   micro_os_plus_thread_prio_t prio)
 {
   assert (thread != nullptr);
-  return (os_result_t) (reinterpret_cast<rtos::thread&> (*thread))
+  return (micro_os_plus_result_t) (reinterpret_cast<rtos::thread&> (*thread))
       .priority (prio);
 }
 
@@ -927,12 +990,12 @@ os_thread_set_priority (os_thread_t* thread, os_thread_prio_t prio)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::thread::join()
  */
-os_result_t
-os_thread_join (os_thread_t* thread, void** exit_ptr)
+micro_os_plus_result_t
+micro_os_plus_thread_join (micro_os_plus_thread_t* thread, void** exit_ptr)
 {
   assert (thread != nullptr);
-  return (os_result_t) reinterpret_cast<rtos::thread&> (*thread).join (
-      exit_ptr);
+  return (micro_os_plus_result_t) reinterpret_cast<rtos::thread&> (*thread)
+      .join (exit_ptr);
 }
 
 /**
@@ -944,7 +1007,7 @@ os_thread_join (os_thread_t* thread, void** exit_ptr)
  *  @ref micro_os_plus::rtos::thread::resume()
  */
 void
-os_thread_resume (os_thread_t* thread)
+micro_os_plus_thread_resume (micro_os_plus_thread_t* thread)
 {
   assert (thread != nullptr);
   return (reinterpret_cast<rtos::thread&> (*thread)).resume ();
@@ -958,12 +1021,13 @@ os_thread_resume (os_thread_t* thread)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::thread::flags_raise()
  */
-os_result_t
-os_thread_flags_raise (os_thread_t* thread, os_flags_mask_t mask,
-                       os_flags_mask_t* oflags)
+micro_os_plus_result_t
+micro_os_plus_thread_flags_raise (micro_os_plus_thread_t* thread,
+                                  micro_os_plus_flags_mask_t mask,
+                                  micro_os_plus_flags_mask_t* oflags)
 {
   assert (thread != nullptr);
-  return (os_result_t) (reinterpret_cast<rtos::thread&> (*thread))
+  return (micro_os_plus_result_t) (reinterpret_cast<rtos::thread&> (*thread))
       .flags_raise (mask, oflags);
 }
 
@@ -975,11 +1039,11 @@ os_thread_flags_raise (os_thread_t* thread, os_flags_mask_t mask,
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::thread::state()
  */
-os_thread_state_t
-os_thread_get_state (os_thread_t* thread)
+micro_os_plus_thread_state_t
+micro_os_plus_thread_get_state (micro_os_plus_thread_t* thread)
 {
   assert (thread != nullptr);
-  return reinterpret_cast<os_thread_state_t> (
+  return reinterpret_cast<micro_os_plus_thread_state_t> (
       (reinterpret_cast<rtos::thread&> (*thread)).state ());
 }
 
@@ -998,8 +1062,8 @@ os_thread_get_state (os_thread_t* thread)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::thread::user_storage()
  */
-os_thread_user_storage_t*
-os_thread_get_user_storage (os_thread_t* thread)
+micro_os_plus_thread_user_storage_t*
+micro_os_plus_thread_get_user_storage (micro_os_plus_thread_t* thread)
 {
   assert (thread != nullptr);
   return (reinterpret_cast<rtos::thread&> (*thread)).user_storage ();
@@ -1015,11 +1079,11 @@ os_thread_get_user_storage (os_thread_t* thread)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::thread::stack()
  */
-os_thread_stack_t*
-os_thread_get_stack (os_thread_t* thread)
+micro_os_plus_thread_stack_t*
+micro_os_plus_thread_get_stack (micro_os_plus_thread_t* thread)
 {
   assert (thread != nullptr);
-  return reinterpret_cast<os_thread_stack_t*> (
+  return reinterpret_cast<micro_os_plus_thread_stack_t*> (
       &(reinterpret_cast<rtos::thread&> (*thread)).stack ());
 }
 
@@ -1034,7 +1098,7 @@ os_thread_get_stack (os_thread_t* thread)
  *  @ref micro_os_plus::rtos::thread::stack::default_size()
  */
 size_t
-os_thread_stack_get_default_size (void)
+micro_os_plus_thread_stack_get_default_size (void)
 {
   return thread::stack::default_size ();
 }
@@ -1048,7 +1112,7 @@ os_thread_stack_get_default_size (void)
  *  @ref micro_os_plus::rtos::thread::stack::default_size(std::size_t)
  */
 size_t
-os_thread_stack_set_default_size (size_t size_bytes)
+micro_os_plus_thread_stack_set_default_size (size_t size_bytes)
 {
   return thread::stack::default_size (size_bytes);
 }
@@ -1062,7 +1126,7 @@ os_thread_stack_set_default_size (size_t size_bytes)
  *  @ref micro_os_plus::rtos::thread::stack::min_size()
  */
 size_t
-os_thread_stack_get_min_size (void)
+micro_os_plus_thread_stack_get_min_size (void)
 {
   return thread::stack::min_size ();
 }
@@ -1076,7 +1140,7 @@ os_thread_stack_get_min_size (void)
  *  @ref micro_os_plus::rtos::thread::stack::min_size(std::size_t)
  */
 size_t
-os_thread_stack_set_min_size (size_t size_bytes)
+micro_os_plus_thread_stack_set_min_size (size_t size_bytes)
 {
   return thread::stack::min_size (size_bytes);
 }
@@ -1089,8 +1153,8 @@ os_thread_stack_set_min_size (size_t size_bytes)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::thread::stack::bottom()
  */
-os_thread_stack_element_t*
-os_thread_stack_get_bottom (os_thread_stack_t* stack)
+micro_os_plus_thread_stack_element_t*
+micro_os_plus_thread_stack_get_bottom (micro_os_plus_thread_stack_t* stack)
 {
   assert (stack != nullptr);
   return (reinterpret_cast<class rtos::thread::stack&> (*stack)).bottom ();
@@ -1104,8 +1168,8 @@ os_thread_stack_get_bottom (os_thread_stack_t* stack)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::thread::stack::top()
  */
-os_thread_stack_element_t*
-os_thread_stack_get_top (os_thread_stack_t* stack)
+micro_os_plus_thread_stack_element_t*
+micro_os_plus_thread_stack_get_top (micro_os_plus_thread_stack_t* stack)
 {
   assert (stack != nullptr);
   return (reinterpret_cast<class rtos::thread::stack&> (*stack)).top ();
@@ -1120,7 +1184,7 @@ os_thread_stack_get_top (os_thread_stack_t* stack)
  *  @ref micro_os_plus::rtos::thread::stack::size()
  */
 size_t
-os_thread_stack_get_size (os_thread_stack_t* stack)
+micro_os_plus_thread_stack_get_size (micro_os_plus_thread_stack_t* stack)
 {
   assert (stack != nullptr);
   return (reinterpret_cast<class rtos::thread::stack&> (*stack)).size ();
@@ -1135,7 +1199,7 @@ os_thread_stack_get_size (os_thread_stack_t* stack)
  *  @ref micro_os_plus::rtos::thread::stack::available()
  */
 size_t
-os_thread_stack_get_available (os_thread_stack_t* stack)
+micro_os_plus_thread_stack_get_available (micro_os_plus_thread_stack_t* stack)
 {
   assert (stack != nullptr);
   return (reinterpret_cast<class rtos::thread::stack&> (*stack)).available ();
@@ -1150,7 +1214,8 @@ os_thread_stack_get_available (os_thread_stack_t* stack)
  *  @ref micro_os_plus::rtos::thread::stack::check_bottom_magic()
  */
 bool
-os_thread_stack_check_bottom_magic (os_thread_stack_t* stack)
+micro_os_plus_thread_stack_check_bottom_magic (
+    micro_os_plus_thread_stack_t* stack)
 {
   assert (stack != nullptr);
   return (reinterpret_cast<class rtos::thread::stack&> (*stack))
@@ -1166,7 +1231,8 @@ os_thread_stack_check_bottom_magic (os_thread_stack_t* stack)
  *  @ref micro_os_plus::rtos::thread::stack::check_top_magic()
  */
 bool
-os_thread_stack_check_top_magic (os_thread_stack_t* stack)
+micro_os_plus_thread_stack_check_top_magic (
+    micro_os_plus_thread_stack_t* stack)
 {
   assert (stack != nullptr);
   return (reinterpret_cast<class rtos::thread::stack&> (*stack))
@@ -1185,11 +1251,11 @@ os_thread_stack_check_top_magic (os_thread_stack_t* stack)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::thread::statistics::context_switches()
  */
-os_statistics_counter_t
-os_thread_stat_get_context_switches (os_thread_t* thread)
+micro_os_plus_statistics_counter_t
+micro_os_plus_thread_stat_get_context_switches (micro_os_plus_thread_t* thread)
 {
   assert (thread != nullptr);
-  return static_cast<os_statistics_counter_t> (
+  return static_cast<micro_os_plus_statistics_counter_t> (
       (reinterpret_cast<rtos::thread&> (*thread))
           .statistics ()
           .context_switches ());
@@ -1207,11 +1273,11 @@ os_thread_stat_get_context_switches (os_thread_t* thread)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::thread::statistics::cpu_cycles()
  */
-os_statistics_duration_t
-os_thread_stat_get_cpu_cycles (os_thread_t* thread)
+micro_os_plus_statistics_duration_t
+micro_os_plus_thread_stat_get_cpu_cycles (micro_os_plus_thread_t* thread)
 {
   assert (thread != nullptr);
-  return static_cast<os_statistics_duration_t> (
+  return static_cast<micro_os_plus_statistics_duration_t> (
       (reinterpret_cast<rtos::thread&> (*thread)).statistics ().cpu_cycles ());
 }
 
@@ -1227,10 +1293,10 @@ os_thread_stat_get_cpu_cycles (os_thread_t* thread)
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  */
-os_iterator_t
-os_children_threads_iter_begin (os_thread_t* thread)
+micro_os_plus_iterator_t
+micro_os_plus_children_threads_iter_begin (micro_os_plus_thread_t* thread)
 {
-  return reinterpret_cast<os_iterator_t> (
+  return reinterpret_cast<micro_os_plus_iterator_t> (
       scheduler::children_threads (reinterpret_cast<rtos::thread*> (thread))
           .begin ()
           .get_iterator_pointer ());
@@ -1247,10 +1313,10 @@ os_children_threads_iter_begin (os_thread_t* thread)
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  */
-os_iterator_t
-os_children_threads_iter_end (os_thread_t* thread)
+micro_os_plus_iterator_t
+micro_os_plus_children_threads_iter_end (micro_os_plus_thread_t* thread)
 {
-  return reinterpret_cast<os_iterator_t> (
+  return reinterpret_cast<micro_os_plus_iterator_t> (
       scheduler::children_threads (reinterpret_cast<rtos::thread*> (thread))
           .end ()
           .get_iterator_pointer ());
@@ -1263,14 +1329,14 @@ os_children_threads_iter_end (os_thread_t* thread)
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  */
-os_thread_t*
-os_children_threads_iter_get (os_iterator_t iterator)
+micro_os_plus_thread_t*
+micro_os_plus_children_threads_iter_get (micro_os_plus_iterator_t iterator)
 {
   // Construct a local iterator object based on the pointer.
   thread::threads_list::iterator it{
     reinterpret_cast<utils::double_list_links*> (iterator)
   };
-  return reinterpret_cast<os_thread_t*> (&(*it));
+  return reinterpret_cast<micro_os_plus_thread_t*> (&(*it));
 }
 
 /**
@@ -1280,15 +1346,16 @@ os_children_threads_iter_get (os_iterator_t iterator)
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  */
-os_iterator_t
-os_children_threads_iter_next (os_iterator_t iterator)
+micro_os_plus_iterator_t
+micro_os_plus_children_threads_iter_next (micro_os_plus_iterator_t iterator)
 {
   thread::threads_list::iterator it{
     reinterpret_cast<utils::double_list_links*> (iterator)
   };
   ++it;
 
-  return reinterpret_cast<os_iterator_t> (it.get_iterator_pointer ());
+  return reinterpret_cast<micro_os_plus_iterator_t> (
+      it.get_iterator_pointer ());
 }
 
 // ----------------------------------------------------------------------------
@@ -1302,7 +1369,7 @@ os_children_threads_iter_next (os_iterator_t iterator)
  *  @ref micro_os_plus::rtos::clock::name()
  */
 const char*
-os_clock_get_name (os_clock_t* clock)
+micro_os_plus_clock_get_name (micro_os_plus_clock_t* clock)
 {
   assert (clock != nullptr);
   return (reinterpret_cast<rtos::clock&> (*clock)).name ();
@@ -1316,11 +1383,12 @@ os_clock_get_name (os_clock_t* clock)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::clock::now()
  */
-os_clock_timestamp_t
-os_clock_now (os_clock_t* clock)
+micro_os_plus_clock_timestamp_t
+micro_os_plus_clock_now (micro_os_plus_clock_t* clock)
 {
   assert (clock != nullptr);
-  return (os_clock_timestamp_t) (reinterpret_cast<rtos::clock&> (*clock))
+  return (micro_os_plus_clock_timestamp_t) (
+             reinterpret_cast<rtos::clock&> (*clock))
       .now ();
 }
 
@@ -1332,11 +1400,12 @@ os_clock_now (os_clock_t* clock)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::clock::steady_now()
  */
-os_clock_timestamp_t
-os_clock_steady_now (os_clock_t* clock)
+micro_os_plus_clock_timestamp_t
+micro_os_plus_clock_steady_now (micro_os_plus_clock_t* clock)
 {
   assert (clock != nullptr);
-  return (os_clock_timestamp_t) (reinterpret_cast<rtos::clock&> (*clock))
+  return (micro_os_plus_clock_timestamp_t) (
+             reinterpret_cast<rtos::clock&> (*clock))
       .steady_now ();
 }
 
@@ -1348,11 +1417,12 @@ os_clock_steady_now (os_clock_t* clock)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::clock::sleep_for()
  */
-os_result_t
-os_clock_sleep_for (os_clock_t* clock, os_clock_duration_t duration)
+micro_os_plus_result_t
+micro_os_plus_clock_sleep_for (micro_os_plus_clock_t* clock,
+                               micro_os_plus_clock_duration_t duration)
 {
   assert (clock != nullptr);
-  return (os_result_t) (reinterpret_cast<rtos::clock&> (*clock))
+  return (micro_os_plus_result_t) (reinterpret_cast<rtos::clock&> (*clock))
       .sleep_for (duration);
 }
 
@@ -1364,11 +1434,12 @@ os_clock_sleep_for (os_clock_t* clock, os_clock_duration_t duration)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::clock::sleep_until()
  */
-os_result_t
-os_clock_sleep_until (os_clock_t* clock, os_clock_timestamp_t timestamp)
+micro_os_plus_result_t
+micro_os_plus_clock_sleep_until (micro_os_plus_clock_t* clock,
+                                 micro_os_plus_clock_timestamp_t timestamp)
 {
   assert (clock != nullptr);
-  return (os_result_t) (reinterpret_cast<rtos::clock&> (*clock))
+  return (micro_os_plus_result_t) (reinterpret_cast<rtos::clock&> (*clock))
       .sleep_until (timestamp);
 }
 
@@ -1380,11 +1451,12 @@ os_clock_sleep_until (os_clock_t* clock, os_clock_timestamp_t timestamp)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::clock::wait_for()
  */
-os_result_t
-os_clock_wait_for (os_clock_t* clock, os_clock_duration_t timeout)
+micro_os_plus_result_t
+micro_os_plus_clock_wait_for (micro_os_plus_clock_t* clock,
+                              micro_os_plus_clock_duration_t timeout)
 {
   assert (clock != nullptr);
-  return (os_result_t) (reinterpret_cast<rtos::clock&> (*clock))
+  return (micro_os_plus_result_t) (reinterpret_cast<rtos::clock&> (*clock))
       .wait_for (timeout);
 }
 
@@ -1396,11 +1468,12 @@ os_clock_wait_for (os_clock_t* clock, os_clock_duration_t timeout)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::adjustable_clock::offset()
  */
-os_clock_offset_t
-os_clock_get_offset (os_clock_t* clock)
+micro_os_plus_clock_offset_t
+micro_os_plus_clock_get_offset (micro_os_plus_clock_t* clock)
 {
   assert (clock != nullptr);
-  return (os_clock_offset_t) (reinterpret_cast<rtos::clock&> (*clock))
+  return (micro_os_plus_clock_offset_t) (
+             reinterpret_cast<rtos::clock&> (*clock))
       .offset ();
 }
 
@@ -1412,12 +1485,14 @@ os_clock_get_offset (os_clock_t* clock)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::adjustable_clock::offset(offset_t)
  */
-os_clock_offset_t
-os_clock_set_offset (os_clock_t* clock, os_clock_offset_t offset)
+micro_os_plus_clock_offset_t
+micro_os_plus_clock_set_offset (micro_os_plus_clock_t* clock,
+                                micro_os_plus_clock_offset_t offset)
 {
   assert (clock != nullptr);
   assert (clock != nullptr);
-  return (os_clock_offset_t) (reinterpret_cast<rtos::clock&> (*clock))
+  return (micro_os_plus_clock_offset_t) (
+             reinterpret_cast<rtos::clock&> (*clock))
       .offset ((clock::offset_t)offset);
 }
 
@@ -1429,10 +1504,10 @@ os_clock_set_offset (os_clock_t* clock, os_clock_offset_t offset)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::sysclock
  */
-os_clock_t*
-os_clock_get_sysclock (void)
+micro_os_plus_clock_t*
+micro_os_plus_clock_get_sysclock (void)
 {
-  return (os_clock_t*)&sysclock;
+  return (micro_os_plus_clock_t*)&sysclock;
 }
 
 /**
@@ -1443,10 +1518,10 @@ os_clock_get_sysclock (void)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::rtclock
  */
-os_clock_t*
-os_clock_get_rtclock (void)
+micro_os_plus_clock_t*
+micro_os_plus_clock_get_rtclock (void)
 {
-  return (os_clock_t*)&rtclock;
+  return (micro_os_plus_clock_t*)&rtclock;
 }
 
 /**
@@ -1457,10 +1532,10 @@ os_clock_get_rtclock (void)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::hrclock
  */
-os_clock_t*
-os_clock_get_hrclock (void)
+micro_os_plus_clock_t*
+micro_os_plus_clock_get_hrclock (void)
 {
-  return (os_clock_t*)&hrclock;
+  return (micro_os_plus_clock_t*)&hrclock;
 }
 
 // ----------------------------------------------------------------------------
@@ -1473,10 +1548,10 @@ os_clock_get_hrclock (void)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::clock::now()
  */
-os_clock_timestamp_t
-os_sysclock_now (void)
+micro_os_plus_clock_timestamp_t
+micro_os_plus_sysclock_now (void)
 {
-  return (os_clock_timestamp_t)sysclock.now ();
+  return (micro_os_plus_clock_timestamp_t)sysclock.now ();
 }
 
 /**
@@ -1487,10 +1562,10 @@ os_sysclock_now (void)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::clock::sleep_for()
  */
-os_result_t
-os_sysclock_sleep_for (os_clock_duration_t duration)
+micro_os_plus_result_t
+micro_os_plus_sysclock_sleep_for (micro_os_plus_clock_duration_t duration)
 {
-  return (os_result_t)sysclock.sleep_for (duration);
+  return (micro_os_plus_result_t)sysclock.sleep_for (duration);
 }
 
 /**
@@ -1501,10 +1576,10 @@ os_sysclock_sleep_for (os_clock_duration_t duration)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::clock::sleep_until()
  */
-os_result_t
-os_sysclock_sleep_until (os_clock_timestamp_t timestamp)
+micro_os_plus_result_t
+micro_os_plus_sysclock_sleep_until (micro_os_plus_clock_timestamp_t timestamp)
 {
-  return (os_result_t)sysclock.sleep_until (timestamp);
+  return (micro_os_plus_result_t)sysclock.sleep_until (timestamp);
 }
 
 /**
@@ -1515,10 +1590,10 @@ os_sysclock_sleep_until (os_clock_timestamp_t timestamp)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::clock::wait_for()
  */
-os_result_t
-os_sysclock_wait_for (os_clock_duration_t timeout)
+micro_os_plus_result_t
+micro_os_plus_sysclock_wait_for (micro_os_plus_clock_duration_t timeout)
 {
-  return (os_result_t)sysclock.wait_for (timeout);
+  return (micro_os_plus_result_t)sysclock.wait_for (timeout);
 }
 
 // ----------------------------------------------------------------------------
@@ -1532,7 +1607,7 @@ os_sysclock_wait_for (os_clock_duration_t timeout)
  *  @ref micro_os_plus::rtos::timer::attributes
  */
 void
-os_timer_attr_init (os_timer_attr_t* attr)
+micro_os_plus_timer_attr_init (micro_os_plus_timer_attr_t* attr)
 {
   assert (attr != nullptr);
   new (attr) timer::attributes ();
@@ -1547,7 +1622,7 @@ os_timer_attr_init (os_timer_attr_t* attr)
  *  @ref micro_os_plus::rtos::timer::attributes_periodic
  */
 void
-os_timer_attr_periodic_init (os_timer_attr_t* attr)
+micro_os_plus_timer_attr_periodic_init (micro_os_plus_timer_attr_t* attr)
 {
   assert (attr != nullptr);
   new (attr) timer::attributes_periodic ();
@@ -1561,16 +1636,16 @@ os_timer_attr_periodic_init (os_timer_attr_t* attr)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::timer::periodic_initializer
  */
-const os_timer_attr_t*
-os_timer_attr_get_periodic (void)
+const micro_os_plus_timer_attr_t*
+micro_os_plus_timer_attr_get_periodic (void)
 {
-  return (const os_timer_attr_t*)&timer::periodic_initializer;
+  return (const micro_os_plus_timer_attr_t*)&timer::periodic_initializer;
 }
 
 /**
  * @details
  *
- * @note Must be paired with `os_timer_destruct()`.
+ * @note Must be paired with `micro_os_plus_timer_destruct()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
@@ -1578,14 +1653,15 @@ os_timer_attr_get_periodic (void)
  *  @ref micro_os_plus::rtos::timer
  */
 void
-os_timer_construct (os_timer_t* timer, const char* name,
-                    os_timer_func_t function, os_timer_func_args_t args,
-                    const os_timer_attr_t* attr)
+micro_os_plus_timer_construct (micro_os_plus_timer_t* timer, const char* name,
+                               micro_os_plus_timer_func_t function,
+                               micro_os_plus_timer_func_args_t args,
+                               const micro_os_plus_timer_attr_t* attr)
 {
   assert (timer != nullptr);
   if (attr == nullptr)
     {
-      attr = (const os_timer_attr_t*)&timer::periodic_initializer;
+      attr = (const micro_os_plus_timer_attr_t*)&timer::periodic_initializer;
     }
   new (timer)
       rtos::timer (name, (timer::func_t)function, (timer::func_args_t)args,
@@ -1595,7 +1671,7 @@ os_timer_construct (os_timer_t* timer, const char* name,
 /**
  * @details
  *
- * @note Must be paired with `os_timer_construct()`.
+ * @note Must be paired with `micro_os_plus_timer_construct()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
@@ -1603,7 +1679,7 @@ os_timer_construct (os_timer_t* timer, const char* name,
  *  @ref micro_os_plus::rtos::timer
  */
 void
-os_timer_destruct (os_timer_t* timer)
+micro_os_plus_timer_destruct (micro_os_plus_timer_t* timer)
 {
   assert (timer != nullptr);
   (reinterpret_cast<rtos::timer&> (*timer)).~timer ();
@@ -1616,22 +1692,23 @@ os_timer_destruct (os_timer_t* timer)
  * system allocator and construct it.
  *
  * @note Equivalent of C++ `new timer(...)`.
- * @note Must be paired with `os_timer_delete()`.
+ * @note Must be paired with `micro_os_plus_timer_delete()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::timer
  */
-os_timer_t*
-os_timer_new (const char* name, os_timer_func_t function,
-              os_timer_func_args_t args, const os_timer_attr_t* attr)
+micro_os_plus_timer_t*
+micro_os_plus_timer_new (const char* name, micro_os_plus_timer_func_t function,
+                         micro_os_plus_timer_func_args_t args,
+                         const micro_os_plus_timer_attr_t* attr)
 {
   if (attr == nullptr)
     {
-      attr = (const os_timer_attr_t*)&timer::periodic_initializer;
+      attr = (const micro_os_plus_timer_attr_t*)&timer::periodic_initializer;
     }
-  return reinterpret_cast<os_timer_t*> (
+  return reinterpret_cast<micro_os_plus_timer_t*> (
       new rtos::timer (name, (timer::func_t)function, (timer::func_args_t)args,
                        (const timer::attributes&)*attr));
 }
@@ -1643,7 +1720,7 @@ os_timer_new (const char* name, os_timer_func_t function,
  * space using the RTOS system allocator.
  *
  * @note Equivalent of C++ `delete ptr_timer`.
- * @note Must be paired with `os_timer_new()`.
+ * @note Must be paired with `micro_os_plus_timer_new()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
@@ -1651,7 +1728,7 @@ os_timer_new (const char* name, os_timer_func_t function,
  *  @ref micro_os_plus::rtos::timer
  */
 void
-os_timer_delete (os_timer_t* timer)
+micro_os_plus_timer_delete (micro_os_plus_timer_t* timer)
 {
   assert (timer != nullptr);
   delete reinterpret_cast<rtos::timer*> (timer);
@@ -1666,7 +1743,7 @@ os_timer_delete (os_timer_t* timer)
  *  @ref micro_os_plus::rtos::timer::name()
  */
 const char*
-os_timer_get_name (os_timer_t* timer)
+micro_os_plus_timer_get_name (micro_os_plus_timer_t* timer)
 {
   assert (timer != nullptr);
   return (reinterpret_cast<rtos::timer&> (*timer)).name ();
@@ -1680,11 +1757,12 @@ os_timer_get_name (os_timer_t* timer)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::timer::start()
  */
-os_result_t
-os_timer_start (os_timer_t* timer, os_clock_duration_t period)
+micro_os_plus_result_t
+micro_os_plus_timer_start (micro_os_plus_timer_t* timer,
+                           micro_os_plus_clock_duration_t period)
 {
   assert (timer != nullptr);
-  return (os_result_t) (reinterpret_cast<rtos::timer&> (*timer))
+  return (micro_os_plus_result_t) (reinterpret_cast<rtos::timer&> (*timer))
       .start (period);
 }
 
@@ -1696,11 +1774,12 @@ os_timer_start (os_timer_t* timer, os_clock_duration_t period)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::timer::stop()
  */
-os_result_t
-os_timer_stop (os_timer_t* timer)
+micro_os_plus_result_t
+micro_os_plus_timer_stop (micro_os_plus_timer_t* timer)
 {
   assert (timer != nullptr);
-  return (os_result_t) (reinterpret_cast<rtos::timer&> (*timer)).stop ();
+  return (micro_os_plus_result_t) (reinterpret_cast<rtos::timer&> (*timer))
+      .stop ();
 }
 
 // ----------------------------------------------------------------------------
@@ -1714,7 +1793,7 @@ os_timer_stop (os_timer_t* timer)
  *  @ref micro_os_plus::rtos::mutex::attributes
  */
 void
-os_mutex_attr_init (os_mutex_attr_t* attr)
+micro_os_plus_mutex_attr_init (micro_os_plus_mutex_attr_t* attr)
 {
   assert (attr != nullptr);
   new (attr) mutex::attributes ();
@@ -1729,7 +1808,7 @@ os_mutex_attr_init (os_mutex_attr_t* attr)
  *  @ref micro_os_plus::rtos::mutex::attributes_recursive
  */
 void
-os_mutex_attr_recursive_init (os_mutex_attr_t* attr)
+micro_os_plus_mutex_attr_recursive_init (micro_os_plus_mutex_attr_t* attr)
 {
   assert (attr != nullptr);
   new (attr) mutex::attributes_recursive ();
@@ -1743,16 +1822,16 @@ os_mutex_attr_recursive_init (os_mutex_attr_t* attr)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::mutex::initializer_recursive
  */
-const os_mutex_attr_t*
-os_mutex_attr_get_recursive (void)
+const micro_os_plus_mutex_attr_t*
+micro_os_plus_mutex_attr_get_recursive (void)
 {
-  return (const os_mutex_attr_t*)&mutex::initializer_recursive;
+  return (const micro_os_plus_mutex_attr_t*)&mutex::initializer_recursive;
 }
 
 /**
  * @details
  *
- * @note Must be paired with `os_mutex_destruct()`.
+ * @note Must be paired with `micro_os_plus_mutex_destruct()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
@@ -1760,13 +1839,13 @@ os_mutex_attr_get_recursive (void)
  *  @ref micro_os_plus::rtos::mutex
  */
 void
-os_mutex_construct (os_mutex_t* mutex, const char* name,
-                    const os_mutex_attr_t* attr)
+micro_os_plus_mutex_construct (micro_os_plus_mutex_t* mutex, const char* name,
+                               const micro_os_plus_mutex_attr_t* attr)
 {
   assert (mutex != nullptr);
   if (attr == nullptr)
     {
-      attr = (const os_mutex_attr_t*)&mutex::initializer_normal;
+      attr = (const micro_os_plus_mutex_attr_t*)&mutex::initializer_normal;
     }
   new (mutex) rtos::mutex (name, (const mutex::attributes&)*attr);
 }
@@ -1774,7 +1853,7 @@ os_mutex_construct (os_mutex_t* mutex, const char* name,
 /**
  * @details
  *
- * @note Must be paired with `os_mutex_destruct()`.
+ * @note Must be paired with `micro_os_plus_mutex_destruct()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
@@ -1782,13 +1861,14 @@ os_mutex_construct (os_mutex_t* mutex, const char* name,
  *  @ref micro_os_plus::rtos::mutex_recursive
  */
 void
-os_mutex_recursive_construct (os_mutex_t* mutex, const char* name,
-                              const os_mutex_attr_t* attr)
+micro_os_plus_mutex_recursive_construct (
+    micro_os_plus_mutex_t* mutex, const char* name,
+    const micro_os_plus_mutex_attr_t* attr)
 {
   assert (mutex != nullptr);
   if (attr == nullptr)
     {
-      attr = (const os_mutex_attr_t*)&mutex::initializer_recursive;
+      attr = (const micro_os_plus_mutex_attr_t*)&mutex::initializer_recursive;
     }
   new (mutex) rtos::mutex_recursive (name, (const mutex::attributes&)*attr);
 }
@@ -1796,8 +1876,8 @@ os_mutex_recursive_construct (os_mutex_t* mutex, const char* name,
 /**
  * @details
  *
- * @note Must be paired with `os_mutex_construct()` or
- *  `os_mutex_recursive_construct()`.
+ * @note Must be paired with `micro_os_plus_mutex_construct()` or
+ *  `micro_os_plus_mutex_recursive_construct()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
@@ -1805,7 +1885,7 @@ os_mutex_recursive_construct (os_mutex_t* mutex, const char* name,
  *  @ref micro_os_plus::rtos::mutex
  */
 void
-os_mutex_destruct (os_mutex_t* mutex)
+micro_os_plus_mutex_destruct (micro_os_plus_mutex_t* mutex)
 {
   assert (mutex != nullptr);
   (reinterpret_cast<rtos::mutex&> (*mutex)).~mutex ();
@@ -1818,21 +1898,22 @@ os_mutex_destruct (os_mutex_t* mutex)
  * system allocator and construct it.
  *
  * @note Equivalent of C++ `new mutex(...)`.
- * @note Must be paired with `os_mutex_delete()`.
+ * @note Must be paired with `micro_os_plus_mutex_delete()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::mutex
  */
-os_mutex_t*
-os_mutex_new (const char* name, const os_mutex_attr_t* attr)
+micro_os_plus_mutex_t*
+micro_os_plus_mutex_new (const char* name,
+                         const micro_os_plus_mutex_attr_t* attr)
 {
   if (attr == nullptr)
     {
-      attr = (const os_mutex_attr_t*)&mutex::initializer_normal;
+      attr = (const micro_os_plus_mutex_attr_t*)&mutex::initializer_normal;
     }
-  return reinterpret_cast<os_mutex_t*> (
+  return reinterpret_cast<micro_os_plus_mutex_t*> (
       new rtos::mutex (name, (const mutex::attributes&)*attr));
 }
 
@@ -1843,21 +1924,22 @@ os_mutex_new (const char* name, const os_mutex_attr_t* attr)
  * system allocator and construct it.
  *
  * @note Equivalent of C++ `new mutex_recursive(...)`.
- * @note Must be paired with `os_mutex_delete()`.
+ * @note Must be paired with `micro_os_plus_mutex_delete()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::mutex_recursive
  */
-os_mutex_t*
-os_mutex_recursive_new (const char* name, const os_mutex_attr_t* attr)
+micro_os_plus_mutex_t*
+micro_os_plus_mutex_recursive_new (const char* name,
+                                   const micro_os_plus_mutex_attr_t* attr)
 {
   if (attr == nullptr)
     {
-      attr = (const os_mutex_attr_t*)&mutex::initializer_recursive;
+      attr = (const micro_os_plus_mutex_attr_t*)&mutex::initializer_recursive;
     }
-  return reinterpret_cast<os_mutex_t*> (
+  return reinterpret_cast<micro_os_plus_mutex_t*> (
       new rtos::mutex_recursive (name, (const mutex::attributes&)*attr));
 }
 
@@ -1868,8 +1950,8 @@ os_mutex_recursive_new (const char* name, const os_mutex_attr_t* attr)
  * space using the RTOS system allocator.
  *
  * @note Equivalent of C++ `delete ptr_mutex`.
- * @note Must be paired with `os_mutex_new()` or
- *  `os_mutex_recursive_new()`.
+ * @note Must be paired with `micro_os_plus_mutex_new()` or
+ *  `micro_os_plus_mutex_recursive_new()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
@@ -1877,7 +1959,7 @@ os_mutex_recursive_new (const char* name, const os_mutex_attr_t* attr)
  *  @ref micro_os_plus::rtos::mutex
  */
 void
-os_mutex_delete (os_mutex_t* mutex)
+micro_os_plus_mutex_delete (micro_os_plus_mutex_t* mutex)
 {
   assert (mutex != nullptr);
   delete reinterpret_cast<rtos::mutex*> (mutex);
@@ -1892,7 +1974,7 @@ os_mutex_delete (os_mutex_t* mutex)
  *  @ref micro_os_plus::rtos::mutex::name()
  */
 const char*
-os_mutex_get_name (os_mutex_t* mutex)
+micro_os_plus_mutex_get_name (micro_os_plus_mutex_t* mutex)
 {
   assert (mutex != nullptr);
   return (reinterpret_cast<rtos::mutex&> (*mutex)).name ();
@@ -1906,11 +1988,12 @@ os_mutex_get_name (os_mutex_t* mutex)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::mutex::lock()
  */
-os_result_t
-os_mutex_lock (os_mutex_t* mutex)
+micro_os_plus_result_t
+micro_os_plus_mutex_lock (micro_os_plus_mutex_t* mutex)
 {
   assert (mutex != nullptr);
-  return (os_result_t) (reinterpret_cast<rtos::mutex&> (*mutex)).lock ();
+  return (micro_os_plus_result_t) (reinterpret_cast<rtos::mutex&> (*mutex))
+      .lock ();
 }
 
 /**
@@ -1921,11 +2004,12 @@ os_mutex_lock (os_mutex_t* mutex)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::mutex::try_lock()
  */
-os_result_t
-os_mutex_try_lock (os_mutex_t* mutex)
+micro_os_plus_result_t
+micro_os_plus_mutex_try_lock (micro_os_plus_mutex_t* mutex)
 {
   assert (mutex != nullptr);
-  return (os_result_t) (reinterpret_cast<rtos::mutex&> (*mutex)).try_lock ();
+  return (micro_os_plus_result_t) (reinterpret_cast<rtos::mutex&> (*mutex))
+      .try_lock ();
 }
 
 /**
@@ -1936,11 +2020,12 @@ os_mutex_try_lock (os_mutex_t* mutex)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::mutex::timed_lock()
  */
-os_result_t
-os_mutex_timed_lock (os_mutex_t* mutex, os_clock_duration_t timeout)
+micro_os_plus_result_t
+micro_os_plus_mutex_timed_lock (micro_os_plus_mutex_t* mutex,
+                                micro_os_plus_clock_duration_t timeout)
 {
   assert (mutex != nullptr);
-  return (os_result_t) (reinterpret_cast<rtos::mutex&> (*mutex))
+  return (micro_os_plus_result_t) (reinterpret_cast<rtos::mutex&> (*mutex))
       .timed_lock (timeout);
 }
 
@@ -1952,11 +2037,12 @@ os_mutex_timed_lock (os_mutex_t* mutex, os_clock_duration_t timeout)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::mutex::unlock()
  */
-os_result_t
-os_mutex_unlock (os_mutex_t* mutex)
+micro_os_plus_result_t
+micro_os_plus_mutex_unlock (micro_os_plus_mutex_t* mutex)
 {
   assert (mutex != nullptr);
-  return (os_result_t) (reinterpret_cast<rtos::mutex&> (*mutex)).unlock ();
+  return (micro_os_plus_result_t) (reinterpret_cast<rtos::mutex&> (*mutex))
+      .unlock ();
 }
 
 /**
@@ -1967,11 +2053,12 @@ os_mutex_unlock (os_mutex_t* mutex)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::mutex::prio_ceiling()
  */
-os_thread_prio_t
-os_mutex_get_prio_ceiling (os_mutex_t* mutex)
+micro_os_plus_thread_prio_t
+micro_os_plus_mutex_get_prio_ceiling (micro_os_plus_mutex_t* mutex)
 {
   assert (mutex != nullptr);
-  return (os_thread_prio_t) (reinterpret_cast<rtos::mutex&> (*mutex))
+  return (micro_os_plus_thread_prio_t) (
+             reinterpret_cast<rtos::mutex&> (*mutex))
       .prio_ceiling ();
 }
 
@@ -1984,12 +2071,13 @@ os_mutex_get_prio_ceiling (os_mutex_t* mutex)
  *  @ref micro_os_plus::rtos::mutex::prio_ceiling(thread::priority_t,
  * thread::priority_t*)
  */
-os_result_t
-os_mutex_set_prio_ceiling (os_mutex_t* mutex, os_thread_prio_t prio_ceiling,
-                           os_thread_prio_t* old_prio_ceiling)
+micro_os_plus_result_t
+micro_os_plus_mutex_set_prio_ceiling (
+    micro_os_plus_mutex_t* mutex, micro_os_plus_thread_prio_t prio_ceiling,
+    micro_os_plus_thread_prio_t* old_prio_ceiling)
 {
   assert (mutex != nullptr);
-  return (os_result_t) (reinterpret_cast<rtos::mutex&> (*mutex))
+  return (micro_os_plus_result_t) (reinterpret_cast<rtos::mutex&> (*mutex))
       .prio_ceiling (prio_ceiling, old_prio_ceiling);
 }
 
@@ -2001,11 +2089,12 @@ os_mutex_set_prio_ceiling (os_mutex_t* mutex, os_thread_prio_t prio_ceiling,
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::mutex::consistent()
  */
-os_result_t
-os_mutex_mark_consistent (os_mutex_t* mutex)
+micro_os_plus_result_t
+micro_os_plus_mutex_mark_consistent (micro_os_plus_mutex_t* mutex)
 {
   assert (mutex != nullptr);
-  return (os_result_t) (reinterpret_cast<rtos::mutex&> (*mutex)).consistent ();
+  return (micro_os_plus_result_t) (reinterpret_cast<rtos::mutex&> (*mutex))
+      .consistent ();
 }
 
 /**
@@ -2016,11 +2105,12 @@ os_mutex_mark_consistent (os_mutex_t* mutex)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::mutex::owner()
  */
-os_thread_t*
-os_mutex_get_owner (os_mutex_t* mutex)
+micro_os_plus_thread_t*
+micro_os_plus_mutex_get_owner (micro_os_plus_mutex_t* mutex)
 {
   assert (mutex != nullptr);
-  return (os_thread_t*)(reinterpret_cast<rtos::mutex&> (*mutex)).owner ();
+  return (micro_os_plus_thread_t*)(reinterpret_cast<rtos::mutex&> (*mutex))
+      .owner ();
 }
 
 /**
@@ -2031,8 +2121,8 @@ os_mutex_get_owner (os_mutex_t* mutex)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::mutex::type()
  */
-os_mutex_type_t
-os_mutex_get_type (os_mutex_t* mutex)
+micro_os_plus_mutex_type_t
+micro_os_plus_mutex_get_type (micro_os_plus_mutex_t* mutex)
 {
   assert (mutex != nullptr);
   return (reinterpret_cast<rtos::mutex&> (*mutex)).type ();
@@ -2046,8 +2136,8 @@ os_mutex_get_type (os_mutex_t* mutex)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::mutex::protocol()
  */
-os_mutex_protocol_t
-os_mutex_get_protocol (os_mutex_t* mutex)
+micro_os_plus_mutex_protocol_t
+micro_os_plus_mutex_get_protocol (micro_os_plus_mutex_t* mutex)
 {
   assert (mutex != nullptr);
   return (reinterpret_cast<rtos::mutex&> (*mutex)).protocol ();
@@ -2061,8 +2151,8 @@ os_mutex_get_protocol (os_mutex_t* mutex)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::mutex::robustness()
  */
-os_mutex_robustness_t
-os_mutex_get_robustness (os_mutex_t* mutex)
+micro_os_plus_mutex_robustness_t
+micro_os_plus_mutex_get_robustness (micro_os_plus_mutex_t* mutex)
 {
   assert (mutex != nullptr);
   return (reinterpret_cast<rtos::mutex&> (*mutex)).robustness ();
@@ -2076,11 +2166,12 @@ os_mutex_get_robustness (os_mutex_t* mutex)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::mutex::reset()
  */
-os_result_t
-os_mutex_reset (os_mutex_t* mutex)
+micro_os_plus_result_t
+micro_os_plus_mutex_reset (micro_os_plus_mutex_t* mutex)
 {
   assert (mutex != nullptr);
-  return (os_result_t) (reinterpret_cast<rtos::mutex&> (*mutex)).reset ();
+  return (micro_os_plus_result_t) (reinterpret_cast<rtos::mutex&> (*mutex))
+      .reset ();
 }
 
 // ----------------------------------------------------------------------------
@@ -2094,7 +2185,7 @@ os_mutex_reset (os_mutex_t* mutex)
  *  @ref micro_os_plus::rtos::condition_variable::attributes
  */
 void
-os_condvar_attr_init (os_condvar_attr_t* attr)
+micro_os_plus_condvar_attr_init (micro_os_plus_condvar_attr_t* attr)
 {
   assert (attr != nullptr);
   new (attr) condition_variable::attributes ();
@@ -2103,7 +2194,7 @@ os_condvar_attr_init (os_condvar_attr_t* attr)
 /**
  * @details
  *
- * @note Must be paired with `os_condvar_destruct()`.
+ * @note Must be paired with `micro_os_plus_condvar_destruct()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
@@ -2111,13 +2202,15 @@ os_condvar_attr_init (os_condvar_attr_t* attr)
  *  @ref micro_os_plus::rtos::condition_variable
  */
 void
-os_condvar_construct (os_condvar_t* condvar, const char* name,
-                      const os_condvar_attr_t* attr)
+micro_os_plus_condvar_construct (micro_os_plus_condvar_t* condvar,
+                                 const char* name,
+                                 const micro_os_plus_condvar_attr_t* attr)
 {
   assert (condvar != nullptr);
   if (attr == nullptr)
     {
-      attr = (const os_condvar_attr_t*)&condition_variable::initializer;
+      attr = (const micro_os_plus_condvar_attr_t*)&condition_variable::
+          initializer;
     }
   new (condvar)
       condition_variable (name, (const condition_variable::attributes&)*attr);
@@ -2126,7 +2219,7 @@ os_condvar_construct (os_condvar_t* condvar, const char* name,
 /**
  * @details
  *
- * @note Must be paired with `os_condvar_construct()`.
+ * @note Must be paired with `micro_os_plus_condvar_construct()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
@@ -2134,7 +2227,7 @@ os_condvar_construct (os_condvar_t* condvar, const char* name,
  *  @ref micro_os_plus::rtos::condition_variable
  */
 void
-os_condvar_destruct (os_condvar_t* condvar)
+micro_os_plus_condvar_destruct (micro_os_plus_condvar_t* condvar)
 {
   assert (condvar != nullptr);
   (reinterpret_cast<condition_variable&> (*condvar)).~condition_variable ();
@@ -2147,21 +2240,23 @@ os_condvar_destruct (os_condvar_t* condvar)
  * system allocator and construct it.
  *
  * @note Equivalent of C++ `new condition_variable(...)`.
- * @note Must be paired with `os_condvar_delete()`.
+ * @note Must be paired with `micro_os_plus_condvar_delete()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::condition_variable
  */
-os_condvar_t*
-os_condvar_new (const char* name, const os_condvar_attr_t* attr)
+micro_os_plus_condvar_t*
+micro_os_plus_condvar_new (const char* name,
+                           const micro_os_plus_condvar_attr_t* attr)
 {
   if (attr == nullptr)
     {
-      attr = (const os_condvar_attr_t*)&condition_variable::initializer;
+      attr = (const micro_os_plus_condvar_attr_t*)&condition_variable::
+          initializer;
     }
-  return reinterpret_cast<os_condvar_t*> (new condition_variable (
+  return reinterpret_cast<micro_os_plus_condvar_t*> (new condition_variable (
       name, (const condition_variable::attributes&)*attr));
 }
 
@@ -2172,7 +2267,7 @@ os_condvar_new (const char* name, const os_condvar_attr_t* attr)
  * space using the RTOS system allocator.
  *
  * @note Equivalent of C++ `delete ptr_condvar`.
- * @note Must be paired with `os_condvar_new()`.
+ * @note Must be paired with `micro_os_plus_condvar_new()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
@@ -2180,7 +2275,7 @@ os_condvar_new (const char* name, const os_condvar_attr_t* attr)
  *  @ref micro_os_plus::rtos::condition_variable
  */
 void
-os_condvar_delete (os_condvar_t* condvar)
+micro_os_plus_condvar_delete (micro_os_plus_condvar_t* condvar)
 {
   assert (condvar != nullptr);
   delete reinterpret_cast<condition_variable*> (condvar);
@@ -2195,7 +2290,7 @@ os_condvar_delete (os_condvar_t* condvar)
  *  @ref micro_os_plus::rtos::condition_variable::name()
  */
 const char*
-os_condvar_get_name (os_condvar_t* condvar)
+micro_os_plus_condvar_get_name (micro_os_plus_condvar_t* condvar)
 {
   assert (condvar != nullptr);
   return (reinterpret_cast<condition_variable&> (*condvar)).name ();
@@ -2209,11 +2304,12 @@ os_condvar_get_name (os_condvar_t* condvar)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::condition_variable::signal()
  */
-os_result_t
-os_condvar_signal (os_condvar_t* condvar)
+micro_os_plus_result_t
+micro_os_plus_condvar_signal (micro_os_plus_condvar_t* condvar)
 {
   assert (condvar != nullptr);
-  return (os_result_t) (reinterpret_cast<condition_variable&> (*condvar))
+  return (micro_os_plus_result_t) (
+             reinterpret_cast<condition_variable&> (*condvar))
       .signal ();
 }
 
@@ -2225,11 +2321,12 @@ os_condvar_signal (os_condvar_t* condvar)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::condition_variable::broadcast()
  */
-os_result_t
-os_condvar_broadcast (os_condvar_t* condvar)
+micro_os_plus_result_t
+micro_os_plus_condvar_broadcast (micro_os_plus_condvar_t* condvar)
 {
   assert (condvar != nullptr);
-  return (os_result_t) (reinterpret_cast<condition_variable&> (*condvar))
+  return (micro_os_plus_result_t) (
+             reinterpret_cast<condition_variable&> (*condvar))
       .broadcast ();
 }
 
@@ -2241,11 +2338,13 @@ os_condvar_broadcast (os_condvar_t* condvar)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::condition_variable::wait()
  */
-os_result_t
-os_condvar_wait (os_condvar_t* condvar, os_mutex_t* mutex)
+micro_os_plus_result_t
+micro_os_plus_condvar_wait (micro_os_plus_condvar_t* condvar,
+                            micro_os_plus_mutex_t* mutex)
 {
   assert (condvar != nullptr);
-  return (os_result_t) (reinterpret_cast<condition_variable&> (*condvar))
+  return (micro_os_plus_result_t) (
+             reinterpret_cast<condition_variable&> (*condvar))
       .wait (reinterpret_cast<rtos::mutex&> (*mutex));
 }
 
@@ -2257,12 +2356,14 @@ os_condvar_wait (os_condvar_t* condvar, os_mutex_t* mutex)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::condition_variable::timed_wait()
  */
-os_result_t
-os_condvar_timed_wait (os_condvar_t* condvar, os_mutex_t* mutex,
-                       os_clock_duration_t timeout)
+micro_os_plus_result_t
+micro_os_plus_condvar_timed_wait (micro_os_plus_condvar_t* condvar,
+                                  micro_os_plus_mutex_t* mutex,
+                                  micro_os_plus_clock_duration_t timeout)
 {
   assert (condvar != nullptr);
-  return (os_result_t) (reinterpret_cast<condition_variable&> (*condvar))
+  return (micro_os_plus_result_t) (
+             reinterpret_cast<condition_variable&> (*condvar))
       .timed_wait (reinterpret_cast<rtos::mutex&> (*mutex), timeout);
 }
 
@@ -2277,7 +2378,7 @@ os_condvar_timed_wait (os_condvar_t* condvar, os_mutex_t* mutex,
  *  @ref micro_os_plus::rtos::semaphore::attributes
  */
 void
-os_semaphore_attr_init (os_semaphore_attr_t* attr)
+micro_os_plus_semaphore_attr_init (micro_os_plus_semaphore_attr_t* attr)
 {
   assert (attr != nullptr);
   new (attr) semaphore::attributes{};
@@ -2292,8 +2393,9 @@ os_semaphore_attr_init (os_semaphore_attr_t* attr)
  *  @ref micro_os_plus::rtos::semaphore::attributes_binary
  */
 void
-os_semaphore_attr_binary_init (os_semaphore_attr_t* attr,
-                               const os_semaphore_count_t initial_value)
+micro_os_plus_semaphore_attr_binary_init (
+    micro_os_plus_semaphore_attr_t* attr,
+    const micro_os_plus_semaphore_count_t initial_value)
 {
   assert (attr != nullptr);
   new (attr) semaphore::attributes_binary{ initial_value };
@@ -2308,9 +2410,10 @@ os_semaphore_attr_binary_init (os_semaphore_attr_t* attr,
  *  @ref micro_os_plus::rtos::semaphore::attributes_counting
  */
 void
-os_semaphore_attr_counting_init (os_semaphore_attr_t* attr,
-                                 const os_semaphore_count_t max_value,
-                                 const os_semaphore_count_t initial_value)
+micro_os_plus_semaphore_attr_counting_init (
+    micro_os_plus_semaphore_attr_t* attr,
+    const micro_os_plus_semaphore_count_t max_value,
+    const micro_os_plus_semaphore_count_t initial_value)
 {
   assert (attr != nullptr);
   new (attr) semaphore::attributes_counting{ max_value, initial_value };
@@ -2324,16 +2427,16 @@ os_semaphore_attr_counting_init (os_semaphore_attr_t* attr,
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::semaphore::initializer_binary
  */
-const os_semaphore_attr_t*
-os_semaphore_attr_get_binary (void)
+const micro_os_plus_semaphore_attr_t*
+micro_os_plus_semaphore_attr_get_binary (void)
 {
-  return (const os_semaphore_attr_t*)&semaphore::initializer_binary;
+  return (const micro_os_plus_semaphore_attr_t*)&semaphore::initializer_binary;
 }
 
 /**
  * @details
  *
- * @note Must be paired with `os_semaphore_destruct()`.
+ * @note Must be paired with `micro_os_plus_semaphore_destruct()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
@@ -2341,13 +2444,15 @@ os_semaphore_attr_get_binary (void)
  *  @ref micro_os_plus::rtos::semaphore
  */
 void
-os_semaphore_construct (os_semaphore_t* semaphore, const char* name,
-                        const os_semaphore_attr_t* attr)
+micro_os_plus_semaphore_construct (micro_os_plus_semaphore_t* semaphore,
+                                   const char* name,
+                                   const micro_os_plus_semaphore_attr_t* attr)
 {
   assert (semaphore != nullptr);
   if (attr == nullptr)
     {
-      attr = (const os_semaphore_attr_t*)&semaphore::initializer_binary;
+      attr = (const micro_os_plus_semaphore_attr_t*)&semaphore::
+          initializer_binary;
     }
   new (semaphore) rtos::semaphore{ name, (const semaphore::attributes&)*attr };
 }
@@ -2355,7 +2460,7 @@ os_semaphore_construct (os_semaphore_t* semaphore, const char* name,
 /**
  * @details
  *
- * @note Must be paired with `os_semaphore_destruct()`.
+ * @note Must be paired with `micro_os_plus_semaphore_destruct()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
@@ -2363,8 +2468,9 @@ os_semaphore_construct (os_semaphore_t* semaphore, const char* name,
  *  @ref micro_os_plus::rtos::semaphore_binary
  */
 void
-os_semaphore_binary_construct (os_semaphore_t* semaphore, const char* name,
-                               const os_semaphore_count_t initial_value)
+micro_os_plus_semaphore_binary_construct (
+    micro_os_plus_semaphore_t* semaphore, const char* name,
+    const micro_os_plus_semaphore_count_t initial_value)
 {
   assert (semaphore != nullptr);
   new (semaphore) rtos::semaphore_binary{ name, initial_value };
@@ -2373,7 +2479,7 @@ os_semaphore_binary_construct (os_semaphore_t* semaphore, const char* name,
 /**
  * @details
  *
- * @note Must be paired with `os_semaphore_destruct()`.
+ * @note Must be paired with `micro_os_plus_semaphore_destruct()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
@@ -2381,9 +2487,10 @@ os_semaphore_binary_construct (os_semaphore_t* semaphore, const char* name,
  *  @ref micro_os_plus::rtos::semaphore_counting
  */
 void
-os_semaphore_counting_construct (os_semaphore_t* semaphore, const char* name,
-                                 const os_semaphore_count_t max_value,
-                                 const os_semaphore_count_t initial_value)
+micro_os_plus_semaphore_counting_construct (
+    micro_os_plus_semaphore_t* semaphore, const char* name,
+    const micro_os_plus_semaphore_count_t max_value,
+    const micro_os_plus_semaphore_count_t initial_value)
 {
   assert (semaphore != nullptr);
   new (semaphore) rtos::semaphore_counting{ name, max_value, initial_value };
@@ -2392,8 +2499,9 @@ os_semaphore_counting_construct (os_semaphore_t* semaphore, const char* name,
 /**
  * @details
  *
- * @note Must be paired with `os_semaphore_construct()` or
- * `os_semaphore_binary_construct()` or `os_semaphore_counting_construct()`.
+ * @note Must be paired with `micro_os_plus_semaphore_construct()` or
+ * `micro_os_plus_semaphore_binary_construct()` or
+ * `micro_os_plus_semaphore_counting_construct()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
@@ -2401,7 +2509,7 @@ os_semaphore_counting_construct (os_semaphore_t* semaphore, const char* name,
  *  @ref micro_os_plus::rtos::semaphore
  */
 void
-os_semaphore_destruct (os_semaphore_t* semaphore)
+micro_os_plus_semaphore_destruct (micro_os_plus_semaphore_t* semaphore)
 {
   assert (semaphore != nullptr);
   (reinterpret_cast<rtos::semaphore&> (*semaphore)).~semaphore ();
@@ -2414,21 +2522,23 @@ os_semaphore_destruct (os_semaphore_t* semaphore)
  * system allocator and construct it.
  *
  * @note Equivalent of C++ `new semaphore(...)`.
- * @note Must be paired with `os_semaphore_delete()`.
+ * @note Must be paired with `micro_os_plus_semaphore_delete()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::semaphore
  */
-os_semaphore_t*
-os_semaphore_new (const char* name, const os_semaphore_attr_t* attr)
+micro_os_plus_semaphore_t*
+micro_os_plus_semaphore_new (const char* name,
+                             const micro_os_plus_semaphore_attr_t* attr)
 {
   if (attr == nullptr)
     {
-      attr = (const os_semaphore_attr_t*)&semaphore::initializer_binary;
+      attr = (const micro_os_plus_semaphore_attr_t*)&semaphore::
+          initializer_binary;
     }
-  return reinterpret_cast<os_semaphore_t*> (
+  return reinterpret_cast<micro_os_plus_semaphore_t*> (
       new rtos::semaphore{ name, (const semaphore::attributes&)*attr });
 }
 
@@ -2439,18 +2549,18 @@ os_semaphore_new (const char* name, const os_semaphore_attr_t* attr)
  * system allocator and construct it.
  *
  * @note Equivalent of C++ `new semaphore_binary(...)`.
- * @note Must be paired with `os_semaphore_delete()`.
+ * @note Must be paired with `micro_os_plus_semaphore_delete()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::semaphore_binary
  */
-os_semaphore_t*
-os_semaphore_binary_new (const char* name,
-                         const os_semaphore_count_t initial_value)
+micro_os_plus_semaphore_t*
+micro_os_plus_semaphore_binary_new (
+    const char* name, const micro_os_plus_semaphore_count_t initial_value)
 {
-  return reinterpret_cast<os_semaphore_t*> (
+  return reinterpret_cast<micro_os_plus_semaphore_t*> (
       new rtos::semaphore_binary{ name, initial_value });
 }
 
@@ -2461,19 +2571,19 @@ os_semaphore_binary_new (const char* name,
  * system allocator and construct it.
  *
  * @note Equivalent of C++ `new semaphore_counting(...)`.
- * @note Must be paired with `os_semaphore_delete()`.
+ * @note Must be paired with `micro_os_plus_semaphore_delete()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::semaphore_counting
  */
-os_semaphore_t*
-os_semaphore_counting_new (const char* name,
-                           const os_semaphore_count_t max_value,
-                           const os_semaphore_count_t initial_value)
+micro_os_plus_semaphore_t*
+micro_os_plus_semaphore_counting_new (
+    const char* name, const micro_os_plus_semaphore_count_t max_value,
+    const micro_os_plus_semaphore_count_t initial_value)
 {
-  return reinterpret_cast<os_semaphore_t*> (
+  return reinterpret_cast<micro_os_plus_semaphore_t*> (
       new rtos::semaphore_counting{ name, max_value, initial_value });
 }
 
@@ -2484,8 +2594,9 @@ os_semaphore_counting_new (const char* name,
  * space using the RTOS system allocator.
  *
  * @note Equivalent of C++ `delete ptr_semaphore`.
- * @note Must be paired with `os_semaphore_new()` or
- * `os_semaphore_binary_new()` or `os_semaphore_counting_new()`.
+ * @note Must be paired with `micro_os_plus_semaphore_new()` or
+ * `micro_os_plus_semaphore_binary_new()` or
+ * `micro_os_plus_semaphore_counting_new()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
@@ -2493,7 +2604,7 @@ os_semaphore_counting_new (const char* name,
  *  @ref micro_os_plus::rtos::semaphore
  */
 void
-os_semaphore_delete (os_semaphore_t* semaphore)
+micro_os_plus_semaphore_delete (micro_os_plus_semaphore_t* semaphore)
 {
   assert (semaphore != nullptr);
   delete reinterpret_cast<rtos::semaphore*> (semaphore);
@@ -2508,7 +2619,7 @@ os_semaphore_delete (os_semaphore_t* semaphore)
  *  @ref micro_os_plus::rtos::semaphore::name()
  */
 const char*
-os_semaphore_get_name (os_semaphore_t* semaphore)
+micro_os_plus_semaphore_get_name (micro_os_plus_semaphore_t* semaphore)
 {
   assert (semaphore != nullptr);
   return (reinterpret_cast<rtos::semaphore&> (*semaphore)).name ();
@@ -2522,11 +2633,12 @@ os_semaphore_get_name (os_semaphore_t* semaphore)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::semaphore::post()
  */
-os_result_t
-os_semaphore_post (os_semaphore_t* semaphore)
+micro_os_plus_result_t
+micro_os_plus_semaphore_post (micro_os_plus_semaphore_t* semaphore)
 {
   assert (semaphore != nullptr);
-  return (os_result_t) (reinterpret_cast<rtos::semaphore&> (*semaphore))
+  return (micro_os_plus_result_t) (
+             reinterpret_cast<rtos::semaphore&> (*semaphore))
       .post ();
 }
 
@@ -2538,11 +2650,12 @@ os_semaphore_post (os_semaphore_t* semaphore)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::semaphore::wait()
  */
-os_result_t
-os_semaphore_wait (os_semaphore_t* semaphore)
+micro_os_plus_result_t
+micro_os_plus_semaphore_wait (micro_os_plus_semaphore_t* semaphore)
 {
   assert (semaphore != nullptr);
-  return (os_result_t) (reinterpret_cast<rtos::semaphore&> (*semaphore))
+  return (micro_os_plus_result_t) (
+             reinterpret_cast<rtos::semaphore&> (*semaphore))
       .wait ();
 }
 
@@ -2554,11 +2667,12 @@ os_semaphore_wait (os_semaphore_t* semaphore)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::semaphore::try_wait()
  */
-os_result_t
-os_semaphore_try_wait (os_semaphore_t* semaphore)
+micro_os_plus_result_t
+micro_os_plus_semaphore_try_wait (micro_os_plus_semaphore_t* semaphore)
 {
   assert (semaphore != nullptr);
-  return (os_result_t) (reinterpret_cast<rtos::semaphore&> (*semaphore))
+  return (micro_os_plus_result_t) (
+             reinterpret_cast<rtos::semaphore&> (*semaphore))
       .try_wait ();
 }
 
@@ -2570,12 +2684,13 @@ os_semaphore_try_wait (os_semaphore_t* semaphore)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::semaphore::timed_wait()
  */
-os_result_t
-os_semaphore_timed_wait (os_semaphore_t* semaphore,
-                         os_clock_duration_t timeout)
+micro_os_plus_result_t
+micro_os_plus_semaphore_timed_wait (micro_os_plus_semaphore_t* semaphore,
+                                    micro_os_plus_clock_duration_t timeout)
 {
   assert (semaphore != nullptr);
-  return (os_result_t) (reinterpret_cast<rtos::semaphore&> (*semaphore))
+  return (micro_os_plus_result_t) (
+             reinterpret_cast<rtos::semaphore&> (*semaphore))
       .timed_wait (timeout);
 }
 
@@ -2587,11 +2702,11 @@ os_semaphore_timed_wait (os_semaphore_t* semaphore,
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::semaphore::value()
  */
-os_semaphore_count_t
-os_semaphore_get_value (os_semaphore_t* semaphore)
+micro_os_plus_semaphore_count_t
+micro_os_plus_semaphore_get_value (micro_os_plus_semaphore_t* semaphore)
 {
   assert (semaphore != nullptr);
-  return (os_semaphore_count_t) (
+  return (micro_os_plus_semaphore_count_t) (
              reinterpret_cast<rtos::semaphore&> (*semaphore))
       .value ();
 }
@@ -2604,11 +2719,12 @@ os_semaphore_get_value (os_semaphore_t* semaphore)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::semaphore::reset()
  */
-os_result_t
-os_semaphore_reset (os_semaphore_t* semaphore)
+micro_os_plus_result_t
+micro_os_plus_semaphore_reset (micro_os_plus_semaphore_t* semaphore)
 {
   assert (semaphore != nullptr);
-  return (os_result_t) (reinterpret_cast<rtos::semaphore&> (*semaphore))
+  return (micro_os_plus_result_t) (
+             reinterpret_cast<rtos::semaphore&> (*semaphore))
       .reset ();
 }
 
@@ -2620,11 +2736,12 @@ os_semaphore_reset (os_semaphore_t* semaphore)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::semaphore::initial_value()
  */
-os_semaphore_count_t
-os_semaphore_get_initial_value (os_semaphore_t* semaphore)
+micro_os_plus_semaphore_count_t
+micro_os_plus_semaphore_get_initial_value (
+    micro_os_plus_semaphore_t* semaphore)
 {
   assert (semaphore != nullptr);
-  return (os_semaphore_count_t) (
+  return (micro_os_plus_semaphore_count_t) (
              reinterpret_cast<rtos::semaphore&> (*semaphore))
       .initial_value ();
 }
@@ -2637,11 +2754,11 @@ os_semaphore_get_initial_value (os_semaphore_t* semaphore)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::semaphore::max_value()
  */
-os_semaphore_count_t
-os_semaphore_get_max_value (os_semaphore_t* semaphore)
+micro_os_plus_semaphore_count_t
+micro_os_plus_semaphore_get_max_value (micro_os_plus_semaphore_t* semaphore)
 {
   assert (semaphore != nullptr);
-  return (os_semaphore_count_t) (
+  return (micro_os_plus_semaphore_count_t) (
              reinterpret_cast<rtos::semaphore&> (*semaphore))
       .max_value ();
 }
@@ -2657,7 +2774,7 @@ os_semaphore_get_max_value (os_semaphore_t* semaphore)
  *  @ref micro_os_plus::rtos::memory_pool::attributes
  */
 void
-os_mempool_attr_init (os_mempool_attr_t* attr)
+micro_os_plus_mempool_attr_init (micro_os_plus_mempool_attr_t* attr)
 {
   assert (attr != nullptr);
   new (attr) memory_pool::attributes ();
@@ -2666,7 +2783,7 @@ os_mempool_attr_init (os_mempool_attr_t* attr)
 /**
  * @details
  *
- * @note Must be paired with `os_mempool_destruct()`.
+ * @note Must be paired with `micro_os_plus_mempool_destruct()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
@@ -2674,13 +2791,15 @@ os_mempool_attr_init (os_mempool_attr_t* attr)
  *  @ref micro_os_plus::rtos::memory_pool
  */
 void
-os_mempool_construct (os_mempool_t* mempool, const char* name, size_t blocks,
-                      size_t block_size_bytes, const os_mempool_attr_t* attr)
+micro_os_plus_mempool_construct (micro_os_plus_mempool_t* mempool,
+                                 const char* name, size_t blocks,
+                                 size_t block_size_bytes,
+                                 const micro_os_plus_mempool_attr_t* attr)
 {
   assert (mempool != nullptr);
   if (attr == nullptr)
     {
-      attr = (const os_mempool_attr_t*)&memory_pool::initializer;
+      attr = (const micro_os_plus_mempool_attr_t*)&memory_pool::initializer;
     }
   new (mempool) memory_pool (name, blocks, block_size_bytes,
                              (const memory_pool::attributes&)*attr);
@@ -2689,7 +2808,7 @@ os_mempool_construct (os_mempool_t* mempool, const char* name, size_t blocks,
 /**
  * @details
  *
- * @note Must be paired with `os_mempool_construct()`.
+ * @note Must be paired with `micro_os_plus_mempool_construct()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
@@ -2697,7 +2816,7 @@ os_mempool_construct (os_mempool_t* mempool, const char* name, size_t blocks,
  *  @ref micro_os_plus::rtos::memory_pool
  */
 void
-os_mempool_destruct (os_mempool_t* mempool)
+micro_os_plus_mempool_destruct (micro_os_plus_mempool_t* mempool)
 {
   assert (mempool != nullptr);
   (reinterpret_cast<memory_pool&> (*mempool)).~memory_pool ();
@@ -2710,22 +2829,23 @@ os_mempool_destruct (os_mempool_t* mempool)
  * system allocator and construct it.
  *
  * @note Equivalent of C++ `new memory_pool(...)`.
- * @note Must be paired with `os_mempool_delete()`.
+ * @note Must be paired with `micro_os_plus_mempool_delete()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::memory_pool
  */
-os_mempool_t*
-os_mempool_new (const char* name, size_t blocks, size_t block_size_bytes,
-                const os_mempool_attr_t* attr)
+micro_os_plus_mempool_t*
+micro_os_plus_mempool_new (const char* name, size_t blocks,
+                           size_t block_size_bytes,
+                           const micro_os_plus_mempool_attr_t* attr)
 {
   if (attr == nullptr)
     {
-      attr = (const os_mempool_attr_t*)&memory_pool::initializer;
+      attr = (const micro_os_plus_mempool_attr_t*)&memory_pool::initializer;
     }
-  return reinterpret_cast<os_mempool_t*> (new memory_pool (
+  return reinterpret_cast<micro_os_plus_mempool_t*> (new memory_pool (
       name, blocks, block_size_bytes, (const memory_pool::attributes&)*attr));
 }
 
@@ -2736,7 +2856,7 @@ os_mempool_new (const char* name, size_t blocks, size_t block_size_bytes,
  * space using the RTOS system allocator.
  *
  * @note Equivalent of C++ `delete ptr_mempool`.
- * @note Must be paired with `os_mempool_new()`.
+ * @note Must be paired with `micro_os_plus_mempool_new()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
@@ -2744,7 +2864,7 @@ os_mempool_new (const char* name, size_t blocks, size_t block_size_bytes,
  *  @ref micro_os_plus::rtos::memory_pool
  */
 void
-os_mempool_delete (os_mempool_t* mempool)
+micro_os_plus_mempool_delete (micro_os_plus_mempool_t* mempool)
 {
   assert (mempool != nullptr);
   delete reinterpret_cast<memory_pool*> (mempool);
@@ -2759,7 +2879,7 @@ os_mempool_delete (os_mempool_t* mempool)
  *  @ref micro_os_plus::rtos::memory_pool::name()
  */
 const char*
-os_mempool_get_name (os_mempool_t* mempool)
+micro_os_plus_mempool_get_name (micro_os_plus_mempool_t* mempool)
 {
   assert (mempool != nullptr);
   return (reinterpret_cast<memory_pool&> (*mempool)).name ();
@@ -2774,7 +2894,7 @@ os_mempool_get_name (os_mempool_t* mempool)
  *  @ref micro_os_plus::rtos::memory_pool::alloc()
  */
 void*
-os_mempool_alloc (os_mempool_t* mempool)
+micro_os_plus_mempool_alloc (micro_os_plus_mempool_t* mempool)
 {
   assert (mempool != nullptr);
   return (reinterpret_cast<memory_pool&> (*mempool)).alloc ();
@@ -2789,7 +2909,7 @@ os_mempool_alloc (os_mempool_t* mempool)
  *  @ref micro_os_plus::rtos::memory_pool::try_alloc()
  */
 void*
-os_mempool_try_alloc (os_mempool_t* mempool)
+micro_os_plus_mempool_try_alloc (micro_os_plus_mempool_t* mempool)
 {
   assert (mempool != nullptr);
   return (reinterpret_cast<memory_pool&> (*mempool)).try_alloc ();
@@ -2804,7 +2924,8 @@ os_mempool_try_alloc (os_mempool_t* mempool)
  *  @ref micro_os_plus::rtos::memory_pool::timed_alloc()
  */
 void*
-os_mempool_timed_alloc (os_mempool_t* mempool, os_clock_duration_t timeout)
+micro_os_plus_mempool_timed_alloc (micro_os_plus_mempool_t* mempool,
+                                   micro_os_plus_clock_duration_t timeout)
 {
   assert (mempool != nullptr);
   return (reinterpret_cast<memory_pool&> (*mempool)).timed_alloc (timeout);
@@ -2818,11 +2939,11 @@ os_mempool_timed_alloc (os_mempool_t* mempool, os_clock_duration_t timeout)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::memory_pool::free()
  */
-os_result_t
-os_mempool_free (os_mempool_t* mempool, void* block)
+micro_os_plus_result_t
+micro_os_plus_mempool_free (micro_os_plus_mempool_t* mempool, void* block)
 {
   assert (mempool != nullptr);
-  return (os_result_t) (reinterpret_cast<memory_pool&> (*mempool))
+  return (micro_os_plus_result_t) (reinterpret_cast<memory_pool&> (*mempool))
       .free (block);
 }
 
@@ -2835,7 +2956,7 @@ os_mempool_free (os_mempool_t* mempool, void* block)
  *  @ref micro_os_plus::rtos::memory_pool::capacity()
  */
 size_t
-os_mempool_get_capacity (os_mempool_t* mempool)
+micro_os_plus_mempool_get_capacity (micro_os_plus_mempool_t* mempool)
 {
   assert (mempool != nullptr);
   return (reinterpret_cast<memory_pool&> (*mempool)).capacity ();
@@ -2850,7 +2971,7 @@ os_mempool_get_capacity (os_mempool_t* mempool)
  *  @ref micro_os_plus::rtos::memory_pool::count()
  */
 size_t
-os_mempool_get_count (os_mempool_t* mempool)
+micro_os_plus_mempool_get_count (micro_os_plus_mempool_t* mempool)
 {
   assert (mempool != nullptr);
   return (reinterpret_cast<memory_pool&> (*mempool)).count ();
@@ -2865,7 +2986,7 @@ os_mempool_get_count (os_mempool_t* mempool)
  *  @ref micro_os_plus::rtos::memory_pool::block_size()
  */
 size_t
-os_mempool_get_block_size (os_mempool_t* mempool)
+micro_os_plus_mempool_get_block_size (micro_os_plus_mempool_t* mempool)
 {
   assert (mempool != nullptr);
   return (reinterpret_cast<memory_pool&> (*mempool)).block_size ();
@@ -2880,7 +3001,7 @@ os_mempool_get_block_size (os_mempool_t* mempool)
  *  @ref micro_os_plus::rtos::memory_pool::empty()
  */
 bool
-os_mempool_is_empty (os_mempool_t* mempool)
+micro_os_plus_mempool_is_empty (micro_os_plus_mempool_t* mempool)
 {
   assert (mempool != nullptr);
   return (reinterpret_cast<memory_pool&> (*mempool)).empty ();
@@ -2895,7 +3016,7 @@ os_mempool_is_empty (os_mempool_t* mempool)
  *  @ref micro_os_plus::rtos::memory_pool::full()
  */
 bool
-os_mempool_is_full (os_mempool_t* mempool)
+micro_os_plus_mempool_is_full (micro_os_plus_mempool_t* mempool)
 {
   assert (mempool != nullptr);
   return (reinterpret_cast<memory_pool&> (*mempool)).full ();
@@ -2909,11 +3030,12 @@ os_mempool_is_full (os_mempool_t* mempool)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::memory_pool::reset()
  */
-os_result_t
-os_mempool_reset (os_mempool_t* mempool)
+micro_os_plus_result_t
+micro_os_plus_mempool_reset (micro_os_plus_mempool_t* mempool)
 {
   assert (mempool != nullptr);
-  return (os_result_t) (reinterpret_cast<memory_pool&> (*mempool)).reset ();
+  return (micro_os_plus_result_t) (reinterpret_cast<memory_pool&> (*mempool))
+      .reset ();
 }
 
 /**
@@ -2925,7 +3047,7 @@ os_mempool_reset (os_mempool_t* mempool)
  *  @ref micro_os_plus::rtos::memory_pool::pool()
  */
 void*
-os_mempool_get_pool (os_mempool_t* mempool)
+micro_os_plus_mempool_get_pool (micro_os_plus_mempool_t* mempool)
 {
   assert (mempool != nullptr);
   return (void*)(reinterpret_cast<memory_pool&> (*mempool)).pool ();
@@ -2942,7 +3064,7 @@ os_mempool_get_pool (os_mempool_t* mempool)
  *  @ref micro_os_plus::rtos::message_queue::attributes
  */
 void
-os_mqueue_attr_init (os_mqueue_attr_t* attr)
+micro_os_plus_mqueue_attr_init (micro_os_plus_mqueue_attr_t* attr)
 {
   assert (attr != nullptr);
   new (attr) message_queue::attributes ();
@@ -2951,7 +3073,7 @@ os_mqueue_attr_init (os_mqueue_attr_t* attr)
 /**
  * @details
  *
- * @note Must be paired with `os_mqueue_destruct()`.
+ * @note Must be paired with `micro_os_plus_mqueue_destruct()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
@@ -2959,13 +3081,15 @@ os_mqueue_attr_init (os_mqueue_attr_t* attr)
  *  @ref micro_os_plus::rtos::message_queue
  */
 void
-os_mqueue_construct (os_mqueue_t* mqueue, const char* name, size_t msgs,
-                     size_t msg_size_bytes, const os_mqueue_attr_t* attr)
+micro_os_plus_mqueue_construct (micro_os_plus_mqueue_t* mqueue,
+                                const char* name, size_t msgs,
+                                size_t msg_size_bytes,
+                                const micro_os_plus_mqueue_attr_t* attr)
 {
   assert (mqueue != nullptr);
   if (attr == nullptr)
     {
-      attr = (const os_mqueue_attr_t*)&message_queue::initializer;
+      attr = (const micro_os_plus_mqueue_attr_t*)&message_queue::initializer;
     }
   new (mqueue) message_queue (name, msgs, msg_size_bytes,
                               (const message_queue::attributes&)*attr);
@@ -2974,7 +3098,7 @@ os_mqueue_construct (os_mqueue_t* mqueue, const char* name, size_t msgs,
 /**
  * @details
  *
- * @note Must be paired with `os_mqueue_construct()`.
+ * @note Must be paired with `micro_os_plus_mqueue_construct()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
@@ -2982,7 +3106,7 @@ os_mqueue_construct (os_mqueue_t* mqueue, const char* name, size_t msgs,
  *  @ref micro_os_plus::rtos::message_queue
  */
 void
-os_mqueue_destruct (os_mqueue_t* mqueue)
+micro_os_plus_mqueue_destruct (micro_os_plus_mqueue_t* mqueue)
 {
   assert (mqueue != nullptr);
   (reinterpret_cast<message_queue&> (*mqueue)).~message_queue ();
@@ -2995,22 +3119,22 @@ os_mqueue_destruct (os_mqueue_t* mqueue)
  * system allocator and construct it.
  *
  * @note Equivalent of C++ `new message_queue(...)`.
- * @note Must be paired with `os_mqueue_delete()`.
+ * @note Must be paired with `micro_os_plus_mqueue_delete()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::message_queue
  */
-os_mqueue_t*
-os_mqueue_new (const char* name, size_t msgs, size_t msg_size_bytes,
-               const os_mqueue_attr_t* attr)
+micro_os_plus_mqueue_t*
+micro_os_plus_mqueue_new (const char* name, size_t msgs, size_t msg_size_bytes,
+                          const micro_os_plus_mqueue_attr_t* attr)
 {
   if (attr == nullptr)
     {
-      attr = (const os_mqueue_attr_t*)&message_queue::initializer;
+      attr = (const micro_os_plus_mqueue_attr_t*)&message_queue::initializer;
     }
-  return reinterpret_cast<os_mqueue_t*> (new message_queue (
+  return reinterpret_cast<micro_os_plus_mqueue_t*> (new message_queue (
       name, msgs, msg_size_bytes, (const message_queue::attributes&)*attr));
 }
 
@@ -3021,7 +3145,7 @@ os_mqueue_new (const char* name, size_t msgs, size_t msg_size_bytes,
  * space using the RTOS system allocator.
  *
  * @note Equivalent of C++ `delete ptr_mqueue`.
- * @note Must be paired with `os_mqueue_new()`.
+ * @note Must be paired with `micro_os_plus_mqueue_new()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
@@ -3029,7 +3153,7 @@ os_mqueue_new (const char* name, size_t msgs, size_t msg_size_bytes,
  *  @ref micro_os_plus::rtos::message_queue
  */
 void
-os_mqueue_delete (os_mqueue_t* mqueue)
+micro_os_plus_mqueue_delete (micro_os_plus_mqueue_t* mqueue)
 {
   assert (mqueue != nullptr);
   delete reinterpret_cast<message_queue*> (mqueue);
@@ -3044,7 +3168,7 @@ os_mqueue_delete (os_mqueue_t* mqueue)
  *  @ref micro_os_plus::rtos::message_queue::name()
  */
 const char*
-os_mqueue_get_name (os_mqueue_t* mqueue)
+micro_os_plus_mqueue_get_name (micro_os_plus_mqueue_t* mqueue)
 {
   assert (mqueue != nullptr);
   return (reinterpret_cast<message_queue&> (*mqueue)).name ();
@@ -3058,12 +3182,12 @@ os_mqueue_get_name (os_mqueue_t* mqueue)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::message_queue::send()
  */
-os_result_t
-os_mqueue_send (os_mqueue_t* mqueue, const void* msg, size_t nbytes,
-                os_mqueue_prio_t mprio)
+micro_os_plus_result_t
+micro_os_plus_mqueue_send (micro_os_plus_mqueue_t* mqueue, const void* msg,
+                           size_t nbytes, micro_os_plus_mqueue_prio_t mprio)
 {
   assert (mqueue != nullptr);
-  return (os_result_t) (reinterpret_cast<message_queue&> (*mqueue))
+  return (micro_os_plus_result_t) (reinterpret_cast<message_queue&> (*mqueue))
       .send (msg, nbytes, mprio);
 }
 
@@ -3075,12 +3199,13 @@ os_mqueue_send (os_mqueue_t* mqueue, const void* msg, size_t nbytes,
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::message_queue::try_send()
  */
-os_result_t
-os_mqueue_try_send (os_mqueue_t* mqueue, const void* msg, size_t nbytes,
-                    os_mqueue_prio_t mprio)
+micro_os_plus_result_t
+micro_os_plus_mqueue_try_send (micro_os_plus_mqueue_t* mqueue, const void* msg,
+                               size_t nbytes,
+                               micro_os_plus_mqueue_prio_t mprio)
 {
   assert (mqueue != nullptr);
-  return (os_result_t) (reinterpret_cast<message_queue&> (*mqueue))
+  return (micro_os_plus_result_t) (reinterpret_cast<message_queue&> (*mqueue))
       .try_send (msg, nbytes, mprio);
 }
 
@@ -3092,12 +3217,14 @@ os_mqueue_try_send (os_mqueue_t* mqueue, const void* msg, size_t nbytes,
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::message_queue::timed_send()
  */
-os_result_t
-os_mqueue_timed_send (os_mqueue_t* mqueue, const void* msg, size_t nbytes,
-                      os_clock_duration_t timeout, os_mqueue_prio_t mprio)
+micro_os_plus_result_t
+micro_os_plus_mqueue_timed_send (micro_os_plus_mqueue_t* mqueue,
+                                 const void* msg, size_t nbytes,
+                                 micro_os_plus_clock_duration_t timeout,
+                                 micro_os_plus_mqueue_prio_t mprio)
 {
   assert (mqueue != nullptr);
-  return (os_result_t) (reinterpret_cast<message_queue&> (*mqueue))
+  return (micro_os_plus_result_t) (reinterpret_cast<message_queue&> (*mqueue))
       .timed_send (msg, nbytes, timeout, mprio);
 }
 
@@ -3109,12 +3236,13 @@ os_mqueue_timed_send (os_mqueue_t* mqueue, const void* msg, size_t nbytes,
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::message_queue::receive()
  */
-os_result_t
-os_mqueue_receive (os_mqueue_t* mqueue, void* msg, size_t nbytes,
-                   os_mqueue_prio_t* mprio)
+micro_os_plus_result_t
+micro_os_plus_mqueue_receive (micro_os_plus_mqueue_t* mqueue, void* msg,
+                              size_t nbytes,
+                              micro_os_plus_mqueue_prio_t* mprio)
 {
   assert (mqueue != nullptr);
-  return (os_result_t) (reinterpret_cast<message_queue&> (*mqueue))
+  return (micro_os_plus_result_t) (reinterpret_cast<message_queue&> (*mqueue))
       .receive (msg, nbytes, mprio);
 }
 
@@ -3126,12 +3254,13 @@ os_mqueue_receive (os_mqueue_t* mqueue, void* msg, size_t nbytes,
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::message_queue::try_receive()
  */
-os_result_t
-os_mqueue_try_receive (os_mqueue_t* mqueue, void* msg, size_t nbytes,
-                       os_mqueue_prio_t* mprio)
+micro_os_plus_result_t
+micro_os_plus_mqueue_try_receive (micro_os_plus_mqueue_t* mqueue, void* msg,
+                                  size_t nbytes,
+                                  micro_os_plus_mqueue_prio_t* mprio)
 {
   assert (mqueue != nullptr);
-  return (os_result_t) (reinterpret_cast<message_queue&> (*mqueue))
+  return (micro_os_plus_result_t) (reinterpret_cast<message_queue&> (*mqueue))
       .try_receive (msg, nbytes, mprio);
 }
 
@@ -3143,12 +3272,14 @@ os_mqueue_try_receive (os_mqueue_t* mqueue, void* msg, size_t nbytes,
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::message_queue::timed_receive()
  */
-os_result_t
-os_mqueue_timed_receive (os_mqueue_t* mqueue, void* msg, size_t nbytes,
-                         os_clock_duration_t timeout, os_mqueue_prio_t* mprio)
+micro_os_plus_result_t
+micro_os_plus_mqueue_timed_receive (micro_os_plus_mqueue_t* mqueue, void* msg,
+                                    size_t nbytes,
+                                    micro_os_plus_clock_duration_t timeout,
+                                    micro_os_plus_mqueue_prio_t* mprio)
 {
   assert (mqueue != nullptr);
-  return (os_result_t) (reinterpret_cast<message_queue&> (*mqueue))
+  return (micro_os_plus_result_t) (reinterpret_cast<message_queue&> (*mqueue))
       .timed_receive (msg, nbytes, timeout, mprio);
 }
 
@@ -3161,7 +3292,7 @@ os_mqueue_timed_receive (os_mqueue_t* mqueue, void* msg, size_t nbytes,
  *  @ref micro_os_plus::rtos::message_queue::length()
  */
 size_t
-os_mqueue_get_length (os_mqueue_t* mqueue)
+micro_os_plus_mqueue_get_length (micro_os_plus_mqueue_t* mqueue)
 {
   assert (mqueue != nullptr);
   return (reinterpret_cast<message_queue&> (*mqueue)).length ();
@@ -3176,7 +3307,7 @@ os_mqueue_get_length (os_mqueue_t* mqueue)
  *  @ref micro_os_plus::rtos::message_queue::capacity()
  */
 size_t
-os_mqueue_get_capacity (os_mqueue_t* mqueue)
+micro_os_plus_mqueue_get_capacity (micro_os_plus_mqueue_t* mqueue)
 {
   assert (mqueue != nullptr);
   return (reinterpret_cast<message_queue&> (*mqueue)).capacity ();
@@ -3191,7 +3322,7 @@ os_mqueue_get_capacity (os_mqueue_t* mqueue)
  *  @ref micro_os_plus::rtos::message_queue::msg_size()
  */
 size_t
-os_mqueue_get_msg_size (os_mqueue_t* mqueue)
+micro_os_plus_mqueue_get_msg_size (micro_os_plus_mqueue_t* mqueue)
 {
   assert (mqueue != nullptr);
   return (reinterpret_cast<message_queue&> (*mqueue)).msg_size ();
@@ -3206,7 +3337,7 @@ os_mqueue_get_msg_size (os_mqueue_t* mqueue)
  *  @ref micro_os_plus::rtos::message_queue::empty()
  */
 bool
-os_mqueue_is_empty (os_mqueue_t* mqueue)
+micro_os_plus_mqueue_is_empty (micro_os_plus_mqueue_t* mqueue)
 {
   assert (mqueue != nullptr);
   return (reinterpret_cast<message_queue&> (*mqueue)).empty ();
@@ -3221,7 +3352,7 @@ os_mqueue_is_empty (os_mqueue_t* mqueue)
  *  @ref micro_os_plus::rtos::message_queue::full()
  */
 bool
-os_mqueue_is_full (os_mqueue_t* mqueue)
+micro_os_plus_mqueue_is_full (micro_os_plus_mqueue_t* mqueue)
 {
   assert (mqueue != nullptr);
   return (reinterpret_cast<message_queue&> (*mqueue)).full ();
@@ -3235,11 +3366,12 @@ os_mqueue_is_full (os_mqueue_t* mqueue)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::message_queue::reset()
  */
-os_result_t
-os_mqueue_reset (os_mqueue_t* mqueue)
+micro_os_plus_result_t
+micro_os_plus_mqueue_reset (micro_os_plus_mqueue_t* mqueue)
 {
   assert (mqueue != nullptr);
-  return (os_result_t) (reinterpret_cast<message_queue&> (*mqueue)).reset ();
+  return (micro_os_plus_result_t) (reinterpret_cast<message_queue&> (*mqueue))
+      .reset ();
 }
 
 // --------------------------------------------------------------------------
@@ -3253,7 +3385,7 @@ os_mqueue_reset (os_mqueue_t* mqueue)
  *  @ref micro_os_plus::rtos::event_flags::attributes
  */
 void
-os_evflags_attr_init (os_evflags_attr_t* attr)
+micro_os_plus_evflags_attr_init (micro_os_plus_evflags_attr_t* attr)
 {
   assert (attr != nullptr);
   new (attr) event_flags::attributes ();
@@ -3262,7 +3394,7 @@ os_evflags_attr_init (os_evflags_attr_t* attr)
 /**
  * @details
  *
- * @note Must be paired with `os_evflags_destruct()`.
+ * @note Must be paired with `micro_os_plus_evflags_destruct()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
@@ -3270,13 +3402,14 @@ os_evflags_attr_init (os_evflags_attr_t* attr)
  *  @ref micro_os_plus::rtos::event_flags
  */
 void
-os_evflags_construct (os_evflags_t* evflags, const char* name,
-                      const os_evflags_attr_t* attr)
+micro_os_plus_evflags_construct (micro_os_plus_evflags_t* evflags,
+                                 const char* name,
+                                 const micro_os_plus_evflags_attr_t* attr)
 {
   assert (evflags != nullptr);
   if (attr == nullptr)
     {
-      attr = (const os_evflags_attr_t*)&event_flags::initializer;
+      attr = (const micro_os_plus_evflags_attr_t*)&event_flags::initializer;
     }
   new (evflags) event_flags (name, (const event_flags::attributes&)*attr);
 }
@@ -3284,7 +3417,7 @@ os_evflags_construct (os_evflags_t* evflags, const char* name,
 /**
  * @details
  *
- * @note Must be paired with `os_evflags_construct()`.
+ * @note Must be paired with `micro_os_plus_evflags_construct()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
@@ -3292,7 +3425,7 @@ os_evflags_construct (os_evflags_t* evflags, const char* name,
  *  @ref micro_os_plus::rtos::event_flags
  */
 void
-os_evflags_destruct (os_evflags_t* evflags)
+micro_os_plus_evflags_destruct (micro_os_plus_evflags_t* evflags)
 {
   assert (evflags != nullptr);
   (reinterpret_cast<event_flags&> (*evflags)).~event_flags ();
@@ -3305,21 +3438,22 @@ os_evflags_destruct (os_evflags_t* evflags)
  * system allocator and construct it.
  *
  * @note Equivalent of C++ `new event_flags(...)`.
- * @note Must be paired with `os_evflags_delete()`.
+ * @note Must be paired with `micro_os_plus_evflags_delete()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::event_flags
  */
-os_evflags_t*
-os_evflags_new (const char* name, const os_evflags_attr_t* attr)
+micro_os_plus_evflags_t*
+micro_os_plus_evflags_new (const char* name,
+                           const micro_os_plus_evflags_attr_t* attr)
 {
   if (attr == nullptr)
     {
-      attr = (const os_evflags_attr_t*)&event_flags::initializer;
+      attr = (const micro_os_plus_evflags_attr_t*)&event_flags::initializer;
     }
-  return reinterpret_cast<os_evflags_t*> (
+  return reinterpret_cast<micro_os_plus_evflags_t*> (
       new event_flags (name, (const event_flags::attributes&)*attr));
 }
 
@@ -3330,7 +3464,7 @@ os_evflags_new (const char* name, const os_evflags_attr_t* attr)
  * space using the RTOS system allocator.
  *
  * @note Equivalent of C++ `delete ptr_evflags`.
- * @note Must be paired with `os_evflags_new()`.
+ * @note Must be paired with `micro_os_plus_evflags_new()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
@@ -3338,7 +3472,7 @@ os_evflags_new (const char* name, const os_evflags_attr_t* attr)
  *  @ref micro_os_plus::rtos::event_flags
  */
 void
-os_evflags_delete (os_evflags_t* evflags)
+micro_os_plus_evflags_delete (micro_os_plus_evflags_t* evflags)
 {
   assert (evflags != nullptr);
   delete reinterpret_cast<event_flags*> (evflags);
@@ -3353,7 +3487,7 @@ os_evflags_delete (os_evflags_t* evflags)
  *  @ref micro_os_plus::rtos::event_flags::name()
  */
 const char*
-os_evflags_get_name (os_evflags_t* evflags)
+micro_os_plus_evflags_get_name (micro_os_plus_evflags_t* evflags)
 {
   assert (evflags != nullptr);
   return (reinterpret_cast<event_flags&> (*evflags)).name ();
@@ -3367,12 +3501,14 @@ os_evflags_get_name (os_evflags_t* evflags)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::event_flags::wait()
  */
-os_result_t
-os_evflags_wait (os_evflags_t* evflags, os_flags_mask_t mask,
-                 os_flags_mask_t* oflags, os_flags_mode_t mode)
+micro_os_plus_result_t
+micro_os_plus_evflags_wait (micro_os_plus_evflags_t* evflags,
+                            micro_os_plus_flags_mask_t mask,
+                            micro_os_plus_flags_mask_t* oflags,
+                            micro_os_plus_flags_mode_t mode)
 {
   assert (evflags != nullptr);
-  return (os_result_t) (reinterpret_cast<event_flags&> (*evflags))
+  return (micro_os_plus_result_t) (reinterpret_cast<event_flags&> (*evflags))
       .wait (mask, oflags, mode);
 }
 
@@ -3384,12 +3520,14 @@ os_evflags_wait (os_evflags_t* evflags, os_flags_mask_t mask,
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::event_flags::try_wait()
  */
-os_result_t
-os_evflags_try_wait (os_evflags_t* evflags, os_flags_mask_t mask,
-                     os_flags_mask_t* oflags, os_flags_mode_t mode)
+micro_os_plus_result_t
+micro_os_plus_evflags_try_wait (micro_os_plus_evflags_t* evflags,
+                                micro_os_plus_flags_mask_t mask,
+                                micro_os_plus_flags_mask_t* oflags,
+                                micro_os_plus_flags_mode_t mode)
 {
   assert (evflags != nullptr);
-  return (os_result_t) (reinterpret_cast<event_flags&> (*evflags))
+  return (micro_os_plus_result_t) (reinterpret_cast<event_flags&> (*evflags))
       .try_wait (mask, oflags, mode);
 }
 
@@ -3401,13 +3539,15 @@ os_evflags_try_wait (os_evflags_t* evflags, os_flags_mask_t mask,
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::event_flags::timed_wait()
  */
-os_result_t
-os_evflags_timed_wait (os_evflags_t* evflags, os_flags_mask_t mask,
-                       os_clock_duration_t timeout, os_flags_mask_t* oflags,
-                       os_flags_mode_t mode)
+micro_os_plus_result_t
+micro_os_plus_evflags_timed_wait (micro_os_plus_evflags_t* evflags,
+                                  micro_os_plus_flags_mask_t mask,
+                                  micro_os_plus_clock_duration_t timeout,
+                                  micro_os_plus_flags_mask_t* oflags,
+                                  micro_os_plus_flags_mode_t mode)
 {
   assert (evflags != nullptr);
-  return (os_result_t) (reinterpret_cast<event_flags&> (*evflags))
+  return (micro_os_plus_result_t) (reinterpret_cast<event_flags&> (*evflags))
       .timed_wait (mask, timeout, oflags, mode);
 }
 
@@ -3419,12 +3559,13 @@ os_evflags_timed_wait (os_evflags_t* evflags, os_flags_mask_t mask,
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::event_flags::raise()
  */
-os_result_t
-os_evflags_raise (os_evflags_t* evflags, os_flags_mask_t mask,
-                  os_flags_mask_t* oflags)
+micro_os_plus_result_t
+micro_os_plus_evflags_raise (micro_os_plus_evflags_t* evflags,
+                             micro_os_plus_flags_mask_t mask,
+                             micro_os_plus_flags_mask_t* oflags)
 {
   assert (evflags != nullptr);
-  return (os_result_t) (reinterpret_cast<event_flags&> (*evflags))
+  return (micro_os_plus_result_t) (reinterpret_cast<event_flags&> (*evflags))
       .raise (mask, oflags);
 }
 
@@ -3436,12 +3577,13 @@ os_evflags_raise (os_evflags_t* evflags, os_flags_mask_t mask,
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::event_flags::clear()
  */
-os_result_t
-os_evflags_clear (os_evflags_t* evflags, os_flags_mask_t mask,
-                  os_flags_mask_t* oflags)
+micro_os_plus_result_t
+micro_os_plus_evflags_clear (micro_os_plus_evflags_t* evflags,
+                             micro_os_plus_flags_mask_t mask,
+                             micro_os_plus_flags_mask_t* oflags)
 {
   assert (evflags != nullptr);
-  return (os_result_t) (reinterpret_cast<event_flags&> (*evflags))
+  return (micro_os_plus_result_t) (reinterpret_cast<event_flags&> (*evflags))
       .clear (mask, oflags);
 }
 
@@ -3453,12 +3595,14 @@ os_evflags_clear (os_evflags_t* evflags, os_flags_mask_t mask,
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::event_flags::get()
  */
-os_flags_mask_t
-os_evflags_get (os_evflags_t* evflags, os_flags_mask_t mask,
-                os_flags_mode_t mode)
+micro_os_plus_flags_mask_t
+micro_os_plus_evflags_get (micro_os_plus_evflags_t* evflags,
+                           micro_os_plus_flags_mask_t mask,
+                           micro_os_plus_flags_mode_t mode)
 {
   assert (evflags != nullptr);
-  return (os_flags_mask_t) (reinterpret_cast<event_flags&> (*evflags))
+  return (micro_os_plus_flags_mask_t) (
+             reinterpret_cast<event_flags&> (*evflags))
       .get (mask, mode);
 }
 
@@ -3471,7 +3615,7 @@ os_evflags_get (os_evflags_t* evflags, os_flags_mask_t mask,
  *  @ref micro_os_plus::rtos::event_flags::raise()
  */
 bool
-os_evflags_are_waiting (os_evflags_t* evflags)
+micro_os_plus_evflags_are_waiting (micro_os_plus_evflags_t* evflags)
 {
   assert (evflags != nullptr);
   return (reinterpret_cast<event_flags&> (*evflags)).waiting ();
@@ -3487,10 +3631,10 @@ os_evflags_are_waiting (os_evflags_t* evflags)
  * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::memory::get_default_resource()
  */
-os_memory_t*
-os_memory_get_default (void)
+micro_os_plus_memory_t*
+micro_os_plus_memory_get_default (void)
 {
-  return reinterpret_cast<os_memory_t*> (
+  return reinterpret_cast<micro_os_plus_memory_t*> (
       rtos::memory::get_default_resource ());
 }
 
@@ -3504,7 +3648,8 @@ os_memory_get_default (void)
  *  @ref micro_os_plus::rtos::memory::memory_resource::allocate()
  */
 void*
-os_memory_allocate (os_memory_t* memory, size_t bytes, size_t alignment)
+micro_os_plus_memory_allocate (micro_os_plus_memory_t* memory, size_t bytes,
+                               size_t alignment)
 {
   assert (memory != nullptr);
   return (reinterpret_cast<rtos::memory::memory_resource&> (*memory))
@@ -3521,8 +3666,8 @@ os_memory_allocate (os_memory_t* memory, size_t bytes, size_t alignment)
  *  @ref micro_os_plus::rtos::memory::memory_resource::deallocate()
  */
 void
-os_memory_deallocate (os_memory_t* memory, void* addr, size_t bytes,
-                      size_t alignment)
+micro_os_plus_memory_deallocate (micro_os_plus_memory_t* memory, void* addr,
+                                 size_t bytes, size_t alignment)
 {
   assert (memory != nullptr);
   (reinterpret_cast<rtos::memory::memory_resource&> (*memory))
@@ -3539,7 +3684,7 @@ os_memory_deallocate (os_memory_t* memory, void* addr, size_t bytes,
  *  @ref micro_os_plus::rtos::memory::memory_resource::reset()
  */
 void
-os_memory_reset (os_memory_t* memory)
+micro_os_plus_memory_reset (micro_os_plus_memory_t* memory)
 {
   assert (memory != nullptr);
   (reinterpret_cast<rtos::memory::memory_resource&> (*memory)).reset ();
@@ -3555,7 +3700,7 @@ os_memory_reset (os_memory_t* memory)
  *  @ref micro_os_plus::rtos::memory::memory_resource::coalesce()
  */
 bool
-os_memory_coalesce (os_memory_t* memory)
+micro_os_plus_memory_coalesce (micro_os_plus_memory_t* memory)
 {
   assert (memory != nullptr);
   return (reinterpret_cast<rtos::memory::memory_resource&> (*memory))
@@ -3572,7 +3717,7 @@ os_memory_coalesce (os_memory_t* memory)
  *  @ref micro_os_plus::rtos::memory::memory_resource::total_bytes()
  */
 size_t
-os_memory_get_total_bytes (os_memory_t* memory)
+micro_os_plus_memory_get_total_bytes (micro_os_plus_memory_t* memory)
 {
   assert (memory != nullptr);
   return (reinterpret_cast<rtos::memory::memory_resource&> (*memory))
@@ -3589,7 +3734,7 @@ os_memory_get_total_bytes (os_memory_t* memory)
  *  @ref micro_os_plus::rtos::memory::memory_resource::allocated_bytes()
  */
 size_t
-os_memory_get_allocated_bytes (os_memory_t* memory)
+micro_os_plus_memory_get_allocated_bytes (micro_os_plus_memory_t* memory)
 {
   assert (memory != nullptr);
   return (reinterpret_cast<rtos::memory::memory_resource&> (*memory))
@@ -3606,7 +3751,7 @@ os_memory_get_allocated_bytes (os_memory_t* memory)
  *  @ref micro_os_plus::rtos::memory::memory_resource::free_bytes()
  */
 size_t
-os_memory_get_free_bytes (os_memory_t* memory)
+micro_os_plus_memory_get_free_bytes (micro_os_plus_memory_t* memory)
 {
   assert (memory != nullptr);
   return (reinterpret_cast<rtos::memory::memory_resource&> (*memory))
@@ -3623,7 +3768,7 @@ os_memory_get_free_bytes (os_memory_t* memory)
  *  @ref micro_os_plus::rtos::memory::memory_resource::allocated_chunks()
  */
 size_t
-os_memory_get_allocated_chunks (os_memory_t* memory)
+micro_os_plus_memory_get_allocated_chunks (micro_os_plus_memory_t* memory)
 {
   assert (memory != nullptr);
   return (reinterpret_cast<rtos::memory::memory_resource&> (*memory))
@@ -3640,7 +3785,7 @@ os_memory_get_allocated_chunks (os_memory_t* memory)
  *  @ref micro_os_plus::rtos::memory::memory_resource::free_chunks()
  */
 size_t
-os_memory_get_free_chunks (os_memory_t* memory)
+micro_os_plus_memory_get_free_chunks (micro_os_plus_memory_t* memory)
 {
   assert (memory != nullptr);
   return (reinterpret_cast<rtos::memory::memory_resource&> (*memory))

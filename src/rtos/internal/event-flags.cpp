@@ -42,7 +42,7 @@ namespace micro_os_plus
       result_t
       event_flags::raise (flags::mask_t mask, flags::mask_t* oflags)
       {
-        os_assert_err (mask != 0, EINVAL);
+        micro_os_plus_assert_err (mask != 0, EINVAL);
 
         assert (port::interrupts::is_priority_valid ());
 
@@ -137,7 +137,7 @@ namespace micro_os_plus
       result_t
       event_flags::clear (flags::mask_t mask, flags::mask_t* oflags)
       {
-        os_assert_err (mask != 0, EINVAL);
+        micro_os_plus_assert_err (mask != 0, EINVAL);
 
         {
           // ----- Enter critical section -------------------------------------

@@ -65,7 +65,7 @@ extern "C"
    *  Nothing.
    */
   void
-  os_startup_create_thread_idle (void);
+  micro_os_plus_startup_create_thread_idle (void);
 
   /**
    * @}
@@ -84,7 +84,7 @@ extern "C"
    * @retval false The hook did not enter a power saving mode.
    */
   bool
-  os_rtos_idle_enter_power_saving_mode_hook (void);
+  micro_os_plus_rtos_idle_enter_power_saving_mode_hook (void);
 
   /**
    * @brief Hook to handle out of memory in the application free store.
@@ -94,7 +94,7 @@ extern "C"
    *  Nothing.
    */
   void
-  os_rtos_application_out_of_memory_hook (void);
+  micro_os_plus_rtos_application_out_of_memory_hook (void);
 
   /**
    * @brief Hook to handle out of memory in the RTOS dynamic memory.
@@ -104,7 +104,7 @@ extern "C"
    *  Nothing.
    */
   void
-  os_rtos_system_out_of_memory_hook (void);
+  micro_os_plus_rtos_system_out_of_memory_hook (void);
 
   /**
    * @}

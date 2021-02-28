@@ -203,7 +203,7 @@ namespace micro_os_plus
       /**
        * @details
        * On bare metal applications, this function is called
-       * from `os_startup_initialize_free_store()`, during the
+       * from `micro_os_plus_startup_initialize_free_store()`, during the
        * system startup, with a memory manager handling the free
        * RAM.
        *
@@ -225,7 +225,7 @@ namespace micro_os_plus
       /**
        * @details
        * On bare metal applications, this function is called
-       * from `os_startup_initialize_free_store()`, during the
+       * from `micro_os_plus_startup_initialize_free_store()`, during the
        * system startup, with a memory manager specific to this object type.
        */
       template <>
@@ -243,7 +243,7 @@ namespace micro_os_plus
       /**
        * @details
        * On bare metal applications, this function is called
-       * from `os_startup_initialize_free_store()`, during the
+       * from `micro_os_plus_startup_initialize_free_store()`, during the
        * system startup, with a memory manager specific to this object type.
        */
       template <>
@@ -261,7 +261,7 @@ namespace micro_os_plus
       /**
        * @details
        * On bare metal applications, this function is called
-       * from `os_startup_initialize_free_store()`, during the
+       * from `micro_os_plus_startup_initialize_free_store()`, during the
        * system startup, with a memory manager specific to this object type.
        */
       template <>
@@ -279,7 +279,7 @@ namespace micro_os_plus
       /**
        * @details
        * On bare metal applications, this function is called
-       * from `os_startup_initialize_free_store()`, during the
+       * from `micro_os_plus_startup_initialize_free_store()`, during the
        * system startup, with a memory manager specific to this object type.
        */
       template <>
@@ -297,7 +297,7 @@ namespace micro_os_plus
       /**
        * @details
        * On bare metal applications, this function is called
-       * from `os_startup_initialize_free_store()`, during the
+       * from `micro_os_plus_startup_initialize_free_store()`, during the
        * system startup, with a memory manager specific to this object type.
        */
       template <>
@@ -315,7 +315,7 @@ namespace micro_os_plus
       /**
        * @details
        * On bare metal applications, this function is called
-       * from `os_startup_initialize_free_store()`, during the
+       * from `micro_os_plus_startup_initialize_free_store()`, during the
        * system startup, with a memory manager specific to this object type.
        */
       template <>
@@ -333,7 +333,7 @@ namespace micro_os_plus
       /**
        * @details
        * On bare metal applications, this function is called
-       * from `os_startup_initialize_free_store()`, during the
+       * from `micro_os_plus_startup_initialize_free_store()`, during the
        * system startup, with a memory manager specific to this object type.
        */
       template <>
@@ -351,7 +351,7 @@ namespace micro_os_plus
       /**
        * @details
        * On bare metal applications, this function is called
-       * from `os_startup_initialize_free_store()`, during the
+       * from `micro_os_plus_startup_initialize_free_store()`, during the
        * system startup, with a memory manager specific to this object type.
        */
       template <>

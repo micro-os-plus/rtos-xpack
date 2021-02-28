@@ -161,7 +161,7 @@ namespace micro_os_plus
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_throw (!interrupts::in_handler_mode (), EPERM);
+      micro_os_plus_assert_throw (!interrupts::in_handler_mode (), EPERM);
 
 #if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_EVENT_FLAGS)
       clock_ = attr.clock != nullptr ? attr.clock : &sysclock;
@@ -240,9 +240,9 @@ namespace micro_os_plus
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_throw (!interrupts::in_handler_mode (), EPERM);
+      micro_os_plus_assert_throw (!interrupts::in_handler_mode (), EPERM);
       // Don't call this from critical regions.
-      os_assert_throw (!scheduler::locked (), EPERM);
+      micro_os_plus_assert_throw (!scheduler::locked (), EPERM);
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_EVENT_FLAGS)
 
@@ -424,9 +424,9 @@ namespace micro_os_plus
 #endif
 
       // Don't call this from interrupt handlers.
-      os_assert_throw (!interrupts::in_handler_mode (), EPERM);
+      micro_os_plus_assert_throw (!interrupts::in_handler_mode (), EPERM);
       // Don't call this from critical regions.
-      os_assert_throw (!scheduler::locked (), EPERM);
+      micro_os_plus_assert_throw (!scheduler::locked (), EPERM);
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_EVENT_FLAGS)
 
@@ -539,7 +539,7 @@ namespace micro_os_plus
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_EVENT_FLAGS)
 
-      os_assert_err (mask != 0, EINVAL);
+      micro_os_plus_assert_err (mask != 0, EINVAL);
 
       return port::event_flags::raise (this, mask, oflags);
 
@@ -576,7 +576,7 @@ namespace micro_os_plus
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_EVENT_FLAGS)
 
-      os_assert_err (mask != 0, EINVAL);
+      micro_os_plus_assert_err (mask != 0, EINVAL);
 
       return port::event_flags::clear (this, mask, oflags);
 

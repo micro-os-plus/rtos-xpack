@@ -479,7 +479,7 @@ namespace micro_os_plus
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MEMORY_POOL)
       friend class port::memory_pool;
-      os_mempool_port_data_t port_;
+      micro_os_plus_mempool_port_data_t port_;
 #endif
 
       /**

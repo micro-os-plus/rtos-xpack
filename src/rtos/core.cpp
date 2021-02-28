@@ -169,7 +169,7 @@ namespace micro_os_plus
 #endif
 
         // Don't call this from interrupt handlers.
-        os_assert_err (!interrupts::in_handler_mode (), EPERM);
+        micro_os_plus_assert_err (!interrupts::in_handler_mode (), EPERM);
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_SCHEDULER)
 
@@ -196,7 +196,7 @@ namespace micro_os_plus
         trace::printf ("scheduler::%s() \n", __func__);
 
         // Don't call this from interrupt handlers.
-        os_assert_throw (!interrupts::in_handler_mode (), EPERM);
+        micro_os_plus_assert_throw (!interrupts::in_handler_mode (), EPERM);
 
         sysclock.start ();
         hrclock.start ();
@@ -237,7 +237,7 @@ namespace micro_os_plus
         trace::printf ("scheduler::%s(%d) \n", __func__, state);
 #endif
         // Don't call this from interrupt handlers.
-        os_assert_throw (!interrupts::in_handler_mode (), EPERM);
+        micro_os_plus_assert_throw (!interrupts::in_handler_mode (), EPERM);
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_SCHEDULER)
 
