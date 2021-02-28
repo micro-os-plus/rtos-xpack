@@ -406,13 +406,13 @@ namespace micro_os_plus
        * @param [in] blocks The maximum number of items in the pool.
        * @param [in] block_size_bytes The size of an item, in bytes.
        * @param [in] attr Reference to attributes.
-       * @param [in] pool_arena_address Pointer to queue storage.
-       * @param [in] pool_arena_size_bytes Size of queue storage.
+       * @param [in] arena_address Pointer to queue storage.
+       * @param [in] arena_size_bytes Size of queue storage.
        */
       void
       internal_construct_ (std::size_t blocks, std::size_t block_size_bytes,
-                           const attributes& attr, void* pool_arena_address,
-                           std::size_t pool_arena_size_bytes);
+                           const attributes& attr, void* arena_address,
+                           std::size_t arena_size_bytes);
 
       /**
        * @brief Internal initialisation.

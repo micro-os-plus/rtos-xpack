@@ -306,8 +306,8 @@ namespace micro_os_plus
     memory_pool::internal_construct_ (std::size_t blocks,
                                       std::size_t block_size_bytes,
                                       const attributes& attr,
-                                      void* pool_arena_address,
-                                      std::size_t pool_arena_size_bytes)
+                                      void* arena_address,
+                                      std::size_t arena_size_bytes)
     {
       // Don't call this from interrupt handlers.
       micro_os_plus_assert_throw (!interrupts::in_handler_mode (), EPERM);
@@ -329,13 +329,13 @@ namespace micro_os_plus
             & (static_cast<memory_pool::size_t> (~(__SIZEOF_POINTER__ - 1)));
 
       // If the storage is given explicitly, override attributes.
-      if (pool_arena_address != nullptr)
+      if (arena_address != nullptr)
         {
           // The attributes should not define any storage in this case.
           assert (attr.arena_address == nullptr);
 
-          pool_arena_address_ = pool_arena_address;
-          pool_arena_size_bytes_ = pool_arena_size_bytes;
+          pool_arena_address_ = arena_address;
+          pool_arena_size_bytes_ = arena_size_bytes;
         }
       else
         {

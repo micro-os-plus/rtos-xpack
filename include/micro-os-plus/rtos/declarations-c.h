@@ -1241,13 +1241,13 @@ extern "C"
     micro_os_plus_internal_threads_waiting_list_t list;
     void* clock;
 #endif
-    void* pool_arena_address;
+    void* arena_address;
     void* allocated_pool_arena_address;
     void* allocator;
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MEMORY_POOL)
     micro_os_plus_memory_pool_port_data_t port;
 #endif
-    size_t pool_arena_size_bytes;
+    size_t arena_size_bytes;
     size_t allocated_pool_size_elements_;
     micro_os_plus_memory_pool_size_t blocks;
     micro_os_plus_memory_pool_size_t block_size_bytes;
