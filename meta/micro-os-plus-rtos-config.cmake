@@ -18,7 +18,7 @@ endif()
 
 set(micro-os-plus-rtos-included TRUE)
 
-message(STATUS "Including micro-os-plus-rtos...")
+message(STATUS "Processing xPack ${PACKAGE_JSON_NAME}@${PACKAGE_JSON_VERSION}...")
 
 # -----------------------------------------------------------------------------
 # Dependencies.
