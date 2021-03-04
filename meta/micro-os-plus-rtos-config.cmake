@@ -63,7 +63,7 @@ if(NOT TARGET micro-os-plus-rtos-interface)
     micro-os-plus-rtos-interface
 
     INTERFACE
-      micro-os-plus::utils-lists-static
+      micro-os-plus::utils-lists
       micro-os-plus::memory-allocators
       micro-os-plus::libs-cpp
       # micro-os-plus::libs-cpp-estd
