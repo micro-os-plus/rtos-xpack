@@ -75,7 +75,7 @@ if(NOT TARGET micro-os-plus-rtos-interface)
   # Aliases.
 
   add_library(micro-os-plus::rtos ALIAS micro-os-plus-rtos-interface)
-  message(STATUS "micro-os-plus::rtos")
+  message(STATUS "=> micro-os-plus::rtos")
 
 endif()
 
