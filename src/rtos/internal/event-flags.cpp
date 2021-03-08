@@ -31,6 +31,12 @@
 
 // ----------------------------------------------------------------------------
 
+#pragma GCC diagnostic push
+
+#if defined(__clang__)
+#pragma clang diagnostic ignored "-Wc++98-compat"
+#endif
+
 namespace micro_os_plus
 {
   namespace rtos
@@ -55,7 +61,7 @@ namespace micro_os_plus
               *oflags = flags_mask_;
             }
 
-          flags_mask_ |= mask;
+          flags_mask_ = flags_mask_ | mask; // Volatile set bits.
 
           // ----- Exit critical section --------------------------------------
         }
@@ -97,7 +103,7 @@ namespace micro_os_plus
             if (mode & flags::mode::clear)
               {
                 // Clear desired flags.
-                flags_mask_ &= ~mask;
+                flags_mask_ = flags_mask_ & ~mask; // Volatile clear bits.
               }
             return true;
           }
@@ -124,7 +130,7 @@ namespace micro_os_plus
               if ((mode & flags::mode::clear) != 0)
                 {
                   // Clear the selected bits; leave the rest untouched.
-                  flags_mask_ &= ~mask;
+                  flags_mask_ = flags_mask_ & ~mask; // Volatile clear bits.
                 }
             }
           // ----- Exit critical section --------------------------------------
@@ -149,7 +155,7 @@ namespace micro_os_plus
             }
 
           // Clear the selected bits; leave the rest untouched.
-          flags_mask_ &= ~mask;
+          flags_mask_ = flags_mask_ & ~mask; // Volatile clear bits.
 
           // ----- Exit critical section --------------------------------------
         }
@@ -162,5 +168,7 @@ namespace micro_os_plus
     } // namespace internal
   } // namespace rtos
 } // namespace micro_os_plus
+
+#pragma GCC diagnostic pop
 
 // ----------------------------------------------------------------------------

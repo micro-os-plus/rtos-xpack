@@ -25,6 +25,11 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#ifndef MICRO_OS_PLUS_RTOS_DECLARATIONS_C_H_
+#define MICRO_OS_PLUS_RTOS_DECLARATIONS_C_H_
+
+// ----------------------------------------------------------------------------
+
 /*
  * The structures declared in this file are used both in the µOS++ C API
  * and in the CMSIS RTOS API.
@@ -33,11 +38,6 @@
  * definitions, they must be manually adjusted to match them, otherwise
  * the validation checks in os-c-wrapper.cpp will fail.
  */
-
-#ifndef MICRO_OS_PLUS_RTOS_DECLARATIONS_C_H_
-#define MICRO_OS_PLUS_RTOS_DECLARATIONS_C_H_
-
-// ----------------------------------------------------------------------------
 
 #include <micro-os-plus/version.h>
 #include <micro-os-plus/rtos/defines.h>
@@ -143,7 +143,7 @@ extern "C"
   {
     micro_os_plus_flags_mode_all = 1, //
     micro_os_plus_flags_mode_any = 2, //
-    micro_os_plus_flags_mode_clear = 4, //
+    micro_os_plus_flags_mode_clear = 4 //
   };
 
   /**
@@ -854,8 +854,7 @@ extern "C"
     /**
      * @brief Default mutex protocol.
      */
-    micro_os_plus_mutex_protocol_default
-    = micro_os_plus_mutex_protocol_inherit,
+    micro_os_plus_mutex_protocol_default = micro_os_plus_mutex_protocol_inherit
   };
 
   /**
@@ -879,7 +878,7 @@ extern "C"
      * @brief Default mutex robustness.
      */
     micro_os_plus_mutex_robustness_default
-    = micro_os_plus_mutex_robustness_stalled,
+    = micro_os_plus_mutex_robustness_stalled
   };
 
   /**
@@ -907,7 +906,7 @@ extern "C"
     /**
      * @brief Default mutex type.
      */
-    micro_os_plus_mutex_type_default = micro_os_plus_mutex_type_normal,
+    micro_os_plus_mutex_type_default = micro_os_plus_mutex_type_normal
   };
 
 #pragma GCC diagnostic push
@@ -1517,7 +1516,9 @@ typedef uint8_t micro_os_plus_message_queue_size_t;
 
   typedef struct micro_os_plus_memory_s
   {
-    char dummy; // Content is not relevant.
+    // Content is not relevant, but must provide an alignment
+    // compatible to C++ objects.
+    void* dummy;
   } micro_os_plus_memory_t;
 
 /**

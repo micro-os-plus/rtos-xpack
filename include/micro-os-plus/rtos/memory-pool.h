@@ -32,12 +32,24 @@
 
 #if defined(__cplusplus)
 
+// ----------------------------------------------------------------------------
+
 #include <micro-os-plus/rtos/declarations.h>
 #include <micro-os-plus/rtos/memory.h>
 
 #include <micro-os-plus/diag/trace.h>
 
 // ----------------------------------------------------------------------------
+
+#pragma GCC diagnostic push
+
+#if defined(__clang__)
+#pragma clang diagnostic ignored "-Wc++98-compat"
+#endif
+#if defined(__GNUC__) && !defined(__clang__)
+#pragma GCC diagnostic ignored "-Wsuggest-final-methods"
+#pragma GCC diagnostic ignored "-Wsuggest-final-types"
+#endif
 
 namespace micro_os_plus
 {
@@ -418,7 +430,7 @@ namespace micro_os_plus
        * @brief Internal initialisation.
        * @par Parameters
        *  None.
-       * @returns
+       * @par Returns
        *  Nothing.
        */
       void
@@ -889,8 +901,6 @@ namespace micro_os_plus
     }
 
     /**
-     * @details
-     *
      * @note Can be invoked from Interrupt Service Routines.
      */
     inline std::size_t
@@ -900,8 +910,6 @@ namespace micro_os_plus
     }
 
     /**
-     * @details
-     *
      * @note Can be invoked from Interrupt Service Routines.
      */
     inline std::size_t
@@ -911,8 +919,6 @@ namespace micro_os_plus
     }
 
     /**
-     * @details
-     *
      * @note Can be invoked from Interrupt Service Routines.
      */
     inline std::size_t
@@ -922,8 +928,6 @@ namespace micro_os_plus
     }
 
     /**
-     * @details
-     *
      * @note Can be invoked from Interrupt Service Routines.
      */
     inline bool
@@ -933,8 +937,6 @@ namespace micro_os_plus
     }
 
     /**
-     * @details
-     *
      * @note Can be invoked from Interrupt Service Routines.
      */
     inline bool
@@ -944,8 +946,6 @@ namespace micro_os_plus
     }
 
     /**
-     * @details
-     *
      * @note Can be invoked from Interrupt Service Routines.
      */
     inline void*
@@ -957,6 +957,7 @@ namespace micro_os_plus
     // ========================================================================
 
     /**
+     * @details
      * This constructor shall initialise a memory pool object
      * with attributes referenced by _attr_.
      * If the attributes specified by _attr_ are modified later,
@@ -984,14 +985,15 @@ namespace micro_os_plus
     template <typename Allocator>
     inline memory_pool_allocated<Allocator>::memory_pool_allocated (
         std::size_t blocks, std::size_t block_size_bytes,
-        const attributes& attributes, const allocator_type& allocator)
-        : memory_pool_allocated{ nullptr, blocks, block_size_bytes, attributes,
-                                 allocator }
+        const attributes& _attributes, const allocator_type& allocator)
+        : memory_pool_allocated{ nullptr, blocks, block_size_bytes,
+                                 _attributes, allocator }
     {
       ;
     }
 
     /**
+     * @details
      * This constructor shall initialise a named memory pool object
      * with attributes referenced by _attr_.
      * If the attributes specified by _attr_ are modified later,
@@ -1019,17 +1021,17 @@ namespace micro_os_plus
     template <typename Allocator>
     memory_pool_allocated<Allocator>::memory_pool_allocated (
         const char* name, std::size_t blocks, std::size_t block_size_bytes,
-        const attributes& attributes, const allocator_type& allocator)
+        const attributes& _attributes, const allocator_type& allocator)
         : memory_pool{ name }
     {
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_MEMPOOL)
       trace::printf ("%s() @%p %s %d %d\n", __func__, this, this->name (),
                      blocks, block_size_bytes);
 #endif
-      if (attributes.arena_address != nullptr)
+      if (_attributes.arena_address != nullptr)
         {
           // Do not use any allocator at all.
-          internal_construct_ (blocks, block_size_bytes, attributes, nullptr,
+          internal_construct_ (blocks, block_size_bytes, _attributes, nullptr,
                                0);
         }
       else
@@ -1050,7 +1052,7 @@ namespace micro_os_plus
                   allocated_pool_size_elements_);
 
           internal_construct_ (
-              blocks, block_size_bytes, attributes,
+              blocks, block_size_bytes, _attributes,
               allocated_pool_arena_address_,
               allocated_pool_size_elements_
                   * sizeof (typename allocator_type::value_type));
@@ -1095,6 +1097,7 @@ namespace micro_os_plus
     // ========================================================================
 
     /**
+     * @details
      * This constructor shall initialise a memory pool object
      * with attributes referenced by _attr_.
      * If the attributes specified by _attr_ are modified later,
@@ -1133,6 +1136,7 @@ namespace micro_os_plus
     }
 
     /**
+     * @details
      * This constructor shall initialise a named memory pool object
      * with attributes referenced by _attr_.
      * If the attributes specified by _attr_ are modified later,
@@ -1257,6 +1261,7 @@ namespace micro_os_plus
     // ========================================================================
 
     /**
+     * @details
      * This constructor shall initialise a memory pool object
      * with attributes referenced by _attr_.
      * If the attributes specified by _attr_ are modified later,
@@ -1284,13 +1289,14 @@ namespace micro_os_plus
      */
     template <typename T, std::size_t N>
     memory_pool_inclusive<T, N>::memory_pool_inclusive (
-        const attributes& attributes)
+        const attributes& _attributes)
     {
-      internal_construct_ (blocks, sizeof (T), attributes, &arena_,
+      internal_construct_ (blocks, sizeof (T), _attributes, &arena_,
                            sizeof (arena_));
     }
 
     /**
+     * @details
      * This constructor shall initialise a named memory pool object
      * with attributes referenced by _attr_.
      * If the attributes specified by _attr_ are modified later,
@@ -1318,10 +1324,10 @@ namespace micro_os_plus
      */
     template <typename T, std::size_t N>
     memory_pool_inclusive<T, N>::memory_pool_inclusive (
-        const char* name, const attributes& attributes)
+        const char* name, const attributes& _attributes)
         : memory_pool{ name }
     {
-      internal_construct_ (blocks, sizeof (T), attributes, &arena_,
+      internal_construct_ (blocks, sizeof (T), _attributes, &arena_,
                            sizeof (arena_));
     }
 
@@ -1403,9 +1409,13 @@ namespace micro_os_plus
   } // namespace rtos
 } // namespace micro_os_plus
 
+#pragma GCC diagnostic pop
+
 // ----------------------------------------------------------------------------
 
 #endif // __cplusplus
+
+// ----------------------------------------------------------------------------
 
 #endif // MICRO_OS_PLUS_RTOS_MEMORY_POOL_H_
 

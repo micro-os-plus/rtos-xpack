@@ -32,12 +32,24 @@
 
 #if defined(__cplusplus)
 
+// ----------------------------------------------------------------------------
+
 #include <micro-os-plus/rtos/declarations.h>
 #include <micro-os-plus/rtos/memory.h>
 
 #include <micro-os-plus/diag/trace.h>
 
 // ----------------------------------------------------------------------------
+
+#pragma GCC diagnostic push
+
+#if defined(__clang__)
+#pragma clang diagnostic ignored "-Wc++98-compat"
+#endif
+#if defined(__GNUC__) && !defined(__clang__)
+#pragma GCC diagnostic ignored "-Wsuggest-final-methods"
+#pragma GCC diagnostic ignored "-Wsuggest-final-types"
+#endif
 
 namespace micro_os_plus
 {
@@ -1248,7 +1260,6 @@ namespace micro_os_plus
 #pragma GCC diagnostic pop
 
   } // namespace rtos
-  /* namespace rtos */
 } // namespace micro_os_plus
 
 // ===== Inline & template implementations ====================================
@@ -1278,7 +1289,6 @@ namespace micro_os_plus
     }
 
     /**
-     * @details
      * @par POSIX compatibility
      *  Extension to standard, no POSIX similar functionality identified.
      *
@@ -1291,7 +1301,6 @@ namespace micro_os_plus
     }
 
     /**
-     * @details
      * @par POSIX compatibility
      *
      * @note Can be invoked from Interrupt Service Routines.
@@ -1304,7 +1313,6 @@ namespace micro_os_plus
     }
 
     /**
-     * @details
      * @par POSIX compatibility
      *  Extension to standard, no POSIX similar functionality identified.
      *
@@ -1317,7 +1325,6 @@ namespace micro_os_plus
     }
 
     /**
-     * @details
      * @par POSIX compatibility
      *  Extension to standard, no POSIX similar functionality identified.
      *
@@ -1330,7 +1337,6 @@ namespace micro_os_plus
     }
 
     /**
-     * @details
      * @par POSIX compatibility
      *  Extension to standard, no POSIX similar functionality identified.
      *
@@ -1374,9 +1380,9 @@ namespace micro_os_plus
     template <typename Allocator>
     inline message_queue_allocated<Allocator>::message_queue_allocated (
         std::size_t messages, std::size_t message_size_bytes,
-        const attributes& attributes, const allocator_type& allocator)
+        const attributes& _attributes, const allocator_type& allocator)
         : message_queue_allocated{ nullptr, messages, message_size_bytes,
-                                   attributes, allocator }
+                                   _attributes, allocator }
     {
       ;
     }
@@ -1411,7 +1417,7 @@ namespace micro_os_plus
     template <typename Allocator>
     message_queue_allocated<Allocator>::message_queue_allocated (
         const char* name, std::size_t messages, std::size_t message_size_bytes,
-        const attributes& attributes, const allocator_type& allocator)
+        const attributes& _attributes, const allocator_type& allocator)
         : message_queue{ name }
     {
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_MQUEUE)
@@ -1419,10 +1425,10 @@ namespace micro_os_plus
                      messages, message_size_bytes);
 #endif
 
-      if (attributes.arena_address != nullptr)
+      if (_attributes.arena_address != nullptr)
         {
           // Do not use any allocator at all.
-          internal_construct_ (messages, message_size_bytes, attributes,
+          internal_construct_ (messages, message_size_bytes, _attributes,
                                nullptr, 0);
         }
       else
@@ -1443,7 +1449,7 @@ namespace micro_os_plus
                   allocated_arena_size_elements_);
 
           internal_construct_ (
-              messages, message_size_bytes, attributes,
+              messages, message_size_bytes, _attributes,
               allocated_arena_address_,
               allocated_arena_size_elements_
                   * sizeof (typename allocator_type::value_type));
@@ -1731,8 +1737,8 @@ namespace micro_os_plus
      */
     template <typename T, std::size_t N>
     inline message_queue_inclusive<T, N>::message_queue_inclusive (
-        const attributes& attributes)
-        : message_queue_inclusive{ nullptr, attributes }
+        const attributes& _attributes)
+        : message_queue_inclusive{ nullptr, _attributes }
     {
       ;
     }
@@ -1773,14 +1779,14 @@ namespace micro_os_plus
      */
     template <typename T, std::size_t N>
     message_queue_inclusive<T, N>::message_queue_inclusive (
-        const char* name, const attributes& attributes)
+        const char* name, const attributes& _attributes)
         : message_queue (name)
     {
       static_assert (sizeof (T) >= sizeof (void*),
                      "Messages of message_queue need to have at least the "
                      "size of a pointer");
 
-      internal_construct_ (messages, sizeof (value_type), attributes, &arena_,
+      internal_construct_ (messages, sizeof (value_type), _attributes, &arena_,
                            sizeof (arena_));
     }
 
@@ -1907,9 +1913,13 @@ namespace micro_os_plus
   } // namespace rtos
 } // namespace micro_os_plus
 
+#pragma GCC diagnostic pop
+
 // ----------------------------------------------------------------------------
 
 #endif // __cplusplus
+
+// ----------------------------------------------------------------------------
 
 #endif // MICRO_OS_PLUS_RTOS_MEMORY_QUEUE_H_
 

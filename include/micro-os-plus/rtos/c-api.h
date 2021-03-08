@@ -25,15 +25,15 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
-/*
- * The code was originally inspired by ARM CMSIS `cmsis_os.h` file, v1.02,
- * and tries to remain functionally close to the CMSIS RTOS specifications.
- */
-
 #ifndef MICRO_OS_PLUS_RTOS_C_API_H_
 #define MICRO_OS_PLUS_RTOS_C_API_H_
 
 // ----------------------------------------------------------------------------
+
+/*
+ * The code was originally inspired by ARM CMSIS `cmsis_os.h` file, v1.02,
+ * and tries to remain functionally close to the CMSIS RTOS specifications.
+ */
 
 // Include the µOS++ C API structures declarations.
 #include <micro-os-plus/rtos/declarations-c.h>
@@ -70,7 +70,7 @@ extern "C"
     /**
      * @brief Function completed; no error or event occurred.
      */
-    micro_os_plus_ok = 0,
+    micro_os_plus_ok = 0
   };
 
   /**
@@ -960,6 +960,9 @@ extern "C"
 #pragma GCC diagnostic push
 #if defined(__cplusplus)
 #pragma GCC diagnostic ignored "-Wold-style-cast"
+#if defined(__GNUC__) && !defined(__clang__)
+#pragma GCC diagnostic ignored "-Wuseless-cast"
+#endif
 #endif
 
   /**

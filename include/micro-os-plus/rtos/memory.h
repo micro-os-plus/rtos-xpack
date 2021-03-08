@@ -32,6 +32,8 @@
 
 #if defined(__cplusplus)
 
+// ----------------------------------------------------------------------------
+
 #include <micro-os-plus/estd/system_error>
 
 #include <limits>
@@ -44,6 +46,16 @@
 // These definitions refer only to the RTOS allocators.
 // The application should use the similar ones from the
 // micro_os_plus::estd:: namespace.
+
+#pragma GCC diagnostic push
+
+#if defined(__clang__)
+#pragma clang diagnostic ignored "-Wc++98-compat"
+#endif
+#if defined(__GNUC__) && !defined(__clang__)
+#pragma GCC diagnostic ignored "-Wsuggest-final-methods"
+#pragma GCC diagnostic ignored "-Wsuggest-final-types"
+#endif
 
 namespace micro_os_plus
 {
@@ -1252,9 +1264,6 @@ namespace micro_os_plus
 
       // ======================================================================
 
-      /**
-       * @details
-       */
       inline memory_resource::memory_resource (const char* name)
           : object_named{ name }
       {
@@ -1329,8 +1338,6 @@ namespace micro_os_plus
       }
 
       /**
-       * @details
-       *
        * @see do_max_size();
        */
       inline std::size_t
@@ -1340,8 +1347,6 @@ namespace micro_os_plus
       }
 
       /**
-       * @details
-       *
        * @see do_reset();
        */
       inline void
@@ -1367,8 +1372,6 @@ namespace micro_os_plus
       }
 
       /**
-       * @details
-       *
        * @par Standard compliance
        *   Extension to standard.
        */
@@ -1384,8 +1387,6 @@ namespace micro_os_plus
       }
 
       /**
-       * @details
-       *
        * @par Standard compliance
        *   Extension to standard.
        */
@@ -1755,9 +1756,13 @@ namespace micro_os_plus
   } // namespace rtos
 } // namespace micro_os_plus
 
+#pragma GCC diagnostic pop
+
 // ----------------------------------------------------------------------------
 
 #endif // __cplusplus
+
+// ----------------------------------------------------------------------------
 
 #endif // MICRO_OS_PLUS_RTOS_MEMORY_H_
 

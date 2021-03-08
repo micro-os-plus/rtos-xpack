@@ -35,6 +35,12 @@ using namespace micro_os_plus::rtos;
 
 // ----------------------------------------------------------------------------
 
+#pragma GCC diagnostic push
+
+#if defined(__clang__)
+#pragma clang diagnostic ignored "-Wc++98-compat"
+#endif
+
 /**
  * @cond ignore
  */
@@ -180,5 +186,7 @@ int
 
   /* NOTREACHED */
 }
+
+#pragma GCC diagnostic pop
 
 // ----------------------------------------------------------------------------

@@ -44,6 +44,12 @@ using namespace micro_os_plus;
 
 // ----------------------------------------------------------------------------
 
+#pragma GCC diagnostic push
+
+#if defined(__clang__)
+#pragma clang diagnostic ignored "-Wc++98-compat"
+#endif
+
 namespace micro_os_plus
 {
   namespace rtos
@@ -188,8 +194,6 @@ namespace micro_os_plus
 
       // ----------------------------------------------------------------------
       /**
-       * @details
-       *
        * @see malloc_memory_resource
        */
       memory_resource*
@@ -368,9 +372,6 @@ namespace micro_os_plus
 
       // ======================================================================
 
-      /**
-       * @details
-       */
       memory_resource::~memory_resource ()
       {
         ;
@@ -546,10 +547,10 @@ namespace micro_os_plus
       /**
        * @endcond
        */
-      ;
-      // Avoid formatter bug
     } // namespace pmr
   } // namespace estd
 } // namespace micro_os_plus
+
+#pragma GCC diagnostic pop
 
 // ----------------------------------------------------------------------------

@@ -29,6 +29,12 @@
 
 // ----------------------------------------------------------------------------
 
+#pragma GCC diagnostic push
+
+#if defined(__clang__)
+#pragma clang diagnostic ignored "-Wc++98-compat"
+#endif
+
 namespace micro_os_plus
 {
   namespace rtos
@@ -229,8 +235,8 @@ namespace micro_os_plus
      *  ([IEEE Std 1003.1, 2013
      * Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
      */
-    condition_variable::condition_variable (const attributes& attributes)
-        : condition_variable{ nullptr, attributes }
+    condition_variable::condition_variable (const attributes& _attributes)
+        : condition_variable{ nullptr, _attributes }
     {
       ;
     }
@@ -266,7 +272,7 @@ namespace micro_os_plus
      * Edition](http://pubs.opengroup.org/onlinepubs/9699919799/nframe.html)).
      */
     condition_variable::condition_variable (const char* name,
-                                            const attributes& attributes
+                                            const attributes& _attributes
                                             __attribute__ ((unused)))
         : object_named_system{ name }
     {
@@ -719,5 +725,7 @@ namespace micro_os_plus
 
   } // namespace rtos
 } // namespace micro_os_plus
+
+#pragma GCC diagnostic pop
 
 // ----------------------------------------------------------------------------

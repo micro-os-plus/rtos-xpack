@@ -34,6 +34,12 @@
 
 // ----------------------------------------------------------------------------
 
+#pragma GCC diagnostic push
+
+#if defined(__clang__)
+#pragma clang diagnostic ignored "-Wc++98-compat"
+#endif
+
 using namespace micro_os_plus;
 using namespace micro_os_plus::rtos;
 
@@ -228,85 +234,114 @@ static_assert (alignof (micro_os_plus_message_queue_priority_t)
 
 // Validate C enumeration values
 
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wenum-compare"
-
-static_assert (micro_os_plus_thread_priority_idle == thread::priority::idle,
-               "adjust micro_os_plus_thread_priority_idle");
-static_assert (micro_os_plus_thread_priority_low == thread::priority::low,
-               "adjust micro_os_plus_thread_priority_low");
-static_assert (micro_os_plus_thread_priority_below_normal
+static_assert (
+    static_cast<thread::priority_t> (micro_os_plus_thread_priority_idle)
+        == thread::priority::idle,
+    "adjust micro_os_plus_thread_priority_idle");
+static_assert (
+    static_cast<thread::priority_t> (micro_os_plus_thread_priority_low)
+        == thread::priority::low,
+    "adjust micro_os_plus_thread_priority_low");
+static_assert (static_cast<thread::priority_t> (
+                   micro_os_plus_thread_priority_below_normal)
                    == thread::priority::below_normal,
                "adjust micro_os_plus_thread_priority_below_normal");
-static_assert (micro_os_plus_thread_priority_normal
-                   == thread::priority::normal,
-               "adjust micro_os_plus_thread_priority_normal");
-static_assert (micro_os_plus_thread_priority_above_normal
+static_assert (
+    static_cast<thread::priority_t> (micro_os_plus_thread_priority_normal)
+        == thread::priority::normal,
+    "adjust micro_os_plus_thread_priority_normal");
+static_assert (static_cast<thread::priority_t> (
+                   micro_os_plus_thread_priority_above_normal)
                    == thread::priority::above_normal,
                "adjust micro_os_plus_thread_priority_above_normal");
-static_assert (micro_os_plus_thread_priority_high == thread::priority::high,
-               "adjust micro_os_plus_thread_priority_high");
-static_assert (micro_os_plus_thread_priority_realtime
-                   == thread::priority::realtime,
-               "adjust micro_os_plus_thread_priority_realtime");
-static_assert (micro_os_plus_thread_priority_error == thread::priority::error,
-               "adjust micro_os_plus_thread_priority_error");
+static_assert (
+    static_cast<thread::priority_t> (micro_os_plus_thread_priority_high)
+        == thread::priority::high,
+    "adjust micro_os_plus_thread_priority_high");
+static_assert (
+    static_cast<thread::priority_t> (micro_os_plus_thread_priority_realtime)
+        == thread::priority::realtime,
+    "adjust micro_os_plus_thread_priority_realtime");
+static_assert (
+    static_cast<thread::priority_t> (micro_os_plus_thread_priority_error)
+        == thread::priority::error,
+    "adjust micro_os_plus_thread_priority_error");
 
-static_assert (micro_os_plus_flags_mode_all == flags::mode::all,
+static_assert (static_cast<flags::mode_t> (micro_os_plus_flags_mode_all)
+                   == flags::mode::all,
                "adjust micro_os_plus_flags_mode_all");
-static_assert (micro_os_plus_flags_mode_any == flags::mode::any,
+static_assert (static_cast<flags::mode_t> (micro_os_plus_flags_mode_any)
+                   == flags::mode::any,
                "adjust micro_os_plus_flags_mode_any");
-static_assert (micro_os_plus_flags_mode_clear == flags::mode::clear,
+static_assert (static_cast<flags::mode_t> (micro_os_plus_flags_mode_clear)
+                   == flags::mode::clear,
                "adjust micro_os_plus_flags_mode_clear");
 
-static_assert (micro_os_plus_thread_state_undefined
-                   == thread::state::undefined,
-               "adjust micro_os_plus_thread_state_undefined");
-static_assert (micro_os_plus_thread_state_ready == thread::state::ready,
+static_assert (
+    static_cast<thread::state_t> (micro_os_plus_thread_state_undefined)
+        == thread::state::undefined,
+    "adjust micro_os_plus_thread_state_undefined");
+static_assert (static_cast<thread::state_t> (micro_os_plus_thread_state_ready)
+                   == thread::state::ready,
                "adjust micro_os_plus_thread_state_ready");
-static_assert (micro_os_plus_thread_state_running == thread::state::running,
-               "adjust micro_os_plus_thread_state_running");
-static_assert (micro_os_plus_thread_state_suspended
-                   == thread::state::suspended,
-               "adjust micro_os_plus_thread_state_suspended");
-static_assert (micro_os_plus_thread_state_terminated
-                   == thread::state::terminated,
-               "adjust micro_os_plus_thread_state_terminated");
-static_assert (micro_os_plus_thread_state_destroyed
-                   == thread::state::destroyed,
-               "adjust micro_os_plus_thread_state_destroyed");
+static_assert (
+    static_cast<thread::state_t> (micro_os_plus_thread_state_running)
+        == thread::state::running,
+    "adjust micro_os_plus_thread_state_running");
+static_assert (
+    static_cast<thread::state_t> (micro_os_plus_thread_state_suspended)
+        == thread::state::suspended,
+    "adjust micro_os_plus_thread_state_suspended");
+static_assert (
+    static_cast<thread::state_t> (micro_os_plus_thread_state_terminated)
+        == thread::state::terminated,
+    "adjust micro_os_plus_thread_state_terminated");
+static_assert (
+    static_cast<thread::state_t> (micro_os_plus_thread_state_destroyed)
+        == thread::state::destroyed,
+    "adjust micro_os_plus_thread_state_destroyed");
 
-static_assert (micro_os_plus_timer_once == timer::run::once,
+static_assert (static_cast<timer::type_t> (micro_os_plus_timer_once)
+                   == timer::run::once,
                "adjust micro_os_plus_timer_once");
-static_assert (micro_os_plus_timer_periodic == timer::run::periodic,
+static_assert (static_cast<timer::type_t> (micro_os_plus_timer_periodic)
+                   == timer::run::periodic,
                "adjust micro_os_plus_timer_periodic");
 
-static_assert (micro_os_plus_mutex_protocol_none == mutex::protocol::none,
-               "adjust micro_os_plus_mutex_protocol_none");
-static_assert (micro_os_plus_mutex_protocol_inherit
-                   == mutex::protocol::inherit,
-               "adjust micro_os_plus_mutex_protocol_inherit");
-static_assert (micro_os_plus_mutex_protocol_protect
-                   == mutex::protocol::protect,
-               "adjust micro_os_plus_mutex_protocol_protect");
+static_assert (
+    static_cast<mutex::protocol_t> (micro_os_plus_mutex_protocol_none)
+        == mutex::protocol::none,
+    "adjust micro_os_plus_mutex_protocol_none");
+static_assert (
+    static_cast<mutex::protocol_t> (micro_os_plus_mutex_protocol_inherit)
+        == mutex::protocol::inherit,
+    "adjust micro_os_plus_mutex_protocol_inherit");
+static_assert (
+    static_cast<mutex::protocol_t> (micro_os_plus_mutex_protocol_protect)
+        == mutex::protocol::protect,
+    "adjust micro_os_plus_mutex_protocol_protect");
 
-static_assert (micro_os_plus_mutex_robustness_stalled
-                   == mutex::robustness::stalled,
-               "adjust micro_os_plus_mutex_robustness_stalled");
-static_assert (micro_os_plus_mutex_robustness_robust
-                   == mutex::robustness::robust,
-               "adjust micro_os_plus_mutex_robustness_robust");
+static_assert (
+    static_cast<mutex::robustness_t> (micro_os_plus_mutex_robustness_stalled)
+        == mutex::robustness::stalled,
+    "adjust micro_os_plus_mutex_robustness_stalled");
+static_assert (
+    static_cast<mutex::robustness_t> (micro_os_plus_mutex_robustness_robust)
+        == mutex::robustness::robust,
+    "adjust micro_os_plus_mutex_robustness_robust");
 
-static_assert (micro_os_plus_mutex_type_normal == mutex::type::normal,
+static_assert (static_cast<mutex::type_t> (micro_os_plus_mutex_type_normal)
+                   == mutex::type::normal,
                "adjust micro_os_plus_mutex_type_normal");
-static_assert (micro_os_plus_mutex_type_errorcheck == mutex::type::errorcheck,
+static_assert (static_cast<mutex::type_t> (micro_os_plus_mutex_type_errorcheck)
+                   == mutex::type::errorcheck,
                "adjust micro_os_plus_mutex_type_errorcheck");
-static_assert (micro_os_plus_mutex_type_recursive == mutex::type::recursive,
+static_assert (static_cast<mutex::type_t> (micro_os_plus_mutex_type_recursive)
+                   == mutex::type::recursive,
                "adjust micro_os_plus_mutex_type_recursive");
-static_assert (micro_os_plus_mutex_type_default == mutex::type::default_,
+static_assert (static_cast<mutex::type_t> (micro_os_plus_mutex_type_default)
+                   == mutex::type::default_,
                "adjust micro_os_plus_mutex_type_default");
-
-#pragma GCC diagnostic pop
 
 // ----------------------------------------------------------------------------
 
@@ -428,7 +463,7 @@ static_assert (sizeof (rtos::event_flags::attributes)
 static_assert (sizeof (class thread::stack)
                    == sizeof (micro_os_plus_thread_stack_t),
                "adjust size of micro_os_plus_thread_stack_t");
-static_assert (sizeof (class thread::context)
+static_assert (sizeof (thread::context)
                    == sizeof (micro_os_plus_thread_context_t),
                "adjust size of micro_os_plus_thread_context_t");
 
@@ -444,14 +479,17 @@ static_assert (sizeof (internal::timer_node)
 
 #pragma GCC diagnostic pop
 #endif
+
 #pragma GCC diagnostic push
+
 #pragma GCC diagnostic ignored "-Wold-style-cast"
+#if defined(__GNUC__) && !defined(__clang__)
+#pragma GCC diagnostic ignored "-Wuseless-cast"
+#endif
 
 // ----------------------------------------------------------------------------
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -464,8 +502,6 @@ micro_os_plus_scheduler_initialize (void)
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -478,8 +514,6 @@ micro_os_plus_scheduler_start (void)
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -492,8 +526,6 @@ micro_os_plus_scheduler_is_started (void)
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -506,8 +538,6 @@ micro_os_plus_scheduler_lock (void)
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -520,8 +550,6 @@ micro_os_plus_scheduler_unlock (void)
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -534,8 +562,6 @@ micro_os_plus_scheduler_set_locked (micro_os_plus_scheduler_state_t state)
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -548,8 +574,6 @@ micro_os_plus_scheduler_is_locked (void)
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -562,8 +586,6 @@ micro_os_plus_scheduler_is_preemptive (void)
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -578,8 +600,6 @@ micro_os_plus_scheduler_set_preemptive (bool state)
 #if defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -597,8 +617,6 @@ micro_os_plus_scheduler_stat_get_context_switches (void)
 #if defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -616,8 +634,6 @@ micro_os_plus_scheduler_stat_get_cpu_cycles (void)
 // ----------------------------------------------------------------------------
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -632,8 +648,6 @@ micro_os_plus_interrupts_in_handler_mode (void)
 // ----------------------------------------------------------------------------
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -646,8 +660,6 @@ micro_os_plus_interrupts_critical_enter (void)
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -662,8 +674,6 @@ micro_os_plus_interrupts_critical_exit (micro_os_plus_interrupts_state_t state)
 // ----------------------------------------------------------------------------
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -676,8 +686,6 @@ micro_os_plus_interrupts_uncritical_enter (void)
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -693,8 +701,6 @@ micro_os_plus_interrupts_uncritical_exit (
 #if defined(MICRO_OS_PLUS_HAS_INTERRUPTS_STACK) || defined(__DOXYGEN__)
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -713,8 +719,6 @@ micro_os_plus_interrupts_get_stack (void)
 // ----------------------------------------------------------------------------
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -727,8 +731,6 @@ micro_os_plus_this_thread (void)
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -741,8 +743,6 @@ micro_os_plus_this_thread_suspend (void)
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -755,8 +755,6 @@ micro_os_plus_this_thread_exit (void* exit_ptr)
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -771,8 +769,6 @@ micro_os_plus_this_thread_flags_wait (micro_os_plus_flags_mask_t mask,
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -788,8 +784,6 @@ micro_os_plus_this_thread_flags_try_wait (micro_os_plus_flags_mask_t mask,
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -805,8 +799,6 @@ micro_os_plus_this_thread_flags_timed_wait (
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -820,8 +812,6 @@ micro_os_plus_this_thread_flags_clear (micro_os_plus_flags_mask_t mask,
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -837,8 +827,6 @@ micro_os_plus_this_thread_flags_get (micro_os_plus_flags_mask_t mask,
 // ----------------------------------------------------------------------------
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -853,8 +841,6 @@ micro_os_plus_thread_attributes_init (
 }
 
 /**
- * @details
- *
  * @note Must be paired with `micro_os_plus_thread_destruct()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
@@ -881,8 +867,6 @@ micro_os_plus_thread_construct (
 }
 
 /**
- * @details
- *
  * @note Must be paired with `micro_os_plus_thread_construct()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
@@ -899,7 +883,6 @@ micro_os_plus_thread_destruct (micro_os_plus_thread_t* thread)
 
 /**
  * @details
- *
  * Dynamically allocate the thread object instance using the RTOS
  * system allocator and construct it.
  *
@@ -930,7 +913,6 @@ micro_os_plus_thread_new (
 
 /**
  * @details
- *
  * Destruct the thread and deallocate the dynamically allocated
  * space using the RTOS system allocator.
  *
@@ -950,8 +932,6 @@ micro_os_plus_thread_delete (micro_os_plus_thread_t* thread)
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -965,8 +945,6 @@ micro_os_plus_thread_get_name (micro_os_plus_thread_t* thread)
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -982,8 +960,6 @@ micro_os_plus_thread_get_priority (micro_os_plus_thread_t* thread)
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -999,8 +975,6 @@ micro_os_plus_thread_set_priority (micro_os_plus_thread_t* thread,
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -1015,8 +989,6 @@ micro_os_plus_thread_join (micro_os_plus_thread_t* thread, void** exit_ptr)
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -1030,8 +1002,6 @@ micro_os_plus_thread_resume (micro_os_plus_thread_t* thread)
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -1048,8 +1018,6 @@ micro_os_plus_thread_flags_raise (micro_os_plus_thread_t* thread,
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -1067,8 +1035,6 @@ micro_os_plus_thread_get_state (micro_os_plus_thread_t* thread)
     || defined(__DOXYGEN__)
 
 /**
- * @details
- *
  * @note
  *  Available only when `MICRO_OS_PLUS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE`
  *  is defined.
@@ -1088,8 +1054,6 @@ micro_os_plus_thread_get_user_storage (micro_os_plus_thread_t* thread)
 #endif // defined(MICRO_OS_PLUS_INCLUDE_RTOS_CUSTOM_THREAD_USER_STORAGE)
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -1106,8 +1070,6 @@ micro_os_plus_thread_get_stack (micro_os_plus_thread_t* thread)
 // ----------------------------------------------------------------------------
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -1120,8 +1082,6 @@ micro_os_plus_thread_stack_get_default_size (void)
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -1134,8 +1094,6 @@ micro_os_plus_thread_stack_set_default_size (size_t size_bytes)
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -1148,8 +1106,6 @@ micro_os_plus_thread_stack_get_min_size (void)
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -1162,8 +1118,6 @@ micro_os_plus_thread_stack_set_min_size (size_t size_bytes)
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -1177,8 +1131,6 @@ micro_os_plus_thread_stack_get_bottom (micro_os_plus_thread_stack_t* stack)
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -1192,8 +1144,6 @@ micro_os_plus_thread_stack_get_top (micro_os_plus_thread_stack_t* stack)
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -1207,8 +1157,6 @@ micro_os_plus_thread_stack_get_size (micro_os_plus_thread_stack_t* stack)
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -1222,8 +1170,6 @@ micro_os_plus_thread_stack_get_available (micro_os_plus_thread_stack_t* stack)
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -1239,8 +1185,6 @@ micro_os_plus_thread_stack_check_bottom_magic (
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -1260,8 +1204,6 @@ micro_os_plus_thread_stack_check_top_magic (
 #if defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -1282,8 +1224,6 @@ micro_os_plus_thread_stat_get_context_switches (micro_os_plus_thread_t* thread)
 #if defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -1312,10 +1252,13 @@ micro_os_plus_thread_stat_get_cpu_cycles (micro_os_plus_thread_t* thread)
 micro_os_plus_iterator_t
 micro_os_plus_children_threads_iter_begin (micro_os_plus_thread_t* thread)
 {
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Waggregate-return"
   return reinterpret_cast<micro_os_plus_iterator_t> (
       scheduler::children_threads (reinterpret_cast<rtos::thread*> (thread))
           .begin ()
           .get_iterator_pointer ());
+#pragma GCC diagnostic pop
 }
 
 /**
@@ -1332,10 +1275,13 @@ micro_os_plus_children_threads_iter_begin (micro_os_plus_thread_t* thread)
 micro_os_plus_iterator_t
 micro_os_plus_children_threads_iter_end (micro_os_plus_thread_t* thread)
 {
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Waggregate-return"
   return reinterpret_cast<micro_os_plus_iterator_t> (
       scheduler::children_threads (reinterpret_cast<rtos::thread*> (thread))
           .end ()
           .get_iterator_pointer ());
+#pragma GCC diagnostic pop
 }
 
 /**
@@ -1377,8 +1323,6 @@ micro_os_plus_children_threads_iter_next (micro_os_plus_iterator_t iterator)
 // ----------------------------------------------------------------------------
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -1392,8 +1336,6 @@ micro_os_plus_clock_get_name (micro_os_plus_clock_t* clock)
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -1409,8 +1351,6 @@ micro_os_plus_clock_now (micro_os_plus_clock_t* clock)
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -1426,8 +1366,6 @@ micro_os_plus_clock_steady_now (micro_os_plus_clock_t* clock)
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -1443,8 +1381,6 @@ micro_os_plus_clock_sleep_for (micro_os_plus_clock_t* clock,
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -1460,8 +1396,6 @@ micro_os_plus_clock_sleep_until (micro_os_plus_clock_t* clock,
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -1477,8 +1411,6 @@ micro_os_plus_clock_wait_for (micro_os_plus_clock_t* clock,
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -1494,8 +1426,6 @@ micro_os_plus_clock_get_offset (micro_os_plus_clock_t* clock)
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -1513,8 +1443,6 @@ micro_os_plus_clock_set_offset (micro_os_plus_clock_t* clock,
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -1527,8 +1455,6 @@ micro_os_plus_clock_get_sysclock (void)
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -1541,8 +1467,6 @@ micro_os_plus_clock_get_rtclock (void)
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -1557,8 +1481,6 @@ micro_os_plus_clock_get_hrclock (void)
 // ----------------------------------------------------------------------------
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -1571,8 +1493,6 @@ micro_os_plus_sysclock_now (void)
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -1585,8 +1505,6 @@ micro_os_plus_sysclock_sleep_for (micro_os_plus_clock_duration_t duration)
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -1599,8 +1517,6 @@ micro_os_plus_sysclock_sleep_until (micro_os_plus_clock_timestamp_t timestamp)
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -1615,8 +1531,6 @@ micro_os_plus_sysclock_wait_for (micro_os_plus_clock_duration_t timeout)
 // ----------------------------------------------------------------------------
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -1631,8 +1545,6 @@ micro_os_plus_timer_attributes_init (
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -1647,8 +1559,6 @@ micro_os_plus_timer_attributes_periodic_init (
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -1661,8 +1571,6 @@ micro_os_plus_timer_attributes_get_periodic (void)
 }
 
 /**
- * @details
- *
  * @note Must be paired with `micro_os_plus_timer_destruct()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
@@ -1689,8 +1597,6 @@ micro_os_plus_timer_construct (
 }
 
 /**
- * @details
- *
  * @note Must be paired with `micro_os_plus_timer_construct()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
@@ -1707,7 +1613,6 @@ micro_os_plus_timer_destruct (micro_os_plus_timer_t* timer)
 
 /**
  * @details
- *
  * Dynamically allocate the timer object instance using the RTOS
  * system allocator and construct it.
  *
@@ -1738,7 +1643,6 @@ micro_os_plus_timer_new (const char* name,
 
 /**
  * @details
- *
  * Destruct the timer and deallocate the dynamically allocated
  * space using the RTOS system allocator.
  *
@@ -1758,8 +1662,6 @@ micro_os_plus_timer_delete (micro_os_plus_timer_t* timer)
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -1773,8 +1675,6 @@ micro_os_plus_timer_get_name (micro_os_plus_timer_t* timer)
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -1790,8 +1690,6 @@ micro_os_plus_timer_start (micro_os_plus_timer_t* timer,
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -1808,8 +1706,6 @@ micro_os_plus_timer_stop (micro_os_plus_timer_t* timer)
 // ----------------------------------------------------------------------------
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -1824,8 +1720,6 @@ micro_os_plus_mutex_attributes_init (
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -1840,8 +1734,6 @@ micro_os_plus_mutex_attributes_recursive_init (
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -1855,8 +1747,6 @@ micro_os_plus_mutex_attributes_get_recursive (void)
 }
 
 /**
- * @details
- *
  * @note Must be paired with `micro_os_plus_mutex_destruct()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
@@ -1879,8 +1769,6 @@ micro_os_plus_mutex_construct (
 }
 
 /**
- * @details
- *
  * @note Must be paired with `micro_os_plus_mutex_destruct()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
@@ -1904,8 +1792,6 @@ micro_os_plus_mutex_recursive_construct (
 }
 
 /**
- * @details
- *
  * @note Must be paired with `micro_os_plus_mutex_construct()` or
  *  `micro_os_plus_mutex_recursive_construct()`.
  *
@@ -1923,7 +1809,6 @@ micro_os_plus_mutex_destruct (micro_os_plus_mutex_t* mutex)
 
 /**
  * @details
- *
  * Dynamically allocate the mutex object instance using the RTOS
  * system allocator and construct it.
  *
@@ -1950,7 +1835,6 @@ micro_os_plus_mutex_new (const char* name,
 
 /**
  * @details
- *
  * Dynamically allocate the recursive mutex object instance using the RTOS
  * system allocator and construct it.
  *
@@ -1977,7 +1861,6 @@ micro_os_plus_mutex_recursive_new (
 
 /**
  * @details
- *
  * Destruct the mutex and deallocate the dynamically allocated
  * space using the RTOS system allocator.
  *
@@ -1998,8 +1881,6 @@ micro_os_plus_mutex_delete (micro_os_plus_mutex_t* mutex)
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -2013,8 +1894,6 @@ micro_os_plus_mutex_get_name (micro_os_plus_mutex_t* mutex)
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -2029,8 +1908,6 @@ micro_os_plus_mutex_lock (micro_os_plus_mutex_t* mutex)
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -2045,8 +1922,6 @@ micro_os_plus_mutex_try_lock (micro_os_plus_mutex_t* mutex)
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -2062,8 +1937,6 @@ micro_os_plus_mutex_timed_lock (micro_os_plus_mutex_t* mutex,
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -2078,8 +1951,6 @@ micro_os_plus_mutex_unlock (micro_os_plus_mutex_t* mutex)
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -2095,8 +1966,6 @@ micro_os_plus_mutex_get_priority_ceiling (micro_os_plus_mutex_t* mutex)
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -2115,8 +1984,6 @@ micro_os_plus_mutex_set_priority_ceiling (
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -2131,8 +1998,6 @@ micro_os_plus_mutex_mark_consistent (micro_os_plus_mutex_t* mutex)
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -2147,8 +2012,6 @@ micro_os_plus_mutex_get_owner (micro_os_plus_mutex_t* mutex)
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -2162,8 +2025,6 @@ micro_os_plus_mutex_get_type (micro_os_plus_mutex_t* mutex)
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -2177,8 +2038,6 @@ micro_os_plus_mutex_get_protocol (micro_os_plus_mutex_t* mutex)
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -2192,8 +2051,6 @@ micro_os_plus_mutex_get_robustness (micro_os_plus_mutex_t* mutex)
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -2210,8 +2067,6 @@ micro_os_plus_mutex_reset (micro_os_plus_mutex_t* mutex)
 // ----------------------------------------------------------------------------
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -2226,8 +2081,6 @@ micro_os_plus_condition_variable_attributes_init (
 }
 
 /**
- * @details
- *
  * @note Must be paired with `micro_os_plus_condition_variable_destruct()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
@@ -2252,8 +2105,6 @@ micro_os_plus_condition_variable_construct (
 }
 
 /**
- * @details
- *
  * @note Must be paired with `micro_os_plus_condition_variable_construct()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
@@ -2271,7 +2122,6 @@ micro_os_plus_condition_variable_destruct (
 
 /**
  * @details
- *
  * Dynamically allocate the condition variable object instance using the RTOS
  * system allocator and construct it.
  *
@@ -2301,7 +2151,6 @@ micro_os_plus_condition_variable_new (
 
 /**
  * @details
- *
  * Destruct the condition variable and deallocate the dynamically allocated
  * space using the RTOS system allocator.
  *
@@ -2322,8 +2171,6 @@ micro_os_plus_condition_variable_delete (
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -2338,8 +2185,6 @@ micro_os_plus_condition_variable_get_name (
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -2356,8 +2201,6 @@ micro_os_plus_condition_variable_signal (
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -2374,8 +2217,6 @@ micro_os_plus_condition_variable_broadcast (
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -2392,8 +2233,6 @@ micro_os_plus_condition_variable_wait (
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -2413,8 +2252,6 @@ micro_os_plus_condition_variable_timed_wait (
 // ----------------------------------------------------------------------------
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -2429,8 +2266,6 @@ micro_os_plus_semaphore_attributes_init (
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -2446,8 +2281,6 @@ micro_os_plus_semaphore_attributes_binary_init (
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -2464,8 +2297,6 @@ micro_os_plus_semaphore_attributes_counting_init (
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -2479,8 +2310,6 @@ micro_os_plus_semaphore_attributes_get_binary (void)
 }
 
 /**
- * @details
- *
  * @note Must be paired with `micro_os_plus_semaphore_destruct()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
@@ -2504,8 +2333,6 @@ micro_os_plus_semaphore_construct (
 }
 
 /**
- * @details
- *
  * @note Must be paired with `micro_os_plus_semaphore_destruct()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
@@ -2523,8 +2350,6 @@ micro_os_plus_semaphore_binary_construct (
 }
 
 /**
- * @details
- *
  * @note Must be paired with `micro_os_plus_semaphore_destruct()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
@@ -2543,8 +2368,6 @@ micro_os_plus_semaphore_counting_construct (
 }
 
 /**
- * @details
- *
  * @note Must be paired with `micro_os_plus_semaphore_construct()` or
  * `micro_os_plus_semaphore_binary_construct()` or
  * `micro_os_plus_semaphore_counting_construct()`.
@@ -2563,7 +2386,6 @@ micro_os_plus_semaphore_destruct (micro_os_plus_semaphore_t* semaphore)
 
 /**
  * @details
- *
  * Dynamically allocate the semaphore object instance using the RTOS
  * system allocator and construct it.
  *
@@ -2590,7 +2412,6 @@ micro_os_plus_semaphore_new (
 
 /**
  * @details
- *
  * Dynamically allocate the binary semaphore object instance using the RTOS
  * system allocator and construct it.
  *
@@ -2612,7 +2433,6 @@ micro_os_plus_semaphore_binary_new (
 
 /**
  * @details
- *
  * Dynamically allocate the counting semaphore object instance using the RTOS
  * system allocator and construct it.
  *
@@ -2635,7 +2455,6 @@ micro_os_plus_semaphore_counting_new (
 
 /**
  * @details
- *
  * Destruct the semaphore and deallocate the dynamically allocated
  * space using the RTOS system allocator.
  *
@@ -2657,8 +2476,6 @@ micro_os_plus_semaphore_delete (micro_os_plus_semaphore_t* semaphore)
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -2672,8 +2489,6 @@ micro_os_plus_semaphore_get_name (micro_os_plus_semaphore_t* semaphore)
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -2689,8 +2504,6 @@ micro_os_plus_semaphore_post (micro_os_plus_semaphore_t* semaphore)
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -2706,8 +2519,6 @@ micro_os_plus_semaphore_wait (micro_os_plus_semaphore_t* semaphore)
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -2723,8 +2534,6 @@ micro_os_plus_semaphore_try_wait (micro_os_plus_semaphore_t* semaphore)
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -2741,8 +2550,6 @@ micro_os_plus_semaphore_timed_wait (micro_os_plus_semaphore_t* semaphore,
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -2758,8 +2565,6 @@ micro_os_plus_semaphore_get_value (micro_os_plus_semaphore_t* semaphore)
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -2775,8 +2580,6 @@ micro_os_plus_semaphore_reset (micro_os_plus_semaphore_t* semaphore)
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -2793,8 +2596,6 @@ micro_os_plus_semaphore_get_initial_value (
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -2812,8 +2613,6 @@ micro_os_plus_semaphore_get_max_value (micro_os_plus_semaphore_t* semaphore)
 // ----------------------------------------------------------------------------
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -2828,8 +2627,6 @@ micro_os_plus_memory_pool_attributes_init (
 }
 
 /**
- * @details
- *
  * @note Must be paired with `micro_os_plus_memory_pool_destruct()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
@@ -2855,8 +2652,6 @@ micro_os_plus_memory_pool_construct (
 }
 
 /**
- * @details
- *
  * @note Must be paired with `micro_os_plus_memory_pool_construct()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
@@ -2873,7 +2668,6 @@ micro_os_plus_memory_pool_destruct (micro_os_plus_memory_pool_t* mempool)
 
 /**
  * @details
- *
  * Dynamically allocate the memory pool object instance using the RTOS
  * system allocator and construct it.
  *
@@ -2903,7 +2697,6 @@ micro_os_plus_memory_pool_new (
 
 /**
  * @details
- *
  * Destruct the memory pool and deallocate the dynamically allocated
  * space using the RTOS system allocator.
  *
@@ -2923,8 +2716,6 @@ micro_os_plus_memory_pool_delete (micro_os_plus_memory_pool_t* mempool)
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -2938,8 +2729,6 @@ micro_os_plus_memory_pool_get_name (micro_os_plus_memory_pool_t* mempool)
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -2953,8 +2742,6 @@ micro_os_plus_memory_pool_alloc (micro_os_plus_memory_pool_t* mempool)
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -2968,8 +2755,6 @@ micro_os_plus_memory_pool_try_alloc (micro_os_plus_memory_pool_t* mempool)
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -2984,8 +2769,6 @@ micro_os_plus_memory_pool_timed_alloc (micro_os_plus_memory_pool_t* mempool,
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -3001,8 +2784,6 @@ micro_os_plus_memory_pool_free (micro_os_plus_memory_pool_t* mempool,
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -3016,8 +2797,6 @@ micro_os_plus_memory_pool_get_capacity (micro_os_plus_memory_pool_t* mempool)
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -3031,8 +2810,6 @@ micro_os_plus_memory_pool_get_count (micro_os_plus_memory_pool_t* mempool)
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -3046,8 +2823,6 @@ micro_os_plus_memory_pool_get_block_size (micro_os_plus_memory_pool_t* mempool)
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -3061,8 +2836,6 @@ micro_os_plus_memory_pool_is_empty (micro_os_plus_memory_pool_t* mempool)
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -3076,8 +2849,6 @@ micro_os_plus_memory_pool_is_full (micro_os_plus_memory_pool_t* mempool)
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -3092,8 +2863,6 @@ micro_os_plus_memory_pool_reset (micro_os_plus_memory_pool_t* mempool)
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -3109,8 +2878,6 @@ micro_os_plus_memory_pool_get_pool (micro_os_plus_memory_pool_t* mempool)
 // --------------------------------------------------------------------------
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -3125,8 +2892,6 @@ micro_os_plus_message_queue_attributes_init (
 }
 
 /**
- * @details
- *
  * @note Must be paired with `micro_os_plus_message_queue_destruct()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
@@ -3152,8 +2917,6 @@ micro_os_plus_message_queue_construct (
 }
 
 /**
- * @details
- *
  * @note Must be paired with `micro_os_plus_message_queue_construct()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
@@ -3170,7 +2933,6 @@ micro_os_plus_message_queue_destruct (micro_os_plus_message_queue_t* mqueue)
 
 /**
  * @details
- *
  * Dynamically allocate the message queue object instance using the RTOS
  * system allocator and construct it.
  *
@@ -3200,7 +2962,6 @@ micro_os_plus_message_queue_new (
 
 /**
  * @details
- *
  * Destruct the message queue and deallocate the dynamically allocated
  * space using the RTOS system allocator.
  *
@@ -3220,8 +2981,6 @@ micro_os_plus_message_queue_delete (micro_os_plus_message_queue_t* mqueue)
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -3235,8 +2994,6 @@ micro_os_plus_message_queue_get_name (micro_os_plus_message_queue_t* mqueue)
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -3253,8 +3010,6 @@ micro_os_plus_message_queue_send (
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -3271,8 +3026,6 @@ micro_os_plus_message_queue_try_send (
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -3290,8 +3043,6 @@ micro_os_plus_message_queue_timed_send (
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -3308,8 +3059,6 @@ micro_os_plus_message_queue_receive (
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -3326,8 +3075,6 @@ micro_os_plus_message_queue_try_receive (
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -3345,8 +3092,6 @@ micro_os_plus_message_queue_timed_receive (
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -3360,8 +3105,6 @@ micro_os_plus_message_queue_get_length (micro_os_plus_message_queue_t* mqueue)
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -3376,8 +3119,6 @@ micro_os_plus_message_queue_get_capacity (
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -3392,8 +3133,6 @@ micro_os_plus_message_queue_get_message_size (
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -3407,8 +3146,6 @@ micro_os_plus_message_queue_is_empty (micro_os_plus_message_queue_t* mqueue)
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -3422,8 +3159,6 @@ micro_os_plus_message_queue_is_full (micro_os_plus_message_queue_t* mqueue)
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -3440,8 +3175,6 @@ micro_os_plus_message_queue_reset (micro_os_plus_message_queue_t* mqueue)
 // --------------------------------------------------------------------------
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -3456,8 +3189,6 @@ micro_os_plus_event_flags_attributes_init (
 }
 
 /**
- * @details
- *
  * @note Must be paired with `micro_os_plus_event_flags_destruct()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
@@ -3482,8 +3213,6 @@ micro_os_plus_event_flags_construct (
 }
 
 /**
- * @details
- *
  * @note Must be paired with `micro_os_plus_event_flags_construct()`.
  *
  * @warning Cannot be invoked from Interrupt Service Routines.
@@ -3500,7 +3229,6 @@ micro_os_plus_event_flags_destruct (micro_os_plus_event_flags_t* evflags)
 
 /**
  * @details
- *
  * Dynamically allocate the event flags object instance using the RTOS
  * system allocator and construct it.
  *
@@ -3528,7 +3256,6 @@ micro_os_plus_event_flags_new (
 
 /**
  * @details
- *
  * Destruct the event flags and deallocate the dynamically allocated
  * space using the RTOS system allocator.
  *
@@ -3548,8 +3275,6 @@ micro_os_plus_event_flags_delete (micro_os_plus_event_flags_t* evflags)
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -3563,8 +3288,6 @@ micro_os_plus_event_flags_get_name (micro_os_plus_event_flags_t* evflags)
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -3582,8 +3305,6 @@ micro_os_plus_event_flags_wait (micro_os_plus_event_flags_t* evflags,
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -3601,8 +3322,6 @@ micro_os_plus_event_flags_try_wait (micro_os_plus_event_flags_t* evflags,
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -3621,8 +3340,6 @@ micro_os_plus_event_flags_timed_wait (micro_os_plus_event_flags_t* evflags,
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -3639,8 +3356,6 @@ micro_os_plus_event_flags_raise (micro_os_plus_event_flags_t* evflags,
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -3657,8 +3372,6 @@ micro_os_plus_event_flags_clear (micro_os_plus_event_flags_t* evflags,
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -3676,8 +3389,6 @@ micro_os_plus_event_flags_get (micro_os_plus_event_flags_t* evflags,
 }
 
 /**
- * @details
- *
  * @note Can be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -3693,8 +3404,6 @@ micro_os_plus_event_flags_are_waiting (micro_os_plus_event_flags_t* evflags)
 // --------------------------------------------------------------------------
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
@@ -3708,8 +3417,6 @@ micro_os_plus_memory_get_default (void)
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  * @warning Not thread safe, use a scheduler critical section to protect it.
  *
@@ -3726,8 +3433,6 @@ micro_os_plus_memory_allocate (micro_os_plus_memory_t* memory, size_t bytes,
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  * @warning Not thread safe, use a scheduler critical section to protect it.
  *
@@ -3744,8 +3449,6 @@ micro_os_plus_memory_deallocate (micro_os_plus_memory_t* memory, void* addr,
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  * @warning Not thread safe, use a scheduler critical section to protect it.
  *
@@ -3760,8 +3463,6 @@ micro_os_plus_memory_reset (micro_os_plus_memory_t* memory)
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  * @warning Not thread safe, use a scheduler critical section to protect it.
  *
@@ -3777,8 +3478,6 @@ micro_os_plus_memory_coalesce (micro_os_plus_memory_t* memory)
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  * @warning Not thread safe, use a scheduler critical section to protect it.
  *
@@ -3794,8 +3493,6 @@ micro_os_plus_memory_get_total_bytes (micro_os_plus_memory_t* memory)
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  * @warning Not thread safe, use a scheduler critical section to protect it.
  *
@@ -3811,8 +3508,6 @@ micro_os_plus_memory_get_allocated_bytes (micro_os_plus_memory_t* memory)
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  * @warning Not thread safe, use a scheduler critical section to protect it.
  *
@@ -3828,8 +3523,6 @@ micro_os_plus_memory_get_free_bytes (micro_os_plus_memory_t* memory)
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  * @warning Not thread safe, use a scheduler critical section to protect it.
  *
@@ -3845,8 +3538,6 @@ micro_os_plus_memory_get_allocated_chunks (micro_os_plus_memory_t* memory)
 }
 
 /**
- * @details
- *
  * @warning Cannot be invoked from Interrupt Service Routines.
  * @warning Not thread safe, use a scheduler critical section to protect it.
  *
@@ -3860,5 +3551,7 @@ micro_os_plus_memory_get_free_chunks (micro_os_plus_memory_t* memory)
   return (reinterpret_cast<rtos::memory::memory_resource&> (*memory))
       .free_chunks ();
 }
+
+#pragma GCC diagnostic pop
 
 // ----------------------------------------------------------------------------

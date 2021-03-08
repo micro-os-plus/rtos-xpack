@@ -32,10 +32,18 @@
 
 #if defined(__cplusplus)
 
+// ----------------------------------------------------------------------------
+
 #include <micro-os-plus/rtos/declarations.h>
 #include <micro-os-plus/rtos/clocks.h>
 
 // ----------------------------------------------------------------------------
+
+#pragma GCC diagnostic push
+
+#if defined(__clang__)
+#pragma clang diagnostic ignored "-Wc++98-compat"
+#endif
 
 namespace micro_os_plus
 {
@@ -561,7 +569,6 @@ namespace micro_os_plus
          * @brief Exit the interrupts critical section.
          * @param state The value to restore the interrupts priorities
          * register.
-         * @return  Nothing.
          */
         static void
         exit (state_t state);
@@ -961,8 +968,6 @@ namespace micro_os_plus
       }
 
       /**
-       * @details
-       *
        * @warning Cannot be invoked from Interrupt Service Routines.
        */
       constexpr lockable::lockable () : state_ (port::scheduler::state::init)
@@ -971,8 +976,6 @@ namespace micro_os_plus
       }
 
       /**
-       * @details
-       *
        * @warning Cannot be invoked from Interrupt Service Routines.
        */
       inline lockable::~lockable ()
@@ -981,8 +984,6 @@ namespace micro_os_plus
       }
 
       /**
-       * @details
-       *
        * @warning Cannot be invoked from Interrupt Service Routines.
        */
       inline void
@@ -1006,8 +1007,6 @@ namespace micro_os_plus
       }
 
       /**
-       * @details
-       *
        * @warning Cannot be invoked from Interrupt Service Routines.
        */
       inline void
@@ -1076,8 +1075,6 @@ namespace micro_os_plus
     namespace interrupts
     {
       /**
-       * @details
-       *
        * @note Can be invoked from Interrupt Service Routines (obviously).
        */
       inline __attribute__ ((always_inline)) bool
@@ -1087,8 +1084,6 @@ namespace micro_os_plus
       }
 
       /**
-       * @details
-       *
        * @note Can be invoked from Interrupt Service Routines.
        */
       inline __attribute__ ((always_inline))
@@ -1099,8 +1094,6 @@ namespace micro_os_plus
       }
 
       /**
-       * @details
-       *
        * @note Can be invoked from Interrupt Service Routines.
        */
       inline __attribute__ ((always_inline))
@@ -1110,8 +1103,6 @@ namespace micro_os_plus
       }
 
       /**
-       * @details
-       *
        * @note Can be invoked from Interrupt Service Routines.
        */
       inline __attribute__ ((always_inline)) state_t
@@ -1121,8 +1112,6 @@ namespace micro_os_plus
       }
 
       /**
-       * @details
-       *
        * @note Can be invoked from Interrupt Service Routines.
        */
       inline __attribute__ ((always_inline)) void
@@ -1134,8 +1123,6 @@ namespace micro_os_plus
       // ======================================================================
 
       /**
-       * @details
-       *
        * @note Can be invoked from Interrupt Service Routines.
        */
       inline __attribute__ ((always_inline))
@@ -1146,8 +1133,6 @@ namespace micro_os_plus
       }
 
       /**
-       * @details
-       *
        * @note Can be invoked from Interrupt Service Routines.
        */
       inline __attribute__ ((always_inline))
@@ -1157,8 +1142,6 @@ namespace micro_os_plus
       }
 
       /**
-       * @details
-       *
        * @note Can be invoked from Interrupt Service Routines.
        */
       inline __attribute__ ((always_inline)) state_t
@@ -1168,8 +1151,6 @@ namespace micro_os_plus
       }
 
       /**
-       * @details
-       *
        * @note Can be invoked from Interrupt Service Routines.
        */
       inline __attribute__ ((always_inline)) void
@@ -1181,8 +1162,6 @@ namespace micro_os_plus
       // ======================================================================
 
       /**
-       * @details
-       *
        * @note Can be invoked from Interrupt Service Routines.
        */
       constexpr lockable::lockable () : state_ (port::interrupts::state::init)
@@ -1191,8 +1170,6 @@ namespace micro_os_plus
       }
 
       /**
-       * @details
-       *
        * @note Can be invoked from Interrupt Service Routines.
        */
       inline __attribute__ ((always_inline)) lockable::~lockable ()
@@ -1201,8 +1178,6 @@ namespace micro_os_plus
       }
 
       /**
-       * @details
-       *
        * @note Can be invoked from Interrupt Service Routines.
        */
       inline __attribute__ ((always_inline)) void
@@ -1226,8 +1201,6 @@ namespace micro_os_plus
       }
 
       /**
-       * @details
-       *
        * @note Can be invoked from Interrupt Service Routines.
        */
       inline __attribute__ ((always_inline)) void
@@ -1242,9 +1215,13 @@ namespace micro_os_plus
   } // namespace rtos
 } // namespace micro_os_plus
 
+#pragma GCC diagnostic pop
+
 // ----------------------------------------------------------------------------
 
 #endif // __cplusplus
+
+// ----------------------------------------------------------------------------
 
 #endif // MICRO_OS_PLUS_RTOS_SCHEDULER_H_
 

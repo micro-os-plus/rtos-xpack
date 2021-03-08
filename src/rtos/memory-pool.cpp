@@ -30,6 +30,12 @@
 
 // ----------------------------------------------------------------------------
 
+#pragma GCC diagnostic push
+
+#if defined(__clang__)
+#pragma clang diagnostic ignored "-Wc++98-compat"
+#endif
+
 namespace micro_os_plus
 {
   namespace rtos
@@ -226,9 +232,9 @@ namespace micro_os_plus
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
     memory_pool::memory_pool (std::size_t blocks, std::size_t block_size_bytes,
-                              const attributes& attributes,
+                              const attributes& _attributes,
                               const allocator_type& allocator)
-        : memory_pool{ nullptr, blocks, block_size_bytes, attributes,
+        : memory_pool{ nullptr, blocks, block_size_bytes, _attributes,
                        allocator }
     {
       ;
@@ -261,7 +267,7 @@ namespace micro_os_plus
      */
     memory_pool::memory_pool (const char* name, std::size_t blocks,
                               std::size_t block_size_bytes,
-                              const attributes& attributes,
+                              const attributes& _attributes,
                               const allocator_type& allocator)
         : object_named_system{ name }
     {
@@ -270,10 +276,10 @@ namespace micro_os_plus
                      blocks, block_size_bytes);
 #endif
 
-      if (attributes.arena_address != nullptr)
+      if (_attributes.arena_address != nullptr)
         {
           // Do not use any allocator at all.
-          internal_construct_ (blocks, block_size_bytes, attributes, nullptr,
+          internal_construct_ (blocks, block_size_bytes, _attributes, nullptr,
                                0);
         }
       else
@@ -294,7 +300,7 @@ namespace micro_os_plus
                   allocated_pool_size_elements_);
 
           internal_construct_ (
-              blocks, block_size_bytes, attributes,
+              blocks, block_size_bytes, _attributes,
               allocated_pool_arena_address_,
               allocated_pool_size_elements_
                   * sizeof (typename allocator_type::value_type));
@@ -308,7 +314,7 @@ namespace micro_os_plus
     void
     memory_pool::internal_construct_ (std::size_t blocks,
                                       std::size_t block_size_bytes,
-                                      const attributes& attributes,
+                                      const attributes& _attributes,
                                       void* arena_address,
                                       std::size_t arena_size_bytes)
     {
@@ -316,7 +322,7 @@ namespace micro_os_plus
       micro_os_plus_assert_throw (!interrupts::in_handler_mode (), EPERM);
 
 #if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_MEMORY_POOL)
-      clock_ = attributes.clock != nullptr ? attributes.clock : &sysclock;
+      clock_ = _attributes.clock != nullptr ? _attributes.clock : &sysclock;
 #endif
 
       blocks_ = static_cast<memory_pool::size_t> (blocks);
@@ -335,22 +341,23 @@ namespace micro_os_plus
       if (arena_address != nullptr)
         {
           // The attributes should not define any storage in this case.
-          assert (attributes.arena_address == nullptr);
+          assert (_attributes.arena_address == nullptr);
 
           pool_arena_address_ = arena_address;
           pool_arena_size_bytes_ = arena_size_bytes;
         }
       else
         {
-          pool_arena_address_ = attributes.arena_address;
-          pool_arena_size_bytes_ = attributes.arena_size_bytes;
+          pool_arena_address_ = _attributes.arena_address;
+          pool_arena_size_bytes_ = _attributes.arena_size_bytes;
         }
 
       // Blocks must be pointer aligned.
       void* p = pool_arena_address_;
       std::size_t sz = pool_arena_size_bytes_;
-      pool_arena_address_ = static_cast<char*> (
-          std::align (__SIZEOF_POINTER__, blocks_ * block_size_bytes_, p, sz));
+      pool_arena_address_ = static_cast<char*> (std::align (
+          __SIZEOF_POINTER__,
+          static_cast<std::size_t> (blocks_ * block_size_bytes_), p, sz));
 
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_MEMPOOL)
       trace::printf ("%s() @%p %s %u %u %p %u\n", __func__, this, name (),
@@ -462,7 +469,7 @@ namespace micro_os_plus
         {
           void* p = static_cast<void*> (first_);
           first_ = *(static_cast<void**> (first_));
-          ++count_;
+          count_ = count_ + 1; // Volatile increment.
           return p;
         }
 
@@ -613,7 +620,6 @@ namespace micro_os_plus
 
     /**
      * @details
-     *
      * The `timed_alloc()` function shall allocate a
      * fixed size memory block from the memory pool.
      *
@@ -794,7 +800,7 @@ namespace micro_os_plus
         // Now this block is the first one.
         first_ = block;
 
-        --count_;
+        count_ = count_ - 1; // Volatile decrement.
         // ----- Exit critical section --------------------------------------
       }
 
@@ -840,5 +846,7 @@ namespace micro_os_plus
 
   } // namespace rtos
 } // namespace micro_os_plus
+
+#pragma GCC diagnostic pop
 
 // ----------------------------------------------------------------------------

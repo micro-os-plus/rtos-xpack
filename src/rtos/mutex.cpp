@@ -29,6 +29,12 @@
 
 // ----------------------------------------------------------------------------
 
+#pragma GCC diagnostic push
+
+#if defined(__clang__)
+#pragma clang diagnostic ignored "-Wc++98-compat"
+#endif
+
 namespace micro_os_plus
 {
   namespace rtos
@@ -458,7 +464,8 @@ namespace micro_os_plus
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
-    mutex::mutex (const attributes& attributes) : mutex{ nullptr, attributes }
+    mutex::mutex (const attributes& _attributes)
+        : mutex{ nullptr, _attributes }
     {
       ;
     }
@@ -493,13 +500,14 @@ namespace micro_os_plus
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
-    mutex::mutex (const char* name, const attributes& attributes)
+    mutex::mutex (const char* name, const attributes& _attributes)
         : object_named_system{ name }, //
-          type_ (attributes.type), //
-          protocol_ (attributes.protocol), //
-          robustness_ (attributes.robustness), //
-          max_count_ (
-              (attributes.type == type::recursive) ? attributes.max_count : 1)
+          type_ (_attributes.type), //
+          protocol_ (_attributes.protocol), //
+          robustness_ (_attributes.robustness), //
+          max_count_ ((_attributes.type == type::recursive)
+                          ? _attributes.max_count
+                          : 1)
     {
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_MUTEX)
       trace::printf ("%s() @%p %s\n", __func__, this, this->name ());
@@ -513,16 +521,16 @@ namespace micro_os_plus
       micro_os_plus_assert_throw (robustness_ <= robustness::max_, EINVAL);
 
 #if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_MUTEX)
-      clock_ = attributes.clock != nullptr ? attributes.clock : &sysclock;
+      clock_ = _attributes.clock != nullptr ? _attributes.clock : &sysclock;
 #endif
 
       micro_os_plus_assert_throw (
-          attributes.priority_ceiling >= thread::priority::lowest, EINVAL);
+          _attributes.priority_ceiling >= thread::priority::lowest, EINVAL);
       micro_os_plus_assert_throw (
-          attributes.priority_ceiling <= thread::priority::highest, EINVAL);
+          _attributes.priority_ceiling <= thread::priority::highest, EINVAL);
 
-      initial_priority_ceiling_ = attributes.priority_ceiling;
-      priority_ceiling_ = attributes.priority_ceiling;
+      initial_priority_ceiling_ = _attributes.priority_ceiling;
+      priority_ceiling_ = _attributes.priority_ceiling;
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_MUTEX)
 
@@ -607,7 +615,7 @@ namespace micro_os_plus
      * Should be called from a scheduler critical section.
      */
     result_t
-    mutex::internal_try_lock_ (class thread* th)
+    mutex::internal_try_lock_ (thread* th)
     {
       // Save the initial owner for later protocol tests.
       thread* saved_owner = owner_;
@@ -627,7 +635,8 @@ namespace micro_os_plus
           th_list->link (*this);
 
           // Count the number of mutexes acquired by the thread.
-          ++(owner_->acquired_mutexes_);
+          owner_->acquired_mutexes_
+              = owner_->acquired_mutexes_ + 1; // Volatile increment.
 
           if (protocol_ == protocol::protect)
             {
@@ -694,7 +703,7 @@ namespace micro_os_plus
                 }
 
               // Increment the recursion depth counter.
-              ++count_;
+              count_ = count_ + 1; // Volatile increment.
 
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_MUTEX)
               trace::printf ("%s() @%p %s by %p %s >%u\n", __func__, this,
@@ -791,7 +800,7 @@ namespace micro_os_plus
           {
             if ((type_ == type::recursive) && (count_ > 1))
               {
-                --count_;
+                count_ = count_ - 1; // Volatile decrement.
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_MUTEX)
                 trace::printf ("%s() @%p %s >%u\n", __func__, this, name (),
                                count_);
@@ -799,7 +808,8 @@ namespace micro_os_plus
                 return result::ok;
               }
 
-            --(owner_->acquired_mutexes_);
+            owner_->acquired_mutexes_
+                = owner_->acquired_mutexes_ - 1; // Volatile decrement.
 
             // Remove this mutex from the thread list; ineffective if
             // not linked.
@@ -822,6 +832,10 @@ namespace micro_os_plus
                     // If the owner thread acquired other mutexes too,
                     // compute the maximum boosted priority.
                     thread::priority_t max_priority = 0;
+
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Waggregate-return"
+
                     for (auto&& mx : *thread_mutexes)
                       {
                         if (mx.boosted_priority_ > max_priority)
@@ -829,6 +843,9 @@ namespace micro_os_plus
                             max_priority = mx.boosted_priority_;
                           }
                       }
+
+#pragma GCC diagnostic pop
+
                     boosted_priority_ = max_priority;
                   }
                 // Delayed until end of critical section.
@@ -1269,6 +1286,9 @@ namespace micro_os_plus
 
                   thread::priority_t max_priority = thread::priority::none;
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Waggregate-return"
+
                   for (auto&& th : list_)
                     {
                       thread::priority_t prio = th.priority ();
@@ -1277,6 +1297,8 @@ namespace micro_os_plus
                           max_priority = prio;
                         }
                     }
+
+#pragma GCC diagnostic pop
 
                   if (max_priority != thread::priority::none)
                     {
@@ -1547,5 +1569,7 @@ namespace micro_os_plus
     // ------------------------------------------------------------------------
   } // namespace rtos
 } // namespace micro_os_plus
+
+#pragma GCC diagnostic pop
 
 // ----------------------------------------------------------------------------

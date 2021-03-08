@@ -34,6 +34,12 @@ using namespace micro_os_plus::rtos;
 
 // ----------------------------------------------------------------------------
 
+#pragma GCC diagnostic push
+
+#if defined(__clang__)
+#pragma clang diagnostic ignored "-Wc++98-compat"
+#endif
+
 void*
 micro_os_plus_idle (thread::function_arguments_t arguments);
 
@@ -175,5 +181,7 @@ micro_os_plus_idle (thread::function_arguments_t arguments
  * @endcond
  */
 #endif // !defined(MICRO_OS_PLUS_USE_RTOS_PORT_SCHEDULER)
+
+#pragma GCC diagnostic pop
 
 // ----------------------------------------------------------------------------

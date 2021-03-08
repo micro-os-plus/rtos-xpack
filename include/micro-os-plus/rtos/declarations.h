@@ -37,10 +37,20 @@
 
 #if defined(__cplusplus)
 
+// ----------------------------------------------------------------------------
+
 #include <cstdint>
 #include <cstddef>
 #include <cerrno>
 #include <cstring>
+
+// ----------------------------------------------------------------------------
+
+#pragma GCC diagnostic push
+
+#if defined(__clang__)
+#pragma clang diagnostic ignored "-Wc++98-compat"
+#endif
 
 /**
  * @brief System namespace.
@@ -171,7 +181,7 @@ namespace micro_os_plus
         /**
          * @brief Function completed; no errors or events occurred.
          */
-        ok = 0,
+        ok = 0
 
       };
     } // namespace result
@@ -310,7 +320,7 @@ namespace micro_os_plus
         /**
          * Special mask to represent all flags.
          */
-        all = 0xFFFFFFFF,
+        all = 0xFFFFFFFF
       };
 
     } // namespace flags
@@ -767,8 +777,6 @@ namespace micro_os_plus
       // ======================================================================
 
       /**
-       * @details
-       *
        * @warning Cannot be invoked from Interrupt Service Routines.
        */
       constexpr attributes_clocked::attributes_clocked ()
@@ -1036,6 +1044,8 @@ namespace micro_os_plus
     } // namespace port
   } // namespace rtos
 } // namespace micro_os_plus
+
+#pragma GCC diagnostic pop
 
 // ----------------------------------------------------------------------------
 

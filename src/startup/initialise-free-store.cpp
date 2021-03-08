@@ -109,9 +109,8 @@ micro_os_plus_startup_initialize_free_store (void* heap_address,
       reinterpret_cast<estd::pmr::memory_resource*> (&application_free_store));
 
   // Adjust sbrk() to prevent it overlapping the free store.
-  sbrk (
-      static_cast<char*> (static_cast<char*> (heap_address) + heap_size_bytes)
-      - static_cast<char*> (sbrk (0)));
+  sbrk ((static_cast<char*> (heap_address) + heap_size_bytes)
+        - static_cast<char*> (sbrk (0)));
 
 #if defined(MICRO_OS_PLUS_INTEGER_RTOS_DYNAMIC_MEMORY_SIZE_BYTES)
 

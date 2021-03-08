@@ -25,6 +25,11 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  */
 
+#ifndef MICRO_OS_PLUS_RTOS_H_
+#define MICRO_OS_PLUS_RTOS_H_
+
+// ----------------------------------------------------------------------------
+
 /*
  * The initial µOS++ RTOS API was inspired by CMSIS RTOS API v1.x,
  * Copyright (c) 2013 ARM LIMITED.
@@ -77,17 +82,14 @@
  * but at least they are consistent in POSIX.
  */
 
-#ifndef MICRO_OS_PLUS_RTOS_H_
-#define MICRO_OS_PLUS_RTOS_H_
-
 // ----------------------------------------------------------------------------
 
 #if defined(__cplusplus)
 
+// ----------------------------------------------------------------------------
+
 #include <micro-os-plus/rtos/declarations.h>
-
 #include <micro-os-plus/diag/trace.h>
-
 #include <micro-os-plus/rtos/scheduler.h>
 
 // Includes a reference to critical sections.
@@ -111,6 +113,14 @@
 // More or less at the end, when all other definitions are available.
 #include <micro-os-plus/rtos/inlines.h>
 #include <micro-os-plus/rtos/port/inlines.h>
+
+// ----------------------------------------------------------------------------
+
+#pragma GCC diagnostic push
+
+#if defined(__clang__)
+#pragma clang diagnostic ignored "-Wc++98-compat"
+#endif
 
 namespace micro_os_plus
 {
@@ -157,11 +167,7 @@ namespace micro_os_plus
       class thread::stack*
       stack (void);
 
-#else
 #endif // defined(MICRO_OS_PLUS_HAS_INTERRUPTS_STACK)
-
-      ;
-      // Avoid formatter bug.
     } // namespace interrupts
 
     // ------------------------------------------------------------------------
@@ -187,6 +193,10 @@ namespace micro_os_plus
 
   } // namespace rtos
 } // namespace micro_os_plus
+
+#pragma GCC diagnostic pop
+
+// ----------------------------------------------------------------------------
 
 #endif // __cplusplus
 

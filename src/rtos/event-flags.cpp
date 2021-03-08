@@ -29,6 +29,12 @@
 
 // ----------------------------------------------------------------------------
 
+#pragma GCC diagnostic push
+
+#if defined(__clang__)
+#pragma clang diagnostic ignored "-Wc++98-compat"
+#endif
+
 namespace micro_os_plus
 {
   namespace rtos
@@ -123,8 +129,8 @@ namespace micro_os_plus
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
-    event_flags::event_flags (const attributes& attributes)
-        : event_flags{ nullptr, attributes }
+    event_flags::event_flags (const attributes& _attributes)
+        : event_flags{ nullptr, _attributes }
     {
       ;
     }
@@ -153,7 +159,7 @@ namespace micro_os_plus
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
-    event_flags::event_flags (const char* name, const attributes& attributes)
+    event_flags::event_flags (const char* name, const attributes& _attributes)
         : object_named_system{ name }
     {
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_EVFLAGS)
@@ -164,7 +170,7 @@ namespace micro_os_plus
       micro_os_plus_assert_throw (!interrupts::in_handler_mode (), EPERM);
 
 #if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_EVENT_FLAGS)
-      clock_ = attributes.clock != nullptr ? attributes.clock : &sysclock;
+      clock_ = _attributes.clock != nullptr ? _attributes.clock : &sysclock;
 #endif
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_EVENT_FLAGS)
@@ -562,8 +568,6 @@ namespace micro_os_plus
     }
 
     /**
-     * @details
-     *
      * @note Can be invoked from Interrupt Service Routines.
      */
     result_t
@@ -631,8 +635,6 @@ namespace micro_os_plus
     }
 
     /**
-     * @details
-     *
      * @note Can be invoked from Interrupt Service Routines.
      */
     bool
@@ -666,5 +668,7 @@ namespace micro_os_plus
 
   } // namespace rtos
 } // namespace micro_os_plus
+
+#pragma GCC diagnostic pop
 
 // ----------------------------------------------------------------------------

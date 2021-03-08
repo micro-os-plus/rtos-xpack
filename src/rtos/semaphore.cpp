@@ -29,6 +29,12 @@
 
 // ----------------------------------------------------------------------------
 
+#pragma GCC diagnostic push
+
+#if defined(__clang__)
+#pragma clang diagnostic ignored "-Wc++98-compat"
+#endif
+
 namespace micro_os_plus
 {
   namespace rtos
@@ -154,9 +160,9 @@ namespace micro_os_plus
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
-    semaphore::semaphore (const char* name, const attributes& attributes)
-        : semaphore{ name, attributes.max_value, attributes.initial_value,
-                     attributes }
+    semaphore::semaphore (const char* name, const attributes& _attributes)
+        : semaphore{ name, _attributes.max_value, _attributes.initial_value,
+                     _attributes }
     {
       ;
     }
@@ -167,7 +173,7 @@ namespace micro_os_plus
 
     semaphore::semaphore (const char* name, const count_t max_value,
                           const count_t initial_value,
-                          const attributes& attributes
+                          const attributes& _attributes
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_SEMAPHORE)
                           __attribute__ ((unused))
 #endif
@@ -193,7 +199,7 @@ namespace micro_os_plus
       count_ = initial_value;
 
 #if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_SEMAPHORE)
-      clock_ = attributes.clock != nullptr ? attributes.clock : &sysclock;
+      clock_ = _attributes.clock != nullptr ? _attributes.clock : &sysclock;
 #endif
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_SEMAPHORE)
@@ -279,7 +285,7 @@ namespace micro_os_plus
     {
       if (count_ > 0)
         {
-          --count_;
+          count_ = count_ - 1; // Volatile decrement.
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_SEMAPHORE)
           trace::printf ("%s() @%p %s >%u\n", __func__, this, name (), count_);
 #endif
@@ -367,7 +373,7 @@ namespace micro_os_plus
             return EAGAIN;
           }
 
-        ++count_;
+        count_ = count_ + 1; // Volatile increment.
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_SEMAPHORE)
         trace::printf ("%s() @%p %s count %u\n", __func__, this, name (),
                        count_);
@@ -764,5 +770,7 @@ namespace micro_os_plus
 
   } // namespace rtos
 } // namespace micro_os_plus
+
+#pragma GCC diagnostic pop
 
 // ----------------------------------------------------------------------------

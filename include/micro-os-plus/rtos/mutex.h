@@ -32,9 +32,17 @@
 
 #if defined(__cplusplus)
 
+// ----------------------------------------------------------------------------
+
 #include <micro-os-plus/rtos/declarations.h>
 
 // ----------------------------------------------------------------------------
+
+#pragma GCC diagnostic push
+
+#if defined(__clang__)
+#pragma clang diagnostic ignored "-Wc++98-compat"
+#endif
 
 namespace micro_os_plus
 {
@@ -94,7 +102,7 @@ namespace micro_os_plus
           /**
            * @brief Maximum value, for validation purposes.
            */
-          max_ = protect,
+          max_ = protect
         };
       };
 
@@ -134,7 +142,7 @@ namespace micro_os_plus
           /**
            * @brief Maximum value, for validation purposes.
            */
-          max_ = robust,
+          max_ = robust
         };
       };
 
@@ -177,7 +185,7 @@ namespace micro_os_plus
           /**
            * @brief Maximum value, for validation purposes.
            */
-          max_ = recursive,
+          max_ = recursive
         };
       };
 
@@ -623,7 +631,7 @@ namespace micro_os_plus
       /**
        * @brief Internal function used to unlock the mutex.
        * @param th Pointer to thread.
-       * @return
+       * @return result::ok if unlock ok.
        */
       result_t
       internal_unlock_ (thread* th);
@@ -822,8 +830,6 @@ namespace micro_os_plus
     }
 
     /**
-     * @details
-     *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
     inline thread*
@@ -833,8 +839,6 @@ namespace micro_os_plus
     }
 
     /**
-     * @details
-     *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
     inline mutex::type_t
@@ -844,8 +848,6 @@ namespace micro_os_plus
     }
 
     /**
-     * @details
-     *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
     inline mutex::protocol_t
@@ -855,8 +857,6 @@ namespace micro_os_plus
     }
 
     /**
-     * @details
-     *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
     inline mutex::robustness_t
@@ -867,15 +867,15 @@ namespace micro_os_plus
 
     // ========================================================================
 
-    inline mutex_recursive::mutex_recursive (const attributes& attributes)
-        : mutex{ attributes }
+    inline mutex_recursive::mutex_recursive (const attributes& _attributes)
+        : mutex{ _attributes }
     {
       ;
     }
 
     inline mutex_recursive::mutex_recursive (const char* name,
-                                             const attributes& attributes)
-        : mutex{ name, attributes }
+                                             const attributes& _attributes)
+        : mutex{ name, _attributes }
     {
       ;
     }
@@ -898,9 +898,13 @@ namespace micro_os_plus
   } // namespace rtos
 } // namespace micro_os_plus
 
+#pragma GCC diagnostic pop
+
 // ----------------------------------------------------------------------------
 
 #endif // __cplusplus
+
+// ----------------------------------------------------------------------------
 
 #endif // MICRO_OS_PLUS_RTOS_MUTEX_H_
 

@@ -29,6 +29,12 @@
 
 // ----------------------------------------------------------------------------
 
+#pragma GCC diagnostic push
+
+#if defined(__clang__)
+#pragma clang diagnostic ignored "-Wc++98-compat"
+#endif
+
 namespace micro_os_plus
 {
   namespace rtos
@@ -137,8 +143,8 @@ namespace micro_os_plus
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
     timer::timer (function_t function, function_arguments_t arguments,
-                  const attributes& attributes)
-        : timer{ nullptr, function, arguments, attributes }
+                  const attributes& _attributes)
+        : timer{ nullptr, function, arguments, _attributes }
     {
       ;
     }
@@ -167,7 +173,8 @@ namespace micro_os_plus
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
     timer::timer (const char* name, function_t function,
-                  function_arguments_t arguments, const attributes& attributes)
+                  function_arguments_t arguments,
+                  const attributes& _attributes)
         : object_named_system{ name }
     {
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_TIMER)
@@ -179,12 +186,12 @@ namespace micro_os_plus
       // Don't call this from critical regions.
       micro_os_plus_assert_throw (function != nullptr, EINVAL);
 
-      type_ = attributes.timer_type;
+      type_ = _attributes.timer_type;
       func_ = function;
       func_args_ = arguments;
 
 #if !defined(MICRO_OS_PLUS_USE_RTOS_PORT_TIMER)
-      clock_ = attributes.clock != nullptr ? attributes.clock : &sysclock;
+      clock_ = _attributes.clock != nullptr ? _attributes.clock : &sysclock;
 #endif
 
 #if defined(MICRO_OS_PLUS_USE_RTOS_PORT_TIMER)
@@ -379,5 +386,7 @@ namespace micro_os_plus
 
   } // namespace rtos
 } // namespace micro_os_plus
+
+#pragma GCC diagnostic pop
 
 // ----------------------------------------------------------------------------

@@ -34,6 +34,12 @@ using namespace micro_os_plus::rtos;
 
 // ----------------------------------------------------------------------------
 
+#pragma GCC diagnostic push
+
+#if defined(__clang__)
+#pragma clang diagnostic ignored "-Wc++98-compat"
+#endif
+
 /**
  * @details
  * Must be called from the physical interrupt handler.
@@ -159,8 +165,6 @@ namespace micro_os_plus
     }
 
     /**
-     * @details
-     *
      * @note Can be invoked from Interrupt Service Routines.
      */
     clock::timestamp_t
@@ -175,8 +179,6 @@ namespace micro_os_plus
     }
 
     /**
-     * @details
-     *
      * @note Can be invoked from Interrupt Service Routines.
      */
     clock::timestamp_t
@@ -191,8 +193,6 @@ namespace micro_os_plus
     }
 
     /**
-     * @details
-     *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
     result_t
@@ -235,8 +235,6 @@ namespace micro_os_plus
     }
 
     /**
-     * @details
-     *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
     result_t
@@ -276,8 +274,6 @@ namespace micro_os_plus
     }
 
     /**
-     * @details
-     *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
     result_t
@@ -329,7 +325,7 @@ namespace micro_os_plus
       // ----- Enter critical section -----------------------------------------
       interrupts::critical_section ics;
 
-      steady_count_ += duration;
+      steady_count_ = steady_count_ + duration; // Volatile
 
       internal_check_timestamps ();
       return steady_count_;
@@ -351,6 +347,12 @@ namespace micro_os_plus
     {
       return 0;
     }
+
+#pragma GCC diagnostic push
+
+#if defined(__GNUC__) && !defined(__clang__)
+#pragma GCC diagnostic ignored "-Wsuggest-final-methods"
+#endif
 
     result_t
     clock::internal_wait_until_ (timestamp_t timestamp,
@@ -393,14 +395,14 @@ namespace micro_os_plus
       return result::ok;
     }
 
+#pragma GCC diagnostic pop
+
     /**
      * @endcond
      */
 
     // ========================================================================
     /**
-     * @details
-     *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
     adjustable_clock::~adjustable_clock ()
@@ -408,9 +410,13 @@ namespace micro_os_plus
       ;
     }
 
+#pragma GCC diagnostic push
+
+#if defined(__GNUC__) && !defined(__clang__)
+#pragma GCC diagnostic ignored "-Wsuggest-final-methods"
+#endif
+
     /**
-     * @details
-     *
      * @note Can be invoked from Interrupt Service Routines.
      */
     clock::timestamp_t
@@ -427,9 +433,9 @@ namespace micro_os_plus
       // ----- Exit critical section ------------------------------------------
     }
 
+#pragma GCC diagnostic pop
+
     /**
-     * @details
-     *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
     result_t
@@ -469,8 +475,6 @@ namespace micro_os_plus
     }
 
     /**
-     * @details
-     *
      * @note Can be invoked from Interrupt Service Routines.
      */
     clock::offset_t
@@ -480,8 +484,6 @@ namespace micro_os_plus
     }
 
     /**
-     * @details
-     *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
     clock::offset_t
@@ -553,8 +555,6 @@ namespace micro_os_plus
     // ------------------------------------------------------------------------
 
     /**
-     * @details
-     *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
     clock_systick::clock_systick () : clock{ "sysclock" }
@@ -563,8 +563,6 @@ namespace micro_os_plus
     }
 
     /**
-     * @details
-     *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
     clock_systick::~clock_systick ()
@@ -573,8 +571,6 @@ namespace micro_os_plus
     }
 
     /**
-     * @details
-     *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
     void
@@ -661,8 +657,6 @@ namespace micro_os_plus
     // ------------------------------------------------------------------------
 
     /**
-     * @details
-     *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
     clock_rtc::clock_rtc () : adjustable_clock{ "rtclock" }
@@ -671,8 +665,6 @@ namespace micro_os_plus
     }
 
     /**
-     * @details
-     *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
     clock_rtc::~clock_rtc ()
@@ -716,8 +708,6 @@ namespace micro_os_plus
     // ------------------------------------------------------------------------
 
     /**
-     * @details
-     *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
     clock_highres::clock_highres () : clock{ "hrclock" }
@@ -726,8 +716,6 @@ namespace micro_os_plus
     }
 
     /**
-     * @details
-     *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
     clock_highres::~clock_highres ()
@@ -736,8 +724,6 @@ namespace micro_os_plus
     }
 
     /**
-     * @details
-     *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
     void
@@ -764,5 +750,7 @@ namespace micro_os_plus
 
   } // namespace rtos
 } // namespace micro_os_plus
+
+#pragma GCC diagnostic pop
 
 // ----------------------------------------------------------------------------

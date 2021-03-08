@@ -32,6 +32,8 @@
 
 #if defined(__cplusplus)
 
+// ----------------------------------------------------------------------------
+
 #include <micro-os-plus/rtos/declarations.h>
 #include <micro-os-plus/rtos/clocks.h>
 #include <micro-os-plus/rtos/internal/event-flags.h>
@@ -41,6 +43,16 @@
 #endif
 
 // ----------------------------------------------------------------------------
+
+#pragma GCC diagnostic push
+
+#if defined(__clang__)
+#pragma clang diagnostic ignored "-Wc++98-compat"
+#endif
+#if defined(__GNUC__) && !defined(__clang__)
+#pragma GCC diagnostic ignored "-Wsuggest-final-methods"
+#pragma GCC diagnostic ignored "-Wsuggest-final-types"
+#endif
 
 /**
  * @cond ignore
@@ -1183,7 +1195,6 @@ namespace micro_os_plus
        * @brief Resume the thread.
        * @par Parameters
        *  None.
-       * @return  Nothing.
        */
       void
       resume (void);
@@ -1247,13 +1258,13 @@ namespace micro_os_plus
        *  None.
        * @return A reference to the context stack object instance.
        */
-      class thread::stack&
+      thread::stack&
       stack (void);
 
 #if defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES) \
     || defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CPU_CYCLES)
 
-      class thread::statistics&
+      thread::statistics&
       statistics (void);
 
 #endif
@@ -1343,7 +1354,7 @@ namespace micro_os_plus
 
       friend class clock;
       friend class condition_variable;
-      friend class mutex;
+      // friend class mutex;
 
       /**
        * @endcond
@@ -1389,7 +1400,8 @@ namespace micro_os_plus
       /**
        * @brief Terminate thread by itself.
        * @param [in] exit_ptr Pointer to object to return (optional).
-       * @return  Nothing.
+       * @par Returns
+       *  Nothing.
        */
       [[noreturn]] void
       internal_exit_ (void* exit_ptr = nullptr);
@@ -1591,7 +1603,7 @@ namespace micro_os_plus
        */
       const void* allocator_ = nullptr;
 
-      stack::element_t* allocated_stack_address_ = nullptr;
+      stack::allocation_element_t* allocated_stack_address_ = nullptr;
 
       std::size_t allocated_stack_size_elements_ = 0;
 
@@ -1983,8 +1995,6 @@ namespace micro_os_plus
       }
 
       /**
-       * @details
-       *
        * @warning Cannot be invoked from Interrupt Service Routines.
        */
       inline result_t
@@ -2063,8 +2073,6 @@ namespace micro_os_plus
     // ======================================================================
 
     /**
-     * @details
-     *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
     inline thread::stack::stack ()
@@ -2073,8 +2081,6 @@ namespace micro_os_plus
     }
 
     /**
-     * @details
-     *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
     inline void
@@ -2085,8 +2091,6 @@ namespace micro_os_plus
     }
 
     /**
-     * @details
-     *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
     inline void
@@ -2098,8 +2102,6 @@ namespace micro_os_plus
     }
 
     /**
-     * @details
-     *
      * @note Can be invoked from Interrupt Service Routines.
      */
     inline thread::stack::element_t*
@@ -2109,8 +2111,6 @@ namespace micro_os_plus
     }
 
     /**
-     * @details
-     *
      * @note Can be invoked from Interrupt Service Routines.
      */
     inline thread::stack::element_t*
@@ -2120,8 +2120,6 @@ namespace micro_os_plus
     }
 
     /**
-     * @details
-     *
      * @note Can be invoked from Interrupt Service Routines.
      */
     inline std::size_t
@@ -2131,8 +2129,6 @@ namespace micro_os_plus
     }
 
     /**
-     * @details
-     *
      * @note Can be invoked from Interrupt Service Routines.
      */
     inline bool
@@ -2142,8 +2138,6 @@ namespace micro_os_plus
     }
 
     /**
-     * @details
-     *
      * @note Can be invoked from Interrupt Service Routines.
      */
     inline bool
@@ -2153,8 +2147,6 @@ namespace micro_os_plus
     }
 
     /**
-     * @details
-     *
      * @note Can be invoked from Interrupt Service Routines.
      */
     inline std::size_t
@@ -2164,8 +2156,6 @@ namespace micro_os_plus
     }
 
     /**
-     * @details
-     *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
     inline std::size_t
@@ -2177,8 +2167,6 @@ namespace micro_os_plus
     }
 
     /**
-     * @details
-     *
      * @note Can be invoked from Interrupt Service Routines.
      */
     inline std::size_t
@@ -2188,8 +2176,6 @@ namespace micro_os_plus
     }
 
     /**
-     * @details
-     *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
     inline std::size_t
@@ -2206,8 +2192,6 @@ namespace micro_os_plus
     // ========================================================================
 
     /**
-     * @details
-     *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
     inline thread::context::context ()
@@ -2216,8 +2200,6 @@ namespace micro_os_plus
     }
 
     /**
-     * @details
-     *
      * @note Can be invoked from Interrupt Service Routines.
      */
     inline class thread::stack&
@@ -2256,7 +2238,6 @@ namespace micro_os_plus
 
     /**
      * @details
-     *
      * This value can be used together with the corresponding
      * scheduler function, to compute percentages.
      *
@@ -2290,8 +2271,6 @@ namespace micro_os_plus
     }
 
     /**
-     * @details
-     *
      * @note Can be invoked from Interrupt Service Routines.
      */
     inline thread::state_t
@@ -2301,8 +2280,6 @@ namespace micro_os_plus
     }
 
     /**
-     * @details
-     *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
     inline void*
@@ -2312,8 +2289,6 @@ namespace micro_os_plus
     }
 
     /**
-     * @details
-     *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
     inline bool
@@ -2383,8 +2358,6 @@ namespace micro_os_plus
 #endif
 
     /**
-     * @details
-     *
      * @note Can be invoked from Interrupt Service Routines.
      */
     inline class thread::stack&
@@ -2396,8 +2369,6 @@ namespace micro_os_plus
 #if defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
     /**
-     * @details
-     *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
     inline class thread::statistics&
@@ -2467,8 +2438,8 @@ namespace micro_os_plus
     template <typename Allocator>
     inline thread_allocated<Allocator>::thread_allocated (
         function_t function, function_arguments_t arguments,
-        const attributes& attributes, const allocator_type& allocator)
-        : thread_allocated{ nullptr, function, arguments, attributes,
+        const attributes& _attributes, const allocator_type& allocator)
+        : thread_allocated{ nullptr, function, arguments, _attributes,
                             allocator }
     {
       ;
@@ -2521,25 +2492,25 @@ namespace micro_os_plus
     template <typename Allocator>
     thread_allocated<Allocator>::thread_allocated (
         const char* name, function_t function, function_arguments_t arguments,
-        const attributes& attributes, const allocator_type& allocator)
+        const attributes& _attributes, const allocator_type& allocator)
         : thread{ name }
     {
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD)
       trace::printf ("%s @%p %s\n", __func__, this, this->name ());
 #endif
-      if (attributes.stack_address != nullptr
-          && attributes.stack_size_bytes > stack::min_size ())
+      if (_attributes.stack_address != nullptr
+          && _attributes.stack_size_bytes > stack::min_size ())
         {
-          internal_construct_ (function, arguments, attributes, nullptr, 0);
+          internal_construct_ (function, arguments, _attributes, nullptr, 0);
         }
       else
         {
           allocator_ = &allocator;
 
-          if (attributes.stack_size_bytes > stack::min_size ())
+          if (_attributes.stack_size_bytes > stack::min_size ())
             {
               allocated_stack_size_elements_
-                  = (attributes.stack_size_bytes
+                  = (_attributes.stack_size_bytes
                      + sizeof (typename allocator_type::value_type) - 1)
                     / sizeof (typename allocator_type::value_type);
             }
@@ -2560,7 +2531,7 @@ namespace micro_os_plus
           assert (allocated_stack_address_ != nullptr);
 
           internal_construct_ (
-              function, arguments, attributes, allocated_stack_address_,
+              function, arguments, _attributes, allocated_stack_address_,
               allocated_stack_size_elements_
                   * sizeof (typename allocator_type::value_type));
         }
@@ -2676,8 +2647,8 @@ namespace micro_os_plus
     template <std::size_t N>
     inline thread_inclusive<N>::thread_inclusive (
         function_t function, function_arguments_t arguments,
-        const attributes& attributes)
-        : thread_inclusive<N>{ nullptr, function, arguments, attributes }
+        const attributes& _attributes)
+        : thread_inclusive<N>{ nullptr, function, arguments, _attributes }
     {
       ;
     }
@@ -2735,13 +2706,13 @@ namespace micro_os_plus
     thread_inclusive<N>::thread_inclusive (const char* name,
                                            function_t function,
                                            function_arguments_t arguments,
-                                           const attributes& attributes)
+                                           const attributes& _attributes)
         : thread{ name }
     {
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD)
       trace::printf ("%s @%p %s\n", __func__, this, this->name ());
 #endif
-      internal_construct_ (function, arguments, attributes, &stack_,
+      internal_construct_ (function, arguments, _attributes, &stack_,
                            stack_size_bytes);
     }
 
@@ -2767,9 +2738,13 @@ namespace micro_os_plus
   } // namespace rtos
 } // namespace micro_os_plus
 
+#pragma GCC diagnostic pop
+
 // ----------------------------------------------------------------------------
 
 #endif // __cplusplus
+
+// ----------------------------------------------------------------------------
 
 #endif // MICRO_OS_PLUS_RTMICRO_OS_PLUS_THREAD_H_
 

@@ -29,6 +29,14 @@
 
 #include <micro-os-plus/diag/trace.h>
 
+// ----------------------------------------------------------------------------
+
+#pragma GCC diagnostic push
+
+#if defined(__clang__)
+#pragma clang diagnostic ignored "-Wc++98-compat"
+#endif
+
 namespace micro_os_plus
 {
   namespace rtos
@@ -79,8 +87,7 @@ namespace micro_os_plus
         else if (prio > head ()->thread_->priority ())
           {
             // Insert at the beginning of the list.
-            after = static_cast<waiting_thread_node*> (
-                const_cast<utils::static_double_list_links*> (&head_));
+            after = static_cast<waiting_thread_node*> (&head_);
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_LISTS)
             trace::printf ("ready %s() front +%u %u \n", __func__, prio,
                            head ()->thread_->priority ());
@@ -93,9 +100,7 @@ namespace micro_os_plus
             // The weight is relatively small, priority() is not heavy.
             while (prio > after->thread_->priority ())
               {
-                after = static_cast<waiting_thread_node*> (
-                    const_cast<utils::static_double_list_links*> (
-                        after->previous ()));
+                after = static_cast<waiting_thread_node*> (after->previous ());
               }
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_LISTS)
             trace::printf ("ready %s() middle %u +%u \n", __func__,
@@ -205,8 +210,7 @@ namespace micro_os_plus
         else if (prio > head ()->thread_->priority ())
           {
             // Insert at the beginning of the list.
-            after = static_cast<waiting_thread_node*> (
-                const_cast<utils::static_double_list_links*> (&head_));
+            after = static_cast<waiting_thread_node*> (&head_);
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_LISTS)
             trace::printf ("wait %s() front +%u %u \n", __func__, prio,
                            head ()->thread_->priority ());
@@ -219,9 +223,7 @@ namespace micro_os_plus
             // The weight is relatively small, priority() is not heavy.
             while (prio > after->thread_->priority ())
               {
-                after = static_cast<waiting_thread_node*> (
-                    const_cast<utils::static_double_list_links*> (
-                        after->previous ()));
+                after = static_cast<waiting_thread_node*> (after->previous ());
               }
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_LISTS)
             trace::printf ("wait %s() middle %u +%u \n", __func__,
@@ -387,6 +389,8 @@ namespace micro_os_plus
         timeout_thread_node* after = static_cast<timeout_thread_node*> (
             const_cast<utils::static_double_list_links*> (tail ()));
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wnull-dereference"
         if (empty ())
           {
             // Insert at the end of the list.
@@ -408,8 +412,7 @@ namespace micro_os_plus
           {
             // Insert at the beginning of the list
             // and update the new head.
-            after = static_cast<timeout_thread_node*> (
-                const_cast<utils::static_double_list_links*> (&head_));
+            after = static_cast<timeout_thread_node*> (&head_);
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_LISTS_CLOCKS)
             trace::printf ("clock %s() front +%u %u\n", __func__,
                            static_cast<uint32_t> (timestamp),
@@ -422,9 +425,7 @@ namespace micro_os_plus
             // The loop is guaranteed to terminate.
             while (timestamp < after->timestamp)
               {
-                after = static_cast<timeout_thread_node*> (
-                    const_cast<utils::static_double_list_links*> (
-                        after->previous ()));
+                after = static_cast<timeout_thread_node*> (after->previous ());
               }
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_LISTS_CLOCKS)
             trace::printf ("clock %s() middle %u +%u\n", __func__,
@@ -432,6 +433,7 @@ namespace micro_os_plus
                            static_cast<uint32_t> (timestamp));
 #endif
           }
+#pragma GCC diagnostic pop
 
         insert_after (node, after);
       }
@@ -463,14 +465,20 @@ namespace micro_os_plus
               {
                 break;
               }
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wnull-dereference"
             clock::timestamp_t head_ts = head ()->timestamp;
+#pragma GCC diagnostic pop
             if (now >= head_ts)
               {
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_LISTS_CLOCKS)
                 trace::printf ("%s() %u \n", __func__,
                                static_cast<uint32_t> (sysclock.now ()));
 #endif
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wnull-dereference"
                 const_cast<timestamp_node*> (head ())->action ();
+#pragma GCC diagnostic pop
               }
             else
               {
@@ -508,5 +516,7 @@ namespace micro_os_plus
     } // namespace internal
   } // namespace rtos
 } // namespace micro_os_plus
+
+#pragma GCC diagnostic pop
 
 // ----------------------------------------------------------------------------

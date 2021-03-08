@@ -29,10 +29,9 @@
 #define MICRO_OS_PLUS_RTOS_TYPES_H_
 
 // ----------------------------------------------------------------------------
+// This file is included at the end of declarations.h.
 
 #if defined(__cplusplus)
-
-// This file is included at the end of declarations.h.
 
 // ----------------------------------------------------------------------------
 
@@ -43,6 +42,14 @@
 // ----------------------------------------------------------------------------
 
 #include <memory>
+
+// ----------------------------------------------------------------------------
+
+#pragma GCC diagnostic push
+
+#if defined(__clang__)
+#pragma clang diagnostic ignored "-Wc++98-compat"
+#endif
 
 namespace micro_os_plus
 {
@@ -75,9 +82,13 @@ namespace micro_os_plus
 #include <micro-os-plus/rtos/custom-types.h>
 #endif
 
+#pragma GCC diagnostic pop
+
 // ----------------------------------------------------------------------------
 
 #endif // __cplusplus
+
+// ----------------------------------------------------------------------------
 
 #endif // MICRO_OS_PLUS_RTOS_TYPES_H_
 

@@ -32,6 +32,12 @@
 
 // ----------------------------------------------------------------------------
 
+#pragma GCC diagnostic push
+
+#if defined(__clang__)
+#pragma clang diagnostic ignored "-Wc++98-compat"
+#endif
+
 namespace micro_os_plus
 {
   namespace rtos
@@ -312,9 +318,9 @@ namespace micro_os_plus
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
     thread::thread (function_t function, function_arguments_t arguments,
-                    const attributes& attributes,
+                    const attributes& _attributes,
                     const allocator_type& allocator)
-        : thread{ nullptr, function, arguments, attributes, allocator }
+        : thread{ nullptr, function, arguments, _attributes, allocator }
     {
       ;
     }
@@ -365,7 +371,7 @@ namespace micro_os_plus
      */
     thread::thread (const char* name, function_t function,
                     function_arguments_t arguments,
-                    const attributes& attributes,
+                    const attributes& _attributes,
                     const allocator_type& allocator)
         : object_named_system{ name }
     {
@@ -375,20 +381,20 @@ namespace micro_os_plus
 
       allocator_ = &allocator;
 
-      if (attributes.stack_address != nullptr
-          && attributes.stack_size_bytes > stack::min_size ())
+      if (_attributes.stack_address != nullptr
+          && _attributes.stack_size_bytes > stack::min_size ())
         {
-          internal_construct_ (function, arguments, attributes, nullptr, 0);
+          internal_construct_ (function, arguments, _attributes, nullptr, 0);
         }
       else
         {
           using allocator_type2
               = memory::allocator<stack::allocation_element_t>;
 
-          if (attributes.stack_size_bytes > stack::min_size ())
+          if (_attributes.stack_size_bytes > stack::min_size ())
             {
               allocated_stack_size_elements_
-                  = (attributes.stack_size_bytes
+                  = (_attributes.stack_size_bytes
                      + sizeof (stack::allocation_element_t) - 1)
                     / sizeof (stack::allocation_element_t);
             }
@@ -400,14 +406,14 @@ namespace micro_os_plus
                     / sizeof (stack::allocation_element_t);
             }
 
-          allocated_stack_address_ = reinterpret_cast<stack::element_t*> (
-              const_cast<allocator_type2&> (allocator).allocate (
-                  allocated_stack_size_elements_));
+          allocated_stack_address_
+              = const_cast<allocator_type2&> (allocator).allocate (
+                  allocated_stack_size_elements_);
 
           // Stack allocation failed.
           assert (allocated_stack_address_ != nullptr);
 
-          internal_construct_ (function, arguments, attributes,
+          internal_construct_ (function, arguments, _attributes,
                                allocated_stack_address_,
                                allocated_stack_size_elements_
                                    * sizeof (stack::allocation_element_t));
@@ -421,7 +427,7 @@ namespace micro_os_plus
     void
     thread::internal_construct_ (function_t function,
                                  function_arguments_t arguments,
-                                 const attributes& attributes,
+                                 const attributes& _attributes,
                                  void* stack_address,
                                  std::size_t stack_size_bytes)
     {
@@ -431,17 +437,17 @@ namespace micro_os_plus
       // The thread function must be real.
       assert (function != nullptr);
       // Don't forget to set the thread priority.
-      assert (attributes.priority != priority::none);
+      assert (_attributes.priority != priority::none);
 
-      clock_ = attributes.clock != nullptr ? attributes.clock : &sysclock;
+      clock_ = _attributes.clock != nullptr ? _attributes.clock : &sysclock;
 
       if (stack_address != nullptr)
         {
           // The attributes should not define any storage in this case.
-          if (attributes.stack_size_bytes > stack::min_size ())
+          if (_attributes.stack_size_bytes > stack::min_size ())
             {
               // The stack address must be real.
-              assert (attributes.stack_address == nullptr);
+              assert (_attributes.stack_address == nullptr);
             }
 
           stack ().set (static_cast<stack::element_t*> (stack_address),
@@ -450,13 +456,13 @@ namespace micro_os_plus
       else
         {
           stack ().set (
-              static_cast<stack::element_t*> (attributes.stack_address),
-              attributes.stack_size_bytes);
+              static_cast<stack::element_t*> (_attributes.stack_address),
+              _attributes.stack_size_bytes);
         }
 
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD)
       trace::printf ("%s() @%p %s p%u stack{%p,%u}\n", __func__, this, name (),
-                     attributes.priority, stack ().bottom_address_,
+                     _attributes.priority, stack ().bottom_address_,
                      stack ().size_bytes_);
 #endif
 
@@ -466,7 +472,7 @@ namespace micro_os_plus
         scheduler::critical_section scs;
 
         // Get attributes from user structure.
-        priority_assigned_ = attributes.priority;
+        priority_assigned_ = _attributes.priority;
 
         func_ = function;
         func_args_ = arguments;
@@ -490,10 +496,18 @@ namespace micro_os_plus
 
 #else
 
+#pragma GCC diagnostic push
+
+#if defined(__clang__)
+#pragma clang diagnostic ignored "-Wc++98-compat-pedantic"
+#endif
+
         // Create the context.
         port::context::create (
             &context_, reinterpret_cast<void*> (internal_invoke_with_exit_),
             this);
+
+#pragma GCC diagnostic pop
 
         if (!scheduler::started ())
           {
@@ -601,8 +615,6 @@ namespace micro_os_plus
     }
 
     /**
-     * @details
-     *
      * @par POSIX compatibility
      *  Extension to standard, no POSIX similar functionality identified.
      *
@@ -629,8 +641,6 @@ namespace micro_os_plus
     }
 
     /**
-     * @details
-     *
      * @par POSIX compatibility
      *  Extension to standard, no POSIX similar functionality identified.
      *
@@ -910,7 +920,6 @@ namespace micro_os_plus
 
     /**
      * @details
-     *
      * The `cancel()` function shall not return an error code of `EINTR`.
      * If an implementation detects use of a thread ID after the end
      * of its lifetime, it is recommended that the function should
@@ -974,8 +983,6 @@ namespace micro_os_plus
      */
 
     /**
-     * @details
-     *
      * @par POSIX compatibility
      *  Extension to standard, no POSIX similar functionality identified.
      */
@@ -1085,6 +1092,12 @@ namespace micro_os_plus
         }
     }
 
+#pragma GCC diagnostic push
+
+#if defined(__GNUC__) && !defined(__clang__)
+#pragma GCC diagnostic ignored "-Wsuggest-final-methods"
+#endif
+
     // Called from kill() and from idle thread.
     void
     thread::internal_destroy_ (void)
@@ -1097,13 +1110,9 @@ namespace micro_os_plus
 
       if (allocated_stack_address_ != nullptr)
         {
-          typedef
-              typename std::allocator_traits<allocator_type>::pointer pointer;
-
           static_cast<allocator_type*> (const_cast<void*> (allocator_))
-              ->deallocate (
-                  reinterpret_cast<pointer> (allocated_stack_address_),
-                  allocated_stack_size_elements_);
+              ->deallocate (allocated_stack_address_,
+                            allocated_stack_size_elements_);
 
           allocated_stack_address_ = nullptr;
         }
@@ -1133,13 +1142,13 @@ namespace micro_os_plus
         }
     }
 
+#pragma GCC diagnostic pop
+
     /**
      * @endcond
      */
 
     /**
-     * @details
-     *
      * @par POSIX compatibility
      *  Inspired by
      * [`pthread_kill()`](http://pubs.opengroup.org/onlinepubs/9699919799/functions/pthread_kill.html)
@@ -1498,8 +1507,6 @@ namespace micro_os_plus
     }
 
     /**
-     * @details
-     *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
     result_t
@@ -1561,8 +1568,6 @@ namespace micro_os_plus
        */
 
       /**
-       * @details
-       *
        * @warning Cannot be invoked from Interrupt Service Routines.
        */
       rtos::thread&
@@ -1624,5 +1629,7 @@ namespace micro_os_plus
     // ------------------------------------------------------------------------
   } // namespace rtos
 } // namespace micro_os_plus
+
+#pragma GCC diagnostic pop
 
 // ----------------------------------------------------------------------------

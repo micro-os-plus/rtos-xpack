@@ -32,9 +32,17 @@
 
 #if defined(__cplusplus)
 
+// ----------------------------------------------------------------------------
+
 #include <micro-os-plus/rtos/declarations.h>
 
 // ----------------------------------------------------------------------------
+
+#pragma GCC diagnostic push
+
+#if defined(__clang__)
+#pragma clang diagnostic ignored "-Wc++98-compat"
+#endif
 
 namespace micro_os_plus
 {
@@ -666,9 +674,9 @@ namespace micro_os_plus
      */
 
     constexpr semaphore::attributes::attributes (count_t _max_value,
-                                                 count_t initial_value)
+                                                 count_t _initial_value)
         : max_value (_max_value), //
-          initial_value (initial_value)
+          initial_value (_initial_value)
     {
       ;
     }
@@ -679,8 +687,8 @@ namespace micro_os_plus
 
     // ========================================================================
     constexpr semaphore::attributes_binary::attributes_binary (
-        count_t initial_value)
-        : attributes{ 1, initial_value } // Use the protected constructor.
+        count_t _initial_value)
+        : attributes{ 1, _initial_value } // Use the protected constructor.
     {
       ;
     }
@@ -688,8 +696,8 @@ namespace micro_os_plus
     // ========================================================================
 
     constexpr semaphore::attributes_counting::attributes_counting (
-        count_t max_value, count_t initial_value)
-        : attributes{ max_value, initial_value }
+        count_t _max_value, count_t _initial_value)
+        : attributes{ _max_value, _initial_value }
     // Use the protected constructor.
     {
       ;
@@ -727,8 +735,8 @@ namespace micro_os_plus
      *
      * @warning Cannot be invoked from Interrupt Service Routines.
      */
-    inline semaphore::semaphore (const attributes& attributes)
-        : semaphore{ nullptr, attributes }
+    inline semaphore::semaphore (const attributes& _attributes)
+        : semaphore{ nullptr, _attributes }
     {
       ;
     }
@@ -744,7 +752,6 @@ namespace micro_os_plus
     }
 
     /**
-     * @details
      * @par POSIX compatibility
      *  Extension to standard, no POSIX similar functionality identified.
      *
@@ -757,7 +764,6 @@ namespace micro_os_plus
     }
 
     /**
-     * @details
      * @par POSIX compatibility
      *  Extension to standard, no POSIX similar functionality identified.
      *
@@ -942,9 +948,13 @@ namespace micro_os_plus
   } // namespace rtos
 } // namespace micro_os_plus
 
+#pragma GCC diagnostic pop
+
 // ----------------------------------------------------------------------------
 
 #endif // __cplusplus
+
+// ----------------------------------------------------------------------------
 
 #endif // MICRO_OS_PLUS_RTOS_SEMAPHORE_H_
 

@@ -32,9 +32,21 @@
 
 #if defined(__cplusplus)
 
+// ----------------------------------------------------------------------------
+
 #include <micro-os-plus/rtos/declarations.h>
 
 // ----------------------------------------------------------------------------
+
+#pragma GCC diagnostic push
+
+#if defined(__clang__)
+#pragma clang diagnostic ignored "-Wc++98-compat"
+#endif
+#if defined(__GNUC__) && !defined(__clang__)
+#pragma GCC diagnostic ignored "-Wsuggest-final-methods"
+#pragma GCC diagnostic ignored "-Wsuggest-final-types"
+#endif
 
 namespace micro_os_plus
 {
@@ -813,7 +825,7 @@ namespace micro_os_plus
     clock::internal_increment_count (void)
     {
       // One more tick count passed.
-      ++steady_count_;
+      steady_count_ = steady_count_ + 1;
     }
 
     inline __attribute__ ((always_inline)) void
@@ -853,6 +865,7 @@ namespace micro_os_plus
      */
 
     // ========================================================================
+
     /**
      * @cond ignore
      */
@@ -876,12 +889,13 @@ namespace micro_os_plus
     /**
      * @endcond
      */
+
     // ========================================================================
     inline __attribute__ ((always_inline)) void
     clock_highres::internal_increment_count (void)
     {
       // Increment the highres count by SysTick divisor.
-      steady_count_ += port::clock_highres::cycles_per_tick ();
+      steady_count_ = steady_count_ + port::clock_highres::cycles_per_tick ();
     }
 
     inline __attribute__ ((always_inline)) uint32_t
@@ -895,9 +909,13 @@ namespace micro_os_plus
   } // namespace rtos
 } // namespace micro_os_plus
 
+#pragma GCC diagnostic pop
+
 // ----------------------------------------------------------------------------
 
 #endif // __cplusplus
+
+// ----------------------------------------------------------------------------
 
 #endif // MICRO_OS_PLUS_RTOS_CLOCKS_H_
 

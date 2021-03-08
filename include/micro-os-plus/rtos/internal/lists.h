@@ -32,12 +32,22 @@
 
 #ifdef __cplusplus
 
+// ----------------------------------------------------------------------------
+
 #include <micro-os-plus/utils/lists.h>
 
 #include <cstdint>
 #include <cstddef>
 #include <cassert>
 #include <iterator>
+
+// ----------------------------------------------------------------------------
+
+#pragma GCC diagnostic push
+
+#if defined(__clang__)
+#pragma clang diagnostic ignored "-Wc++98-compat"
+#endif
 
 namespace micro_os_plus
 {
@@ -802,8 +812,7 @@ namespace micro_os_plus
          */
       };
 
-    }; // namespace internal
-    /* namespace internal */
+    } // namespace internal
 
     // ------------------------------------------------------------------------
     namespace scheduler
@@ -924,6 +933,9 @@ namespace micro_os_plus
             double_list::head ());
       }
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Waggregate-return"
+
       inline waiting_threads_list::iterator
       waiting_threads_list::begin () const
       {
@@ -941,6 +953,8 @@ namespace micro_os_plus
               const_cast<utils::static_double_list_links*> (&head_))
         };
       }
+
+#pragma GCC diagnostic pop
 
       // ======================================================================
 
@@ -988,9 +1002,13 @@ namespace micro_os_plus
   } // namespace rtos
 } // namespace micro_os_plus
 
+#pragma GCC diagnostic pop
+
 // ----------------------------------------------------------------------------
 
 #endif // __cplusplus
+
+// ----------------------------------------------------------------------------
 
 #endif // MICRO_OS_PLUS_RTOS_INTERNAL_LISTS_H_
 

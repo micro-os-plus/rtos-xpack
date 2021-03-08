@@ -33,14 +33,18 @@ using namespace micro_os_plus;
 
 // ----------------------------------------------------------------------------
 
+#pragma GCC diagnostic push
+
+#if defined(__clang__)
+#pragma clang diagnostic ignored "-Wc++98-compat"
+#endif
+
 namespace
 {
 #if defined(MICRO_OS_PLUS_HAS_INTERRUPTS_STACK)
   // Object used to manage the interrupts stack.
   class rtos::thread::stack interrupts_stack;
 #endif // defined(MICRO_OS_PLUS_HAS_INTERRUPTS_STACK)
-  ;
-  // Avoid formatter bug
 } // namespace
 
 namespace micro_os_plus
@@ -104,33 +108,44 @@ namespace micro_os_plus
 #pragma GCC diagnostic ignored "-Wpadded"
       // A small kludge to provide a temporary errno before
       // the first real thread is created.
-      typedef struct
+      class thread_tiny : public internal::object_named_system
       {
-        void* vtbl;
-        void* name_;
-        // errno is the first thread member, so right after the name.
+      public:
+        virtual ~thread_tiny ();
+
+        // errno must be the first member, to match the real threads layout.
         int errno_;
-      } tiny_thread_t;
+      };
 #pragma GCC diagnostic pop
 
       // Ensure the tiny thread is large enough to have the errno
       // member in the same location.
 #pragma GCC diagnostic push
+// 'offsetof' within non-standard-layout type
 #pragma GCC diagnostic ignored "-Winvalid-offsetof"
-      static_assert (offsetof (tiny_thread_t, errno_)
+      static_assert (offsetof (thread_tiny, errno_)
                          == offsetof (thread, errno_),
-                     "adjust tiny_thread_t members");
+                     "adjust thread_tiny members");
 #pragma GCC diagnostic pop
 
 #pragma GCC diagnostic push
 #if defined(__clang__)
 #pragma clang diagnostic ignored "-Wmissing-variable-declarations"
+#pragma clang diagnostic ignored "-Wexit-time-destructors"
+#pragma clang diagnostic ignored "-Wglobal-constructors"
 #endif
-      tiny_thread_t tiny_thread;
+      thread_tiny thread_tiny_;
 #pragma GCC diagnostic pop
 
+      thread_tiny::~thread_tiny ()
+      {
+      }
+
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wcast-align"
       thread* volatile current_thread_
-          = reinterpret_cast<thread*> (&tiny_thread);
+          = reinterpret_cast<thread*> (&thread_tiny_);
+#pragma GCC diagnostic pop
 
 #pragma GCC diagnostic push
 #if defined(__clang__)
@@ -226,8 +241,6 @@ namespace micro_os_plus
       }
 
       /**
-       * @details
-       *
        * @warning Cannot be invoked from Interrupt Service Routines.
        */
       bool
@@ -420,8 +433,7 @@ namespace micro_os_plus
         // Compute duration since previous context switch.
         // Assume scheduler is not disabled for very long.
         rtos::statistics::duration_t delta
-            = static_cast<rtos::statistics::duration_t> (
-                now - scheduler::statistics::switch_timestamp_);
+            = now - scheduler::statistics::switch_timestamp_;
 
         // Accumulate durations to scheduler total.
         scheduler::statistics::cpu_cycles_ += delta;
@@ -575,10 +587,7 @@ namespace micro_os_plus
 
 #endif // defined(MICRO_OS_PLUS_HAS_INTERRUPTS_STACK)
 
-      ;
-      // Avoid formatter bug.
     } // namespace interrupts
-    /* namespace interrupts */
 
     // ========================================================================
     namespace internal
@@ -660,5 +669,7 @@ __errno (void)
 /**
  * @}
  */
+
+#pragma GCC diagnostic pop
 
 // ----------------------------------------------------------------------------
