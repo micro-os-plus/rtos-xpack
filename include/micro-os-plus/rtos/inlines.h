@@ -28,12 +28,14 @@
 #ifndef MICRO_OS_PLUS_RTOS_INLINES_H_
 #define MICRO_OS_PLUS_RTOS_INLINES_H_
 
-/*
- * References are to ISO/IEC 14882:2011(E) Third edition (2011-09-01)
- */
+// ----------------------------------------------------------------------------
+// References are to ISO/IEC 14882:2011(E) Third edition (2011-09-01)
 
 // ----------------------------------------------------------------------------
+
 #if defined(__cplusplus)
+
+// ----------------------------------------------------------------------------
 
 namespace micro_os_plus
 {
@@ -160,6 +162,8 @@ namespace micro_os_plus
     } // namespace internal
   } // namespace rtos
 } // namespace micro_os_plus
+
+// ----------------------------------------------------------------------------
 
 #endif // __cplusplus
 

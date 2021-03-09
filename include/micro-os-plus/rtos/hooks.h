@@ -28,6 +28,8 @@
 #ifndef MICRO_OS_PLUS_RTOS_HOOKS_H_
 #define MICRO_OS_PLUS_RTOS_HOOKS_H_
 
+// ----------------------------------------------------------------------------
+
 #include <stddef.h>
 #include <stdbool.h>
 
@@ -117,6 +119,8 @@ extern "C"
 #if defined(__cplusplus)
 }
 #endif // __cplusplus
+
+// ----------------------------------------------------------------------------
 
 #endif // MICRO_OS_PLUS_RTOS_HOOKS_H_
 
