@@ -12,6 +12,8 @@ and close existing issues and pull requests.
 
 ## 2021-03-10
 
+- v2.0.3
+- fix/silence warnings
 - v2.0.2
 - fix/silence warnings
 - std::exception const& e
