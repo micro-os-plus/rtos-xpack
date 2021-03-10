@@ -651,6 +651,7 @@ namespace micro_os_plus
  */
 
 #pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wmissing-declarations"
 #if defined(__clang__)
 #pragma clang diagnostic ignored "-Wmissing-prototypes"
 #endif

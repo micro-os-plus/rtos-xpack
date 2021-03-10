@@ -672,8 +672,13 @@ namespace micro_os_plus
     memory_pool::timed_alloc (clock::duration_t timeout)
     {
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_MEMPOOL)
+#pragma GCC diagnostic push
+#if defined(__GNUC__) && !defined(__clang__)
+#pragma GCC diagnostic ignored "-Wuseless-cast"
+#endif
       trace::printf ("%s(%u) @%p %s\n", __func__,
                      static_cast<unsigned int> (timeout), this, name ());
+#pragma GCC diagnostic pop
 #endif
 
       // Don't call this from interrupt handlers.
