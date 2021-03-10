@@ -285,7 +285,16 @@ namespace micro_os_plus
     {
       if (count_ > 0)
         {
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wconversion"
+#if defined(__GNUC__) && !defined(__clang__)
+#if __GNUC__ >= 10
+#pragma GCC diagnostic ignored "-Warith-conversion"
+#endif
+#endif
           count_ = count_ - 1; // Volatile decrement.
+#pragma GCC diagnostic pop
+
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_SEMAPHORE)
           trace::printf ("%s() @%p %s >%u\n", __func__, this, name (), count_);
 #endif
@@ -373,7 +382,16 @@ namespace micro_os_plus
             return EAGAIN;
           }
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wconversion"
+#if defined(__GNUC__) && !defined(__clang__)
+#if __GNUC__ >= 10
+#pragma GCC diagnostic ignored "-Warith-conversion"
+#endif
+#endif
         count_ = count_ + 1; // Volatile increment.
+#pragma GCC diagnostic pop
+
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_SEMAPHORE)
         trace::printf ("%s() @%p %s count %u\n", __func__, this, name (),
                        count_);

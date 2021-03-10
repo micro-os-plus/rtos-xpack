@@ -469,7 +469,17 @@ namespace micro_os_plus
         {
           void* p = static_cast<void*> (first_);
           first_ = *(static_cast<void**> (first_));
+
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wconversion"
+#if defined(__GNUC__) && !defined(__clang__)
+#if __GNUC__ >= 10
+#pragma GCC diagnostic ignored "-Warith-conversion"
+#endif
+#endif
           count_ = count_ + 1; // Volatile increment.
+#pragma GCC diagnostic pop
+
           return p;
         }
 
@@ -800,7 +810,16 @@ namespace micro_os_plus
         // Now this block is the first one.
         first_ = block;
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wconversion"
+#if defined(__GNUC__) && !defined(__clang__)
+#if __GNUC__ >= 10
+#pragma GCC diagnostic ignored "-Warith-conversion"
+#endif
+#endif
         count_ = count_ - 1; // Volatile decrement.
+#pragma GCC diagnostic push
+
         // ----- Exit critical section --------------------------------------
       }
 

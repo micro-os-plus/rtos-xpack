@@ -643,13 +643,17 @@ namespace micro_os_plus
   } // namespace rtos
 } // namespace micro_os_plus
 
-int*
-__errno (void);
+#pragma GCC diagnostic push
 
 /**
  * @name errno getter/setter
  * @{
  */
+
+#pragma GCC diagnostic push
+#if defined(__clang__)
+#pragma clang diagnostic ignored "-Wmissing-prototypes"
+#endif
 
 /**
  * @brief Per-thread error support.
@@ -665,6 +669,8 @@ __errno (void)
 {
   return micro_os_plus::rtos::this_thread::__errno ();
 }
+
+#pragma GCC diagnostic pop
 
 /**
  * @}
