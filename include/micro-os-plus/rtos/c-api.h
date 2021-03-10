@@ -79,37 +79,6 @@ extern "C"
 
   // --------------------------------------------------------------------------
   /**
-   * @name Main Thread Function
-   * @{
-   */
-
-  /**
-   * @brief Application entry point, running on the main thread context.
-   * @ingroup micro-os-plus-rtos-c
-   * @headerfile os.h <micro-os-plus/rtos/c-api.h>
-   * @param argc Count of arguments.
-   * @param argv Array of string arguments.
-   * @retval 0 The program terminated normally.
-   * @retval 1 The program terminated with an error.
-   *
-   * @details
-   * If the application does not define a main() function but defines
-   * os_main(),
-   * the µOS++ RTOS will automatically provide a main() function
-   * that starts the main thread and calls os_main() within this context.
-   *
-   * The returned value is used in semihosted tests, to inform the
-   * host on the result of the test.
-   */
-  int
-  os_main (int argc, char* argv[]);
-
-  /**
-   * @}
-   */
-
-  // --------------------------------------------------------------------------
-  /**
    * @name Scheduler Functions
    * @{
    */
