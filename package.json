@@ -1,6 +1,6 @@
 {
   "name": "@micro-os-plus/rtos",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "A source xPack with the µOS++ RTOS",
   "main": "",
   "scripts": {
