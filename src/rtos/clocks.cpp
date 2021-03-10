@@ -199,9 +199,14 @@ namespace micro_os_plus
     clock::sleep_for (duration_t duration)
     {
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_CLOCKS)
+#pragma GCC diagnostic push
+#if defined(__GNUC__) && !defined(__clang__)
+#pragma GCC diagnostic ignored "-Wuseless-cast"
+#endif
       trace::printf ("%s(%u) %p %s\n", __func__,
                      static_cast<unsigned int> (duration),
                      &this_thread::thread (), this_thread::thread ().name ());
+#pragma GCC diagnostic pop
 #endif
 
       // Don't call this from interrupt handlers.
@@ -280,8 +285,13 @@ namespace micro_os_plus
     clock::wait_for (duration_t timeout)
     {
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_CLOCKS)
+#pragma GCC diagnostic push
+#if defined(__GNUC__) && !defined(__clang__)
+#pragma GCC diagnostic ignored "-Wuseless-cast"
+#endif
       trace::printf ("%s(%u)\n", __func__,
                      static_cast<unsigned int> (timeout));
+#pragma GCC diagnostic pop
 #endif
 
       // Don't call this from interrupt handlers.
