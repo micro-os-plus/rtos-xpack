@@ -5,7 +5,7 @@
 # A source xPack with the µOS++ RTOS files
 
 A source xPack with the **µOS++ RTOS**, a POSIX inspired open
-source framework, written in C++. 
+source framework, written in C++.
 
 The project is hosted on GitHub as
 [micro-os-plus/rtos-xpack](https://github.com/micro-os-plus/rtos-xpack).
@@ -37,22 +37,22 @@ Note: the package will be available from npmjs.com at a later date.
 
 For now, it can be installed from GitHub:
 
-```console
-$ cd <project>
-$ xpm init # Unless a package.json is already present
+```sh
+cd my-project
+xpm init # Unless a package.json is already present
 
-$ xpm install github:micro-os-plus/rtos-xpack
+xpm install github:micro-os-plus/rtos-xpack
 ```
 
 When ready, this package will be available as
 [`@micro-os-plus/rtos`](https://www.npmjs.com/package/@micro-os-plus/rtos)
 from the `npmjs.com` registry:
 
-```console
-$ cd <project>
-$ xpm init # Unless a package.json is already present
+```sh
+cd my-project
+xpm init # Unless a package.json is already present
 
-$ xpm install @micro-os-plus/rtos@latest
+xpm install @micro-os-plus/rtos@latest
 ```
 
 ### Git submodule
@@ -60,12 +60,12 @@ $ xpm install @micro-os-plus/rtos@latest
 If, for any reason, **xpm** is not available, the next recommended
 solution is to link it as a Git submodule below an `xpacks` folder.
 
-```console
-$ cd <project>
-$ git init # Unless already a Git project
-$ mkdir -p xpacks
+```sh
+cd my-project
+git init # Unless already a Git project
+mkdir -p xpacks
 
-$ git submodule add https://github.com/micro-os-plus/rtos-xpack.git \
+git submodule add https://github.com/micro-os-plus/rtos-xpack.git \
   xpacks/micro-os-plus-rtos
 ```
 
