@@ -47,7 +47,7 @@ if(NOT TARGET micro-os-plus-rtos-interface)
 
   add_library(micro-os-plus-rtos-interface INTERFACE EXCLUDE_FROM_ALL)
 
-  # ---------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
 
   xpack_glob_recurse_cxx(source_files "${xpack_current_folder}/src")
   xpack_display_relative_paths("${source_files}" "${xpack_current_folder}")
@@ -79,7 +79,7 @@ if(NOT TARGET micro-os-plus-rtos-interface)
       micro-os-plus::version
   )
 
-  # ---------------------------------------------------------------------------
+# -----------------------------------------------------------------------------
   # Aliases.
 
   add_library(micro-os-plus::rtos ALIAS micro-os-plus-rtos-interface)
