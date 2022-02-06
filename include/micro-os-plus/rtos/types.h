@@ -20,9 +20,9 @@
 
 // ----------------------------------------------------------------------------
 
-#if defined(HAVE_MICRO_OS_PLUS_CONFIG_H)
+#if defined(MICRO_OS_PLUS_HAS_CONFIG_H)
 #include <micro-os-plus/config.h>
-#endif // HAVE_MICRO_OS_PLUS_CONFIG_H
+#endif // MICRO_OS_PLUS_HAS_CONFIG_H
 
 // ----------------------------------------------------------------------------
 
