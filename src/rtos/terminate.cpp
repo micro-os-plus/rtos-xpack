@@ -25,7 +25,7 @@ extern rtos::thread* micro_os_plus_main_thread;
 void
 micro_os_plus_terminate_goodbye (void)
 {
-#if defined(TRACE)
+#if defined(MICRO_OS_PLUS_TRACE)
 
   trace::printf ("\n");
 
@@ -54,6 +54,6 @@ micro_os_plus_terminate_goodbye (void)
 
   trace::printf ("\nHasta la Vista!\n");
 
-#endif // defined(TRACE)
+#endif // defined(MICRO_OS_PLUS_TRACE)
 }
 // ----------------------------------------------------------------------------

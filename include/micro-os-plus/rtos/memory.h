@@ -1432,7 +1432,7 @@ namespace micro_os_plus
       inline void
       memory_resource::trace_print_statistics (void)
       {
-#if defined(TRACE)
+#if defined(MICRO_OS_PLUS_TRACE)
         trace::printf ("Memory '%s' @%p: \n"
                        "\ttotal: %u bytes, \n"
                        "\tallocated: %u bytes in %u chunk(s), \n"
@@ -1443,7 +1443,7 @@ namespace micro_os_plus
                        allocated_chunks (), free_bytes (), free_chunks (),
                        max_allocated_bytes (), allocations (),
                        deallocations ());
-#endif // defined(TRACE)
+#endif // defined(MICRO_OS_PLUS_TRACE)
       }
 
       // ======================================================================
