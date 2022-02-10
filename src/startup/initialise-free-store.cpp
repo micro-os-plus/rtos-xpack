@@ -15,6 +15,10 @@
 
 // ----------------------------------------------------------------------------
 
+#if defined(MICRO_OS_PLUS_INCLUDE_CONFIG_H)
+#include <micro-os-plus/config.h>
+#endif // MICRO_OS_PLUS_INCLUDE_CONFIG_H
+
 #include <micro-os-plus/rtos/hooks.h>
 #include <micro-os-plus/memory/first-fit-top.h>
 #include <micro-os-plus/memory/lifo.h>

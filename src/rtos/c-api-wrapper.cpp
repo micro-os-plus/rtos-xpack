@@ -14,6 +14,12 @@
  * The code provides an implementation of the C API for the µOS++ RTOS.
  */
 
+// ----------------------------------------------------------------------------
+
+#if defined(MICRO_OS_PLUS_INCLUDE_CONFIG_H)
+#include <micro-os-plus/config.h>
+#endif // MICRO_OS_PLUS_INCLUDE_CONFIG_H
+
 #include <micro-os-plus/rtos.h>
 #include <micro-os-plus/rtos/c-api.h>
 
