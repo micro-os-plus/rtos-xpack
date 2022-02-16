@@ -797,7 +797,6 @@ namespace micro_os_plus
 
     inline clock::clock (const char* name) : internal::object_named{ name }
     {
-      ;
     }
 
     inline __attribute__ ((always_inline)) internal::clock_timestamps_list&
@@ -831,7 +830,6 @@ namespace micro_os_plus
     inline adjustable_clock::adjustable_clock (const char* name)
         : clock{ name }
     {
-      ;
     }
 
     inline __attribute__ ((always_inline)) void

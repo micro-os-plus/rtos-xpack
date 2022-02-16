@@ -331,7 +331,6 @@ namespace micro_os_plus
   {
     constexpr event_flags::attributes::attributes ()
     {
-      ;
     }
 
   } // namespace rtos

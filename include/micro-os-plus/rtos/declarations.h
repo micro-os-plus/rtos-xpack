@@ -714,19 +714,18 @@ namespace micro_os_plus
 
     inline null_locker::~null_locker ()
     {
-      ;
     }
 
     inline void
     null_locker::lock (void)
     {
-      ; // Does nothing.
+      // Does nothing.
     }
 
     inline void
     null_locker::unlock (void)
     {
-      ; // Does nothing.
+      // Does nothing.
     }
 
     namespace internal
@@ -750,13 +749,11 @@ namespace micro_os_plus
 
       inline object_named_system::object_named_system ()
       {
-        ;
       }
 
       inline object_named_system::object_named_system (const char* name)
           : object_named (name)
       {
-        ;
       }
 
       // ======================================================================
@@ -766,7 +763,6 @@ namespace micro_os_plus
        */
       constexpr attributes_clocked::attributes_clocked ()
       {
-        ;
       }
 
       // ======================================================================

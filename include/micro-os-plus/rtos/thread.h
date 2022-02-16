@@ -2052,7 +2052,6 @@ namespace micro_os_plus
 
     constexpr thread::attributes::attributes ()
     {
-      ;
     }
 
     // ======================================================================
@@ -2181,7 +2180,6 @@ namespace micro_os_plus
      */
     inline thread::context::context ()
     {
-      ;
     }
 
     /**
@@ -2427,7 +2425,6 @@ namespace micro_os_plus
         : thread_allocated{ nullptr, function, arguments, _attributes,
                             allocator }
     {
-      ;
     }
 
     /**
@@ -2635,7 +2632,6 @@ namespace micro_os_plus
         const attributes& _attributes)
         : thread_inclusive<N>{ nullptr, function, arguments, _attributes }
     {
-      ;
     }
 
     /**

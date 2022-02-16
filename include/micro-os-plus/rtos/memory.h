@@ -1252,7 +1252,6 @@ namespace micro_os_plus
       inline memory_resource::memory_resource (const char* name)
           : object_named{ name }
       {
-        ;
       }
 
       /**
@@ -1471,7 +1470,6 @@ namespace micro_os_plus
               allocator_stateless_default_resource<U> const& other
               __attribute__ ((unused))) noexcept
       {
-        ;
       }
 
       template <typename T>
@@ -1541,7 +1539,6 @@ namespace micro_os_plus
                   U, L, get_resource> const& other
               __attribute__ ((unused))) noexcept
       {
-        ;
       }
 
       template <typename T, typename L, F get_resource>
@@ -1624,7 +1621,6 @@ namespace micro_os_plus
       template <typename A>
       inline allocator_deleter<A>::allocator_deleter ()
       {
-        ;
       }
 
       template <typename A>
@@ -1632,7 +1628,6 @@ namespace micro_os_plus
           const allocator_type& other)
           : a_{ other }
       {
-        ;
       }
 
       /**

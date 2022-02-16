@@ -651,7 +651,6 @@ namespace micro_os_plus
 
     constexpr semaphore::attributes::attributes ()
     {
-      ;
     }
 
     /**
@@ -663,7 +662,6 @@ namespace micro_os_plus
         : max_value (_max_value), //
           initial_value (_initial_value)
     {
-      ;
     }
 
     /**
@@ -675,7 +673,6 @@ namespace micro_os_plus
         count_t _initial_value)
         : attributes{ 1, _initial_value } // Use the protected constructor.
     {
-      ;
     }
 
     // ========================================================================
@@ -685,7 +682,6 @@ namespace micro_os_plus
         : attributes{ _max_value, _initial_value }
     // Use the protected constructor.
     {
-      ;
     }
 
     // ========================================================================
@@ -723,7 +719,6 @@ namespace micro_os_plus
     inline semaphore::semaphore (const attributes& _attributes)
         : semaphore{ nullptr, _attributes }
     {
-      ;
     }
 
     /**
@@ -786,7 +781,6 @@ namespace micro_os_plus
     inline semaphore_binary::semaphore_binary (const count_t initial_value)
         : semaphore{ nullptr, 1, initial_value, initializer_binary }
     {
-      ;
     }
 
     /**
@@ -814,7 +808,6 @@ namespace micro_os_plus
                                                const count_t initial_value)
         : semaphore{ name, 1, initial_value }
     {
-      ;
     }
 
     /**
@@ -840,7 +833,6 @@ namespace micro_os_plus
      */
     inline semaphore_binary::~semaphore_binary ()
     {
-      ;
     }
 
     // ========================================================================
@@ -870,7 +862,6 @@ namespace micro_os_plus
                                                    const count_t initial_value)
         : semaphore{ nullptr, max_value, initial_value }
     {
-      ;
     }
 
     /**
@@ -899,7 +890,6 @@ namespace micro_os_plus
                                                    const count_t initial_value)
         : semaphore{ name, max_value, initial_value }
     {
-      ;
     }
 
     /**
@@ -925,7 +915,6 @@ namespace micro_os_plus
      */
     inline semaphore_counting::~semaphore_counting ()
     {
-      ;
     }
 
     // ========================================================================

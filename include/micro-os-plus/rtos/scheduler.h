@@ -957,7 +957,6 @@ namespace micro_os_plus
        */
       constexpr lockable::lockable () : state_ (port::scheduler::state::init)
       {
-        ;
       }
 
       /**
@@ -965,7 +964,6 @@ namespace micro_os_plus
        */
       inline lockable::~lockable ()
       {
-        ;
       }
 
       /**
@@ -1075,7 +1073,6 @@ namespace micro_os_plus
       critical_section::critical_section ()
           : state_ (enter ())
       {
-        ;
       }
 
       /**
@@ -1114,7 +1111,6 @@ namespace micro_os_plus
       uncritical_section::uncritical_section ()
           : state_ (enter ())
       {
-        ;
       }
 
       /**
@@ -1151,7 +1147,6 @@ namespace micro_os_plus
        */
       constexpr lockable::lockable () : state_ (port::interrupts::state::init)
       {
-        ;
       }
 
       /**
@@ -1159,7 +1154,6 @@ namespace micro_os_plus
        */
       inline __attribute__ ((always_inline)) lockable::~lockable ()
       {
-        ;
       }
 
       /**

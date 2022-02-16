@@ -313,7 +313,6 @@ namespace micro_os_plus
                     const allocator_type& allocator)
         : thread{ nullptr, function, arguments, _attributes, allocator }
     {
-      ;
     }
 
     /**
@@ -1059,7 +1058,9 @@ namespace micro_os_plus
 
       assert (true);
       while (true)
-        ;
+        {
+          // Should not get here!
+        }
 
       // Definitely does not return.
     }

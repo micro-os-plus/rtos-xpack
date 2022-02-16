@@ -608,7 +608,6 @@ namespace micro_os_plus
        */
       object_named::object_named ()
       {
-        ;
       }
 
       /**
@@ -625,7 +624,6 @@ namespace micro_os_plus
       object_named::object_named (const char* name)
           : name_ (name != nullptr ? name : "-")
       {
-        ;
       }
 
     } // namespace internal

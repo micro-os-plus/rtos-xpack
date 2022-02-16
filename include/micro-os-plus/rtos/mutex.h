@@ -779,7 +779,6 @@ namespace micro_os_plus
 
     constexpr mutex::attributes::attributes ()
     {
-      ;
     }
 
     /**
@@ -788,7 +787,6 @@ namespace micro_os_plus
 
     constexpr mutex::attributes::attributes (type_t _type) : type (_type)
     {
-      ;
     }
 
     /**
@@ -799,7 +797,6 @@ namespace micro_os_plus
     constexpr mutex::attributes_recursive::attributes_recursive ()
         : attributes{ type::recursive } // Use the protected constructor.
     {
-      ;
     }
 
     // ========================================================================
@@ -855,19 +852,16 @@ namespace micro_os_plus
     inline mutex_recursive::mutex_recursive (const attributes& _attributes)
         : mutex{ _attributes }
     {
-      ;
     }
 
     inline mutex_recursive::mutex_recursive (const char* name,
                                              const attributes& _attributes)
         : mutex{ name, _attributes }
     {
-      ;
     }
 
     inline mutex_recursive::~mutex_recursive ()
     {
-      ;
     }
 
     /**

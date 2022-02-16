@@ -270,8 +270,9 @@ namespace micro_os_plus
       void
       waiting_threads_list::resume_all (void)
       {
-        while (resume_one ())
-          ;
+        while (resume_one ()) {
+          // Loop while there are treads in the list.
+        }
       }
 
       // ======================================================================

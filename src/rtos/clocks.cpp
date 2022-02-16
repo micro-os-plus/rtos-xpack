@@ -142,7 +142,6 @@ namespace micro_os_plus
 
     clock::~clock ()
     {
-      ;
     }
 
     /**
@@ -152,7 +151,6 @@ namespace micro_os_plus
     void
     clock::start (void)
     {
-      ;
     }
 
     /**
@@ -408,7 +406,6 @@ namespace micro_os_plus
      */
     adjustable_clock::~adjustable_clock ()
     {
-      ;
     }
 
 #pragma GCC diagnostic push
@@ -560,7 +557,6 @@ namespace micro_os_plus
      */
     clock_systick::clock_systick () : clock{ "sysclock" }
     {
-      ;
     }
 
     /**
@@ -568,7 +564,6 @@ namespace micro_os_plus
      */
     clock_systick::~clock_systick ()
     {
-      ;
     }
 
     /**
@@ -662,7 +657,6 @@ namespace micro_os_plus
      */
     clock_rtc::clock_rtc () : adjustable_clock{ "rtclock" }
     {
-      ;
     }
 
     /**
@@ -670,7 +664,6 @@ namespace micro_os_plus
      */
     clock_rtc::~clock_rtc ()
     {
-      ;
     }
 
     // ------------------------------------------------------------------------
@@ -713,7 +706,6 @@ namespace micro_os_plus
      */
     clock_highres::clock_highres () : clock{ "hrclock" }
     {
-      ;
     }
 
     /**
@@ -721,7 +713,6 @@ namespace micro_os_plus
      */
     clock_highres::~clock_highres ()
     {
-      ;
     }
 
     /**

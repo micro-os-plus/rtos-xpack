@@ -1255,7 +1255,6 @@ namespace micro_os_plus
   {
     constexpr message_queue::attributes::attributes ()
     {
-      ;
     }
 
     // ========================================================================
@@ -1369,7 +1368,6 @@ namespace micro_os_plus
         : message_queue_allocated{ nullptr, messages, message_size_bytes,
                                    _attributes, allocator }
     {
-      ;
     }
 
     /**
@@ -1513,7 +1511,6 @@ namespace micro_os_plus
                                                    sizeof (value_type),
                                                    attributes, allocator }
     {
-      ;
     }
 
     /**
@@ -1555,7 +1552,6 @@ namespace micro_os_plus
                                                    sizeof (value_type),
                                                    attributes, allocator }
     {
-      ;
     }
 
     /**
@@ -1577,7 +1573,6 @@ namespace micro_os_plus
     template <typename T, typename Allocator>
     message_queue_typed<T, Allocator>::~message_queue_typed ()
     {
-      ;
     }
 
     /**
@@ -1725,7 +1720,6 @@ namespace micro_os_plus
         const attributes& _attributes)
         : message_queue_inclusive{ nullptr, _attributes }
     {
-      ;
     }
 
     /**
@@ -1791,7 +1785,6 @@ namespace micro_os_plus
     template <typename T, std::size_t N>
     message_queue_inclusive<T, N>::~message_queue_inclusive ()
     {
-      ;
     }
 
     /**

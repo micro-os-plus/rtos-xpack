@@ -452,7 +452,6 @@ namespace micro_os_plus
     mutex::mutex (const attributes& _attributes)
         : mutex{ nullptr, _attributes }
     {
-      ;
     }
 
     /**

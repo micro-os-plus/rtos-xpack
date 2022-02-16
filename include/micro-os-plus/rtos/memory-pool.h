@@ -870,7 +870,6 @@ namespace micro_os_plus
   {
     constexpr memory_pool::attributes::attributes ()
     {
-      ;
     }
 
     // ========================================================================
@@ -974,7 +973,6 @@ namespace micro_os_plus
         : memory_pool_allocated{ nullptr, blocks, block_size_bytes,
                                  _attributes, allocator }
     {
-      ;
     }
 
     /**
@@ -1117,7 +1115,6 @@ namespace micro_os_plus
         : memory_pool_allocated<allocator_type> (blocks, sizeof (T),
                                                  attributes, allocator)
     {
-      ;
     }
 
     /**
@@ -1157,7 +1154,6 @@ namespace micro_os_plus
         : memory_pool_allocated<allocator_type> (name, blocks, sizeof (T),
                                                  attributes, allocator)
     {
-      ;
     }
 
     /**
@@ -1181,7 +1177,6 @@ namespace micro_os_plus
     template <typename T, typename Allocator>
     memory_pool_typed<T, Allocator>::~memory_pool_typed ()
     {
-      ;
     }
 
     /**
@@ -1332,7 +1327,6 @@ namespace micro_os_plus
     template <typename T, std::size_t N>
     memory_pool_inclusive<T, N>::~memory_pool_inclusive ()
     {
-      ;
     }
 
     /**

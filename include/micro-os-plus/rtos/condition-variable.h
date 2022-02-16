@@ -302,7 +302,6 @@ namespace micro_os_plus
   {
     constexpr condition_variable::attributes::attributes ()
     {
-      ;
     }
 
     // ========================================================================

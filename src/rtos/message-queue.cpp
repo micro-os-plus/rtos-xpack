@@ -385,7 +385,6 @@ namespace micro_os_plus
         : message_queue{ nullptr, messages, message_size_bytes, _attributes,
                          allocator }
     {
-      ;
     }
 
     /**

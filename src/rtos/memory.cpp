@@ -365,7 +365,6 @@ namespace micro_os_plus
 
       memory_resource::~memory_resource ()
       {
-        ;
       }
 
       /**

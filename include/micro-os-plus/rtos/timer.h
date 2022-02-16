@@ -435,7 +435,6 @@ namespace micro_os_plus
 
     constexpr timer::attributes::attributes ()
     {
-      ;
     }
 
     /**
@@ -444,7 +443,6 @@ namespace micro_os_plus
 
     constexpr timer::attributes::attributes (type_t type) : timer_type (type)
     {
-      ;
     }
 
     /**
@@ -455,7 +453,6 @@ namespace micro_os_plus
     constexpr timer::attributes_periodic::attributes_periodic ()
         : attributes{ run::periodic }
     {
-      ;
     }
 
     /**

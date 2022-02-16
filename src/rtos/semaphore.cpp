@@ -155,7 +155,6 @@ namespace micro_os_plus
         : semaphore{ name, _attributes.max_value, _attributes.initial_value,
                      _attributes }
     {
-      ;
     }
 
     /**

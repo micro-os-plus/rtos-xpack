@@ -228,7 +228,6 @@ namespace micro_os_plus
         : memory_pool{ nullptr, blocks, block_size_bytes, _attributes,
                        allocator }
     {
-      ;
     }
 
     /**

@@ -123,7 +123,6 @@ namespace micro_os_plus
     event_flags::event_flags (const attributes& _attributes)
         : event_flags{ nullptr, _attributes }
     {
-      ;
     }
 
 #pragma GCC diagnostic push

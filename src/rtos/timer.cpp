@@ -137,7 +137,6 @@ namespace micro_os_plus
                   const attributes& _attributes)
         : timer{ nullptr, function, arguments, _attributes }
     {
-      ;
     }
 
     /**

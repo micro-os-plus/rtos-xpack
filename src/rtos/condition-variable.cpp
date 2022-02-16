@@ -229,7 +229,6 @@ namespace micro_os_plus
     condition_variable::condition_variable (const attributes& _attributes)
         : condition_variable{ nullptr, _attributes }
     {
-      ;
     }
 
     /**
