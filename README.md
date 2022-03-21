@@ -53,6 +53,8 @@ cd my-project
 xpm init # Unless a package.json is already present
 
 xpm install @micro-os-plus/rtos@latest
+
+ls -l xpacks/micro-os-plus-rtos
 ```
 
 ### Git submodule
