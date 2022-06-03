@@ -129,6 +129,15 @@ int
   trace::printf ("Built with GCC " __VERSION__);
 #endif
 
+#if !(defined(__APPLE__) || defined(__linux__) || defined(__unix__) || defined(WIN32))
+// This is relevant only on bare-metal.
+#if defined(__ARM_PCS_VFP) || defined(__ARM_FP)
+  trace::printf (", with FP");
+#else
+  trace::printf (", no FP");
+#endif
+#endif
+
 #if defined(__EXCEPTIONS)
   trace::printf (", with exceptions");
 #else
