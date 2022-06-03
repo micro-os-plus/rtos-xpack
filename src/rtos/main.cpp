@@ -143,6 +143,11 @@ int
 #else
   trace::printf (", no exceptions");
 #endif
+
+#if defined(MICRO_OS_PLUS_DEBUG)
+  trace::printf (", with MICRO_OS_PLUS_DEBUG");
+#endif
+
   trace::puts (".\n");
 
   scheduler::initialize ();
