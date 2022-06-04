@@ -84,7 +84,7 @@ Pull Requests should be directed to this branch.
 When new releases are published, the `xpack-develop` branch is merged
 into `xpack`.
 
-## User info
+## Developer info
 
 The **µOS++** _(micro oh ɛs plus plus)_ project is
 the third iteration of µOS++, a POSIX-like, portable, open source,
