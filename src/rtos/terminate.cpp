@@ -58,7 +58,7 @@ micro_os_plus_terminate_goodbye (void)
                  rtos::interrupts::stack ()->size ());
 #endif // defined(MICRO_OS_PLUS_HAS_INTERRUPTS_STACK)
 
-  trace::printf ("\nHasta la Vista!\n");
+  trace::puts ("\nHasta la vista!");
 
 #endif // defined(MICRO_OS_PLUS_TRACE)
 }
