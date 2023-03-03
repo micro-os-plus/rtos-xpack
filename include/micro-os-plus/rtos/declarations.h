@@ -514,7 +514,7 @@ namespace micro_os_plus
         operator new[] (std::size_t bytes, void* ptr);
 
         /**
-         * @brief Deallocate the dynamically allocated object instance.
+         * @brief Deallocate the dynamically allocated object instance
          * using the RTOS system allocator.
          * @param ptr Pointer to object.
          * @param bytes Number of bytes to deallocate.
@@ -525,7 +525,7 @@ namespace micro_os_plus
         operator delete (void* ptr, std::size_t bytes);
 
         /**
-         * @brief Deallocate the dynamically allocated array of object.
+         * @brief Deallocate the dynamically allocated array of object
          * instances using the RTOS system allocator.
          * @param ptr Pointer to array of objects.
          * @param bytes Number of bytes to deallocate.
