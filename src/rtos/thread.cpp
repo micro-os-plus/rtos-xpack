@@ -1197,7 +1197,7 @@ namespace micro_os_plus
           // ----- Exit critical section ----------------------------------
         }
 
-        // The must be no more children threads alive.
+        // There must be no more children threads alive.
         assert (children_.empty ());
         parent_ = nullptr;
 
