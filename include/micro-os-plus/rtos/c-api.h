@@ -508,6 +508,15 @@ extern "C"
                                      micro_os_plus_thread_priority_t prio);
 
   /**
+   * @brief Force thread termination.
+   * @param [in] thread Pointer to thread object instance.
+   * @retval micro_os_plus_ok The thread was terminated.
+   * @retval EPERM Cannot be invoked from an Interrupt Service Routines.
+   */
+  micro_os_plus_result_t
+  micro_os_plus_thread_kill (micro_os_plus_thread_t* thread);
+
+  /**
    * @brief Wait for thread termination.
    * @param [in] thread Pointer to terminating thread object instance.
    * @param [in] exit_ptr Pointer to thread exit value. (may be NULL).

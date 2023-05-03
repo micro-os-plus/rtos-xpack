@@ -969,6 +969,20 @@ micro_os_plus_thread_set_priority (micro_os_plus_thread_t* thread,
  * @warning Cannot be invoked from Interrupt Service Routines.
  *
  * @par For the complete definition, see
+ *  @ref micro_os_plus::rtos::thread::kill()
+ */
+micro_os_plus_result_t
+micro_os_plus_thread_kill (micro_os_plus_thread_t* thread)
+{
+  assert (thread != nullptr);
+  return (micro_os_plus_result_t) reinterpret_cast<rtos::thread&> (*thread)
+      .kill ();
+}
+
+/**
+ * @warning Cannot be invoked from Interrupt Service Routines.
+ *
+ * @par For the complete definition, see
  *  @ref micro_os_plus::rtos::thread::join()
  */
 micro_os_plus_result_t
