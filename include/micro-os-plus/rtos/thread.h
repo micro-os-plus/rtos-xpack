@@ -10,8 +10,8 @@
  * be obtained from https://opensource.org/licenses/MIT/.
  */
 
-#ifndef MICRO_OS_PLUS_RTMICRO_OS_PLUS_THREAD_H_
-#define MICRO_OS_PLUS_RTMICRO_OS_PLUS_THREAD_H_
+#ifndef MICRO_OS_PLUS_RTOS_THREAD_H_
+#define MICRO_OS_PLUS_RTOS_THREAD_H_
 
 // ----------------------------------------------------------------------------
 
@@ -1219,7 +1219,7 @@ namespace micro_os_plus
       result_t
       flags_raise (flags::mask_t mask, flags::mask_t* oflags = nullptr);
 
-#if defined(MICRO_OS_PLUS_INCLUDE_RTMICRO_OS_PLUS_THREAD_PUBLIC_FLAGS_CLEAR)
+#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_THREAD_PUBLIC_FLAGS_CLEAR)
 
       // This is a kludge required to support CMSIS RTOS V1
       // public osSignalClear().
@@ -2362,7 +2362,7 @@ namespace micro_os_plus
 
 #endif // defined(MICRO_OS_PLUS_INCLUDE_RTOS_STATISTICS_THREAD_CONTEXT_SWITCHES)
 
-#if defined(MICRO_OS_PLUS_INCLUDE_RTMICRO_OS_PLUS_THREAD_PUBLIC_FLAGS_CLEAR)
+#if defined(MICRO_OS_PLUS_INCLUDE_RTOS_THREAD_PUBLIC_FLAGS_CLEAR)
 
     inline result_t
     thread::flags_clear (flags::mask_t mask, flags::mask_t* oflags)
@@ -2727,6 +2727,6 @@ namespace micro_os_plus
 
 // ----------------------------------------------------------------------------
 
-#endif // MICRO_OS_PLUS_RTMICRO_OS_PLUS_THREAD_H_
+#endif // MICRO_OS_PLUS_RTOS_THREAD_H_
 
 // ----------------------------------------------------------------------------

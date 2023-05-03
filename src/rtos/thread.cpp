@@ -565,7 +565,7 @@ namespace micro_os_plus
     void
     thread::resume (void)
     {
-#if defined(MICRO_OS_PLUS_TRACE_RTMICRO_OS_PLUS_THREAD_CONTEXT)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD_CONTEXT)
       trace::printf ("%s() @%p %s %u\n", __func__, this, name (),
                      priority_assigned_);
 #endif
@@ -1233,7 +1233,7 @@ namespace micro_os_plus
     result_t
     thread::flags_raise (flags::mask_t mask, flags::mask_t* oflags)
     {
-#if defined(MICRO_OS_PLUS_TRACE_RTMICRO_OS_PLUS_THREAD_FLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD_FLAGS)
       trace::printf ("%s(0x%X) @%p %s <0x%X\n", __func__, mask, this, name (),
                      event_flags_.mask ());
 #endif
@@ -1242,7 +1242,7 @@ namespace micro_os_plus
 
       this->resume ();
 
-#if defined(MICRO_OS_PLUS_TRACE_RTMICRO_OS_PLUS_THREAD_FLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD_FLAGS)
       trace::printf ("%s(0x%X) @%p %s >0x%X\n", __func__, mask, this, name (),
                      event_flags_.mask ());
 #endif
@@ -1258,7 +1258,7 @@ namespace micro_os_plus
     thread::internal_flags_wait_ (flags::mask_t mask, flags::mask_t* oflags,
                                   flags::mode_t mode)
     {
-#if defined(MICRO_OS_PLUS_TRACE_RTMICRO_OS_PLUS_THREAD_FLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD_FLAGS)
       trace::printf ("%s(0x%X,%u) @%p %s <0x%X\n", __func__, mask, mode, this,
                      name (), event_flags_.mask ());
 #endif
@@ -1274,7 +1274,7 @@ namespace micro_os_plus
 
         if (event_flags_.check_raised (mask, oflags, mode))
           {
-#if defined(MICRO_OS_PLUS_TRACE_RTMICRO_OS_PLUS_THREAD_FLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD_FLAGS)
             trace::printf ("%s(0x%X,%u) @%p %s >0x%X\n", __func__, mask, mode,
                            this, name (), event_flags_.mask ());
 #endif
@@ -1283,7 +1283,7 @@ namespace micro_os_plus
         // ----- Exit critical section ----------------------------------
       }
 
-#if defined(MICRO_OS_PLUS_TRACE_RTMICRO_OS_PLUS_THREAD_FLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD_FLAGS)
       clock::timestamp_t begin_timestamp = clock_->now ();
 #endif
       for (;;)
@@ -1294,7 +1294,7 @@ namespace micro_os_plus
 
             if (event_flags_.check_raised (mask, oflags, mode))
               {
-#if defined(MICRO_OS_PLUS_TRACE_RTMICRO_OS_PLUS_THREAD_FLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD_FLAGS)
                 clock::duration_t slept_ticks
                     = static_cast<clock::duration_t> (clock_->now ()
                                                       - begin_timestamp);
@@ -1311,7 +1311,7 @@ namespace micro_os_plus
 
           if (interrupted ())
             {
-#if defined(MICRO_OS_PLUS_TRACE_RTMICRO_OS_PLUS_THREAD_FLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD_FLAGS)
               trace::printf ("%s(0x%X,%u) EINTR @%p %s\n", __func__, mask,
                              mode, this, name ());
 #endif
@@ -1328,7 +1328,7 @@ namespace micro_os_plus
                                       flags::mask_t* oflags,
                                       flags::mode_t mode)
     {
-#if defined(MICRO_OS_PLUS_TRACE_RTMICRO_OS_PLUS_THREAD_FLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD_FLAGS)
       trace::printf ("%s(0x%X,%u) @%p %s <0x%X\n", __func__, mask, mode, this,
                      name (), event_flags_.mask ());
 #endif
@@ -1342,7 +1342,7 @@ namespace micro_os_plus
 
         if (event_flags_.check_raised (mask, oflags, mode))
           {
-#if defined(MICRO_OS_PLUS_TRACE_RTMICRO_OS_PLUS_THREAD_FLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD_FLAGS)
             trace::printf ("%s(0x%X,%u) @%p %s >0x%X\n", __func__, mask, mode,
                            this, name (), event_flags_.mask ());
 #endif
@@ -1350,7 +1350,7 @@ namespace micro_os_plus
           }
         else
           {
-#if defined(MICRO_OS_PLUS_TRACE_RTMICRO_OS_PLUS_THREAD_FLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD_FLAGS)
             trace::printf ("%s(0x%X,%u) EWOULDBLOCK @%p %s \n", __func__, mask,
                            mode, this, name ());
 #endif
@@ -1366,7 +1366,7 @@ namespace micro_os_plus
                                         flags::mask_t* oflags,
                                         flags::mode_t mode)
     {
-#if defined(MICRO_OS_PLUS_TRACE_RTMICRO_OS_PLUS_THREAD_FLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD_FLAGS)
       trace::printf ("%s(0x%X,%u,%u) @%p %s <0x%X\n", __func__, mask, timeout,
                      mode, this, name (), event_flags_.mask ());
 #endif
@@ -1382,7 +1382,7 @@ namespace micro_os_plus
 
         if (event_flags_.check_raised (mask, oflags, mode))
           {
-#if defined(MICRO_OS_PLUS_TRACE_RTMICRO_OS_PLUS_THREAD_FLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD_FLAGS)
             trace::printf ("%s(0x%X,%u,%u) @%p %s >0x%X\n", __func__, mask,
                            timeout, mode, this, name (), event_flags_.mask ());
 #endif
@@ -1394,7 +1394,7 @@ namespace micro_os_plus
       internal::clock_timestamps_list& clock_list = clock_->steady_list ();
       clock::timestamp_t timeout_timestamp = clock_->steady_now () + timeout;
 
-#if defined(MICRO_OS_PLUS_TRACE_RTMICRO_OS_PLUS_THREAD_FLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD_FLAGS)
       clock::timestamp_t begin_timestamp = clock_->steady_now ();
 #endif
 
@@ -1409,7 +1409,7 @@ namespace micro_os_plus
 
             if (event_flags_.check_raised (mask, oflags, mode))
               {
-#if defined(MICRO_OS_PLUS_TRACE_RTMICRO_OS_PLUS_THREAD_FLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD_FLAGS)
                 clock::duration_t slept_ticks
                     = static_cast<clock::duration_t> (clock_->steady_now ()
                                                       - begin_timestamp);
@@ -1447,7 +1447,7 @@ namespace micro_os_plus
 
           if (interrupted ())
             {
-#if defined(MICRO_OS_PLUS_TRACE_RTMICRO_OS_PLUS_THREAD_FLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD_FLAGS)
               trace::printf ("%s(0x%X,%u,%u) EINTR @%p %s\n", __func__, mask,
                              timeout, mode, this, name ());
 #endif
@@ -1456,7 +1456,7 @@ namespace micro_os_plus
 
           if (clock_->steady_now () >= timeout_timestamp)
             {
-#if defined(MICRO_OS_PLUS_TRACE_RTMICRO_OS_PLUS_THREAD_FLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD_FLAGS)
               trace::printf ("%s(0x%X,%u,%u) ETIMEDOUT @%p %s\n", __func__,
                              mask, timeout, mode, this, name ());
 #endif
@@ -1481,7 +1481,7 @@ namespace micro_os_plus
     flags::mask_t
     thread::internal_flags_get_ (flags::mask_t mask, flags::mode_t mode)
     {
-#if defined(MICRO_OS_PLUS_TRACE_RTMICRO_OS_PLUS_THREAD_FLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD_FLAGS)
       trace::printf ("%s(0x%X) @%p %s\n", __func__, mask, this, name ());
 #endif
 
@@ -1490,7 +1490,7 @@ namespace micro_os_plus
 
       flags::mask_t ret = event_flags_.get (mask, mode);
 
-#if defined(MICRO_OS_PLUS_TRACE_RTMICRO_OS_PLUS_THREAD_FLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD_FLAGS)
       trace::printf ("%s(0x%X)=0x%X @%p %s\n", __func__, mask,
                      event_flags_.mask (), this, name ());
 #endif
@@ -1504,7 +1504,7 @@ namespace micro_os_plus
     result_t
     thread::internal_flags_clear_ (flags::mask_t mask, flags::mask_t* oflags)
     {
-#if defined(MICRO_OS_PLUS_TRACE_RTMICRO_OS_PLUS_THREAD_FLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD_FLAGS)
       trace::printf ("%s(0x%X) @%p %s <0x%X\n", __func__, mask, this, name (),
                      event_flags_.mask ());
 #endif
@@ -1514,7 +1514,7 @@ namespace micro_os_plus
 
       result_t res = event_flags_.clear (mask, oflags);
 
-#if defined(MICRO_OS_PLUS_TRACE_RTMICRO_OS_PLUS_THREAD_FLAGS)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD_FLAGS)
       trace::printf ("%s(0x%X) @%p %s >0x%X\n", __func__, mask, this, name (),
                      event_flags_.mask ());
 #endif
@@ -1591,13 +1591,13 @@ namespace micro_os_plus
 
         if (!scheduler::started ())
           {
-#if defined(MICRO_OS_PLUS_TRACE_RTMICRO_OS_PLUS_THREAD_CONTEXT)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD_CONTEXT)
             trace::printf ("%s() nop %s \n", __func__, _thread ()->name ());
 #endif
             return;
           }
 
-#if defined(MICRO_OS_PLUS_TRACE_RTMICRO_OS_PLUS_THREAD_CONTEXT)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD_CONTEXT)
         trace::printf ("%s() from %s\n", __func__, _thread ()->name ());
 #endif
 
@@ -1611,7 +1611,7 @@ namespace micro_os_plus
 
 #endif
 
-#if defined(MICRO_OS_PLUS_TRACE_RTMICRO_OS_PLUS_THREAD_CONTEXT)
+#if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD_CONTEXT)
         trace::printf ("%s() to %s\n", __func__, _thread ()->name ());
 #endif
       }

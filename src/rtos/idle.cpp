@@ -150,7 +150,7 @@ micro_os_plus_idle (thread::function_arguments_t arguments
   // The thread was created with the default priority, and the
   // idle thread must run with th lowest possible priority.
 
-#if defined(MICRO_OS_PLUS_BOOL_RTMICRO_OS_PLUS_THREAD_IDLE_PRIORITY_BELOW_IDLE)
+#if defined(MICRO_OS_PLUS_BOOL_RTOS_THREAD_IDLE_PRIORITY_BELOW_IDLE)
   // The CMSIS RTOS validator creates threads with `priority::idle`,
   // so, to be sure that the system idle thread has the lowest priority,
   // go one step below the idle priority.
