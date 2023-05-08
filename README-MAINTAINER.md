@@ -15,22 +15,22 @@ To clone the stable branch (`xpack`), run the following commands in a
 terminal (on Windows use the _Git Bash_ console):
 
 ```sh
-rm -rf ~/Work/micro-test-plus-xpack.git && \
-mkdir -p ~/Work && \
+rm -rf ~/Work/micro-os-plus/micro-test-plus-xpack.git && \
+mkdir -p ~/Work/micro-os-plus && \
 git clone \
   https://github.com/micro-os-plus/micro-test-plus-xpack.git \
-  ~/Work/micro-test-plus-xpack.git
+  ~/Work/micro-os-plus/micro-test-plus-xpack.git
 ```
 
 For development purposes, clone the `xpack-develop` branch:
 
 ```sh
-rm -rf ~/Work/micro-test-plus-xpack.git && \
-mkdir -p ~/Work && \
+rm -rf ~/Work/micro-os-plus/micro-test-plus-xpack.git && \
+mkdir -p ~/Work/micro-os-plus && \
 git clone \
   --branch xpack-develop \
   https://github.com/micro-os-plus/micro-test-plus-xpack.git \
-  ~/Work/micro-test-plus-xpack.git
+  ~/Work/micro-os-plus/micro-test-plus-xpack.git
 ```
 
 ## Prerequisites
