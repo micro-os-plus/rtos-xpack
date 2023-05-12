@@ -542,13 +542,18 @@ namespace micro_os_plus
       // the exit cleanup code.
       if (this != &this_thread::thread ())
         {
-          kill ();
+          if (state_ != state::destroyed)
+            {
+              trace::printf ("warning: use kill() & join() before destroying "
+                             "the '%s' thread\n",
+                             name ()) kill ();
+            }
         }
       else
         {
 #if defined(MICRO_OS_PLUS_TRACE_RTOS_THREAD)
-          trace::printf ("%s() @%p %s nop, cannot commit suicide\n", __func__,
-                         this, name ());
+          trace::printf ("%s() @%p %s nop, not allowed to commit suicide\n",
+                         __func__, this, name ());
 #endif
         }
     }
