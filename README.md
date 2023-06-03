@@ -3,7 +3,7 @@
 [![GitHub tag (latest by date)](https://img.shields.io/github/v/tag/micro-os-plus/rtos-xpack)](https://github.com/micro-os-plus/rtos-xpack/tags/)
 [![npm (scoped)](https://img.shields.io/npm/v/@micro-os-plus/rtos.svg?color=blue)](https://www.npmjs.com/package/@micro-os-plus/rtos/)
 [![license](https://img.shields.io/github/license/micro-os-plus/rtos-xpack)](https://github.com/micro-os-plus/rtos-xpack/blob/xpack/LICENSE)
-[![CI on Push](https://github.com/micro-os-plus/rtos-xpack/actions/workflows/CI.yml/badge.svg)](https://github.com/micro-os-plus/rtos-xpack/actions/workflows/CI.yml)
+[![CI on Push](https://github.com/micro-os-plus/rtos-xpack/actions/workflows/ci.yml/badge.svg)](https://github.com/micro-os-plus/rtos-xpack/actions/workflows/ci.yml)
 
 # A source library xPack with the µOS++ RTOS files
 
