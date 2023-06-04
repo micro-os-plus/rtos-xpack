@@ -63,7 +63,7 @@ xpm init # Unless a package.json is already present
 
 xpm install @micro-os-plus/rtos@latest
 
-ls -l xpacks/micro-os-plus-rtos
+ls -l xpacks/@micro-os-plus/rtos
 ```
 
 ### Git submodule
@@ -77,7 +77,7 @@ git init # Unless already a Git project
 mkdir -p xpacks
 
 git submodule add https://github.com/micro-os-plus/rtos-xpack.git \
-  xpacks/micro-os-plus-rtos
+  xpacks/@micro-os-plus/rtos
 ```
 
 ## Branches
