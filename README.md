@@ -5,9 +5,9 @@
 [![license](https://img.shields.io/github/license/micro-os-plus/rtos-xpack)](https://github.com/micro-os-plus/rtos-xpack/blob/xpack/LICENSE)
 [![CI on Push](https://github.com/micro-os-plus/rtos-xpack/actions/workflows/ci.yml/badge.svg)](https://github.com/micro-os-plus/rtos-xpack/actions/workflows/ci.yml)
 
-# A source library xPack with the µOS++ RTOS files
+# A source code library with the µOS++ RTOS files
 
-A source library xPack with the **µOS++ RTOS**, a POSIX inspired open
+A source code library with the **µOS++ RTOS**, a POSIX inspired open
 source framework, written in C++.
 
 The project is hosted on GitHub as
@@ -96,7 +96,7 @@ into `xpack`.
 ## Developer info
 
 The **µOS++** _(micro oh ɛs plus plus)_ project is
-the third iteration of µOS++, a POSIX-like, portable, open source,
+the third iteration of µOS++, a POSIX-like, portable, open-source,
 royalty-free, multi-tasking real-time framework written in C++,
 intended for 32/64-bits embedded applications.
 
@@ -189,7 +189,7 @@ are:
 
 ## License
 
-The original content is released under the
-[MIT License](https://opensource.org/licenses/MIT/),
+Unless otherwise stated, the content is released under the terms of the
+[MIT License](https://opensource.org/licenses/mit/),
 with all rights reserved to
 [Liviu Ionescu](https://github.com/ilg-ul).
